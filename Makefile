@@ -16,7 +16,7 @@ define Package/wimaster
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=wimaster
-	DEPENDS:=+libpcap +libstdcpp +libevent2
+	DEPENDS:= +libevent2
 endef
 
 # Uncomment portion below for Kamikaze and delete DESCRIPTION variable above
