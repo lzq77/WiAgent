@@ -1,13 +1,20 @@
 # build wimaster executable when user executes "make"
 
-all: wimaster
+DEPS = controller_event.h
+OBJS = main.o controller_event.o
+
 LIBS += -levent
 
-wimaster: main.o
-	$(CC) main.o -o wimaster $(LDFLAGS) $(LIBS)
-main.o: main.c
-	$(CC) -c main.c $(CFLAGS)
+all: wimaster
+
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+wimaster: $(OBJS)
+	$(CC) -o $@ $^ $(LDFLAGS) $(LIBS)
 
 # remove object files and executable when user executes "make clean"
 clean:
-	rm *.o wimaster
+	rm -f *.o wimaster
+
+.PHONY : clean
