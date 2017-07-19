@@ -1,7 +1,7 @@
 # build wimaster executable when user executes "make"
 
-DEPS = controller_event.h
-OBJS = main.o controller_event.o
+DEPS = controller_event.h controller_push.h
+OBJS = main.o controller_event.o controller_push.o
 
 LIBS += -levent
 
