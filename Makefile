@@ -16,8 +16,14 @@ define Package/wimaster
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=wimaster
-	DEPENDS:= +libevent2
+	DEPENDS:= +libevent2 +libnl-tiny +libjson-c
 endef
+
+TARGET_CPPFLAGS:= \
+	-I$(STAGING_DIR)/usr/include/libnl-tiny \
+	$(TARGET_CPPFLAGS) \
+	-DCONFIG_LIBNL20 \
+	-D_GNU_SOURCE
 
 # Uncomment portion below for Kamikaze and delete DESCRIPTION variable above
 define Package/wimaster/description

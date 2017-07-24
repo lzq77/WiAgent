@@ -1,9 +1,6 @@
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include <net/if.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -113,9 +110,12 @@ int main(int argc, char **argv)
     }
 	//fprintf(stderr, "read config over11111111111 --nm\n");
 	hapd = interfaces.iface[0]->bss[0];//一个hostapd_data代表一个基本服务集合
-
+	//fprintf(stderr, "read config over2222 --nm\n");
 	hostapd_driver_init(interfaces.iface[0],odin_process_bss_event);
-
+	//fprintf(stderr, "odin hostapd_driver_init --nm\n");
+	
+	
+//	hostapd_setup_interface(interfaces.iface[0]);
 
 	fprintf(stderr, "odin hostapd_setup_interface --nm\n");
 
@@ -123,29 +123,13 @@ int main(int argc, char **argv)
 	int res = -1;
 	if(!bss || !bss->nl_mgmt || !bss->nl_cb)
 		return 0;
-
-    int frame_sock = nl_socket_get_fd(bss -> nl_mgmt);
-    int frame_sock_flags = fcntl(frame_sock, F_GETFL, 0);       //获取文件的flags值。
-    fcntl(frame_sock, F_SETFL, frame_sock_flags | O_NONBLOCK);   //设置成非阻塞模式；
-
-
-    int maxfdp1;
-    fd_set rset;
-
-    FD_ZERO(&rset);
-    while(1) {
-        FD_SET(frame_sock, &rset);
-        maxfdp1 = frame_sock + 1;
-        select(maxfdp1, &rset, NULL, NULL, NULL);
-        if(FD_ISSET(frame_sock, &rset)) {
-            fprintf(stderr, "before nl_recvmsgs\n");
-		    res = nl_recvmsgs(bss->nl_mgmt, bss->nl_cb);
+	while(1){
+	    fprintf(stderr, "nl_recvmsgs--0\n");
+		res = nl_recvmsgs(bss->nl_mgmt, bss->nl_cb);
 		
-		    if (res < 0) {
-			    fprintf(stderr, "nl80211: %s->nl_recvmsgs failed: %d\n",
+		if (res < 0) {
+			fprintf(stderr, "nl80211: %s->nl_recvmsgs failed: %d\n",
 				   __func__, res);
-		    }	
-            fprintf(stderr, "after nl_recvmsgs\n");
-        }
+		}	
     }
 }
