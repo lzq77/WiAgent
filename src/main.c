@@ -20,6 +20,52 @@
 #include "nl80211_copy.h"
 #include "beacon.h"
 
+void send_deauth(struct hostapd_data *hapd, const u8 *addr,
+			u16 reason_code)
+{
+	int send_len;
+	struct ieee80211_mgmt reply;
+    char bssid[6] = {0x00, 0x1b, 0xb3, 0x3c, 0x5a, 0x11};
+
+
+	os_memset(&reply, 0, sizeof(reply));
+	reply.frame_control =
+		IEEE80211_FC(WLAN_FC_TYPE_MGMT, WLAN_FC_STYPE_DEAUTH);
+	os_memcpy(reply.da, addr, ETH_ALEN);
+	os_memcpy(reply.sa, bssid, ETH_ALEN);
+	os_memcpy(reply.bssid, bssid, ETH_ALEN);
+
+	send_len = IEEE80211_HDRLEN + sizeof(reply.u.deauth);
+	reply.u.deauth.reason_code = host_to_le16(reason_code);
+
+	if (hostapd_drv_send_mlme(hapd, &reply, send_len, 0) < 0)
+		wpa_printf(MSG_INFO, "Failed to send deauth: %s",
+			   strerror(errno));
+}
+
+/**
+ * Send a beacon/probe-response. This code is
+ * borrowed from the BeaconSource element
+ * and is modified to retrieve the BSSID/SSID
+ * from the sta_mapping_table
+ */
+void
+send_beacon(struct hostapd_data *hapd) {
+
+    fprintf(stderr, "send beacon() start \n");
+    char da[6] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
+    char bssid[6] = {0x00, 0x1b, 0xb3, 0x3c, 0x5a, 0x11};
+    char *ssid = "wimaster";
+    int actual_length = 0;//beacon的实际构造长度
+    int ssid_len = strlen(ssid);
+    int i = 0;
+    generate_beacon(hapd, da, bssid, ssid, strlen(ssid),
+			0, &actual_length);
+//    send_deauth(hapd, da, 6);
+
+    return ;
+}
+
 void odin_mlme_event_mgmt(struct i802_bss *bss,
 			    struct nlattr *freq, struct nlattr *sig,
 			    const u8 *frame, size_t len)
@@ -30,7 +76,7 @@ void odin_mlme_event_mgmt(struct i802_bss *bss,
 	frame_len = len;
 	if (sig)
 		ssi_signal = (s32) nla_get_u32(sig);
-
+    
 }
 
 void odin_mlme_event(struct i802_bss *bss,
@@ -102,21 +148,26 @@ int main(int argc, char **argv)
 {
     struct hostapd_data *hapd;
     struct hapd_interfaces interfaces;
+    struct timeval timeout={10, 0}; //select等待3秒，3秒轮询，要非阻塞就置0 
 
+	fprintf(stderr, "before hostapd_inf_init\n");
     hostapd_inf_init(&interfaces);
-
-	if (interfaces.iface[0] == NULL || interfaces.iface[0]->bss[0] == NULL) {
+	fprintf(stderr, "after hostapd_inf_init\n");
+	
+    if (interfaces.iface[0] == NULL || interfaces.iface[0]->bss[0] == NULL) {
 		//nl80211 driver驱动不可用,可能出现空指针，未赋值
 		//wpa_printf(MSG_ERROR, "No hostapd driver wrapper available");
 		fprintf(stderr, "read config failed --nm\n");
 		return ;
     }
-	//fprintf(stderr, "read config over11111111111 --nm\n");
 	hapd = interfaces.iface[0]->bss[0];//一个hostapd_data代表一个基本服务集合
 
+	fprintf(stderr, "before hostapd_driver_init\n");
 	hostapd_driver_init(interfaces.iface[0],odin_process_bss_event);
+	fprintf(stderr, "after hostapd_driver_init, before hostapd_setup_interface\n");
 
 
+    hostapd_setup_interface(interfaces.iface[0]);
 	fprintf(stderr, "odin hostapd_setup_interface --nm\n");
 
 	struct i802_bss *bss = (struct i802_bss *)hapd->drv_priv;
@@ -128,7 +179,6 @@ int main(int argc, char **argv)
     int frame_sock_flags = fcntl(frame_sock, F_GETFL, 0);       //获取文件的flags值。
     fcntl(frame_sock, F_SETFL, frame_sock_flags | O_NONBLOCK);   //设置成非阻塞模式；
 
-
     int maxfdp1;
     fd_set rset;
 
@@ -136,16 +186,27 @@ int main(int argc, char **argv)
     while(1) {
         FD_SET(frame_sock, &rset);
         maxfdp1 = frame_sock + 1;
-        select(maxfdp1, &rset, NULL, NULL, NULL);
-        if(FD_ISSET(frame_sock, &rset)) {
-            fprintf(stderr, "before nl_recvmsgs\n");
-		    res = nl_recvmsgs(bss->nl_mgmt, bss->nl_cb);
-		
-		    if (res < 0) {
-			    fprintf(stderr, "nl80211: %s->nl_recvmsgs failed: %d\n",
-				   __func__, res);
-		    }	
-            fprintf(stderr, "after nl_recvmsgs\n");
+        switch (select(maxfdp1, &rset, NULL, NULL, &timeout))
+        {
+        case -1: 
+            printf("select error\n");
+            break;
+        case 0:
+            fprintf(stderr, "timeout , send beacon()\n");
+            send_beacon(hapd);
+            fprintf(stderr, "ending, send beacon()\n");
+            break;
+        default:
+            if(FD_ISSET(frame_sock, &rset)) {
+                fprintf(stderr, "before nl_recvmsgs\n");
+                res = nl_recvmsgs(bss->nl_mgmt, bss->nl_cb);
+                if (res < 0) {
+                    fprintf(stderr, "nl80211: %s->nl_recvmsgs failed: %d\n",
+                       __func__, res);
+                }	
+                fprintf(stderr, "after nl_recvmsgs\n");
+            }
+            break;
         }
     }
 }

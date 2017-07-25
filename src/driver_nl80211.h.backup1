@@ -1,25 +1,34 @@
 #ifndef DRIVER_NL80211_H
 #define DRIVER_NL80211_H
+/////////////
 
 #include <libnl-tiny/netlink/genl/genl.h>
 #include <libnl-tiny/netlink/genl/family.h>
 #include <libnl-tiny/netlink/genl/ctrl.h>
 #include <linux/rtnetlink.h>
+
+//#include<stdio.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <net/if.h>
+//#include <netlink/genl/genl.h>
+//#include <netlink/genl/family.h>
+//#include <netlink/genl/ctrl.h>
+//#include <linux/rtnetlink.h>
 #include <netpacket/packet.h>
 #include <linux/filter.h>
 #include <linux/errqueue.h>
+
 #include<unistd.h>
 
+//#include <linux/netlink.h>
 #include <linux/socket.h>
 
 #include "hostapd.h"
 #include "nl80211_copy.h"
-
+//#include <click/hw_features.hh>
 
 /* libnl 2.0 compatibility code */
 #define nl_handle nl_sock
@@ -707,8 +716,8 @@ struct wpa_driver_ops {
 	int (*sta_add)(void *priv, struct hostapd_sta_add_params *params);
 	void * (*hapd_init)(struct hostapd_data *hapd,
 			    struct wpa_init_params *params,nl_recv_callback call_func);
-	int (*get_capa)(void *priv, struct wpa_driver_capa *capa);
-	int (*sta_remove)(void *priv, const u8 *addr);
+	int (*get_capa)(void *priv, struct wpa_driver_capa *capa);	
+	int (*sta_remove)(void *priv, const u8 *addr);	
 	int (*sta_set_flags)(void *priv, const u8 *addr,
 			     int total_flags, int flags_or, int flags_and);
 	struct hostapd_hw_modes * (*get_hw_feature_data)(void *priv,
@@ -857,7 +866,7 @@ static struct nl_handle * nl_create_handle(struct nl_cb *cb, const char *dbg)
 		nl_socket_free(handle);//使用libnl的API接口函数
 		return NULL;
 	}
-
+	
 	//fprintf(stderr, "nl_create_handle creat success--nm\n");
 	return handle;
 }
@@ -1006,7 +1015,7 @@ nla_put_failure:
 //TODO:接收函数
 static int process_global_event(struct nl_msg *msg, void *arg)
 {
-
+	
 	return NL_SKIP;
 }
 
@@ -1037,7 +1046,7 @@ static int wpa_driver_nl80211_init_nl_global(struct nl80211_global *global)
 	}
 	//fprintf(stderr, "nl80211: genl_ctrl_resolve分配成功'--nm\n");
 	//netlink事件之前由于没有内存分配导致了后面出现了段错误
-	//创建了两个netlink,具体的作用未知,可能是基于事件的内核态通知用户态的netlink 猜测???
+	//创建了两个netlink,具体的作用未知,可能是基于事件的内核态通知用户态的netlink 猜测??? 
 	global->nl_event = nl_create_handle(global->nl_cb, "event");
 	if (global->nl_event == NULL)
 		goto err;
@@ -1063,7 +1072,7 @@ static int wpa_driver_nl80211_init_nl_global(struct nl80211_global *global)
 	//fprintf(stderr, "nl80211: nl_get_multicast_id--mlme分配成功'--nm\n");
 	if (ret >= 0)
 		ret = nl_socket_add_membership(global->nl_event, ret);
-	//fprintf(stderr, "nl80211: nl_socket_add_membership分配成功2222'--nm\n");
+	//fprintf(stderr, "nl80211: nl_socket_add_membership分配成功2222'--nm\n");	
 	if (ret < 0) {
 		//wpa_printf(MSG_ERROR, "nl80211: Could not add multicast "
 		//	   "membership for mlme events: %d (%s)",
@@ -1127,21 +1136,21 @@ static void * nl80211_global_init(void)
 
 	global = (struct nl80211_global *)os_zalloc(sizeof(*global));
 	if (global == NULL){
-		fprintf(stderr, "global_init global分配内存失败 --nm\n");
+		fprintf(stderr, "global_init global分配内存失败 --nm\n");		
 		return NULL;
 	}
 
 	//global->ioctl_sock = -1;
 	//dl_list_init(&global->interfaces);
 	global->if_add_ifindex = -1;
-
+	
 	//真正的建立netlink连接
-	if (wpa_driver_nl80211_init_nl_global(global) < 0){
+	if (wpa_driver_nl80211_init_nl_global(global) < 0){		
 		fprintf(stderr, "global_init netlink创建失败 --nm\n");
 		goto err;
 	}
 	//fprintf(stderr, "nl80211_global_init creat success --nm\n");
-
+	
 	return global;
 
 err:
@@ -1289,7 +1298,7 @@ static void mlme_event(struct i802_bss *bss,
 	struct wpa_driver_nl80211_data *drv = bss->drv;
 	const u8 *data;
     size_t len;
-
+	
 	data = (const u8 *)nla_data(frame);
 	len = nla_len(frame);
 	if (len < 4 + 2 * ETH_ALEN) {
@@ -1299,13 +1308,13 @@ static void mlme_event(struct i802_bss *bss,
 			   MAC2STR(bss->addr));
 		return;
 	}
-
+	
 	switch (cmd) {
 	case NL80211_CMD_FRAME:
 		//mlme_event_mgmt(bss, freq, sig, nla_data(frame),
 		//	nla_len(frame));
 	break;
-
+	
 	default:
 		break;
 	}
@@ -1318,8 +1327,8 @@ static int process_bss_event(struct nl_msg *msg, void *arg)
 	struct nlattr *tb[NL80211_ATTR_MAX + 1];
 	nla_parse(tb, NL80211_ATTR_MAX, genlmsg_attrdata(gnlh, 0),
 		  genlmsg_attrlen(gnlh, 0), NULL);
-		wpa_printf(MSG_DEBUG, "SDWN ---process_bss_event CMD = %d\n",gnlh->cmd);
-
+		wpa_printf(MSG_DEBUG, "SDWN ---process_bss_event CMD = %d\n",gnlh->cmd);		
+		
 	switch (gnlh->cmd) {
 	case NL80211_CMD_FRAME:
 	case NL80211_CMD_FRAME_TX_STATUS:
@@ -1441,7 +1450,7 @@ nla_put_failure:
 
 static int wpa_driver_nl80211_capa(struct wpa_driver_nl80211_data *drv)
 {
-	//wpa_driver_nl80211_capa
+	//wpa_driver_nl80211_capa 
 	drv->has_capability = 1;
 	drv->capa.key_mgmt = WPA_DRIVER_CAPA_KEY_MGMT_WPA |
 		WPA_DRIVER_CAPA_KEY_MGMT_WPA_PSK |
@@ -1455,8 +1464,8 @@ static int wpa_driver_nl80211_capa(struct wpa_driver_nl80211_data *drv)
 	drv->capa.flags |= WPA_DRIVER_FLAGS_SET_KEYS_AFTER_ASSOC_DONE;
 	drv->capa.flags |= WPA_DRIVER_FLAGS_EAPOL_TX_STATUS;
 	drv->capa.flags |= WPA_DRIVER_FLAGS_AP_TEARDOWN_SUPPORT;
-	drv->start_mode_ap = 1;
-	//TODO
+	drv->start_mode_ap = 1;	
+	//TODO 
 	return 0;
 }
 
@@ -1513,7 +1522,7 @@ static int nl80211_mgmt_subscribe_ap(struct i802_bss *bss)
 		return -1;
 	wpa_printf(MSG_DEBUG, "nl80211: Subscribe to mgmt frames with AP "
 		   "handle %p\n", bss->nl_mgmt);
-
+	
 	//hostapd may have done,so no need do again
 	for (i = 0; i < ARRAY_SIZE(stypes); i++) {
 		if (nl80211_register_frame(bss, bss->nl_mgmt,
@@ -1612,16 +1621,16 @@ wpa_driver_nl80211_finish_drv_init(struct wpa_driver_nl80211_data *drv,
 	bss->if_dynamic = drv->ifindex == drv->global->if_add_ifindex;
 	bss->if_dynamic = bss->if_dynamic || drv->global->if_add_wdevid_set;
 	drv->global->if_add_wdevid_set = 0;
-
+	
 	if (wpa_driver_nl80211_capa(drv))
 		return -1;
-
+	
 	//.............
 	nlmode = NL80211_IFTYPE_AP;//set AP mode only
 	if (wpa_driver_nl80211_set_mode(bss, nlmode) < 0) {
 		wpa_printf(MSG_ERROR, "nl80211: Could not configure driver mode");
 		return -1;
-	}
+	}	
 	wpa_printf(MSG_ERROR, "wpa_driver_nl80211_finish_drv_init\n");
 	return 0;
 }
@@ -1649,7 +1658,7 @@ static void * wpa_driver_nl80211_drv_init(void *ctx, const char *ifname,
 	struct wpa_driver_nl80211_data *drv;
 	//struct rfkill_config *rcfg;
 	struct i802_bss *bss;
-
+	
 	//wpa_printf(MSG_ERROR, "wpa_driver_nl80211_drv_init 0000 to init\n");
 	if (global_priv == NULL)
 		return NULL;
@@ -1678,26 +1687,26 @@ static void * wpa_driver_nl80211_drv_init(void *ctx, const char *ifname,
 	drv->monitor_sock = -1;
 	drv->eapol_tx_sock = -1;
 	drv->ap_scan_as_station = NL80211_IFTYPE_UNSPECIFIED;
-
+	
 
 	if (wpa_driver_nl80211_init_nl(drv)) {
 		os_free(drv);
-		return NULL;
+		return NULL;		
 	}
 	//wpa_printf(MSG_ERROR, "wpa_driver_nl80211_drv_init 11111 to init\n");
 	if (nl80211_init_bss(bss,call_func))
-		goto failed;
-
+		goto failed;	
+	
 	/**开启接口
 	 *Hostapd已经完成这里不需要做，可能有些参数需要填写,如有需要再写
 	 * if (linux_iface_up(drv->global->ioctl_sock, ifname) > 0)
 		drv->start_iface_up = 1;
 	*/
-
+	
 	if (wpa_driver_nl80211_finish_drv_init(drv, set_addr, 1))
 		goto failed;
-	wpa_printf(MSG_ERROR, "wpa_driver_nl80211_drv_init 222 to init\n");
-	//wpa_printf(MSG_ERROR, "wpa_driver_nl80211_drv_init 222 to init\n");
+	wpa_printf(MSG_ERROR, "wpa_driver_nl80211_drv_init 222 to init\n");	
+	//wpa_printf(MSG_ERROR, "wpa_driver_nl80211_drv_init 222 to init\n");	
 	if (drv->global) {
 		//dl_list_add(&drv->global->interfaces, &drv->list);//这句出错了不需要
 		//wpa_printf(MSG_ERROR, "wpa_driver_nl80211_drv_init 3333 to init\n");
@@ -1723,7 +1732,7 @@ static void *i802_init(struct hostapd_data *hapd,
 	//Drv初始化分配内存
 	//struct wpa_driver_nl80211_data *drv;
 	struct i802_bss *bss;
-
+	
 	bss = (struct i802_bss *)wpa_driver_nl80211_drv_init(hapd, params->ifname,
 					  params->global_priv, 1,
 					  params->bssid,call_func);
@@ -1734,7 +1743,7 @@ static void *i802_init(struct hostapd_data *hapd,
 
 	//drv = bss->drv;
 	//TODO:填充drv信息
-
+	
     memcpy(bss->addr, params->own_addr, ETH_ALEN);
 	//fprintf(stderr, "hapd_init (BSS DRV初始化)执行成功执行完毕 --nm\n");
 	return bss;
@@ -1761,7 +1770,7 @@ static int wpa_driver_nl80211_sta_add(void *priv,
 	struct nl_msg *msg;
 	struct nl80211_sta_flag_update upd;
 	int ret = -ENOBUFS;
-
+	
 	//if ((params->flags & WPA_STA_TDLS_PEER) &&
 	 //   !(drv->capa.flags & WPA_DRIVER_FLAGS_TDLS_SUPPORT))
 	//	return -EOPNOTSUPP;
@@ -1774,7 +1783,7 @@ static int wpa_driver_nl80211_sta_add(void *priv,
 		   params->set ? "Set" : "Add", MAC2STR(params->addr));
 	//params->set的值来决定是增加一个sta_info还是设置一个sta_info
 	//fprintf(stderr, "nl80211: add station:%02x:%02x:%02x:%02x:%02x:%02x\n",MAC2STR(params->addr));
-	//设置或者增加sta_info
+	//设置或者增加sta_info	
 	nl80211_cmd(drv, msg, 0, params->set ? NL80211_CMD_SET_STATION :
 		    NL80211_CMD_NEW_STATION);
 
@@ -1881,7 +1890,7 @@ static int wpa_driver_nl80211_sta_add(void *priv,
 	}
 
 	ret = send_and_recv_msgs(drv, msg, NULL, NULL);
-	//fprintf(stderr, "sta_add 执行完毕\n");
+	//fprintf(stderr, "sta_add 执行完毕\n");	
 	msg = NULL;
 	if (ret)
 		wpa_printf(MSG_DEBUG, "	nl80211: NL80211_CMD_%s_STATION "
@@ -1896,7 +1905,7 @@ static int wpa_driver_nl80211_sta_add(void *priv,
 		ret = 0;
  nla_put_failure:
 	nlmsg_free(msg);
-	return ret;
+	return ret;	
 
 
 }
@@ -2293,7 +2302,7 @@ static int phy_info_rates(struct hostapd_hw_modes *mode, struct nlattr *tb)
 		{ NLA_U32,NLA_HDRLEN,GENL_NAMSIZ},
 		{ NLA_U32,NLA_HDRLEN,GENL_NAMSIZ},
 		{ NLA_FLAG,NLA_HDRLEN,GENL_NAMSIZ}
-	};
+	};	
 	struct nlattr *tb_rate[NL80211_BITRATE_ATTR_MAX + 1];
 	struct nlattr *nl_rate;
 	int rem_rate, idx;
@@ -2778,7 +2787,7 @@ wpa_driver_nl80211_postprocess_modes(struct hostapd_hw_modes *modes,
 static struct hostapd_hw_modes *
 wpa_driver_nl80211_get_hw_feature_data(void *priv, u16 *num_modes, u16 *flags)
 {
-
+	
 	u32 feat;
 	struct i802_bss *bss = (struct i802_bss *)priv;
 	struct wpa_driver_nl80211_data *drv = bss->drv;
@@ -2814,7 +2823,7 @@ wpa_driver_nl80211_get_hw_feature_data(void *priv, u16 *num_modes, u16 *flags)
 	msg = NULL;
  nla_put_failure:
 	nlmsg_free(msg);
-
+	
 	return NULL;
 }
 
@@ -2966,10 +2975,13 @@ static int nl80211_send_frame_cmd(struct i802_bss *bss,
 	if (!msg)
 		return -1;
 
-	//wpa_printf(MSG_MSGDUMP, "nl80211: CMD_FRAME freq=%u wait=%u no_cck=%d "
-	//	   "no_ack=%d offchanok=%d",
-	//	   freq, wait, no_cck, no_ack, offchanok);
-	//wpa_hexdump(MSG_MSGDUMP, "CMD_FRAME", buf, buf_len);
+    /*
+	wpa_printf(MSG_MSGDUMP, "nl80211: CMD_FRAME freq=%u wait=%u no_cck=%d "
+		   "no_ack=%d offchanok=%d",
+		   freq, wait, no_cck, no_ack, offchanok);
+	wpa_hexdump(MSG_MSGDUMP, "CMD_FRAME", buf, buf_len);
+    ******/
+
 	nl80211_cmd(drv, msg, 0, NL80211_CMD_FRAME);
 
 	if (nl80211_set_iface_id(msg, bss) < 0)
@@ -2997,9 +3009,9 @@ static int nl80211_send_frame_cmd(struct i802_bss *bss,
 			   freq, wait);
 		goto nla_put_failure;
 	}
-	wpa_printf(MSG_DEBUG, "nl80211: Frame TX command accepted%s; "
-		   "cookie 0x%llx", no_ack ? " (no ACK)" : "",
-		   (long long unsigned int) cookie);
+	//wpa_printf(MSG_MSGDUMP, "nl80211: Frame TX command accepted%s; "
+	//	   "cookie 0x%llx", no_ack ? " (no ACK)" : "",
+	//	   (long long unsigned int) cookie);
 
 	if (cookie_out)
 		*cookie_out = no_ack ? (u64) -1 : cookie;
@@ -3021,7 +3033,7 @@ static int wpa_driver_nl80211_send_frame(struct i802_bss *bss,
 
 	//模式 判断  我们系统是邋AP模式
 	if (freq == 0 && drv->nlmode == NL80211_IFTYPE_ADHOC) {
-		//freq = nl80211_get_assoc_freq(drv);///TODO
+		//freq = nl80211_get_assoc_freq(drv);///TODO 
 		//wpa_printf(MSG_DEBUG,
 		//	   "nl80211: send_frame - Use assoc_freq=%u for IBSS",
 		//	   freq);
@@ -3070,15 +3082,18 @@ static int wpa_driver_nl80211_send_mlme(struct i802_bss *bss, const u8 *data,
 					int offchanok,
 					unsigned int wait_time)
 {
+
+	wpa_printf(MSG_DEBUG, "wpa_driver_nl80211_send_mlme 001 \n");
 	struct wpa_driver_nl80211_data *drv = bss->drv;
+	wpa_printf(MSG_DEBUG, "wpa_driver_nl80211_send_mlme 0011\n");
 	struct ieee80211_mgmt *mgmt;
 	int encrypt = 1;
 	u16 fc;
 
+	wpa_printf(MSG_DEBUG, "wpa_driver_nl80211_send_mlme 002\n");
 	mgmt = (struct ieee80211_mgmt *) data;
 	fc = le_to_host16(mgmt->frame_control);
-	//wpa_printf(MSG_DEBUG, "nl80211: send_mlme - noack=%d freq=%u no_cck=%d offchanok=%d wait_time=%u fc=0x%x nlmode=%d,device_ap_sme=%d\n",
-	//	   noack, freq, no_cck, offchanok, wait_time, fc, drv->nlmode,drv->device_ap_sme);
+	wpa_printf(MSG_DEBUG, "wpa_driver_nl80211_send_mlme \n");
 
 	//判断接口的模式为AP 还是client 模式，这段可以去掉
 	if ((is_sta_interface(drv->nlmode) ||
@@ -3099,14 +3114,14 @@ static int wpa_driver_nl80211_send_mlme(struct i802_bss *bss, const u8 *data,
 					      data, data_len, NULL, 1, noack,
 					      1);
 	}
-
-	wpa_printf(MSG_DEBUG, "wpa_driver_nl80211_send_mlme 001\n");
+	
+	wpa_printf(MSG_DEBUG, "wpa_driver_nl80211_send_mlme \n");
 	//AP 模式
 	if (drv->device_ap_sme && is_ap_interface(drv->nlmode)) {
 		//频率设置
 		if (freq == 0) {
-			//wpa_printf(MSG_DEBUG, "nl80211: Use bss->freq=%d",
-			//	   bss->freq);
+			wpa_printf(MSG_DEBUG, "nl80211: Use bss->freq=%d",
+				   bss->freq);
 			freq = bss->freq;
 		}
 
@@ -3143,6 +3158,8 @@ static int wpa_driver_nl80211_send_mlme(struct i802_bss *bss, const u8 *data,
 static int driver_nl80211_send_mlme(void *priv, const u8 *data,
 				    size_t data_len, int noack)
 {
+
+	wpa_printf(MSG_INFO, "driver_nl80211_send_mlme\n");
 	struct i802_bss *bss = (struct i802_bss *)priv;
 	return wpa_driver_nl80211_send_mlme(bss, data, data_len, noack,
 					    0, 0, 0, 0);
@@ -3178,3 +3195,6 @@ static struct wpa_driver_ops *wpa_drivers[] =
 	&wpa_driver_nl80211_ops
 };
 #endif /* DRIVER_NL80211_H */
+
+
+

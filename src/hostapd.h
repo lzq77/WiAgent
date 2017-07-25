@@ -237,8 +237,7 @@ int hostapd_driver_init(struct hostapd_iface *iface,nl_recv_callback odin_proces
 
 	
 int generate_beacon(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
-			const char *ssid,int ssid_len,int probe,
-            char * packet,int *len);
+			const char *ssid,int ssid_len,int probe, int *len);
 	
 int hostapd_drv_send_mlme(struct hostapd_data *hapd,
 			  const u8 *msg, size_t len, int noack);

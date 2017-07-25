@@ -336,6 +336,7 @@ u8 * hostapd_eid_ext_supp_rates(struct hostapd_data *hapd, u8 *eid)
 	u8 *pos = eid;
 	int i, num, count;
 
+	wpa_printf(MSG_ERROR, "hostapd_eid_ext_supp_rate 0011\n");	
 	if (hapd->iface->current_rates == NULL)
 		return eid;
 
@@ -348,6 +349,7 @@ u8 * hostapd_eid_ext_supp_rates(struct hostapd_data *hapd, u8 *eid)
 		return eid;
 	num -= 8;
 
+	wpa_printf(MSG_ERROR, "hostapd_eid_ext_supp_rate 0011\n");	
 	*pos++ = WLAN_EID_EXT_SUPP_RATES;
 	*pos++ = num;
 	for (i = 0, count = 0; i < hapd->iface->num_rates && count < num + 8;
@@ -356,6 +358,7 @@ u8 * hostapd_eid_ext_supp_rates(struct hostapd_data *hapd, u8 *eid)
 		if (count <= 8)
 			continue; /* already in SuppRates IE */
 		*pos = hapd->iface->current_rates[i].rate / 5;
+	wpa_printf(MSG_ERROR, "hostapd_eid_ext_supp_rate 0011\n");	
 		if (hapd->iface->current_rates[i].flags & HOSTAPD_RATE_BASIC)
 			*pos |= 0x80;
 		pos++;
@@ -367,6 +370,7 @@ u8 * hostapd_eid_ext_supp_rates(struct hostapd_data *hapd, u8 *eid)
 			*pos++ = 0x80 | BSS_MEMBERSHIP_SELECTOR_HT_PHY;
 	}
 
+	wpa_printf(MSG_ERROR, "hostapd_eid_ext_supp_rate 0011\n");	
 	if (hapd->iconf->ieee80211ac && hapd->iconf->require_vht) {
 		count++;
 		if (count > 8)
@@ -695,20 +699,19 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 	size_t head_len = 0, tail_len = 0;
 	u8 *resp = NULL;
 	size_t resp_len = 0;
-//#ifdef NEED_AP_MLME
 	u16 capab_info;
 	u8 *pos, *tailpos;
-	//wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params start\n");
+	
+    wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params start\n");
 #define BEACON_HEAD_BUF_SIZE 256
 #define BEACON_TAIL_BUF_SIZE 512
 	head = (struct ieee80211_mgmt*)os_zalloc(BEACON_HEAD_BUF_SIZE);
 	tail_len = BEACON_TAIL_BUF_SIZE;
 
-	//����β���ĳ��ȷ����ڴ�
 	if (hapd->conf->vendor_elements)
 		tail_len += wpabuf_len(hapd->conf->vendor_elements);
 	
-	//wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 00\n");	
+	wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 00\n");	
 	tailpos = tail = (u8 *)os_malloc(tail_len);
 	if (head == NULL || tail == NULL) {
 		wpa_printf(MSG_ERROR, "Failed to set beacon data\n");
@@ -719,7 +722,6 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 	
 	//is beacon or proberesp,then set header
 	if(probe){
-		//beacon��ͷ������
 		head->frame_control = IEEE80211_FC(WLAN_FC_TYPE_MGMT,
 						   WLAN_FC_STYPE_PROBE_RESP);		
 	}else
@@ -727,23 +729,22 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 					   WLAN_FC_STYPE_BEACON);
 	head->duration = host_to_le16(0);
 	
-	//os_memset(head->da, 0xff, ETH_ALEN);
-	//os_memcpy(head->sa, hapd->own_addr, ETH_ALEN);//ע��Դ��ַ
-	//os_memcpy(head->bssid, hapd->own_addr, ETH_ALEN);//ע������bssid
+    //sdwn: specify the address
 	os_memcpy(head->da, da, ETH_ALEN);
-	os_memcpy(head->sa,bssid, ETH_ALEN);//ע��Դ��ַ
-	os_memcpy(head->bssid, bssid,ETH_ALEN);//ע������bssid
-	///wpa_printf(MSG_ERROR, "da:"MACSTR",sa:"MACSTR",bssid:"MACSTR"\n",\
-		MAC2STR(head->da),MAC2STR(head->sa),MAC2STR(head->bssid));
-	//beacon���   click���õ���5000ms
+	os_memcpy(head->sa, bssid, ETH_ALEN);
+	os_memcpy(head->bssid, bssid, ETH_ALEN);
+
+    wpa_printf(MSG_DEBUG, "da:"MACSTR", sa:"MACSTR", bssid:"MACSTR"\n",
+            MAC2STR(head->da), MAC2STR(head->sa), MAC2STR(head->bssid));
+
 	head->u.beacon.beacon_int =host_to_le16(1000);
 		//host_to_le16(hapd->iconf->beacon_int);
-
+    
 	/* hardware or low-level driver will setup seq_ctrl and timestamp */
 	capab_info = hostapd_own_capab_info(hapd, NULL, 0);//��ȡhostapd�б������߲���
 	head->u.beacon.capab_info = cpu_to_le16(capab_info);//host_to_le16(capab_info);
-	pos = &head->u.beacon.variable[0];//ָ����beacon����չelement�ֶ�
-	//wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 01\n");
+	pos = &head->u.beacon.variable[0];
+	wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 01\n");
 	/* SSID */
 	*pos++ = WLAN_EID_SSID;
 	if (hapd->conf->ignore_broadcast_ssid == 2) {
@@ -767,6 +768,7 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 		pos += ssid_len;	
 	}
 
+	wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 00\n");	
 	/* Supported rates */
 	pos = hostapd_eid_supp_rates(hapd, pos);
 
@@ -778,15 +780,19 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 	tailpos = hostapd_eid_country(hapd, tailpos,
 				      tail + BEACON_TAIL_BUF_SIZE - tailpos);
 
+	wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 0011\n");	
 	/* Power Constraint element */
 	tailpos = hostapd_eid_pwr_constraint(hapd, tailpos);
 
+	wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 0012\n");	
 	/* ERP Information element */
 	tailpos = hostapd_eid_erp_info(hapd, tailpos);
+	wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 0013\n");	
 
 	/* Extended supported rates */
 	tailpos = hostapd_eid_ext_supp_rates(hapd, tailpos);
 
+	wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 00\n");	
 	/* RSN, MDIE, WPA */
 	//tailpos = hostapd_eid_wpa(hapd, tailpos, tail + BEACON_TAIL_BUF_SIZE -
 	//			  tailpos);
@@ -799,6 +805,7 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 	tailpos = hostapd_eid_ht_operation(hapd, tailpos);
 //#endif /* CONFIG_IEEE80211N */
 
+	wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 00\n");	
 	tailpos = hostapd_eid_ext_capab(hapd, tailpos);//notice:not work --nm
 
 	/*
@@ -836,6 +843,7 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 
 	tail_len = tailpos > tail ? tailpos - tail : 0;
 
+	wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 00\n");	
 	//resp = hostapd_probe_resp_offloads(hapd, &resp_len);
 //#endif /* NEED_AP_MLME */
 
@@ -846,7 +854,7 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 	params->tail_len = tail_len;
 	params->proberesp = resp;
 	params->proberesp_len = resp_len;
-	//wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 0n\n");
+	wpa_printf(MSG_ERROR, "ieee802_11_build_ap_params 0n\n");
 	return 0;
 }
 

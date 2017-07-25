@@ -46,6 +46,155 @@ void hostapd_free_hw_features(struct hostapd_hw_modes *hw_features,
 	os_free(hw_features);
 }
 
+struct hostapd_hw_modes *
+hostapd_get_hw_feature_data(struct hostapd_data *hapd, u16 *num_modes,
+			    u16 *flags)
+{
+	if (hapd->driver == NULL ||
+	    hapd->driver->get_hw_feature_data == NULL)
+		return NULL;
+	return hapd->driver->get_hw_feature_data(hapd->drv_priv, num_modes,
+						 flags);
+}
+
+
+/**
+ * hostapd_select_hw_mode - Select the hardware mode
+ * @iface: Pointer to interface data.
+ * Returns: 0 on success, < 0 on failure
+ *
+ * Sets up the hardware mode, channel, rates, and passive scanning
+ * based on the configuration.
+ */
+int hostapd_select_hw_mode(struct hostapd_iface *iface)
+{
+	int i;
+
+	if (iface->num_hw_features < 1)
+		return -1;
+
+	//14信道特殊处理
+	if ((iface->conf->hw_mode == HOSTAPD_MODE_IEEE80211G ||
+	     iface->conf->ieee80211n || iface->conf->ieee80211ac) &&
+	    iface->conf->channel == 14) {
+		wpa_printf(MSG_INFO, "Disable OFDM/HT/VHT on channel 14");
+		iface->conf->hw_mode = HOSTAPD_MODE_IEEE80211B;
+		iface->conf->ieee80211n = 0;
+		iface->conf->ieee80211ac = 0;
+	}
+	//wpa_printf(MSG_DEBUG, "\nhostapd_select_hw_mode00:%d,%d\n",iface->hw_features[i],iface->conf->hw_mode);
+	//从之前获取的多个硬件特性中选择一个我们
+	//设置需要的,这个选择依据就是硬件的模式
+	iface->current_mode = NULL;
+	for (i = 0; i < iface->num_hw_features; i++) {
+		struct hostapd_hw_modes *mode = &iface->hw_features[i];
+		if (mode->mode == iface->conf->hw_mode) {
+		//wpa_printf(MSG_DEBUG, "\nhostapd_select_hw_mode11:%d,%d\n",mode->mode,iface->conf->hw_mode);
+			iface->current_mode = mode;
+			break;
+		}
+	}
+
+	if (iface->current_mode == NULL) {
+		wpa_printf(MSG_ERROR, "Hardware does not support configured "
+			   "mode");
+		//hostapd_logger(iface->bss[0], NULL, HOSTAPD_MODULE_IEEE80211,
+		//	       HOSTAPD_LEVEL_WARNING,
+		//	       "Hardware does not support configured mode "
+		//	       "(%d) (hw_mode in hostapd.conf)",
+		///	       (int) iface->conf->hw_mode);
+		return -2;
+	}
+
+	//switch (hostapd_check_chans(iface)) {
+	switch (0) {
+	case HOSTAPD_CHAN_VALID:
+		return 0;
+	case HOSTAPD_CHAN_ACS: /* ACS will run and later complete */
+		return 1;
+	case HOSTAPD_CHAN_INVALID:
+	default:
+		//hostapd_notify_bad_chans(iface);
+		return -3;
+	}
+}
+//参数调试
+int hostapd_get_hw_features(struct hostapd_iface *iface)
+{
+	struct hostapd_data *hapd = iface->bss[0];
+	int ret = 0, i, j;
+	u16 num_modes, flags;
+	struct hostapd_hw_modes *modes;
+
+	//if (hostapd_drv_none(hapd))
+	//	return -1;
+	//获取硬件的特性参数
+	modes = hostapd_get_hw_feature_data(hapd, &num_modes, &flags);
+	if (modes == NULL) {
+		//hostapd_logger(hapd, NULL, HOSTAPD_MODULE_IEEE80211,
+		//	       HOSTAPD_LEVEL_DEBUG,
+		//	       "Fetching hardware channel/rate support not "
+		//	       "supported.");
+		wpa_printf(MSG_DEBUG, "hostapd get hw_features failed\n");
+		return -1;
+	}
+
+	iface->hw_flags = flags;
+
+	hostapd_free_hw_features(iface->hw_features, iface->num_hw_features);
+	iface->hw_features = modes;
+	iface->num_hw_features = num_modes;
+		//wpa_printf(MSG_DEBUG, "hostapd get hw_features success num_hw_features is %d\n",num_modes);
+	for (i = 0; i < num_modes; i++) {
+		struct hostapd_hw_modes *feature = &modes[i];
+		int dfs_enabled = hapd->iconf->ieee80211h &&
+			(iface->drv_flags & WPA_DRIVER_FLAGS_RADAR);
+
+		/* set flag for channels we can use in current regulatory
+		 * domain */
+		for (j = 0; j < feature->num_channels; j++) {
+			int dfs = 0;
+
+			/*
+			 * Disable all channels that are marked not to allow
+			 * IBSS operation or active scanning.
+			 * Use radar channels only if the driver supports DFS.
+			 */
+			if ((feature->channels[j].flag &
+			     HOSTAPD_CHAN_RADAR) && dfs_enabled) {
+				dfs = 1;
+			} else if (((feature->channels[j].flag &
+				     HOSTAPD_CHAN_RADAR) &&
+				    !(iface->drv_flags &
+				      WPA_DRIVER_FLAGS_DFS_OFFLOAD)) ||
+				   (feature->channels[j].flag &
+				    (HOSTAPD_CHAN_NO_IBSS |
+				     HOSTAPD_CHAN_PASSIVE_SCAN))) {
+				feature->channels[j].flag |=
+					HOSTAPD_CHAN_DISABLED;
+			}
+
+			if (feature->channels[j].flag & HOSTAPD_CHAN_DISABLED)
+				continue;
+
+			//DEBUG
+			/*wpa_printf(MSG_MSGDUMP, "Allowed channel: mode=%d "
+				   "chan=%d freq=%d MHz max_tx_power=%d dBm%s",
+				   feature->mode,
+				   feature->channels[j].chan,
+				   feature->channels[j].freq,
+				   feature->channels[j].max_tx_power,
+				   dfs ? dfs_info(&feature->channels[j]) : "");
+				   */
+		}
+	}
+
+	return ret;
+}
+
+
+
+
 
 int hostapd_hw_get_freq(struct hostapd_data *hapd, int chan)
 {
@@ -280,5 +429,108 @@ const char * hostapd_hw_mode_txt(int mode)
 	default:
 		return "UNKNOWN";
 	}
+}
+
+
+/**
+ * hostapd_setup_interface_complete - Complete interface setup
+ *
+ * This function is called when previous steps in the interface setup has been
+ * completed. This can also start operations, e.g., DFS, that will require
+ * additional processing before interface is ready to be enabled. Such
+ * operations will call this function from eloop callbacks when finished.
+ */
+int hostapd_setup_interface_complete(struct hostapd_iface *iface, int err)
+{
+	struct hostapd_data *hapd = iface->bss[0];
+	size_t j;
+	u8 *prev_addr;
+
+	if (err)
+		goto fail;
+
+	//hostapd_ubus_add_iface(iface);
+	//wpa_printf(MSG_DEBUG, "Completing interface initialization");
+	if (iface->conf->channel) {
+//#ifdef NEED_AP_MLME
+		int res;
+//#endif /* NEED_AP_MLME */
+		//现获取频率然后再设置频率
+		iface->freq = hostapd_hw_get_freq(hapd, iface->conf->channel);
+		//下面的调试可以查看AP无线配置参数
+		//wpa_printf(MSG_DEBUG, "Mode: %s  Channel: %d  "
+			//   "Frequency: %d MHz",
+			//   hostapd_hw_mode_txt(iface->conf->hw_mode),
+			 //  iface->conf->channel, iface->freq);
+
+//#ifdef NEED_AP_MLME
+		/* Check DFS */
+		//TODO
+		//res = hostapd_handle_dfs(iface);
+		//if (res <= 0) {
+		//	if (res < 0)
+		////		goto fail;
+		//	return res;
+		//}
+//#endif /* NEED_AP_MLME */
+
+		//设置频率
+		if (hostapd_set_freq(hapd, hapd->iconf->hw_mode, iface->freq,
+				     hapd->iconf->channel,
+				     hapd->iconf->ieee80211n,
+				     hapd->iconf->ieee80211ac,
+				     hapd->iconf->secondary_channel,
+				     hapd->iconf->vht_oper_chwidth,
+				     hapd->iconf->vht_oper_centr_freq_seg0_idx,
+				     hapd->iconf->vht_oper_centr_freq_seg1_idx)) {
+			wpa_printf(MSG_ERROR, "Could not set channel for "
+				   "kernel driver");
+			goto fail;
+		}
+	}
+
+	if (iface->current_mode) {
+		//设置模式支持的基本速率
+		if (hostapd_prepare_rates(iface, iface->current_mode)) {
+			wpa_printf(MSG_ERROR, "Failed to prepare rates "
+				   "table.");
+			//hostapd_logger(hapd, NULL, HOSTAPD_MODULE_IEEE80211,
+				//       HOSTAPD_LEVEL_WARNING,
+			//	       "Failed to prepare rates table.");
+			goto fail;
+		}
+		//wpa_printf(MSG_ERROR, "complete to set current mode\n");
+	}
+	//设置rts
+
+	//设置fragm
+
+
+	//prev_addr = hapd->own_addr;
+/*
+	for (j = 0; j < iface->num_bss; j++) {
+		hapd = iface->bss[j];
+		if (j)
+			os_memcpy(hapd->own_addr, prev_addr, ETH_ALEN);
+		if (hostapd_setup_bss(hapd, j == 0)) {
+			do {
+				hapd = iface->bss[j];
+				hostapd_bss_deinit_no_free(hapd);
+				hostapd_free_hapd_data(hapd);
+			} while (j-- > 0);
+			goto fail;
+		}
+		if (hostapd_mac_comp_empty(hapd->conf->bssid) == 0)
+			prev_addr = hapd->own_addr;
+	}
+*/
+	hapd = iface->bss[0];
+
+	return 0;
+
+fail:
+	wpa_printf(MSG_ERROR, "Interface initialization failed\n");
+	iface->state = (enum Hostapd_iface_state)HAPD_IFACE_DISABLED;
+	return -1;
 }
 
