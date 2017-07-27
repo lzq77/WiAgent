@@ -17,10 +17,11 @@ LIBS += -levent -lnl-tiny -ljson-c
 
 DEPS = ap_config.h beacon.h com.h config_file.h controller_event.h \
 	   controller_push.h driver_nl80211.h hostapd.h hw_features.h \
-	   ieee802_1x_defs.h nl80211_copy.h sta_info.h wpabuf.h
+	   ieee802_1x_defs.h nl80211_copy.h sta_info.h wpabuf.h hostapd_mgmt.h \
+	   wi_bssid_mask.h
 
 OBJS = main.o controller_event.o controller_push.o config_file.o com.o hostapd.o \
-	   beacon.o hw_features.o 
+	   beacon.o hw_features.o hostapd_mgmt.o wi_bssid_mask.o
 
 all: wimaster
 

@@ -2997,10 +2997,11 @@ static int nl80211_send_frame_cmd(struct i802_bss *bss,
 			   freq, wait);
 		goto nla_put_failure;
 	}
-	wpa_printf(MSG_DEBUG, "nl80211: Frame TX command accepted%s; "
+	/*
+     * wpa_printf(MSG_DEBUG, "nl80211: Frame TX command accepted%s; "
 		   "cookie 0x%llx", no_ack ? " (no ACK)" : "",
 		   (long long unsigned int) cookie);
-
+    */
 	if (cookie_out)
 		*cookie_out = no_ack ? (u64) -1 : cookie;
 
@@ -3077,8 +3078,6 @@ static int wpa_driver_nl80211_send_mlme(struct i802_bss *bss, const u8 *data,
 
 	mgmt = (struct ieee80211_mgmt *) data;
 	fc = le_to_host16(mgmt->frame_control);
-	//wpa_printf(MSG_DEBUG, "nl80211: send_mlme - noack=%d freq=%u no_cck=%d offchanok=%d wait_time=%u fc=0x%x nlmode=%d,device_ap_sme=%d\n",
-	//	   noack, freq, no_cck, offchanok, wait_time, fc, drv->nlmode,drv->device_ap_sme);
 
 	//判断接口的模式为AP 还是client 模式，这段可以去掉
 	if ((is_sta_interface(drv->nlmode) ||
@@ -3100,7 +3099,6 @@ static int wpa_driver_nl80211_send_mlme(struct i802_bss *bss, const u8 *data,
 					      1);
 	}
 
-	wpa_printf(MSG_DEBUG, "wpa_driver_nl80211_send_mlme 001\n");
 	//AP 模式
 	if (drv->device_ap_sme && is_ap_interface(drv->nlmode)) {
 		//频率设置

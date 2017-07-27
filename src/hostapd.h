@@ -232,21 +232,12 @@ u8* hostapd_handle_assoc(struct hostapd_data *hapd,
 			 const u8 *packet, int len, u8 *vbssid,
 			 int reassoc,int *frame_len);	
 
-void hostapd_handle_assoc_cb(struct hostapd_data *hapd,u8 *addr);		
-int hostapd_driver_init(struct hostapd_iface *iface,nl_recv_callback odin_process_bss_event);		
+void hostapd_handle_assoc_cb(struct hostapd_data *hapd,u8 *addr);
 
-	
-int generate_beacon(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
-			const char *ssid,int ssid_len,int probe, int *len);
+int hostapd_driver_init(struct hostapd_iface *iface,nl_recv_callback odin_process_bss_event);		
 	
 int hostapd_drv_send_mlme(struct hostapd_data *hapd,
 			  const u8 *msg, size_t len, int noack);
-	
-void handle_probe_req(struct hostapd_data *hapd,u8 *resp,int resp_len);
-	
-void send_auth_reply(struct hostapd_data *hapd,u8 *reply ,int len);
-	
-void send_assoc_resp(struct hostapd_data *hapd,u8 *assoc_resp, int len);
 
 /**
  * struct hostapd_data - hostapd per-BSS data structure

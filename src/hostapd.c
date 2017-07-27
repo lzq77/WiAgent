@@ -430,7 +430,7 @@ u16 check_assoc_ies(struct hostapd_data *hapd, struct sta_info *sta,
 		wpa_printf(MSG_DEBUG,"station:%s association do not support HT\n",sta->addr,sta->aid);
 		return WLAN_STATUS_ASSOC_DENIED_NO_HT;
 	}
-	//fprintf(stderr,"check_assoc_ies over\n");
+	fprintf(stderr,"check_assoc_ies over\n");
 	return WLAN_STATUS_SUCCESS;
 }
 
@@ -826,46 +826,6 @@ int hostapd_setup_interface(struct hostapd_iface *iface){
 	return 0;
 }
 
-int generate_beacon(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
-					const char *ssid,int ssid_len,int probe, int *len){
-	u8 *packet;
-    struct hostapd_data *hapd = _hapd;
-	struct wpa_driver_ap_params params;
-	//char *beacon;
-	int beacon_len = 0;
-
-	wpa_printf(MSG_ERROR, "generate_beacon start\n");
-
-	ieee802_11_build_ap_params(hapd,da,bssid,ssid,ssid_len,probe,&params);//产生beacon帧,头部和EX字段分开
-	//wpa_printf(MSG_ERROR, "generate_beacon start 0\n");
-	beacon_len = params.head_len + params.tail_len;
-	//wpa_printf(MSG_ERROR, "generate_beacon start 1\n");
-	packet = (char *)os_zalloc(beacon_len);//为beacon分配内存
-	//wpa_printf(MSG_ERROR, "generate_beacon start 2\n");
-	if (!packet)
-		goto free_params;
-
-	os_memcpy(packet, params.head, params.head_len);//复制beacon的头部
-	os_memcpy(packet+params.head_len, params.tail, params.tail_len);//复制beacon的尾部
-	wpa_printf(MSG_ERROR, "generate_beacon start4\n");
-
-    handle_probe_req(hapd, packet, beacon_len);
-    
-    *len = beacon_len;
-	os_free(params.head);
-	os_free(params.tail);
-	//wpa_printf(MSG_ERROR, "generate_beacon end\n");
-	return 0;
-
-	free_beacon:
-	    os_free(packet);
-	free_params:
-	wpa_printf(MSG_ERROR, "generate_beacon failed\n");
-		os_free(params.head);
-		os_free(params.tail);
-	wpa_printf(MSG_ERROR, "generate_beacon failed\n");
-	return -1;
-}
 
 int hostapd_drv_send_mlme(struct hostapd_data *hapd,
 			  const u8 *msg, size_t len, int noack)
@@ -874,66 +834,23 @@ int hostapd_drv_send_mlme(struct hostapd_data *hapd,
 		return 0;
 	return hapd->driver->send_mlme(hapd->drv_priv, msg, len, noack);
 }
-void handle_probe_req(struct hostapd_data *hapd,u8 *resp,int resp_len){
-
-	if (resp == NULL)
-		return;
-
-	/*
-	 * If this is a broadcast probe request, apply no ack policy to avoid
-	 * excessive retries.
-	 */
-	 /*
-	res = ssid_match(hapd, elems.ssid, elems.ssid_len,
-			 elems.ssid_list, elems.ssid_list_len);
-
-	noack = !!(res == WILDCARD_SSID_MATCH &&
-		   is_broadcast_ether_addr(mgmt->da));
-	*/
-	if (hostapd_drv_send_mlme(hapd, resp, resp_len, 1) < 0)
-		wpa_printf(MSG_INFO, "handle_probe_req: send failed\n");
-	//if(!resp){
-	//	wpa_printf(MSG_INFO, "resp is null\n");
-	//}else
-	//	os_free(resp);
-
-}
-void send_auth_reply(struct hostapd_data *hapd,u8 *reply ,int len){
-	if (reply == NULL)
-		return;
-	if (hostapd_drv_send_mlme(hapd, reply, len, 1) < 0)
-		wpa_printf(MSG_INFO, "send_auth_reply: send failed");
-}
-
-void send_assoc_resp(struct hostapd_data *hapd,u8 *assoc_resp, int len){
-	if (assoc_resp == NULL)
-		return;
-	if (hostapd_drv_send_mlme(hapd, assoc_resp, len, 1) < 0)
-		wpa_printf(MSG_INFO, "send_assoc_resp: send failed");
-}
 
 /*********************一些静态方法***********************/
-
-
-
 
 u16 copy_supp_rates(struct hostapd_data *hapd, struct sta_info *sta,
 			   struct ieee802_11_elems *elems)
 {
 	if (!elems->supp_rates) {
-		//hostapd_logger(hapd, sta->addr, HOSTAPD_MODULE_IEEE80211,
-		//	       HOSTAPD_LEVEL_DEBUG,
-		//	       "No supported rates element in AssocReq");
+		wpa_printf(MSG_DEBUG, "No supported rates element in AssocReq\n");
 		return WLAN_STATUS_UNSPECIFIED_FAILURE;
 	}
 
 	if (elems->supp_rates_len + elems->ext_supp_rates_len >
 	    sizeof(sta->supported_rates)) {
-		//hostapd_logger(hapd, sta->addr, HOSTAPD_MODULE_IEEE80211,
-		//	       HOSTAPD_LEVEL_DEBUG,
-		//	       "Invalid supported rates element length %d+%d",
-		//	       elems->supp_rates_len,
-		//	       elems->ext_supp_rates_len);
+        wpa_printf(MSG_DEBUG,
+			       "Invalid supported rates element length %d+%d\n",
+			       elems->supp_rates_len,
+			       elems->ext_supp_rates_len);
 		return WLAN_STATUS_UNSPECIFIED_FAILURE;
 	}
 

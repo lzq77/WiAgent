@@ -10,7 +10,7 @@ ACS_EVENT_COMPLETED	ieee802_1x_defs.h	39;"	d
 ACS_EVENT_FAILED	ieee802_1x_defs.h	40;"	d
 ACS_EVENT_STARTED	ieee802_1x_defs.h	38;"	d
 ADV_PROTO_VENDOR_SPECIFIC	ieee802_1x_defs.h	/^	ADV_PROTO_VENDOR_SPECIFIC = 221$/;"	e	enum:adv_proto_id
-AID_WORDS	hostapd.h	275;"	d
+AID_WORDS	hostapd.h	266;"	d
 ANQP_3GPP_CELLULAR_NETWORK	ieee802_1x_defs.h	/^	ANQP_3GPP_CELLULAR_NETWORK = 264,$/;"	e	enum:anqp_info_id
 ANQP_AP_CIVIC_LOCATION	ieee802_1x_defs.h	/^	ANQP_AP_CIVIC_LOCATION = 266,$/;"	e	enum:anqp_info_id
 ANQP_AP_GEOSPATIAL_LOCATION	ieee802_1x_defs.h	/^	ANQP_AP_GEOSPATIAL_LOCATION = 265,$/;"	e	enum:anqp_info_id
@@ -52,13 +52,13 @@ ASEL_CAP_EXPLICIT_CSI_FEEDBACK_CAP	ieee802_1x_defs.h	911;"	d
 ASEL_CAP_RX_AS_CAP	ieee802_1x_defs.h	913;"	d
 ASEL_CAP_TX_SOUNDING_PPDUS_CAP	ieee802_1x_defs.h	914;"	d
 BEACON_H	beacon.h	2;"	d
-BEACON_HEAD_BUF_SIZE	beacon.c	706;"	d	file:
-BEACON_TAIL_BUF_SIZE	beacon.c	707;"	d	file:
+BEACON_HEAD_BUF_SIZE	beacon.c	701;"	d	file:
+BEACON_TAIL_BUF_SIZE	beacon.c	702;"	d	file:
 BIT	com.h	33;"	d
 BSS_MEMBERSHIP_SELECTOR_HT_PHY	ieee802_1x_defs.h	949;"	d
 BSS_MEMBERSHIP_SELECTOR_VHT_PHY	ieee802_1x_defs.h	948;"	d
-C2S	driver_nl80211.h	1179;"	d
-C2S	driver_nl80211.h	1289;"	d
+C2S	driver_nl80211.h	1170;"	d
+C2S	driver_nl80211.h	1280;"	d
 CC	Makefile	/^CC ?= "gcc"$/;"	m
 CFLAGS	Makefile	/^CFLAGS ?= -O2 -g$/;"	m
 CHAN_SWITCH_MODE_ALLOW_TX	ieee802_1x_defs.h	1452;"	d
@@ -69,6 +69,7 @@ CONTROLLER_EVENT_H	controller_event.h	2;"	d
 CONTROLLER_PUSH_H	controller_push.h	2;"	d
 CONTROLLER_READ	controller_event.c	14;"	d	file:
 CONTROLLER_WRITE	controller_event.c	15;"	d	file:
+CONTROL_PORT	main.c	35;"	d	file:
 DENY_UNLESS_ACCEPTED	ap_config.h	/^		DENY_UNLESS_ACCEPTED = 1,$/;"	e	enum:Macaddr_acl
 DEPS	Makefile	/^DEPS = ap_config.h beacon.h com.h config_file.h controller_event.h \\$/;"	m
 DFS_EVENT_CAC_COMPLETED	ieee802_1x_defs.h	45;"	d
@@ -110,41 +111,41 @@ HAPD_IFACE_UNINITIALIZED	hostapd.h	/^		HAPD_IFACE_UNINITIALIZED,$/;"	e	enum:Host
 HIDDEN_SSID_ZERO_CONTENTS	driver_nl80211.h	/^	HIDDEN_SSID_ZERO_CONTENTS$/;"	e	enum:hide_ssid
 HIDDEN_SSID_ZERO_LEN	driver_nl80211.h	/^	HIDDEN_SSID_ZERO_LEN,$/;"	e	enum:hide_ssid
 HOSTAPD_CHAN_ACS	hostapd.h	/^	HOSTAPD_CHAN_ACS = 2, \/* ACS work being performed *\/$/;"	e	enum:hostapd_chan_status
-HOSTAPD_CHAN_DFS_AVAILABLE	driver_nl80211.h	55;"	d
+HOSTAPD_CHAN_DFS_AVAILABLE	driver_nl80211.h	46;"	d
 HOSTAPD_CHAN_DFS_AVAILABLE	ieee802_1x_defs.h	63;"	d
-HOSTAPD_CHAN_DFS_MASK	driver_nl80211.h	56;"	d
+HOSTAPD_CHAN_DFS_MASK	driver_nl80211.h	47;"	d
 HOSTAPD_CHAN_DFS_MASK	ieee802_1x_defs.h	64;"	d
-HOSTAPD_CHAN_DFS_UNAVAILABLE	driver_nl80211.h	54;"	d
+HOSTAPD_CHAN_DFS_UNAVAILABLE	driver_nl80211.h	45;"	d
 HOSTAPD_CHAN_DFS_UNAVAILABLE	ieee802_1x_defs.h	62;"	d
-HOSTAPD_CHAN_DFS_UNKNOWN	driver_nl80211.h	52;"	d
+HOSTAPD_CHAN_DFS_UNKNOWN	driver_nl80211.h	43;"	d
 HOSTAPD_CHAN_DFS_UNKNOWN	ieee802_1x_defs.h	60;"	d
-HOSTAPD_CHAN_DFS_USABLE	driver_nl80211.h	53;"	d
+HOSTAPD_CHAN_DFS_USABLE	driver_nl80211.h	44;"	d
 HOSTAPD_CHAN_DFS_USABLE	ieee802_1x_defs.h	61;"	d
-HOSTAPD_CHAN_DISABLED	driver_nl80211.h	43;"	d
+HOSTAPD_CHAN_DISABLED	driver_nl80211.h	34;"	d
 HOSTAPD_CHAN_DISABLED	ieee802_1x_defs.h	51;"	d
-HOSTAPD_CHAN_HT40	driver_nl80211.h	49;"	d
+HOSTAPD_CHAN_HT40	driver_nl80211.h	40;"	d
 HOSTAPD_CHAN_HT40	ieee802_1x_defs.h	57;"	d
-HOSTAPD_CHAN_HT40MINUS	driver_nl80211.h	48;"	d
+HOSTAPD_CHAN_HT40MINUS	driver_nl80211.h	39;"	d
 HOSTAPD_CHAN_HT40MINUS	ieee802_1x_defs.h	56;"	d
-HOSTAPD_CHAN_HT40PLUS	driver_nl80211.h	47;"	d
+HOSTAPD_CHAN_HT40PLUS	driver_nl80211.h	38;"	d
 HOSTAPD_CHAN_HT40PLUS	ieee802_1x_defs.h	55;"	d
 HOSTAPD_CHAN_INVALID	hostapd.h	/^	HOSTAPD_CHAN_INVALID = 1, \/* no usable channel found *\/$/;"	e	enum:hostapd_chan_status
-HOSTAPD_CHAN_NO_IBSS	driver_nl80211.h	45;"	d
+HOSTAPD_CHAN_NO_IBSS	driver_nl80211.h	36;"	d
 HOSTAPD_CHAN_NO_IBSS	ieee802_1x_defs.h	53;"	d
-HOSTAPD_CHAN_PASSIVE_SCAN	driver_nl80211.h	44;"	d
+HOSTAPD_CHAN_PASSIVE_SCAN	driver_nl80211.h	35;"	d
 HOSTAPD_CHAN_PASSIVE_SCAN	ieee802_1x_defs.h	52;"	d
-HOSTAPD_CHAN_RADAR	driver_nl80211.h	46;"	d
+HOSTAPD_CHAN_RADAR	driver_nl80211.h	37;"	d
 HOSTAPD_CHAN_RADAR	ieee802_1x_defs.h	54;"	d
-HOSTAPD_CHAN_SURVEY_LIST_INITIALIZED	driver_nl80211.h	50;"	d
+HOSTAPD_CHAN_SURVEY_LIST_INITIALIZED	driver_nl80211.h	41;"	d
 HOSTAPD_CHAN_SURVEY_LIST_INITIALIZED	ieee802_1x_defs.h	58;"	d
 HOSTAPD_CHAN_VALID	hostapd.h	/^	HOSTAPD_CHAN_VALID = 0, \/* channel is ready *\/$/;"	e	enum:hostapd_chan_status
-HOSTAPD_CHAN_VHT_10_70	driver_nl80211.h	58;"	d
+HOSTAPD_CHAN_VHT_10_70	driver_nl80211.h	49;"	d
 HOSTAPD_CHAN_VHT_10_70	ieee802_1x_defs.h	66;"	d
-HOSTAPD_CHAN_VHT_30_50	driver_nl80211.h	59;"	d
+HOSTAPD_CHAN_VHT_30_50	driver_nl80211.h	50;"	d
 HOSTAPD_CHAN_VHT_30_50	ieee802_1x_defs.h	67;"	d
-HOSTAPD_CHAN_VHT_50_30	driver_nl80211.h	60;"	d
+HOSTAPD_CHAN_VHT_50_30	driver_nl80211.h	51;"	d
 HOSTAPD_CHAN_VHT_50_30	ieee802_1x_defs.h	68;"	d
-HOSTAPD_CHAN_VHT_70_10	driver_nl80211.h	61;"	d
+HOSTAPD_CHAN_VHT_70_10	driver_nl80211.h	52;"	d
 HOSTAPD_CHAN_VHT_70_10	ieee802_1x_defs.h	69;"	d
 HOSTAPD_CONFIG_HH	ap_config.h	10;"	d
 HOSTAPD_H	hostapd.h	10;"	d
@@ -154,8 +155,9 @@ HOSTAPD_LEVEL_INFO	com.h	/^	HOSTAPD_LEVEL_INFO = 2,$/;"	e	enum:hostapd_logger_le
 HOSTAPD_LEVEL_NOTICE	com.h	/^	HOSTAPD_LEVEL_NOTICE = 3,$/;"	e	enum:hostapd_logger_level
 HOSTAPD_LEVEL_WARNING	com.h	/^	HOSTAPD_LEVEL_WARNING = 4$/;"	e	enum:hostapd_logger_level
 HOSTAPD_MAX_SSID_LEN	ap_config.h	95;"	d
-HOSTAPD_MODE_FLAG_HT_INFO_KNOWN	driver_nl80211.h	39;"	d
-HOSTAPD_MODE_FLAG_VHT_INFO_KNOWN	driver_nl80211.h	40;"	d
+HOSTAPD_MGMT_H	hostapd_mgmt.h	2;"	d
+HOSTAPD_MODE_FLAG_HT_INFO_KNOWN	driver_nl80211.h	30;"	d
+HOSTAPD_MODE_FLAG_VHT_INFO_KNOWN	driver_nl80211.h	31;"	d
 HOSTAPD_MODE_IEEE80211A	ieee802_1x_defs.h	/^	HOSTAPD_MODE_IEEE80211A,$/;"	e	enum:hostapd_hw_mode
 HOSTAPD_MODE_IEEE80211AD	ieee802_1x_defs.h	/^	HOSTAPD_MODE_IEEE80211AD,$/;"	e	enum:hostapd_hw_mode
 HOSTAPD_MODE_IEEE80211B	ieee802_1x_defs.h	/^	HOSTAPD_MODE_IEEE80211B,$/;"	e	enum:hostapd_hw_mode
@@ -1122,7 +1124,7 @@ OBJS	Makefile	/^OBJS = main.o controller_event.o controller_push.o config_file.o
 OSEN_IE_VENDOR_TYPE	ieee802_1x_defs.h	1016;"	d
 OUI_BROADCOM	ieee802_1x_defs.h	1288;"	d
 OUI_MICROSOFT	ieee802_1x_defs.h	1007;"	d
-OUI_QCA	driver_nl80211.h	38;"	d
+OUI_QCA	driver_nl80211.h	29;"	d
 OUI_WFA	ieee802_1x_defs.h	1011;"	d
 OVERLAPPING_BSS_TRANS_DELAY_FACTOR	ieee802_1x_defs.h	847;"	d
 P2P_ALLOW_CROSS_CONNECTION	ap_config.h	568;"	d
@@ -1222,6 +1224,7 @@ PRINTF_FORMAT	com.h	124;"	d
 PSK_RADIUS_ACCEPTED	ap_config.h	/^		PSK_RADIUS_ACCEPTED = 1,$/;"	e	enum:Wpa_psk_radius
 PSK_RADIUS_IGNORED	ap_config.h	/^		PSK_RADIUS_IGNORED = 0,$/;"	e	enum:Wpa_psk_radius
 PSK_RADIUS_REQUIRED	ap_config.h	/^		PSK_RADIUS_REQUIRED = 2$/;"	e	enum:Wpa_psk_radius
+PUSH_PORT	main.c	34;"	d	file:
 ParseFailed	ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	e	enum:__anon3
 ParseOK	ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	e	enum:__anon3
 ParseRes	ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	t	typeref:enum:__anon3
@@ -1264,9 +1267,9 @@ STA_DEAUTH	sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE
 STA_DISASSOC	sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:Timeout_next
 STA_DISASSOC_FROM_CLI	sta_info.h	/^		STA_DISASSOC_FROM_CLI$/;"	e	enum:Timeout_next
 STA_HASH	com.h	27;"	d
-STA_HASH	hostapd.h	267;"	d
+STA_HASH	hostapd.h	258;"	d
 STA_HASH_SIZE	com.h	26;"	d
-STA_HASH_SIZE	hostapd.h	266;"	d
+STA_HASH_SIZE	hostapd.h	257;"	d
 STA_INFO_H	sta_info.h	10;"	d
 STA_NULLFUNC	sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:Timeout_next
 STA_REMOVE	sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:Timeout_next
@@ -1800,66 +1803,66 @@ WPA_CIPHER_SMS4	ieee802_1x_defs.h	79;"	d
 WPA_CIPHER_TKIP	ieee802_1x_defs.h	75;"	d
 WPA_CIPHER_WEP104	ieee802_1x_defs.h	74;"	d
 WPA_CIPHER_WEP40	ieee802_1x_defs.h	73;"	d
-WPA_DRIVER_AUTH_LEAP	driver_nl80211.h	407;"	d
-WPA_DRIVER_AUTH_OPEN	driver_nl80211.h	405;"	d
-WPA_DRIVER_AUTH_SHARED	driver_nl80211.h	406;"	d
-WPA_DRIVER_CAPA_ENC_BIP	driver_nl80211.h	398;"	d
-WPA_DRIVER_CAPA_ENC_BIP_CMAC_256	driver_nl80211.h	401;"	d
-WPA_DRIVER_CAPA_ENC_BIP_GMAC_128	driver_nl80211.h	399;"	d
-WPA_DRIVER_CAPA_ENC_BIP_GMAC_256	driver_nl80211.h	400;"	d
-WPA_DRIVER_CAPA_ENC_CCMP	driver_nl80211.h	393;"	d
-WPA_DRIVER_CAPA_ENC_CCMP_256	driver_nl80211.h	397;"	d
-WPA_DRIVER_CAPA_ENC_GCMP	driver_nl80211.h	395;"	d
-WPA_DRIVER_CAPA_ENC_GCMP_256	driver_nl80211.h	396;"	d
-WPA_DRIVER_CAPA_ENC_GTK_NOT_USED	driver_nl80211.h	402;"	d
-WPA_DRIVER_CAPA_ENC_TKIP	driver_nl80211.h	392;"	d
-WPA_DRIVER_CAPA_ENC_WEP104	driver_nl80211.h	391;"	d
-WPA_DRIVER_CAPA_ENC_WEP128	driver_nl80211.h	394;"	d
-WPA_DRIVER_CAPA_ENC_WEP40	driver_nl80211.h	390;"	d
-WPA_DRIVER_CAPA_KEY_MGMT_FT	driver_nl80211.h	385;"	d
-WPA_DRIVER_CAPA_KEY_MGMT_FT_PSK	driver_nl80211.h	386;"	d
-WPA_DRIVER_CAPA_KEY_MGMT_WAPI_PSK	driver_nl80211.h	387;"	d
-WPA_DRIVER_CAPA_KEY_MGMT_WPA	driver_nl80211.h	380;"	d
-WPA_DRIVER_CAPA_KEY_MGMT_WPA2	driver_nl80211.h	381;"	d
-WPA_DRIVER_CAPA_KEY_MGMT_WPA2_PSK	driver_nl80211.h	383;"	d
-WPA_DRIVER_CAPA_KEY_MGMT_WPA_NONE	driver_nl80211.h	384;"	d
-WPA_DRIVER_CAPA_KEY_MGMT_WPA_PSK	driver_nl80211.h	382;"	d
-WPA_DRIVER_FLAGS_4WAY_HANDSHAKE	driver_nl80211.h	418;"	d
-WPA_DRIVER_FLAGS_AP	driver_nl80211.h	424;"	d
-WPA_DRIVER_FLAGS_AP_CSA	driver_nl80211.h	485;"	d
-WPA_DRIVER_FLAGS_AP_MLME	driver_nl80211.h	471;"	d
-WPA_DRIVER_FLAGS_AP_TEARDOWN_SUPPORT	driver_nl80211.h	439;"	d
-WPA_DRIVER_FLAGS_AP_UAPSD	driver_nl80211.h	467;"	d
-WPA_DRIVER_FLAGS_BSS_SELECTION	driver_nl80211.h	459;"	d
-WPA_DRIVER_FLAGS_DEAUTH_TX_STATUS	driver_nl80211.h	457;"	d
-WPA_DRIVER_FLAGS_DEDICATED_P2P_DEVICE	driver_nl80211.h	481;"	d
-WPA_DRIVER_FLAGS_DFS_OFFLOAD	driver_nl80211.h	415;"	d
-WPA_DRIVER_FLAGS_DRIVER_IE	driver_nl80211.h	411;"	d
-WPA_DRIVER_FLAGS_EAPOL_TX_STATUS	driver_nl80211.h	455;"	d
-WPA_DRIVER_FLAGS_HT_2040_COEX	driver_nl80211.h	428;"	d
-WPA_DRIVER_FLAGS_IBSS	driver_nl80211.h	477;"	d
-WPA_DRIVER_FLAGS_INACTIVITY_TIMER	driver_nl80211.h	469;"	d
-WPA_DRIVER_FLAGS_OBSS_SCAN	driver_nl80211.h	475;"	d
-WPA_DRIVER_FLAGS_OFFCHANNEL_TX	driver_nl80211.h	453;"	d
-WPA_DRIVER_FLAGS_P2P_CAPABLE	driver_nl80211.h	437;"	d
-WPA_DRIVER_FLAGS_P2P_CONCURRENT	driver_nl80211.h	430;"	d
-WPA_DRIVER_FLAGS_P2P_DEDICATED_INTERFACE	driver_nl80211.h	435;"	d
-WPA_DRIVER_FLAGS_P2P_MGMT_AND_NON_P2P	driver_nl80211.h	445;"	d
-WPA_DRIVER_FLAGS_PROBE_RESP_OFFLOAD	driver_nl80211.h	465;"	d
-WPA_DRIVER_FLAGS_QOS_MAPPING	driver_nl80211.h	483;"	d
-WPA_DRIVER_FLAGS_RADAR	driver_nl80211.h	479;"	d
-WPA_DRIVER_FLAGS_SAE	driver_nl80211.h	473;"	d
-WPA_DRIVER_FLAGS_SANE_ERROR_CODES	driver_nl80211.h	451;"	d
-WPA_DRIVER_FLAGS_SET_KEYS_AFTER_ASSOC	driver_nl80211.h	413;"	d
-WPA_DRIVER_FLAGS_SET_KEYS_AFTER_ASSOC_DONE	driver_nl80211.h	426;"	d
-WPA_DRIVER_FLAGS_SME	driver_nl80211.h	422;"	d
-WPA_DRIVER_FLAGS_TDLS_EXTERNAL_SETUP	driver_nl80211.h	463;"	d
-WPA_DRIVER_FLAGS_TDLS_SUPPORT	driver_nl80211.h	461;"	d
-WPA_DRIVER_FLAGS_WIRED	driver_nl80211.h	419;"	d
-WPA_DRIVER_PROBE_RESP_OFFLOAD_INTERWORKING	driver_nl80211.h	515;"	d
-WPA_DRIVER_PROBE_RESP_OFFLOAD_P2P	driver_nl80211.h	513;"	d
-WPA_DRIVER_PROBE_RESP_OFFLOAD_WPS	driver_nl80211.h	509;"	d
-WPA_DRIVER_PROBE_RESP_OFFLOAD_WPS2	driver_nl80211.h	511;"	d
+WPA_DRIVER_AUTH_LEAP	driver_nl80211.h	398;"	d
+WPA_DRIVER_AUTH_OPEN	driver_nl80211.h	396;"	d
+WPA_DRIVER_AUTH_SHARED	driver_nl80211.h	397;"	d
+WPA_DRIVER_CAPA_ENC_BIP	driver_nl80211.h	389;"	d
+WPA_DRIVER_CAPA_ENC_BIP_CMAC_256	driver_nl80211.h	392;"	d
+WPA_DRIVER_CAPA_ENC_BIP_GMAC_128	driver_nl80211.h	390;"	d
+WPA_DRIVER_CAPA_ENC_BIP_GMAC_256	driver_nl80211.h	391;"	d
+WPA_DRIVER_CAPA_ENC_CCMP	driver_nl80211.h	384;"	d
+WPA_DRIVER_CAPA_ENC_CCMP_256	driver_nl80211.h	388;"	d
+WPA_DRIVER_CAPA_ENC_GCMP	driver_nl80211.h	386;"	d
+WPA_DRIVER_CAPA_ENC_GCMP_256	driver_nl80211.h	387;"	d
+WPA_DRIVER_CAPA_ENC_GTK_NOT_USED	driver_nl80211.h	393;"	d
+WPA_DRIVER_CAPA_ENC_TKIP	driver_nl80211.h	383;"	d
+WPA_DRIVER_CAPA_ENC_WEP104	driver_nl80211.h	382;"	d
+WPA_DRIVER_CAPA_ENC_WEP128	driver_nl80211.h	385;"	d
+WPA_DRIVER_CAPA_ENC_WEP40	driver_nl80211.h	381;"	d
+WPA_DRIVER_CAPA_KEY_MGMT_FT	driver_nl80211.h	376;"	d
+WPA_DRIVER_CAPA_KEY_MGMT_FT_PSK	driver_nl80211.h	377;"	d
+WPA_DRIVER_CAPA_KEY_MGMT_WAPI_PSK	driver_nl80211.h	378;"	d
+WPA_DRIVER_CAPA_KEY_MGMT_WPA	driver_nl80211.h	371;"	d
+WPA_DRIVER_CAPA_KEY_MGMT_WPA2	driver_nl80211.h	372;"	d
+WPA_DRIVER_CAPA_KEY_MGMT_WPA2_PSK	driver_nl80211.h	374;"	d
+WPA_DRIVER_CAPA_KEY_MGMT_WPA_NONE	driver_nl80211.h	375;"	d
+WPA_DRIVER_CAPA_KEY_MGMT_WPA_PSK	driver_nl80211.h	373;"	d
+WPA_DRIVER_FLAGS_4WAY_HANDSHAKE	driver_nl80211.h	409;"	d
+WPA_DRIVER_FLAGS_AP	driver_nl80211.h	415;"	d
+WPA_DRIVER_FLAGS_AP_CSA	driver_nl80211.h	476;"	d
+WPA_DRIVER_FLAGS_AP_MLME	driver_nl80211.h	462;"	d
+WPA_DRIVER_FLAGS_AP_TEARDOWN_SUPPORT	driver_nl80211.h	430;"	d
+WPA_DRIVER_FLAGS_AP_UAPSD	driver_nl80211.h	458;"	d
+WPA_DRIVER_FLAGS_BSS_SELECTION	driver_nl80211.h	450;"	d
+WPA_DRIVER_FLAGS_DEAUTH_TX_STATUS	driver_nl80211.h	448;"	d
+WPA_DRIVER_FLAGS_DEDICATED_P2P_DEVICE	driver_nl80211.h	472;"	d
+WPA_DRIVER_FLAGS_DFS_OFFLOAD	driver_nl80211.h	406;"	d
+WPA_DRIVER_FLAGS_DRIVER_IE	driver_nl80211.h	402;"	d
+WPA_DRIVER_FLAGS_EAPOL_TX_STATUS	driver_nl80211.h	446;"	d
+WPA_DRIVER_FLAGS_HT_2040_COEX	driver_nl80211.h	419;"	d
+WPA_DRIVER_FLAGS_IBSS	driver_nl80211.h	468;"	d
+WPA_DRIVER_FLAGS_INACTIVITY_TIMER	driver_nl80211.h	460;"	d
+WPA_DRIVER_FLAGS_OBSS_SCAN	driver_nl80211.h	466;"	d
+WPA_DRIVER_FLAGS_OFFCHANNEL_TX	driver_nl80211.h	444;"	d
+WPA_DRIVER_FLAGS_P2P_CAPABLE	driver_nl80211.h	428;"	d
+WPA_DRIVER_FLAGS_P2P_CONCURRENT	driver_nl80211.h	421;"	d
+WPA_DRIVER_FLAGS_P2P_DEDICATED_INTERFACE	driver_nl80211.h	426;"	d
+WPA_DRIVER_FLAGS_P2P_MGMT_AND_NON_P2P	driver_nl80211.h	436;"	d
+WPA_DRIVER_FLAGS_PROBE_RESP_OFFLOAD	driver_nl80211.h	456;"	d
+WPA_DRIVER_FLAGS_QOS_MAPPING	driver_nl80211.h	474;"	d
+WPA_DRIVER_FLAGS_RADAR	driver_nl80211.h	470;"	d
+WPA_DRIVER_FLAGS_SAE	driver_nl80211.h	464;"	d
+WPA_DRIVER_FLAGS_SANE_ERROR_CODES	driver_nl80211.h	442;"	d
+WPA_DRIVER_FLAGS_SET_KEYS_AFTER_ASSOC	driver_nl80211.h	404;"	d
+WPA_DRIVER_FLAGS_SET_KEYS_AFTER_ASSOC_DONE	driver_nl80211.h	417;"	d
+WPA_DRIVER_FLAGS_SME	driver_nl80211.h	413;"	d
+WPA_DRIVER_FLAGS_TDLS_EXTERNAL_SETUP	driver_nl80211.h	454;"	d
+WPA_DRIVER_FLAGS_TDLS_SUPPORT	driver_nl80211.h	452;"	d
+WPA_DRIVER_FLAGS_WIRED	driver_nl80211.h	410;"	d
+WPA_DRIVER_PROBE_RESP_OFFLOAD_INTERWORKING	driver_nl80211.h	506;"	d
+WPA_DRIVER_PROBE_RESP_OFFLOAD_P2P	driver_nl80211.h	504;"	d
+WPA_DRIVER_PROBE_RESP_OFFLOAD_WPS	driver_nl80211.h	500;"	d
+WPA_DRIVER_PROBE_RESP_OFFLOAD_WPS2	driver_nl80211.h	502;"	d
 WPA_GET_BE24	ieee802_1x_defs.h	/^static inline u32 WPA_GET_BE24(const u8 *a)$/;"	f
 WPA_IE_VENDOR_TYPE	ieee802_1x_defs.h	1009;"	d
 WPA_KEY_MGMT_CCKM	ieee802_1x_defs.h	101;"	d
@@ -2348,8 +2351,7 @@ gas_dialog_next	sta_info.h	/^	u8 gas_dialog_next;$/;"	m	struct:sta_info
 gas_frag_limit	ap_config.h	/^	int gas_frag_limit;$/;"	m	struct:hostapd_bss_config
 gas_frag_limit	hostapd.h	/^	size_t gas_frag_limit;$/;"	m	struct:hostapd_data
 generate_assoc_resp	beacon.c	/^u8 * generate_assoc_resp(struct hostapd_data *hapd, struct sta_info *sta,u8 *vbssid,$/;"	f
-generate_beacon	hostapd.c	/^char* generate_beacon(struct hostapd_data *_hapd,u8 *da,u8 *bssid,$/;"	f
-get_capa	driver_nl80211.h	/^	int (*get_capa)(void *priv, struct wpa_driver_capa *capa);	$/;"	m	struct:wpa_driver_ops
+get_capa	driver_nl80211.h	/^	int (*get_capa)(void *priv, struct wpa_driver_capa *capa);$/;"	m	struct:wpa_driver_ops
 get_hw_feature_data	driver_nl80211.h	/^	struct hostapd_hw_modes * (*get_hw_feature_data)(void *priv,$/;"	m	struct:wpa_driver_ops	typeref:struct:wpa_driver_ops::get_hw_feature_data
 get_nl80211_protocol_features	driver_nl80211.h	/^static u32 get_nl80211_protocol_features(struct wpa_driver_nl80211_data *drv)$/;"	f
 get_radio_name	driver_nl80211.h	/^	const char * (*get_radio_name)(void *priv);$/;"	m	struct:wpa_driver_ops
@@ -2365,7 +2367,6 @@ group_cipher	driver_nl80211.h	/^	unsigned int group_cipher;$/;"	m	struct:wpa_dri
 group_mgmt_cipher	ap_config.h	/^	int group_mgmt_cipher;$/;"	m	struct:hostapd_bss_config
 gtk_rekey_failure	nl80211_copy.h	/^	__u8 gtk_rekey_failure;$/;"	m	struct:wowlan_triggers
 handle_auth	hostapd.c	/^void handle_auth(struct hostapd_data *hapd,const u8 *addr,int auth_alg)$/;"	f
-handle_probe_req	hostapd.c	/^void handle_probe_req(struct hostapd_data *hapd,u8 *resp,int resp_len){$/;"	f
 hapd_init	driver_nl80211.h	/^	void * (*hapd_init)(struct hostapd_data *hapd,$/;"	m	struct:wpa_driver_ops
 hapd_interfaces	hostapd.h	/^struct hapd_interfaces {$/;"	s
 has_capability	driver_nl80211.h	/^	int has_capability;$/;"	m	struct:wpa_driver_nl80211_data
@@ -2410,7 +2411,7 @@ hostapd_config_vht_capab	config_file.c	/^static int hostapd_config_vht_capab(str
 hostapd_config_wmm_ac	ap_config.h	/^static int hostapd_config_wmm_ac(struct hostapd_wmm_ac_params wmm_ac_params[],$/;"	f
 hostapd_data	hostapd.h	/^struct hostapd_data{$/;"	s
 hostapd_driver_init	hostapd.c	/^int hostapd_driver_init(struct hostapd_iface *iface,nl_recv_callback odin_process_bss_event)$/;"	f
-hostapd_drv_get_radio_name	hostapd.c	/^const char *hostapd_drv_get_radio_name(struct hostapd_data *hapd)$/;"	f
+hostapd_drv_get_radio_name	hostapd.c	/^const char * hostapd_drv_get_radio_name(struct hostapd_data *hapd)$/;"	f
 hostapd_drv_send_mlme	hostapd.c	/^int hostapd_drv_send_mlme(struct hostapd_data *hapd,$/;"	f
 hostapd_drv_sta_remove	hostapd.c	/^int hostapd_drv_sta_remove(struct hostapd_data *hapd,$/;"	f
 hostapd_eid_bss_max_idle_period	beacon.c	/^u8 * hostapd_eid_bss_max_idle_period(struct hostapd_data *hapd, u8 *eid)$/;"	f
@@ -2462,7 +2463,7 @@ hostapd_set_freq_params	hw_features.c	/^int hostapd_set_freq_params(struct hosta
 hostapd_set_security_params	config_file.c	/^void hostapd_set_security_params(struct hostapd_bss_config *bss,$/;"	f
 hostapd_set_sta_flags	hostapd.c	/^int hostapd_set_sta_flags(struct hostapd_data *hapd, struct sta_info *sta)$/;"	f
 hostapd_setup_interface	hostapd.c	/^int hostapd_setup_interface(struct hostapd_iface *iface){$/;"	f
-hostapd_setup_interface_complete	hostapd.c	/^int hostapd_setup_interface_complete(struct hostapd_iface *iface, int err)$/;"	f
+hostapd_setup_interface_complete	hw_features.c	/^int hostapd_setup_interface_complete(struct hostapd_iface *iface, int err)$/;"	f
 hostapd_ssid	ap_config.h	/^struct hostapd_ssid {$/;"	s
 hostapd_sta_add	hostapd.c	/^int hostapd_sta_add(struct hostapd_data *hapd,$/;"	f
 hostapd_sta_add_params	driver_nl80211.h	/^struct hostapd_sta_add_params {$/;"	s
@@ -2591,6 +2592,7 @@ in_interface_list	driver_nl80211.h	/^	unsigned int in_interface_list:1;$/;"	m	st
 inactivity_interval	ieee802_1x_defs.h	/^	le32 inactivity_interval;$/;"	m	struct:wmm_tspec_element
 index	ap_config.h	/^	int index;$/;"	m	struct:hostapd_radius_server
 individual_wep_key_len	ap_config.h	/^	int individual_wep_key_len;$/;"	m	struct:hostapd_bss_config
+init_hostapd_interface	main.c	/^init_hostapd_interface(struct hapd_interfaces *interfaces)$/;"	f	file:
 interface_added	hostapd.h	/^	int interface_added; \/* virtual interface added for this BSS *\/$/;"	m	struct:hostapd_data
 interfaces	driver_nl80211.h	/^	struct dl_list interfaces;$/;"	m	struct:nl80211_global	typeref:struct:nl80211_global::dl_list
 interfaces	hostapd.h	/^	struct hapd_interfaces *interfaces;$/;"	m	struct:hostapd_iface	typeref:struct:hostapd_iface::hapd_interfaces
@@ -2840,7 +2842,7 @@ nl_create_handle	driver_nl80211.h	/^static struct nl_handle * nl_create_handle(s
 nl_destroy_handles	driver_nl80211.h	/^static void nl_destroy_handles(struct nl_handle **handle)$/;"	f
 nl_event	driver_nl80211.h	/^	struct nl_handle *nl_event;$/;"	m	struct:nl80211_global	typeref:struct:nl80211_global::nl_handle
 nl_get_multicast_id	driver_nl80211.h	/^static int nl_get_multicast_id(struct nl80211_global *global,$/;"	f
-nl_handle	driver_nl80211.h	34;"	d
+nl_handle	driver_nl80211.h	25;"	d
 nl_mgmt	driver_nl80211.h	/^	struct nl_handle *nl_preq, *nl_mgmt;$/;"	m	struct:i802_bss	typeref:struct:i802_bss::
 nl_preq	driver_nl80211.h	/^	struct nl_handle *nl_preq, *nl_mgmt;$/;"	m	struct:i802_bss	typeref:struct:i802_bss::nl_handle
 nl_recv_callback	com.h	/^typedef int (*nl_recv_callback)(struct nl_msg *msg, void *arg);\/\/netlink receive callback function$/;"	t
@@ -2888,9 +2890,6 @@ obj	hostapd.h	/^	struct ubus_object obj;$/;"	m	struct:hostapd_ubus_bss	typeref:s
 obj	hostapd.h	/^	struct ubus_object obj;$/;"	m	struct:hostapd_ubus_iface	typeref:struct:hostapd_ubus_iface::ubus_object
 obss_interval	ap_config.h	/^	int obss_interval;$/;"	m	struct:hostapd_config
 ocsp_stapling_response	ap_config.h	/^	char *ocsp_stapling_response;$/;"	m	struct:hostapd_bss_config
-odin_mlme_event	main.c	/^void odin_mlme_event(struct i802_bss *bss,$/;"	f
-odin_mlme_event_mgmt	main.c	/^void odin_mlme_event_mgmt(struct i802_bss *bss,$/;"	f
-odin_process_bss_event	main.c	/^int odin_process_bss_event(struct nl_msg *msg, void *arg)$/;"	f
 offset	nl80211_copy.h	/^	__u32 offset, len;$/;"	m	struct:nl80211_wowlan_tcp_data_token
 offset	nl80211_copy.h	/^	__u32 start, offset, len;$/;"	m	struct:nl80211_wowlan_tcp_data_seq
 okc	ap_config.h	/^	int okc; \/* Opportunistic Key Caching *\/$/;"	m	struct:hostapd_bss_config
@@ -3141,9 +3140,9 @@ send_action_cookie	driver_nl80211.h	/^	u64 send_action_cookie;$/;"	m	struct:wpa_
 send_and_recv	driver_nl80211.h	/^static int send_and_recv(struct nl80211_global *global,$/;"	f
 send_and_recv_msgs	driver_nl80211.h	/^static int send_and_recv_msgs(struct wpa_driver_nl80211_data *drv,$/;"	f
 send_and_recv_msgs_global	driver_nl80211.h	/^static int send_and_recv_msgs_global(struct nl80211_global *global,$/;"	f
-send_assoc_resp	hostapd.c	/^void  send_assoc_resp(struct hostapd_data *hapd,u8 *assoc_resp, int len){$/;"	f
-send_auth_reply	hostapd.c	/^void send_auth_reply(struct hostapd_data *hapd,u8 *reply ,int len){$/;"	f
-send_beacon	main.c	/^send_beacon(struct hostapd_data *hapd) {$/;"	f
+send_assoc_resp	hostapd_mgmt.c	/^static void send_assoc_resp(struct hostapd_data *hapd, struct sta_info *sta, u16 status_code, int reassoc, u8 *vbssid)$/;"	f	file:
+send_auth_reply	hostapd_mgmt.c	/^send_auth_reply(struct hostapd_data *hapd,$/;"	f	file:
+send_beacon	main.c	/^send_beacon(evutil_socket_t fd, short what, void *arg)$/;"	f	file:
 send_mlme	driver_nl80211.h	/^	int (*send_mlme)(void *priv, const u8 *data, size_t data_len,$/;"	m	struct:wpa_driver_ops
 send_probe_response	ap_config.h	/^	u8 send_probe_response;$/;"	m	struct:hostapd_config
 seq_ctrl	ieee802_1x_defs.h	/^	le16 seq_ctrl;$/;"	m	struct:ieee80211_hdr
@@ -3196,7 +3195,7 @@ sta_hash	hostapd.h	/^	struct sta_info *sta_hash[STA_HASH_SIZE];$/;"	m	struct:hos
 sta_info	sta_info.h	/^struct sta_info {$/;"	s
 sta_info_convert_to_json	hostapd.c	/^json_object * sta_info_convert_to_json(struct hostapd_data *hapd,const u8 *addr)$/;"	f
 sta_list	hostapd.h	/^	struct sta_info *sta_list; \/* STA info list head *\/$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::sta_info
-sta_remove	driver_nl80211.h	/^	int (*sta_remove)(void *priv, const u8 *addr);	$/;"	m	struct:wpa_driver_ops
+sta_remove	driver_nl80211.h	/^	int (*sta_remove)(void *priv, const u8 *addr);$/;"	m	struct:wpa_driver_ops
 sta_set_flags	driver_nl80211.h	/^	int (*sta_set_flags)(void *priv, const u8 *addr,$/;"	m	struct:wpa_driver_ops
 start	nl80211_copy.h	/^	__u32 start, offset, len;$/;"	m	struct:nl80211_wowlan_tcp_data_seq
 start_disabled	ap_config.h	/^	int start_disabled;$/;"	m	struct:hostapd_bss_config
@@ -3378,6 +3377,14 @@ wep	ap_config.h	/^	struct hostapd_wep_keys wep;$/;"	m	struct:hostapd_ssid	typere
 wep_rekeying_period	ap_config.h	/^	int wep_rekeying_period;$/;"	m	struct:hostapd_bss_config
 wfd	ieee802_1x_defs.h	/^	const u8 *wfd;$/;"	m	struct:ieee802_11_elems
 wfd_len	ieee802_1x_defs.h	/^	u8 wfd_len;$/;"	m	struct:ieee802_11_elems
+wi_handle_assoc	hostapd_mgmt.c	/^static void wi_handle_assoc(struct hostapd_data *hapd,$/;"	f	file:
+wi_handle_auth	hostapd_mgmt.c	/^static void wi_handle_auth(struct hostapd_data *hapd,$/;"	f	file:
+wi_handle_beacon	hostapd_mgmt.c	/^int wi_handle_beacon(struct hostapd_data *_hapd,u8 *da,u8 *bssid,$/;"	f
+wi_handle_probe_req	hostapd_mgmt.c	/^int wi_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,$/;"	f
+wi_mgmt_frame_cb	main.c	/^wi_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)$/;"	f	file:
+wi_mlme_event	hostapd_mgmt.c	/^wi_mlme_event(struct hostapd_data *hapd, enum nl80211_commands cmd, $/;"	f	file:
+wi_mlme_event_mgmt	hostapd_mgmt.c	/^wi_mlme_event_mgmt(struct hostapd_data *hapd, $/;"	f	file:
+wi_process_bss_event	hostapd_mgmt.c	/^wi_process_bss_event(struct nl_msg *msg, void *arg)$/;"	f
 width	ap_config.h	/^		u16 width;$/;"	m	struct:hostapd_bss_config::hs20_icon
 width_trigger_scan_interval	ieee802_1x_defs.h	/^	le16 width_trigger_scan_interval;$/;"	m	struct:ieee80211_obss_scan_parameters
 wifi_display_subelem	ieee802_1x_defs.h	/^enum wifi_display_subelem {$/;"	g
