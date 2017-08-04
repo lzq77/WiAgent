@@ -5,8 +5,8 @@
  * This software may be distributed under the terms of the BSD license.
  * See README for more details.
  */
-#ifndef COM_H
-#define COM_H
+#ifndef COMMON_H
+#define COMMON_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

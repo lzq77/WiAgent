@@ -15,8 +15,9 @@
 #include <netlink/attr.h>
 #include "nl80211_copy.h"
 #include "beacon.h"
-#include "wi_bssid_mask.h"
 #include "hostapd_mgmt.h"
+#include "wi_vap.h"
+#include "../agent/push.h"
 
 int wi_handle_beacon(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
 					const char *ssid,int ssid_len)
@@ -66,11 +67,12 @@ int wi_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
 	struct wpa_driver_ap_params params;
 	int beacon_len = 0;
 
-    u8 hw_addr[6] = {0xc4, 0x04, 0x15, 0x9c, 0xf6, 0xe3};
+    struct vap_data *vap = wi_get_vap(da);
+    if (vap == NULL) {
+        wi_probe(da, ssid);
+        return -1;
+    }
 
-    char *debugfs_file = "/sys/kernel/debug/ieee80211/phy0/ath9k/bssid_extra";
-    set_bssid_mask(debugfs_file, hw_addr, bssid);
-    
     /**
      * Generating probe response frame.
      */
@@ -137,7 +139,6 @@ send_auth_reply(struct hostapd_data *hapd,
 static void wi_handle_auth(struct hostapd_data *hapd,
 			const struct ieee80211_mgmt *mgmt)
 {
-	wpa_printf(MSG_INFO, "wi_handle_auth.\n");
 	u16 auth_alg, auth_transaction, status_code;
 	u16 resp = WLAN_STATUS_SUCCESS;
 	struct sta_info *sta = NULL;
@@ -233,7 +234,6 @@ static void wi_handle_assoc(struct hostapd_data *hapd,
 			 const struct ieee80211_mgmt *mgmt, size_t len,
 			 int reassoc, u8 *vbssid)
 {
-	wpa_printf(MSG_INFO, "wi_handle_assoc. len = %d\n", len);
 	u16 capab_info, listen_interval;
 	u16 resp = WLAN_STATUS_SUCCESS;
 	const u8 *pos;
@@ -360,6 +360,8 @@ static void wi_handle_assoc(struct hostapd_data *hapd,
 
     hostapd_handle_assoc_cb(hapd, mgmt->sa);//通知内核添加sta_info
 
+    wi_station(hapd, mgmt->sa);
+
     return;
 
 fail:
@@ -380,11 +382,8 @@ wi_mlme_event_mgmt(struct i802_bss *bss,
    u16 fc, stype;
    int ssi_signal = 0;
    int rx_freq = 0;
-   
-    char bssid[6] = {0x00, 0x1b, 0xb3, 0x8b, 0x88, 0xa3};
-    char *ssid = "wimaster";
-    int ssid_len = strlen(ssid);
 
+   char *ssid = "wimaster";
 
    mgmt = (const struct ieee80211_mgmt *) frame;
    if (len < 24) {
@@ -408,8 +407,8 @@ wi_mlme_event_mgmt(struct i802_bss *bss,
 
    switch (stype) {
         case WLAN_FC_STYPE_PROBE_REQ:
-            wi_handle_probe_req(hapd, mgmt->sa, bssid,
-                    ssid, ssid_len);
+            wi_handle_probe_req(hapd, mgmt->sa, mgmt->bssid,
+                    ssid, strlen(ssid));
             break;
         case WLAN_FC_STYPE_AUTH:
             wi_handle_auth(hapd, mgmt);
@@ -491,6 +490,22 @@ int wi_process_bss_event(struct nl_msg *msg, void *arg)
 		break;
 	}
 	return NL_SKIP;	
+}
+
+static int vap_send_beacon_cb(struct vap_data *vap, void *ctx)
+{
+    struct hostapd_data *hapd = (struct hostapd_data *)ctx;
+
+    wi_handle_beacon(hapd, vap->addr, vap->bssid, vap->ssid, strlen(vap->ssid)-2);    
+}
+
+void wi_send_beacon(evutil_socket_t fd, short what, void *arg)
+{
+    struct hostapd_data *hapd = (struct hostapd_data *)arg;
+    
+    wi_for_each_vap(vap_send_beacon_cb, hapd);
+
+    return;
 }
 
 

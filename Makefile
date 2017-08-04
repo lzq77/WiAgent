@@ -20,6 +20,7 @@ define Package/wimaster
 endef
 
 TARGET_CPPFLAGS:= \
+	-I$(STAGING_DIR)/usr/include/json-c \
 	-I$(STAGING_DIR)/usr/include/libnl-tiny \
 	$(TARGET_CPPFLAGS) \
 	-DCONFIG_LIBNL20 \

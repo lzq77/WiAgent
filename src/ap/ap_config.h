@@ -9,7 +9,7 @@
 #ifndef HOSTAPD_CONFIG_HH
 #define HOSTAPD_CONFIG_HH
 
-#include "com.h"
+#include "../utils/common.h"
 #include "ieee802_1x_defs.h"
 
 #define MAX_STA_COUNT 2007

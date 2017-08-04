@@ -15,7 +15,7 @@
 #ifndef IEEE802_11_DEFS_H
 #define IEEE802_11_DEFS_H
 
-#include "com.h"
+#include "../utils/common.h"
 
 
 /* hostapd control interface - fixed message prefixes */

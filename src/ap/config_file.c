@@ -15,10 +15,6 @@
 #include "driver_nl80211.h"
 #include "sta_info.h"
 
-
-#define MSG_ERROR stderr
-#define wpa_printf fprintf
-
 #ifndef CONFIG_NO_RADIUS
 #ifdef EAP_SERVER
 //static struct hostapd_radius_attr *

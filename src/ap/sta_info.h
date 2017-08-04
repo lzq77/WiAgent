@@ -9,6 +9,8 @@
 #ifndef STA_INFO_H
 #define STA_INFO_H
 
+#include "../utils/common.h"
+
 /* STA flags */
 #define WLAN_STA_AUTH BIT(0)
 #define WLAN_STA_ASSOC BIT(1)

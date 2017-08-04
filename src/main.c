@@ -17,14 +17,13 @@
 #include <netlink/genl/ctrl.h>
 #include <netlink/msg.h>
 #include <netlink/attr.h>
-#include "nl80211_copy.h"
-#include "beacon.h"
 
-#include "hostapd_mgmt.h"
+#include "ap/nl80211_copy.h"
+#include "ap/beacon.h"
+#include "ap/hostapd_mgmt.h"
+#include "agent/handler.h"
+#include "agent/push.h"
 
-
-#include "controller_event.h"
-#include "controller_push.h"
 #include <event2/bufferevent.h>
 #include <event2/buffer.h>
 #include <event2/listener.h>
@@ -46,20 +45,6 @@ wi_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)
         fprintf(stderr, "nl80211: %s->nl_recvmsgs failed: %d\n",
             __func__, res);
     }	
-}
-
-static void
-send_beacon(evutil_socket_t fd, short what, void *arg)
-{
-    struct hostapd_data *hapd = (struct hostapd_data *)arg;
-
-    char da[6] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
-    char bssid[6] = {0x00, 0x1b, 0xb3, 0x8b, 0x88, 0xa3};
-    char *ssid = "wimaster";
-    int ssid_len = strlen(ssid);
-    wi_handle_beacon(hapd, da, bssid, ssid, strlen(ssid));
-
-    return;
 }
 
 static int
@@ -90,7 +75,7 @@ init_hostapd_interface(struct hapd_interfaces *interfaces)
     if (interfaces->iface[0] == NULL || interfaces->iface[0]->bss[0] == NULL) {
 		//nl80211 driver驱动不可用,可能出现空指针，未赋值
 		//wpa_printf(MSG_ERROR, "No hostapd driver wrapper available");
-		fprintf(stderr, "read config failed.\n");
+		wpa_printf(MSG_ERROR, "read config failed.\n");
 		goto out;
     }
 
@@ -105,6 +90,7 @@ init_hostapd_interface(struct hapd_interfaces *interfaces)
 
 out:
 	os_free(interfaces->iface);
+    wpa_printf(MSG_ERROR, "Hostapd interface initialize failed.\n")
     return -1;
 }
 
@@ -217,14 +203,16 @@ int main(int argc, char **argv)
     frame_sock = nl_socket_get_fd(bss->nl_mgmt);
     frame_sock_flags = fcntl(frame_sock, F_GETFL, 0); //获取文件的flags值。
     fcntl(frame_sock, F_SETFL, frame_sock_flags | O_NONBLOCK);   //设置成非阻塞模式；
-
     
     ev_frame = event_new(base, frame_sock, EV_READ | EV_PERSIST,
             wi_mgmt_frame_cb, hapd);
     event_add(ev_frame, NULL);
 
+    /**
+     * Creating a new event which broadcast beacon frames every 200ms.
+     */
     ev_beacon = event_new(base, -1, EV_TIMEOUT | EV_PERSIST, 
-            send_beacon, hapd);
+            wi_send_beacon, hapd);
 	tv_beacon.tv_sec = 0;
     tv_beacon.tv_usec = 200 * 1000;
 	event_add(ev_beacon, &tv_beacon);

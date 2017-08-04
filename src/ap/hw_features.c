@@ -1,5 +1,5 @@
 
-#include "com.h"
+#include "../utils/common.h"
 #include "hw_features.h"
 #include "driver_nl80211.h"
 

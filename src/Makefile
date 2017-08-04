@@ -9,19 +9,23 @@ MKDIR ?= mkdir -p
 INSTALL ?= install
 CC ?= "gcc"
 
-CFLAGS ?= -O2 -g
+CFLAGS ?= -MMD -O2 -g
 CFLAGS += -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common
-
 
 LIBS += -levent -lnl-tiny -ljson-c
 
-DEPS = ap_config.h beacon.h com.h config_file.h controller_event.h \
-	   controller_push.h driver_nl80211.h hostapd.h hw_features.h \
-	   ieee802_1x_defs.h nl80211_copy.h sta_info.h wpabuf.h hostapd_mgmt.h \
-	   wi_bssid_mask.h
+OBJS += ./main.o
+OBJS += ./utils/common.o
+OBJS += ./agent/handler.o
+OBJS += ./agent/push.o
+OBJS += ./ap/config_file.o
+OBJS += ./ap/hostapd.o
+OBJS += ./ap/beacon.o
+OBJS += ./ap/hw_features.o
+OBJS += ./ap/hostapd_mgmt.o
+OBJS += ./ap/wi_vap.o
 
-OBJS = main.o controller_event.o controller_push.o config_file.o com.o hostapd.o \
-	   beacon.o hw_features.o hostapd_mgmt.o wi_bssid_mask.o
+-include $(OBJS:%.o=%.d)
 
 all: wimaster
 
@@ -31,7 +35,6 @@ all: wimaster
 wimaster: $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS) $(LIBS)
 
-# remove object files and executable when user executes "make clean"
 clean:
 	rm -f *.o wimaster
 

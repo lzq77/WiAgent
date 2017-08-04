@@ -8,7 +8,7 @@
 
 #ifndef CONFIG_FILE_HH
 #define CONFIG_FILE_HH
-#include "com.h"
+#include "../utils/common.h"
 
 struct hostapd_config * hostapd_config_read(const char *fname);
 int hostapd_set_iface(struct hostapd_config *conf,

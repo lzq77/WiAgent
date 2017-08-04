@@ -12,7 +12,7 @@
 #include <libubox/avl.h>
 #include <libubus.h>
 
-#include "com.h"
+#include "../utils/common.h"
 #include "sta_info.h"
 #include "ieee802_1x_defs.h"
 #include "driver_nl80211.h"
