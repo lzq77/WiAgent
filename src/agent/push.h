@@ -3,12 +3,12 @@
 
 #include "../ap/hostapd.h"
 
-void ping_timer(evutil_socket_t fd, short what, void *address);
+void ping_timer(int fd, short what, void *address);
 
 void push_ping(void);
 
-void wi_probe(const u8 *addr, const char *ssid);
+void wimaster_probe(const u8 *addr, const char *ssid);
 
-void wi_station(struct hostapd_data *hapd, const u8 *addr);
+void wimaster_station(struct hostapd_data *hapd, const u8 *addr);
 
 #endif

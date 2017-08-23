@@ -1,5 +1,5 @@
-#ifndef HOSTAPD_MGMT_H
-#define HOSTAPD_MGMT_H
+#ifndef WIMASTER_80211_H
+#define WIMASTER_80211_H
 
 #include "../utils/common.h"
 #include <netlink/genl/genl.h>
@@ -12,14 +12,14 @@
 void hostapd_wpa_event(void *ctx, enum wpa_event_type event,
 		       union wpa_event_data *data);
 
-int wi_handle_beacon(struct hostapd_data *_hapd, u8 *da, u8 *bssid,
+int wimaster_handle_beacon(struct hostapd_data *_hapd, u8 *da, u8 *bssid,
 					const char *ssid, int ssid_len);
 
-int wi_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
+int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
 					const char *ssid,int ssid_len);
 
-int wi_process_bss_event(struct nl_msg *msg, void *arg);
+int wimaster_process_bss_event(struct nl_msg *msg, void *arg);
 
-void wi_send_beacon(evutil_socket_t fd, short what, void *arg);
+void wimaster_send_beacon(evutil_socket_t fd, short what, void *arg);
 
 #endif

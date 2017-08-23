@@ -21,19 +21,19 @@
 #include "ap/hostapd.h"
 #include "drivers/nl80211_copy.h"
 #include "ap/beacon.h"
-#include "ap/hostapd_mgmt.h"
+#include "ap/wimaster_80211.h"
 #include "agent/handler.h"
 #include "agent/push.h"
 #include "drivers/driver.h"
 
 #include "utils/common.h"
-#include "utils/wi_event.h"
+#include "utils/wimaster_event.h"
 
 #define PUSH_PORT 2819
 #define CONTROL_PORT 6777
 
 static void
-wi_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)
+wimaster_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)
 {
     int res;
     struct hostapd_data *hapd = (struct hostapd_data *)arg;
@@ -129,7 +129,7 @@ int main(int argc, char **argv)
     memset(&sin, 0, sizeof(sin));
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(CONTROL_PORT);
-	control_listener = wi_evconnlistener_new_bind(control_listener_cb, NULL,
+	control_listener = wimaster_evconnlistener_new_bind(control_listener_cb, NULL,
 	    LEV_OPT_REUSEABLE|LEV_OPT_CLOSE_ON_FREE, -1,
 	    (struct sockaddr*)&sin, sizeof(sin));
     
@@ -163,11 +163,11 @@ int main(int argc, char **argv)
 	}
     
     //Add push_sock to event.
-    ev_ping = wi_event_new(push_sock, EV_TIMEOUT | EV_PERSIST, 
+    ev_ping = wimaster_event_new(push_sock, EV_TIMEOUT | EV_PERSIST, 
             ping_timer, NULL);
 	two_sec.tv_sec = 2;
     two_sec.tv_usec = 0;
-	wi_event_add(ev_ping, &two_sec);
+	wimaster_event_add(ev_ping, &two_sec);
 
     /**
      * Initialize the wireless interfaces (wlan0), 
@@ -188,20 +188,20 @@ int main(int argc, char **argv)
     frame_sock_flags = fcntl(frame_sock, F_GETFL, 0); //获取文件的flags值。
     fcntl(frame_sock, F_SETFL, frame_sock_flags | O_NONBLOCK);   //设置成非阻塞模式；
     
-    ev_frame = wi_event_new(frame_sock, EV_READ | EV_PERSIST,
-            wi_mgmt_frame_cb, hapd);
-    wi_event_add(ev_frame, NULL);
+    ev_frame = wimaster_event_new(frame_sock, EV_READ | EV_PERSIST,
+            wimaster_mgmt_frame_cb, hapd);
+    wimaster_event_add(ev_frame, NULL);
 
     /**
      * Creating a new event which broadcast beacon frames every 200ms.
      */
-    ev_beacon = wi_event_new(-1, EV_TIMEOUT | EV_PERSIST, 
-            wi_send_beacon, hapd);
+    ev_beacon = wimaster_event_new(-1, EV_TIMEOUT | EV_PERSIST, 
+            wimaster_send_beacon, hapd);
 	tv_beacon.tv_sec = 0;
     tv_beacon.tv_usec = 200 * 1000;
-	wi_event_add(ev_beacon, &tv_beacon);
+	wimaster_event_add(ev_beacon, &tv_beacon);
 	
-    wi_event_dispatch();
+    wimaster_event_dispatch();
 
 	return 0;
 }

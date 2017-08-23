@@ -11,8 +11,8 @@
 #include <assert.h>
 
 #include "../utils/common.h"
-#include "../utils/wi_event.h"
-#include "../ap/wi_vap.h"
+#include "../utils/wimaster_event.h"
+#include "../ap/wimaster_vap.h"
 #include "../ap/config_file.h"
 #include "subscription.h"
 #include "handler.h"
@@ -29,7 +29,7 @@ static struct bufferevent *bev;
 void control_listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
     struct sockaddr *sa, int socklen, void *user_data)
 {
-	bev = wi_bufferevent_socket_new(fd, BEV_OPT_CLOSE_ON_FREE);
+	bev = wimaster_bufferevent_socket_new(fd, BEV_OPT_CLOSE_ON_FREE);
 	if (!bev) {
 		wpa_printf(MSG_ERROR, "Error constructing bufferevent!\n");
 		return;
@@ -83,7 +83,7 @@ static void handler_add_vap(char *data[], int size)
         return;
     }
 
-    vap = wi_vap_add(addr, bssid, data[3]);
+    vap = wimaster_vap_add(addr, bssid, data[3]);
     if(vap == NULL) {
         wpa_printf(MSG_WARN, "handler_add_vap cannot add vap!\n");
         return;
@@ -102,7 +102,7 @@ static void handler_remove_vap(char *data[], int size)
         return;
     }
 
-    if (wi_vap_remove(addr) == 0)
+    if (wimaster_vap_remove(addr) == 0)
         wpa_printf(MSG_DEBUG, "handler_remove_vap remove vap(%s) success!\n", data[0]);
 }
 

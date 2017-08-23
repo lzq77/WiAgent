@@ -13,13 +13,13 @@
 #include <netlink/genl/ctrl.h>
 #include <netlink/msg.h>
 #include <netlink/attr.h>
-#include "nl80211_copy.h"
+#include "../drivers/nl80211_copy.h"
 #include "beacon.h"
-#include "hostapd_mgmt.h"
-#include "wi_vap.h"
+#include "wimaster_vap.h"
 #include "../agent/push.h"
+#include "wimaster_80211.h"
 
-int wi_handle_beacon(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
+int wimaster_handle_beacon(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
 					const char *ssid,int ssid_len)
 {
 	u8 *packet;
@@ -55,11 +55,11 @@ free_params:
 	return -1;
 }
 
-int wi_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
+int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
 					const char *ssid,int ssid_len)
 {
 
-	wpa_printf(MSG_INFO, "wi_handle_probe_req,da:"MACSTR", bssid:"MACSTR",\n",
+	wpa_printf(MSG_INFO, "wimaster_handle_probe_req,da:"MACSTR", bssid:"MACSTR",\n",
             MAC2STR(da), MAC2STR(bssid));
 	
     u8 *packet;
@@ -67,9 +67,9 @@ int wi_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
 	struct wpa_driver_ap_params params;
 	int beacon_len = 0;
 
-    struct vap_data *vap = wi_get_vap(da);
+    struct vap_data *vap = wimaster_get_vap(da);
     if (vap == NULL) {
-        wi_probe(da, ssid);
+        wimaster_probe(da, ssid);
         return -1;
     }
 
@@ -136,7 +136,7 @@ send_auth_reply(struct hostapd_data *hapd,
 	os_free(buf);
 }
 
-static void wi_handle_auth(struct hostapd_data *hapd,
+static void wimaster_handle_auth(struct hostapd_data *hapd,
 			const struct ieee80211_mgmt *mgmt)
 {
 	u16 auth_alg, auth_transaction, status_code;
@@ -230,7 +230,7 @@ static int send_assoc_resp(struct hostapd_data *hapd, struct sta_info *sta, u16 
 	return hostapd_drv_send_mlme(hapd, reply, send_len, 0);
 }
 
-static void wi_handle_assoc(struct hostapd_data *hapd,
+static void wimaster_handle_assoc(struct hostapd_data *hapd,
 			 const struct ieee80211_mgmt *mgmt, size_t len,
 			 int reassoc, u8 *vbssid)
 {
@@ -360,7 +360,7 @@ static void wi_handle_assoc(struct hostapd_data *hapd,
 
     hostapd_handle_assoc_cb(hapd, mgmt->sa);//通知内核添加sta_info
 
-    wi_station(hapd, mgmt->sa);
+    wimaster_station(hapd, mgmt->sa);
 
     return;
 
@@ -373,14 +373,14 @@ static int vap_send_beacon_cb(struct vap_data *vap, void *ctx)
 {
     struct hostapd_data *hapd = (struct hostapd_data *)ctx;
 
-    wi_handle_beacon(hapd, vap->addr, vap->bssid, vap->ssid, strlen(vap->ssid)-2);    
+    wimaster_handle_beacon(hapd, vap->addr, vap->bssid, vap->ssid, strlen(vap->ssid)-2);    
 }
 
-void wi_send_beacon(evutil_socket_t fd, short what, void *arg)
+void wimaster_send_beacon(evutil_socket_t fd, short what, void *arg)
 {
     struct hostapd_data *hapd = (struct hostapd_data *)arg;
     
-    wi_for_each_vap(vap_send_beacon_cb, hapd);
+    wimaster_for_each_vap(vap_send_beacon_cb, hapd);
 
     return;
 }
@@ -403,16 +403,16 @@ static int hostapd_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)
 
     switch (stype) {
         case WLAN_FC_STYPE_PROBE_REQ:
-            wi_handle_probe_req(hapd, mgmt->sa, mgmt->bssid,
+            wimaster_handle_probe_req(hapd, mgmt->sa, mgmt->bssid,
                     ssid, strlen(ssid));
             break;
         case WLAN_FC_STYPE_AUTH:
-            wi_handle_auth(hapd, mgmt);
+            wimaster_handle_auth(hapd, mgmt);
             break;
         case WLAN_FC_STYPE_DEAUTH:
             break;
         case WLAN_FC_STYPE_ASSOC_REQ:
-            wi_handle_assoc(hapd, mgmt, len, false, mgmt->bssid);
+            wimaster_handle_assoc(hapd, mgmt, len, false, mgmt->bssid);
             break;
         case WLAN_FC_STYPE_DISASSOC:
             break;

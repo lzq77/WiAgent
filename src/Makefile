@@ -17,7 +17,7 @@ LIBS += -levent -lnl-tiny -ljson-c
 
 OBJS += ./main.o
 OBJS += ./utils/common.o
-OBJS += ./utils/wi_event.o
+OBJS += ./utils/wimaster_event.o
 OBJS += ./drivers/driver_nl80211.o
 OBJS += ./drivers/drivers.o
 OBJS += ./agent/handler.o
@@ -27,8 +27,8 @@ OBJS += ./ap/config_file.o
 OBJS += ./ap/hostapd.o
 OBJS += ./ap/beacon.o
 OBJS += ./ap/hw_features.o
-OBJS += ./ap/hostapd_mgmt.o
-OBJS += ./ap/wi_vap.o
+OBJS += ./ap/wimaster_80211.o
+OBJS += ./ap/wimaster_vap.o
 
 -include $(OBJS:%.o=%.d)
 

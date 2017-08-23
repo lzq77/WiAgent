@@ -1,5 +1,5 @@
 #include "ieee802_1x_defs.h"
-#include "wi_vap.h"
+#include "wimaster_vap.h"
 
 static struct vap_data *vap_first = NULL;
 static struct vap_data *vap_last = NULL;
@@ -41,7 +41,7 @@ static void reset_bssid_mask(void)
 }
 
 
-struct vap_data *wi_get_vap(const u8 *addr)
+struct vap_data *wimaster_get_vap(const u8 *addr)
 {
     struct vap_data *vap_temp = vap_first;
 
@@ -53,7 +53,7 @@ struct vap_data *wi_get_vap(const u8 *addr)
     return NULL;
 }
 
-static void wi_vap_list()
+static void wimaster_vap_list()
 {
     int num;
     struct vap_data *vap_temp = vap_first;
@@ -68,11 +68,11 @@ static void wi_vap_list()
 
 }
 
-struct vap_data * wi_vap_add(const u8 *addr, const u8 *bssid, const char *ssid)
+struct vap_data * wimaster_vap_add(const u8 *addr, const u8 *bssid, const char *ssid)
 {
     struct vap_data *vap_temp;
 
-    vap_temp = wi_get_vap(addr);
+    vap_temp = wimaster_get_vap(addr);
     if (vap_temp) 
         return vap_temp;
 
@@ -101,7 +101,7 @@ struct vap_data * wi_vap_add(const u8 *addr, const u8 *bssid, const char *ssid)
     return vap_last;
 }
 
-int wi_vap_remove(const u8 *addr)
+int wimaster_vap_remove(const u8 *addr)
 {
     struct vap_data *vap_temp = vap_first;
     struct vap_data *vap_previous = NULL;
@@ -134,7 +134,7 @@ int wi_vap_remove(const u8 *addr)
     return 0;
 }
 
-int wi_for_each_vap(int (*cb)(struct vap_data *vap, void *ctx), void *ctx)
+int wimaster_for_each_vap(int (*cb)(struct vap_data *vap, void *ctx), void *ctx)
 {
     struct vap_data *vap;
     for(vap = vap_first; vap; vap = vap->next) {

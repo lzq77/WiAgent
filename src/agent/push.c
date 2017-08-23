@@ -18,7 +18,7 @@
 #include <json.h>
 
 #include "../utils/common.h"
-#include "../ap/wi_vap.h"
+#include "../ap/wimaster_vap.h"
 #include "push.h"
 
 static int udp_fd;
@@ -67,7 +67,7 @@ ping_timer(evutil_socket_t fd, short what, void *address)
 }
 
 
-void wi_probe(const u8 *addr, const char *ssid)
+void wimaster_probe(const u8 *addr, const char *ssid)
 {
     assert(addr != NULL);
     char *str;
@@ -85,7 +85,7 @@ void wi_probe(const u8 *addr, const char *ssid)
     os_free(str);
 }
 
-void wi_station(struct hostapd_data *hapd, const u8 *addr)
+void wimaster_station(struct hostapd_data *hapd, const u8 *addr)
 {
     assert(addr != NULL);
     char *str;
