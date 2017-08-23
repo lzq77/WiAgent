@@ -1,7 +1,6 @@
 
 #include "../utils/common.h"
 #include "hw_features.h"
-#include "driver_nl80211.h"
 
 char * dfs_info(struct hostapd_channel_data *chan)
 {

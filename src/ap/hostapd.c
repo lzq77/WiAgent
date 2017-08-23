@@ -177,6 +177,23 @@ struct sta_info * ap_sta_add(struct hostapd_data *hapd, const u8 *addr)
 
 	return sta;
 }
+
+int hostapd_get_mgmt_socket_fd(struct hostapd_data *hapd)
+{
+    if (hapd->driver == NULL || hapd->driver->get_mgmt_socket_fd == NULL)
+		return -1;
+	return hapd->driver->get_mgmt_socket_fd(hapd->drv_priv);
+   
+}
+
+int hostapd_recv_mgmt_frame(struct hostapd_data *hapd)
+{
+    if (hapd->driver == NULL || hapd->driver->recv_mgmt_frame == NULL)
+		return -1;
+	return hapd->driver->recv_mgmt_frame(hapd->drv_priv);
+   
+}
+
 void  hostapd_get_ht_capab(struct hostapd_data *hapd,
 			  struct ieee80211_ht_capabilities *ht_cap,
 			  struct ieee80211_ht_capabilities *neg_ht_cap)
@@ -649,7 +666,7 @@ void hostapd_handle_assoc_cb(struct hostapd_data *hapd,u8 *addr){
 
 
 //初始化bss\drv\nl80211 的netlink////
-int hostapd_driver_init(struct hostapd_iface *iface,nl_recv_callback odin_process_bss_event)
+int hostapd_driver_init(struct hostapd_iface *iface)
 {
 	struct wpa_init_params params;//不需要分配内存
 	//u8 bssid[6] = {0x00,0x00,0x00,0x00,0x00,0x00};
@@ -672,7 +689,7 @@ int hostapd_driver_init(struct hostapd_iface *iface,nl_recv_callback odin_proces
 
 	os_memset(&params, 0, sizeof(params));
 	//设置struct hostapd_data *hapd 驱动ops
-	hapd->driver = &wpa_driver_nl80211_ops;
+	hapd->driver = wpa_drivers[0];
 	//global_init返回值类型为 nl80211_global_init === global
 	params.global_priv = hapd->driver->global_init();
 	//fprintf(stderr, "hapd->driver->global_init() 111 --nm\n");
@@ -691,25 +708,19 @@ int hostapd_driver_init(struct hostapd_iface *iface,nl_recv_callback odin_proces
 		fprintf(stderr, "params.bridge == NULL \n");
 		return -1;
 	}
-	//fprintf(stderr, "hapd->driver->global_init()220 --nm\n");
 
 	bss = hapd->iface->bss[0];
-	//fprintf(stderr, "hapd->driver->global_init()221 --nm\n");
 	if (bss->conf->bridge[0])
 		params.bridge[0] = bss->conf->bridge;
-	//fprintf(stderr, "hapd->driver->global_init()224 --nm\n");
 	params.own_addr = hapd->own_addr;
-	//fprintf(stderr, "hapd->driver->global_init()222 --nm\n");
 	if (hapd->driver == NULL || hapd->driver->hapd_init == NULL) {
 		//nl80211 driver驱动不可用,可能出现空指针，未赋值
-		//wpa_printf(MSG_ERROR, "No hostapd driver wrapper available");
-		fprintf(stderr, "hapd->driver || hapd->driver->hapd_init == NULL\n");
+		wpa_printf(MSG_ERROR, "No hostapd driver wrapper available");
 		return -1;
 	}
 	//真正的为bss和drv分配内存,将params中信息填充到bss和drv中
 	//hapd_init 函数返回值类型实际为bss
-	hapd->drv_priv = hapd->driver->hapd_init(hapd, &params,odin_process_bss_event);//调用driver_80211.hh中的函数
-	//fprintf(stderr, "hapd->driver->global_init() 333 --nm\n");
+	hapd->drv_priv = hapd->driver->hapd_init(hapd, &params);//调用driver_80211.hh中的函数
 	os_free(params.bridge);
 	if (hapd->drv_priv == NULL) {
 		wpa_printf(MSG_ERROR, "%s driver initialization failed.",
@@ -717,7 +728,6 @@ int hostapd_driver_init(struct hostapd_iface *iface,nl_recv_callback odin_proces
 		hapd->driver = NULL;
 		return -1;
 	}
-	//fprintf(stderr, "hapd->driver->global_init() 444 --nm\n");
 	if (hapd->driver->get_capa &&
 		hapd->driver->get_capa(hapd->drv_priv, &capa) == 0) {
 		iface->drv_flags = capa.flags;
@@ -726,10 +736,7 @@ int hostapd_driver_init(struct hostapd_iface *iface,nl_recv_callback odin_proces
 		iface->extended_capa_mask = capa.extended_capa_mask;
 		iface->extended_capa_len = capa.extended_capa_len;
 		iface->drv_max_acl_mac_addrs = capa.max_acl_mac_addrs;
-		//fprintf(stderr, "hostapd_driver_init执行完毕\n");
-		//fprintf(stderr, "hapd->driver->get_capa sucess \n");
 	}
-	//fprintf(stderr, "hostapd_driver_init over \n");
 	return 0;
 }
 

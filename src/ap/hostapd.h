@@ -15,7 +15,7 @@
 #include "../utils/common.h"
 #include "sta_info.h"
 #include "ieee802_1x_defs.h"
-#include "driver_nl80211.h"
+#include "../drivers/driver.h"
 #include "ap_config.h"
 #include "config_file.h"
 #include <json-c/json.h>
@@ -200,7 +200,11 @@ struct sta_info * ap_get_sta(struct hostapd_data *hapd, const u8 *sta);
 void ap_sta_hash_add(struct hostapd_data *hapd, struct sta_info *sta);
 	
 void ap_sta_hash_del(struct hostapd_data *hapd, struct sta_info *sta);
-	
+
+int hostapd_get_frame_socket_fd(struct hostapd_data *hapd);
+
+int hostapd_recv_mgmt_frame(struct hostapd_data *hapd);
+
 void  hostapd_get_ht_capab(struct hostapd_data *hapd,
 				  struct ieee80211_ht_capabilities *ht_cap,
 				  struct ieee80211_ht_capabilities *neg_ht_cap);
@@ -234,7 +238,7 @@ u8* hostapd_handle_assoc(struct hostapd_data *hapd,
 
 void hostapd_handle_assoc_cb(struct hostapd_data *hapd,u8 *addr);
 
-int hostapd_driver_init(struct hostapd_iface *iface,nl_recv_callback odin_process_bss_event);		
+int hostapd_driver_init(struct hostapd_iface *iface);		
 	
 int hostapd_drv_send_mlme(struct hostapd_data *hapd,
 			  const u8 *msg, size_t len, int noack);

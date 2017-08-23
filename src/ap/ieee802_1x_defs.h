@@ -516,17 +516,6 @@ enum Preamble{
 		LONG_PREAMBLE = 0,
 		SHORT_PREAMBLE = 1
 	};
-	
-/**
- * enum hostapd_hw_mode - Hardware mode
- */
-enum hostapd_hw_mode {
-	HOSTAPD_MODE_IEEE80211B,
-	HOSTAPD_MODE_IEEE80211G,
-	HOSTAPD_MODE_IEEE80211A,
-	HOSTAPD_MODE_IEEE80211AD,
-	NUM_HOSTAPD_MODES
-};
 
 typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;
 
@@ -593,15 +582,6 @@ struct ieee802_11_elems {
 	u8 ext_capab_len;
 	u8 ssid_list_len;
 	u8 osen_len;
-};
-
-
-/**
- * struct dl_list - Doubly-linked list
- */
-struct dl_list {
-	struct dl_list *next;
-	struct dl_list *prev;
 };
 
 struct ieee80211_hdr {
@@ -1451,26 +1431,6 @@ struct hostapd_wmm_ac_params {
 /* Channel Switch modes (802.11h) */
 #define CHAN_SWITCH_MODE_ALLOW_TX	0
 #define CHAN_SWITCH_MODE_BLOCK_TX	1
-
-
-struct hostapd_freq_params {
-	int mode;
-	int freq;
-	int channel;
-	/* for HT */
-	int ht_enabled;
-	int sec_channel_offset; /* 0 = HT40 disabled, -1 = HT40 enabled,
-				 * secondary channel below primary, 1 = HT40
-				 * enabled, secondary channel above primary */
-
-	/* for VHT */
-	int vht_enabled;
-
-	/* valid for both HT and VHT, center_freq2 is non-zero
-	 * only for bandwidth 80 and an 80+80 channel */
-	int center_freq1, center_freq2;
-	int bandwidth;
-};
 
 /***************************IEE80211 通用的操作函数***************************/
 //32位整形保存24位的(3个字节数据)数据

@@ -9,12 +9,16 @@
 #ifndef HOSTAPD_CONFIG_HH
 #define HOSTAPD_CONFIG_HH
 
+#include <netinet/in.h>
 #include "../utils/common.h"
+#include "../utils/common_defs.h"
 #include "ieee802_1x_defs.h"
+
 
 #define MAX_STA_COUNT 2007
 #define MAX_VLAN_ID 4094
 #define PMK_LEN 32
+#define IFNAMSIZ 16
 
 #define VLAN_ID_WILDCARD -1
 struct hostapd_vlan {

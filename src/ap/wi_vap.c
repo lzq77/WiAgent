@@ -53,6 +53,21 @@ struct vap_data *wi_get_vap(const u8 *addr)
     return NULL;
 }
 
+static void wi_vap_list()
+{
+    int num;
+    struct vap_data *vap_temp = vap_first;
+
+    wpa_printf(MSG_INFO, "\nwi vap list:\n");
+    while (vap_temp) {
+        wpa_printf(MSG_INFO, "%d. vap:"MACSTR" bssid:"
+                MACSTR" ssid:%s\n", ++num, MAC2STR(vap_temp->addr),
+                MAC2STR(vap_temp->bssid), vap_temp->ssid);
+        vap_temp =  vap_temp->next;
+    }
+
+}
+
 struct vap_data * wi_vap_add(const u8 *addr, const u8 *bssid, const char *ssid)
 {
     struct vap_data *vap_temp;
@@ -107,7 +122,13 @@ int wi_vap_remove(const u8 *addr)
             }
             os_free(vap_temp);
             vap_temp = NULL;
+            
+            break;
         }
+        
+        vap_previous = vap_temp;
+        vap_temp = vap_temp->next;
+
     }
     reset_bssid_mask();
     return 0;

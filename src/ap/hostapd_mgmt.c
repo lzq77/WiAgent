@@ -369,43 +369,39 @@ fail:
 	return;
 }
 
-static void 
-wi_mlme_event_mgmt(struct i802_bss *bss, 
-                struct nlattr *freq, struct nlattr *sig,
-			    const u8 *frame, size_t len)
+static int vap_send_beacon_cb(struct vap_data *vap, void *ctx)
 {
-    fprintf(stderr, "wi_mlme_event_mgmt\n");
+    struct hostapd_data *hapd = (struct hostapd_data *)ctx;
 
-   struct wpa_driver_nl80211_data *drv = bss->drv;
-   struct hostapd_data *hapd = (struct hostapd_data *)drv->ctx;
-   struct ieee80211_mgmt *mgmt;
-   u16 fc, stype;
-   int ssi_signal = 0;
-   int rx_freq = 0;
+    wi_handle_beacon(hapd, vap->addr, vap->bssid, vap->ssid, strlen(vap->ssid)-2);    
+}
 
-   char *ssid = "wimaster";
+void wi_send_beacon(evutil_socket_t fd, short what, void *arg)
+{
+    struct hostapd_data *hapd = (struct hostapd_data *)arg;
+    
+    wi_for_each_vap(vap_send_beacon_cb, hapd);
 
-   mgmt = (const struct ieee80211_mgmt *) frame;
-   if (len < 24) {
-       wpa_printf(MSG_DEBUG, "nl80211: Too short management frame");
-       return;
-   }
-   
-   fc = le_to_host16(mgmt->frame_control);
-   stype = WLAN_FC_GET_STYPE(fc);
+    return;
+}
 
-   if (sig)
-       ssi_signal = (s32) nla_get_u32(sig);
+static int hostapd_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)
+{
+    struct ieee80211_mgmt *mgmt;
+	u16 fc, stype;
+    int len; 
+    char *ssid = "wimaster";
 
-   if (freq) 
-		rx_freq = drv->last_mgmt_freq;
+ 
+    mgmt = (struct ieee80211_mgmt *)rx_mgmt->frame;
+    len = rx_mgmt->frame_len;
+	if (len < 24)
+		return 0;
 
+	fc = le_to_host16(mgmt->frame_control);
+	stype = WLAN_FC_GET_STYPE(fc);
 
-
-   wpa_printf(MSG_DEBUG, "Management frame stype(%d), bssid("MACSTR")\n", 
-                    stype, MAC2STR(mgmt->bssid));
-
-   switch (stype) {
+    switch (stype) {
         case WLAN_FC_STYPE_PROBE_REQ:
             wi_handle_probe_req(hapd, mgmt->sa, mgmt->bssid,
                     ssid, strlen(ssid));
@@ -424,88 +420,33 @@ wi_mlme_event_mgmt(struct i802_bss *bss,
             break;
         case WLAN_FC_STYPE_ACTION:
             break;
-   }
+    }
+
+    return 0;
+
 }
 
-static void 
-wi_mlme_event(struct i802_bss *bss, enum nl80211_commands cmd, 
-        struct nlattr *frame, struct nlattr *addr, 
-        struct nlattr *timed_out, struct nlattr *freq, 
-        struct nlattr *ack, struct nlattr *cookie, struct nlattr *sig)
+void hostapd_wpa_event(void *ctx, enum wpa_event_type event,
+		       union wpa_event_data *data)
 {
-    fprintf(stderr, "wi_mlme_event\n");
-	struct wpa_driver_nl80211_data *drv = bss->drv;
-	const u8 *data;
-    size_t len;
-	
-	data = (const u8 *)nla_data(frame);
-	len = nla_len(frame);
-	if (len < 4 + 2 * ETH_ALEN) {
-		wpa_printf(MSG_MSGDUMP, "nl80211: MLME event %d (%s) on %s("
-			   MACSTR ") - too short",
-			   cmd, nl80211_command_to_string(cmd), bss->ifname,
-			   MAC2STR(bss->addr));
-		return;
-	}
-	
-	switch (cmd) {
-	case NL80211_CMD_FRAME:
-		wi_mlme_event_mgmt(bss, freq, sig, (const u8*)nla_data(frame),
-			nla_len(frame));
-	break;
-	
-	default:
+	struct hostapd_data *hapd = ctx;
+
+	switch (event) {
+	case EVENT_TX_STATUS:
+		switch (data->tx_status.type) {
+		case WLAN_FC_TYPE_MGMT:
+			break;
+		case WLAN_FC_TYPE_DATA:
+			break;
+		}
 		break;
-	}	
+	case EVENT_RX_FROM_UNKNOWN:
+		break;
+	case EVENT_RX_MGMT:
+		if (!data->rx_mgmt.frame)
+			break;
+		if (hostapd_mgmt_rx(hapd, &data->rx_mgmt) > 0)
+			break;
+    }
 }
-
-int wi_process_bss_event(struct nl_msg *msg, void *arg)
-{
-    fprintf(stderr, "wi_process_bss_event: received frame\n");
-    struct i802_bss *bss = (struct i802_bss *)arg;
-	struct genlmsghdr *gnlh = (struct genlmsghdr *)nlmsg_data(nlmsg_hdr(msg));
-	struct nlattr *tb[NL80211_ATTR_MAX + 1];
-	nla_parse(tb, NL80211_ATTR_MAX, genlmsg_attrdata(gnlh, 0),
-		  genlmsg_attrlen(gnlh, 0), NULL);
-		
-	switch (gnlh->cmd) {
-	case NL80211_CMD_FRAME:
-	case NL80211_CMD_FRAME_TX_STATUS:
-	//need to notice gnlh->cmd is u8 type --nm
-		wi_mlme_event(bss, (enum nl80211_commands)gnlh->cmd, tb[NL80211_ATTR_FRAME],
-			   tb[NL80211_ATTR_MAC], tb[NL80211_ATTR_TIMED_OUT],
-			   tb[NL80211_ATTR_WIPHY_FREQ], tb[NL80211_ATTR_ACK],
-			   tb[NL80211_ATTR_COOKIE],
-			   tb[NL80211_ATTR_RX_SIGNAL_DBM]);
-		break;
-	case NL80211_CMD_UNEXPECTED_FRAME:
-		//nl80211_spurious_frame(bss, tb, 0);
-		break;
-	case NL80211_CMD_UNEXPECTED_4ADDR_FRAME:
-		//nl80211_spurious_frame(bss, tb, 1);
-		break;
-	default:
-		wpa_printf(MSG_DEBUG, "nl80211: Ignored unknown event "
-			   "(cmd=%d)", gnlh->cmd);
-		break;
-	}
-	return NL_SKIP;	
-}
-
-static int vap_send_beacon_cb(struct vap_data *vap, void *ctx)
-{
-    struct hostapd_data *hapd = (struct hostapd_data *)ctx;
-
-    wi_handle_beacon(hapd, vap->addr, vap->bssid, vap->ssid, strlen(vap->ssid)-2);    
-}
-
-void wi_send_beacon(evutil_socket_t fd, short what, void *arg)
-{
-    struct hostapd_data *hapd = (struct hostapd_data *)arg;
-    
-    wi_for_each_vap(vap_send_beacon_cb, hapd);
-
-    return;
-}
-
 

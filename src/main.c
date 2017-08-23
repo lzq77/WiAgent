@@ -18,17 +18,16 @@
 #include <netlink/msg.h>
 #include <netlink/attr.h>
 
-#include "ap/nl80211_copy.h"
+#include "ap/hostapd.h"
+#include "drivers/nl80211_copy.h"
 #include "ap/beacon.h"
 #include "ap/hostapd_mgmt.h"
 #include "agent/handler.h"
 #include "agent/push.h"
+#include "drivers/driver.h"
 
-#include <event2/bufferevent.h>
-#include <event2/buffer.h>
-#include <event2/listener.h>
-#include <event2/util.h>
-#include <event2/event.h>
+#include "utils/common.h"
+#include "utils/wi_event.h"
 
 #define PUSH_PORT 2819
 #define CONTROL_PORT 6777
@@ -38,11 +37,10 @@ wi_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)
 {
     int res;
     struct hostapd_data *hapd = (struct hostapd_data *)arg;
-    struct i802_bss *bss = (struct i802_bss *)hapd->drv_priv;
         
-    res = nl_recvmsgs(bss->nl_mgmt, bss->nl_cb);
+    res = hostapd_recv_mgmt_frame(hapd);
     if (res < 0) {
-        fprintf(stderr, "nl80211: %s->nl_recvmsgs failed: %d\n",
+        wpa_printf(MSG_ERROR, "nl80211: %s->nl_recvmsgs failed: %d\n",
             __func__, res);
     }	
 }
@@ -54,6 +52,8 @@ init_hostapd_interface(struct hapd_interfaces *interfaces)
 	interfaces->global_iface_path = NULL;
 	interfaces->global_iface_name = NULL;
 	interfaces->global_ctrl_sock = -1;
+
+    wpa_supplicant_event = hostapd_wpa_event;
 	
 	interfaces->count = 1;   //only using wlan0
 	if (interfaces->count) {
@@ -81,7 +81,7 @@ init_hostapd_interface(struct hapd_interfaces *interfaces)
 
     /* Enable configured interfaces. */
 	//  hapd = interfaces.iface[0]->bss[0];     //一个hostapd_data代表一个基本服务集合
-    if (hostapd_driver_init(interfaces->iface[0], wi_process_bss_event) < 0)
+    if (hostapd_driver_init(interfaces->iface[0]) < 0)
         goto out;
     if (hostapd_setup_interface(interfaces->iface[0]) < 0)
         goto out;
@@ -90,7 +90,7 @@ init_hostapd_interface(struct hapd_interfaces *interfaces)
 
 out:
 	os_free(interfaces->iface);
-    wpa_printf(MSG_ERROR, "Hostapd interface initialize failed.\n")
+    wpa_printf(MSG_ERROR, "Hostapd interface initialize failed.\n");
     return -1;
 }
 
@@ -98,9 +98,10 @@ int main(int argc, char **argv)
 {
     struct hapd_interfaces interfaces;
     struct hostapd_data *hapd;
-    struct i802_bss *bss;
 
-	struct event_base *base; //定义一个event_base  
+    /**
+     * libevent event.
+     */
     struct event *ev_ping;
     struct event *ev_frame; 
     struct event *ev_beacon;
@@ -108,43 +109,32 @@ int main(int argc, char **argv)
     struct timeval tv_beacon;
 
 	char *controller_ip;
-    unsigned int controller_port;
     struct evconnlistener *control_listener;
 	struct sockaddr_in sin;
     struct sockaddr_in push_addr;
     
-    int push_sock;  
+    int push_sock;
     int frame_sock;
     int frame_sock_flags;
 
     if ((controller_ip = *(++argv)) == NULL) {
-        fprintf(stderr, "Need controller's ip address.");
+        wpa_printf(MSG_ERROR, "Need controller's ip address.");
         return 1;
     }
-
-    /**
-     * Use the libevent as the main frame of the program.
-     */
-    base = event_base_new();
-	if (!base) {
-		fprintf(stderr, "Could not initialize libevent!\n");
-		return 1;
-	}
     
-    memset(&sin, 0, sizeof(sin));
-	sin.sin_family = AF_INET;
-	sin.sin_port = htons(CONTROL_PORT);
-
     /**
      * Listening controller connection, which is 
      * used to send its control commands.
      */
-	control_listener = evconnlistener_new_bind(base, control_listener_cb, (void *)base,
+    memset(&sin, 0, sizeof(sin));
+	sin.sin_family = AF_INET;
+	sin.sin_port = htons(CONTROL_PORT);
+	control_listener = wi_evconnlistener_new_bind(control_listener_cb, NULL,
 	    LEV_OPT_REUSEABLE|LEV_OPT_CLOSE_ON_FREE, -1,
 	    (struct sockaddr*)&sin, sizeof(sin));
     
     if (!control_listener) {
-		fprintf(stderr, "Could not create a listener!\n");
+		wpa_printf(MSG_ERROR, "Could not create a listener!\n");
 		return 1;
 	}
     
@@ -155,7 +145,7 @@ int main(int argc, char **argv)
 	push_addr.sin_family = AF_INET;
 	if(inet_pton(push_addr.sin_family, controller_ip, &push_addr.sin_addr) != 1)
 	{
-		perror( "controller_ip address error!\n");
+		wpa_printf(MSG_ERROR, "controller_ip address error!\n");
 		return -1;
 	}
 	push_addr.sin_port = htons(PUSH_PORT);
@@ -163,21 +153,21 @@ int main(int argc, char **argv)
     push_sock = socket(AF_INET, SOCK_DGRAM, 0);
     if (push_sock < 0)
     {
-        perror("Create Socket Failed!\n");  
+        wpa_printf(MSG_ERROR, "Create Socket Failed!\n");  
         return -1;
     }
     if(connect(push_sock, (struct sockaddr*)&push_addr, sizeof(push_addr) ) < 0)
 	{
-		perror("UDP connect error!\n");
+		wpa_printf(MSG_ERROR, "UDP connect error!\n");
 		return -1;
 	}
     
     //Add push_sock to event.
-    ev_ping = event_new(base, push_sock, EV_TIMEOUT | EV_PERSIST, 
+    ev_ping = wi_event_new(push_sock, EV_TIMEOUT | EV_PERSIST, 
             ping_timer, NULL);
 	two_sec.tv_sec = 2;
     two_sec.tv_usec = 0;
-	event_add(ev_ping, &two_sec);
+	wi_event_add(ev_ping, &two_sec);
 
     /**
      * Initialize the wireless interfaces (wlan0), 
@@ -185,41 +175,34 @@ int main(int argc, char **argv)
      */
     os_memset(&interfaces, 0, sizeof(struct hapd_interfaces));
     if (init_hostapd_interface(&interfaces) < 0) { 
-        fprintf(stderr, "Initialize the wireless interfaces failed.\n");
+        wpa_printf(MSG_ERROR, "Initialize the wireless interfaces failed.\n");
         return -1;
-    }
-
-    hapd = interfaces.iface[0]->bss[0];
-    bss = (struct i802_bss *)hapd->drv_priv;
-    if(!bss || !bss->nl_mgmt || !bss->nl_cb) {
-        fprintf(stderr, "The bss(basic service set) configures error.\n");
-        return 1;
     }
 
     /**
      * Set the socket fd that receive management frame 
      * to a non-blocking state.
      */
-    frame_sock = nl_socket_get_fd(bss->nl_mgmt);
+    hapd = interfaces.iface[0]->bss[0];
+    frame_sock = hostapd_get_mgmt_socket_fd(hapd);
     frame_sock_flags = fcntl(frame_sock, F_GETFL, 0); //获取文件的flags值。
     fcntl(frame_sock, F_SETFL, frame_sock_flags | O_NONBLOCK);   //设置成非阻塞模式；
     
-    ev_frame = event_new(base, frame_sock, EV_READ | EV_PERSIST,
+    ev_frame = wi_event_new(frame_sock, EV_READ | EV_PERSIST,
             wi_mgmt_frame_cb, hapd);
-    event_add(ev_frame, NULL);
+    wi_event_add(ev_frame, NULL);
 
     /**
      * Creating a new event which broadcast beacon frames every 200ms.
      */
-    ev_beacon = event_new(base, -1, EV_TIMEOUT | EV_PERSIST, 
+    ev_beacon = wi_event_new(-1, EV_TIMEOUT | EV_PERSIST, 
             wi_send_beacon, hapd);
 	tv_beacon.tv_sec = 0;
     tv_beacon.tv_usec = 200 * 1000;
-	event_add(ev_beacon, &tv_beacon);
+	wi_event_add(ev_beacon, &tv_beacon);
 	
-    event_base_dispatch(base);
-	event_base_free(base);  
-	
+    wi_event_dispatch();
+
 	return 0;
 }
 

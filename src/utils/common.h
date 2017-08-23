@@ -14,38 +14,80 @@
 #include <asm/byteorder.h>
 #include <stdarg.h>
 
-#define MAC2STR(a) (a)[0], (a)[1], (a)[2], (a)[3], (a)[4], (a)[5]
-#define MACSTR "%02x:%02x:%02x:%02x:%02x:%02x"
+#if defined(__linux__) || defined(__GLIBC__)
+#include <endian.h>
+#include <byteswap.h>
+#endif /* __linux__ */
 
-//#define STA_HASH(sta) (sta[5])
-#define os_memcmp(s1, s2, n) memcmp((s1), (s2), (n))
-/* Define platform specific integer types */
-#define ETH_ALEN 6
-#define NUM_TX_QUEUES 4
-#define NUM_WEP_KEYS 4
-#define STA_HASH_SIZE 256
-#define STA_HASH(sta) (sta[5])
-#define IFNAMSIZ 16
+#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || \
+    defined(__OpenBSD__)
+#include <sys/types.h>
+#include <sys/endian.h>
+#define __BYTE_ORDER	_BYTE_ORDER
+#define	__LITTLE_ENDIAN	_LITTLE_ENDIAN
+#define	__BIG_ENDIAN	_BIG_ENDIAN
+#ifdef __OpenBSD__
+#define bswap_16 swap16
+#define bswap_32 swap32
+#define bswap_64 swap64
+#else /* __OpenBSD__ */
+#define bswap_16 bswap16
+#define bswap_32 bswap32
+#define bswap_64 bswap64
+#endif /* __OpenBSD__ */
+#endif /* defined(__FreeBSD__) || defined(__NetBSD__) ||
+	* defined(__DragonFly__) || defined(__OpenBSD__) */
 
+#ifdef __APPLE__
+#include <sys/types.h>
+#include <machine/endian.h>
+#define __BYTE_ORDER	_BYTE_ORDER
+#define __LITTLE_ENDIAN	_LITTLE_ENDIAN
+#define __BIG_ENDIAN	_BIG_ENDIAN
+static inline unsigned short bswap_16(unsigned short v)
+{
+	return ((v & 0xff) << 8) | (v >> 8);
+}
 
-//移位操作
-#ifndef BIT
-#define BIT(x) (1 << (x))
+static inline unsigned int bswap_32(unsigned int v)
+{
+	return ((v & 0xff) << 24) | ((v & 0xff00) << 8) |
+		((v & 0xff0000) >> 8) | (v >> 24);
+}
+#endif /* __APPLE__ */
+
+#ifdef CONFIG_TI_COMPILER
+#define __BIG_ENDIAN 4321
+#define __LITTLE_ENDIAN 1234
+#ifdef __big_endian__
+#define __BYTE_ORDER __BIG_ENDIAN
+#else
+#define __BYTE_ORDER __LITTLE_ENDIAN
+#endif
+#endif /* CONFIG_TI_COMPILER */
+
+#ifdef CONFIG_NATIVE_WINDOWS
+#include <winsock.h>
+
+typedef int socklen_t;
+
+#ifndef MSG_DONTWAIT
+#define MSG_DONTWAIT 0 /* not supported */
 #endif
 
-//输出操作
+#endif /* CONFIG_NATIVE_WINDOWS */
 
-#define MSG_ERROR stderr
-#define MSG_INFO stderr
-#define MSG_DEBUG stderr
-#define MSG_MSGDUMP stderr
-#define MSG_EXCESSIVE stderr
+#ifdef _MSC_VER
+#define inline __inline
 
-#define wpa_printf fprintf
+#undef vsnprintf
+#define vsnprintf _vsnprintf
+#undef close
+#define close closesocket
+#endif /* _MSC_VER */
 
-//大小端转化问题
-#define host_to_le16 cpu_to_le16
-#define le_to_host16 le16_to_cpu
+
+/* Define platform specific integer types */
 
 #ifdef _MSC_VER
 typedef UINT64 u64;
@@ -101,20 +143,118 @@ typedef int64_t s64;
 typedef int32_t s32;
 typedef int16_t s16;
 typedef int8_t s8;
-
-typedef long os_time_t;
-typedef int (*nl_recv_callback)(struct nl_msg *msg, void *arg);//netlink receive callback function
-struct os_time {
-	os_time_t sec;
-	os_time_t usec;
-};
-
-struct os_reltime {
-	os_time_t sec;
-	os_time_t usec;
-};
 #define WPA_TYPES_DEFINED
 #endif /* !WPA_TYPES_DEFINED */
+
+
+/* Define platform specific byte swapping macros */
+
+#if defined(__CYGWIN__) || defined(CONFIG_NATIVE_WINDOWS)
+
+static inline unsigned short wpa_swap_16(unsigned short v)
+{
+	return ((v & 0xff) << 8) | (v >> 8);
+}
+
+static inline unsigned int wpa_swap_32(unsigned int v)
+{
+	return ((v & 0xff) << 24) | ((v & 0xff00) << 8) |
+		((v & 0xff0000) >> 8) | (v >> 24);
+}
+
+#define le_to_host16(n) (n)
+#define host_to_le16(n) (n)
+#define be_to_host16(n) wpa_swap_16(n)
+#define host_to_be16(n) wpa_swap_16(n)
+#define le_to_host32(n) (n)
+#define be_to_host32(n) wpa_swap_32(n)
+#define host_to_be32(n) wpa_swap_32(n)
+
+#define WPA_BYTE_SWAP_DEFINED
+
+#endif /* __CYGWIN__ || CONFIG_NATIVE_WINDOWS */
+
+
+#ifndef WPA_BYTE_SWAP_DEFINED
+
+#ifndef __BYTE_ORDER
+#ifndef __LITTLE_ENDIAN
+#ifndef __BIG_ENDIAN
+#define __LITTLE_ENDIAN 1234
+#define __BIG_ENDIAN 4321
+#if defined(sparc)
+#define __BYTE_ORDER __BIG_ENDIAN
+#endif
+#endif /* __BIG_ENDIAN */
+#endif /* __LITTLE_ENDIAN */
+#endif /* __BYTE_ORDER */
+
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+#define le_to_host16(n) ((__force u16) (le16) (n))
+#define host_to_le16(n) ((__force le16) (u16) (n))
+#define be_to_host16(n) bswap_16((__force u16) (be16) (n))
+#define host_to_be16(n) ((__force be16) bswap_16((n)))
+#define le_to_host32(n) ((__force u32) (le32) (n))
+#define host_to_le32(n) ((__force le32) (u32) (n))
+#define be_to_host32(n) bswap_32((__force u32) (be32) (n))
+#define host_to_be32(n) ((__force be32) bswap_32((n)))
+#define le_to_host64(n) ((__force u64) (le64) (n))
+#define host_to_le64(n) ((__force le64) (u64) (n))
+#define be_to_host64(n) bswap_64((__force u64) (be64) (n))
+#define host_to_be64(n) ((__force be64) bswap_64((n)))
+#elif __BYTE_ORDER == __BIG_ENDIAN
+#define le_to_host16(n) bswap_16(n)
+#define host_to_le16(n) bswap_16(n)
+#define be_to_host16(n) (n)
+#define host_to_be16(n) (n)
+#define le_to_host32(n) bswap_32(n)
+#define host_to_le32(n) bswap_32(n)
+#define be_to_host32(n) (n)
+#define host_to_be32(n) (n)
+#define le_to_host64(n) bswap_64(n)
+#define host_to_le64(n) bswap_64(n)
+#define be_to_host64(n) (n)
+#define host_to_be64(n) (n)
+#ifndef WORDS_BIGENDIAN
+#define WORDS_BIGENDIAN
+#endif
+#else
+#error Could not determine CPU byte order
+#endif
+
+#define WPA_BYTE_SWAP_DEFINED
+#endif /* !WPA_BYTE_SWAP_DEFINED */
+
+
+#define MAC2STR(a) (a)[0], (a)[1], (a)[2], (a)[3], (a)[4], (a)[5]
+#define MACSTR "%02x:%02x:%02x:%02x:%02x:%02x"
+
+//#define STA_HASH(sta) (sta[5])
+#define os_memcmp(s1, s2, n) memcmp((s1), (s2), (n))
+/* Define platform specific integer types */
+#define ETH_ALEN 6
+#define NUM_TX_QUEUES 4
+#define NUM_WEP_KEYS 4
+#define STA_HASH_SIZE 256
+#define STA_HASH(sta) (sta[5])
+#define IFNAMSIZ 16
+
+
+//移位操作
+#ifndef BIT
+#define BIT(x) (1 << (x))
+#endif
+
+//输出操作
+
+#define MSG_ERROR stderr
+#define MSG_WARN stderr
+#define MSG_INFO stderr
+#define MSG_DEBUG stderr
+#define MSG_MSGDUMP stderr
+#define MSG_EXCESSIVE stderr
+
+#define wpa_printf fprintf
 
 //对齐使用
 #ifdef __GNUC__
@@ -146,6 +286,18 @@ enum hostapd_logger_level {
 	HOSTAPD_LEVEL_INFO = 2,
 	HOSTAPD_LEVEL_NOTICE = 3,
 	HOSTAPD_LEVEL_WARNING = 4
+};
+
+typedef long os_time_t;
+
+struct os_time {
+	os_time_t sec;
+	os_time_t usec;
+};
+
+struct os_reltime {
+	os_time_t sec;
+	os_time_t usec;
 };
 
 void * os_memset(void *s, int c, size_t n);
@@ -192,5 +344,7 @@ void os_free(void *ptr);
 void * os_realloc_array(void *ptr, size_t nmemb, size_t size);
 
 int os_snprintf(char *str, size_t size, const char *format, ...);
+
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 
 #endif

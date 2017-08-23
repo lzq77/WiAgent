@@ -12,7 +12,7 @@
 #include "ap_config.h"
 #include "config_file.h"
 #include "ieee802_1x_defs.h"
-#include "driver_nl80211.h"
+#include "../drivers/driver.h"
 #include "sta_info.h"
 
 #ifndef CONFIG_NO_RADIUS

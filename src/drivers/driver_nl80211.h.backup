@@ -1119,7 +1119,7 @@ err:
 }
 
 
-//初始化并分配内存global 结构体,在这里初始化与nl802.11层的 netlink连接
+//初始化并分配内存global 结构体,在这里初始化与nl802.11层的netlink连接
 static void * nl80211_global_init(void)
 {
 	struct nl80211_global *global;
