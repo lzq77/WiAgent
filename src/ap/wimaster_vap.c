@@ -96,6 +96,8 @@ struct vap_data * wimaster_vap_add(const u8 *addr, const u8 *bssid, const char *
     strcpy(vap_last->ssid, ssid);
     vap_last->next = NULL;
 
+    wimaster_vap_list();
+
     reset_bssid_mask();
 
     return vap_last;

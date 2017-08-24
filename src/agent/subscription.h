@@ -15,7 +15,7 @@ struct subscription {
     struct subscription *next;
 };
 
-void add_subscription(struct subscription *sub);
+void add_subscription(struct hostapd_data *hapd, struct subscription *sub);
 
 void remove_subscription(int sub_id);
 

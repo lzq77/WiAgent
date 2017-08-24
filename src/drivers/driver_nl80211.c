@@ -342,22 +342,25 @@ static int send_and_recv(struct nl80211_global *global,
 {
 	struct nl_cb *cb;
 	int err = -ENOMEM;//-12
-
-	cb = nl_cb_clone(global->nl_cb);
+	
+    cb = nl_cb_clone(global->nl_cb);
 	if (!cb)
 		goto out;
-
-	err = nl_send_auto_complete(nl_handle, msg);
-	if (err < 0)
-		goto out;
-
+	
+    err = nl_send_auto_complete(nl_handle, msg);
+	if (err < 0) {
+	    wpa_printf(MSG_INFO,
+				   "nl80211: %s->nl_send_auto_complete failed: %d",
+    				   __func__, err);
+	    goto out;
+    }
 	err = 1;
 
 	nl_cb_err(cb, NL_CB_CUSTOM, error_handler, &err);
 	nl_cb_set(cb, NL_CB_FINISH, NL_CB_CUSTOM, finish_handler, &err);
 	nl_cb_set(cb, NL_CB_ACK, NL_CB_CUSTOM, ack_handler, &err);
 
-	if (valid_handler)
+	if (valid_handler) 
 		nl_cb_set(cb, NL_CB_VALID, NL_CB_CUSTOM,
 			  valid_handler, valid_data);
 
@@ -2629,6 +2632,136 @@ static int nl80211_recv_mgmt_frame(void *priv)
     return nl_recvmsgs(bss->nl_mgmt, bss->nl_cb);
 }
 
+static int get_sta_handler(struct nl_msg *msg, void *arg)
+{
+    struct nlattr *tb[NL80211_ATTR_MAX + 1];
+	struct genlmsghdr *gnlh = nlmsg_data(nlmsg_hdr(msg));
+    struct hostap_sta_driver_data *data = arg;
+	struct nlattr *stats[NL80211_STA_INFO_MAX + 1];
+	static struct nla_policy stats_policy[NL80211_STA_INFO_MAX + 1] = {
+		[NL80211_STA_INFO_INACTIVE_TIME] = { .type = NLA_U32 },
+		[NL80211_STA_INFO_RX_BYTES] = { .type = NLA_U32 },
+		[NL80211_STA_INFO_TX_BYTES] = { .type = NLA_U32 },
+        [NL80211_STA_INFO_SIGNAL] = { .type = NLA_U8},
+		[NL80211_STA_INFO_RX_PACKETS] = { .type = NLA_U32 },
+		[NL80211_STA_INFO_TX_PACKETS] = { .type = NLA_U32 },
+		[NL80211_STA_INFO_TX_FAILED] = { .type = NLA_U32 },
+        [NL80211_STA_INFO_SIGNAL_AVG] = { .type = NLA_U8},
+        [NL80211_STA_INFO_CONNECTED_TIME] = { .type = NLA_U32}
+	};
+
+	nla_parse(tb, NL80211_ATTR_MAX, genlmsg_attrdata(gnlh, 0),
+		  genlmsg_attrlen(gnlh, 0), NULL);
+
+	/*
+	 * TODO: validate the interface and mac address!
+	 * Otherwise, there's a race condition as soon as
+	 * the kernel starts sending station notifications.
+	 */
+
+	if (!tb[NL80211_ATTR_STA_INFO]) {
+		wpa_printf(MSG_DEBUG, "sta stats missing!");
+		return NL_SKIP;
+	}
+	if (nla_parse_nested(stats, NL80211_STA_INFO_MAX,
+			     tb[NL80211_ATTR_STA_INFO],
+			     stats_policy)) {
+		wpa_printf(MSG_DEBUG, "failed to parse nested attributes!");
+		return NL_SKIP;
+	}
+
+	if (stats[NL80211_STA_INFO_INACTIVE_TIME])
+		data->inactive_msec =
+			nla_get_u32(stats[NL80211_STA_INFO_INACTIVE_TIME]);
+	if (stats[NL80211_STA_INFO_RX_BYTES])
+		data->rx_bytes = nla_get_u32(stats[NL80211_STA_INFO_RX_BYTES]);
+	if (stats[NL80211_STA_INFO_TX_BYTES])
+		data->tx_bytes = nla_get_u32(stats[NL80211_STA_INFO_TX_BYTES]);
+    if (stats[NL80211_STA_INFO_SIGNAL])
+		data->last_rssi = (int8_t)nla_get_u8(stats[NL80211_STA_INFO_SIGNAL]);
+    if (stats[NL80211_STA_INFO_SIGNAL_AVG])
+		data->rssi_avg = (int8_t)nla_get_u8(stats[NL80211_STA_INFO_SIGNAL_AVG]);
+	if (stats[NL80211_STA_INFO_RX_PACKETS])
+		data->rx_packets =
+			nla_get_u32(stats[NL80211_STA_INFO_RX_PACKETS]);
+	if (stats[NL80211_STA_INFO_TX_PACKETS])
+		data->tx_packets =
+			nla_get_u32(stats[NL80211_STA_INFO_TX_PACKETS]);
+	if (stats[NL80211_STA_INFO_TX_FAILED])
+		data->tx_retry_failed =
+			nla_get_u32(stats[NL80211_STA_INFO_TX_FAILED]);
+    if (stats[NL80211_STA_INFO_CONNECTED_TIME])
+		data->connected_msec =
+			nla_get_u32(stats[NL80211_STA_INFO_CONNECTED_TIME]);
+    
+    return NL_SKIP;
+}
+
+static int get_sta_list_handler(struct nl_msg *msg, void *arg)
+{
+	struct nlattr *tb[NL80211_ATTR_MAX + 1];
+	struct genlmsghdr *gnlh = nlmsg_data(nlmsg_hdr(msg));
+    struct hostap_sta_list *sta_list = arg;
+	struct hostap_sta_driver_data *data = 
+        (struct hostap_sta_driver_data *)os_zalloc(sizeof(struct hostap_sta_driver_data));
+
+	/*
+	 * TODO: validate the interface and mac address!
+	 * Otherwise, there's a race condition as soon as
+	 * the kernel starts sending station notifications.
+	 */
+	nla_parse(tb, NL80211_ATTR_MAX, genlmsg_attrdata(gnlh, 0),
+		  genlmsg_attrlen(gnlh, 0), NULL);
+	if (!tb[NL80211_ATTR_STA_INFO]) {
+		wpa_printf(MSG_DEBUG, "sta stats missing!");
+		return NL_SKIP;
+	}
+
+    
+    while(sta_list->next) {
+        sta_list = sta_list->next;
+    }
+    sta_list->next = (struct hostap_sta_list *)os_zalloc(
+                sizeof(struct hostap_sta_list));
+    sta_list = sta_list->next;
+    sta_list->sta_data = data;
+    sta_list->next = NULL;
+
+    /** get the station mac address **/
+    u8 *addr = (u8 *)nla_data(tb[NL80211_ATTR_MAC]);
+    os_memcpy(sta_list->sta_addr, addr, ETH_ALEN);
+
+    /** parse nested attributes **/
+    get_sta_handler(msg, sta_list->sta_data);
+    
+	return NL_SKIP;
+}
+
+static int nl80211_read_all_sta_data(void *priv, struct hostap_sta_list *sta_list)
+{
+    fprintf(stderr, "-------> signal debug: nl80211_read_all_sta_data start.\n");
+    
+    struct i802_bss *bss = (struct i802_bss *)priv;
+    struct wpa_driver_nl80211_data *drv = bss->drv;
+	struct nl_msg *msg;
+
+	msg = nlmsg_alloc();
+	if (!msg)
+		return -ENOMEM;
+
+	nl80211_cmd(drv, msg, NLM_F_DUMP, NL80211_CMD_GET_STATION);
+
+	NLA_PUT_U32(msg, NL80211_ATTR_IFINDEX, if_nametoindex(bss->ifname));
+
+    fprintf(stderr, "-------> signal debug: nl80211_read_all_sta_data finish.\n");
+
+	return send_and_recv_msgs(drv, msg, get_sta_list_handler, sta_list);
+ nla_put_failure:
+	nlmsg_free(msg);
+	return -ENOBUFS;
+
+}
+
 //const struct wpa_driver_ops wpa_driver_nl80211_ops = {
 const struct wpa_driver_ops wpa_driver_nl80211_ops = {
 	.name = "nl80211",
@@ -2652,6 +2785,7 @@ const struct wpa_driver_ops wpa_driver_nl80211_ops = {
 	.send_mlme = driver_nl80211_send_mlme,
     .get_mgmt_socket_fd = nl80211_get_mgmt_socket_fd,
     .recv_mgmt_frame = nl80211_recv_mgmt_frame,
+    .read_all_sta_data = nl80211_read_all_sta_data
 };
 
 #endif /* DRIVER_NL80211_H */

@@ -12,61 +12,20 @@
 
 #include "../utils/common.h"
 #include "../utils/wimaster_event.h"
+#include "../ap/hostapd.h"
 #include "../ap/wimaster_vap.h"
 #include "../ap/config_file.h"
 #include "subscription.h"
-#include "handler.h"
+#include "controller_event.h"
 
 #define CONTROLLER_READ "READ"
 #define CONTROLLER_WRITE "WRITE"
 
 static struct bufferevent *bev;
 
-/**
- * The callback function for the connection request of the controller,
- * and new a socket to receive the command of the controller.
- */
-void control_listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
-    struct sockaddr *sa, int socklen, void *user_data)
-{
-	bev = wimaster_bufferevent_socket_new(fd, BEV_OPT_CLOSE_ON_FREE);
-	if (!bev) {
-		wpa_printf(MSG_ERROR, "Error constructing bufferevent!\n");
-		return;
-	}
 
-	bufferevent_setcb(bev, control_readcb, NULL, control_eventcb, NULL);
-	bufferevent_enable(bev, EV_READ);
-}
 
-void control_readcb(struct bufferevent *bev, void *data)
-{
-    char read_buf[2048]={0};
-    bufferevent_read(bev,read_buf,sizeof(read_buf));
-   
-    parse_readcb_data(bev, read_buf);
-}
-
-void control_eventcb(struct bufferevent *bev, short events, void *user_data)
-{
-	if (events & BEV_EVENT_EOF) {
-		wpa_printf(MSG_INFO, "Controller event callback, connection closed.\n");
-	} else if (events & BEV_EVENT_ERROR) {
-		wpa_printf(MSG_INFO, "Controller event callback, got an error on the connection\n");
-	}
-	/* None of the other events can happen here, since we haven't enabled
-	 * timeouts */
-	bufferevent_free(bev);
-}
-
-void read_handler(struct bufferevent *bev, char* arg) 
-{
-    char *write_str = "DATA 0\n";
-    printf("read_handler: %s\n", arg);
-    bufferevent_write(bev, write_str, strlen(write_str));
-}
-
-static void handler_add_vap(char *data[], int size)
+static void controller_add_vap(char *data[], int size)
 {
     struct vap_data *vap;
     u8 addr[6];
@@ -91,7 +50,7 @@ static void handler_add_vap(char *data[], int size)
     inet_aton(data[1], &vap->ipv4);
 }
 
-static void handler_remove_vap(char *data[], int size)
+static void controller_remove_vap(char *data[], int size)
 {
     u8 addr[6];
 
@@ -108,7 +67,8 @@ static void handler_remove_vap(char *data[], int size)
 
 #define SUBSCRIPTION_PARAMS_NUM 6
 
-static void handler_subscriptions(char *data[], int size)
+static void controller_subscriptions(struct hostapd_data *hapd, 
+        char *data[], int size)
 {
     struct subscription *sub;
     int num_rows;
@@ -129,7 +89,6 @@ static void handler_subscriptions(char *data[], int size)
         sub = (struct subscription *)os_zalloc(sizeof(struct subscription));
         sub->id = atoi(data[index++]);
        
-        index++;
         if (strcmp(data[index], "*") == 0) {
             int i = 0;
             for(; i < 6; i++) 
@@ -138,10 +97,11 @@ static void handler_subscriptions(char *data[], int size)
         else if (hwaddr_aton(data[index], sub->sta_addr) < 0)
             goto fail;
 
+        index++;
         strcpy(sub->statistic, data[index++]);
         sub->rel = atoi(data[index++]);
         sub->val = strtod(data[index++], NULL);
-        add_subscription(sub);
+        add_subscription(hapd, sub);
     }
     return;
 
@@ -151,9 +111,17 @@ fail:
     return;
 }
 
+void read_handler(struct bufferevent *bev, struct hostapd_data *hapd, char* arg) 
+{
+    char *write_str = "DATA 0\n";
+    printf("read_handler: %s\n", arg);
+    bufferevent_write(bev, write_str, strlen(write_str));
+}
+
+
 #define WRITE_ARGS_MAX 12
 
-void write_handler(char* data)
+void write_handler(struct hostapd_data *hapd, char* data)
 {
     char *delim = ".";
     char *command;
@@ -180,29 +148,69 @@ void write_handler(char* data)
     }
 
     if (strcmp(array[0], "add_vap") == 0)
-        handler_add_vap(&array[1], size);
+        controller_add_vap(&array[1], size);
     else if (strcmp(array[0], "remove_vap") == 0)
-        handler_remove_vap(&array[1], size);
+        controller_remove_vap(&array[1], size);
     else if (strcmp(array[0], "subscriptions") == 0)
-        handler_subscriptions(&array[1], size);
+        controller_subscriptions(hapd, &array[1], size);
 
     for(;size > 0; size--) {
         os_free(array[size - 1]);
     }
 }
 
-void parse_readcb_data(struct bufferevent *bev, char* data)
+void handle_readcb_data(struct bufferevent *bev, struct hostapd_data *hapd, 
+                            char* data)
 {
     char *delim = " ";
     char *command;
 
     command = strsep(&data, delim);  
     if (strcmp(command, CONTROLLER_READ) == 0) {
-        read_handler(bev, data);
+        read_handler(bev, hapd, data);
     }
     else if (strcmp(command, CONTROLLER_WRITE) == 0) {
-        write_handler(data);
+        write_handler(hapd, data);
     }
 }
 
+
+void controller_readcb(struct bufferevent *bev, struct hostapd_data *hapd)
+{
+    char read_buf[2048]={0};
+    bufferevent_read(bev,read_buf,sizeof(read_buf));
+   
+    handle_readcb_data(bev, hapd, read_buf);
+}
+
+void controller_eventcb(struct bufferevent *bev, short events, void *user_data)
+{
+	if (events & BEV_EVENT_EOF) {
+		wpa_printf(MSG_INFO, "Controller event callback, connection closed.\n");
+	} else if (events & BEV_EVENT_ERROR) {
+		wpa_printf(MSG_INFO, "Controller event callback, got an error on the connection\n");
+	}
+	/* None of the other events can happen here, since we haven't enabled
+	 * timeouts */
+	bufferevent_free(bev);
+}
+
+/**
+ * The callback function for the connection request of the controller,
+ * and new a socket to receive the command of the controller.
+ */
+void controller_listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
+    struct sockaddr *sa, int socklen, void *user_data)
+{
+    struct hostapd_data *hapd = (struct hostapd_data *)user_data;
+
+	bev = wimaster_bufferevent_socket_new(fd, BEV_OPT_CLOSE_ON_FREE);
+	if (!bev) {
+		wpa_printf(MSG_ERROR, "Error constructing bufferevent!\n");
+		return;
+	}
+
+	bufferevent_setcb(bev, controller_readcb, NULL, controller_eventcb, hapd);
+	bufferevent_enable(bev, EV_READ);
+}
 

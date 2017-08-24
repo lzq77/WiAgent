@@ -1062,12 +1062,20 @@ struct hostap_sta_driver_data {
 	unsigned long rx_packets, tx_packets, rx_bytes, tx_bytes;
 	unsigned long current_tx_rate;
 	unsigned long inactive_msec;
+    unsigned long connected_msec;
 	unsigned long flags;
 	unsigned long num_ps_buf_frames;
 	unsigned long tx_retry_failed;
 	unsigned long tx_retry_count;
 	int last_rssi;
+    int rssi_avg;
 	int last_ack_rssi;
+};
+
+struct hostap_sta_list {
+    u8 sta_addr[ETH_ALEN];
+    struct hostap_sta_driver_data *sta_data;
+    struct hostap_sta_list *next;
 };
 
 struct hostapd_sta_add_params {
@@ -3017,6 +3025,9 @@ struct wpa_driver_ops {
      * Returns: 0 on success, -1 on failure
      */
     int (*recv_mgmt_frame)(void *priv);
+
+    int (*read_all_sta_data)(void *priv, struct hostap_sta_list *sta_list);
+
 #endif /* LIBEVENT2_MGMT_FRAME */
 };
 

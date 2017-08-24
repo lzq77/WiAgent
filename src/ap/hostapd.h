@@ -408,6 +408,9 @@ u16 copy_sta_ht_capab(struct hostapd_data *hapd, struct sta_info *sta,
 
 int hostapd_get_aid(struct hostapd_data *hapd, struct sta_info *sta);
 
+int hostapd_read_all_sta_data(struct hostapd_data *hapd, 
+            struct hostap_sta_list *sta_list);
+
 struct hostapd_iface * hostapd_init(struct hapd_interfaces *interfaces,
 				    const char *config_file);
 

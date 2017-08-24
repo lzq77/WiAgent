@@ -19,12 +19,12 @@
 #include <netlink/attr.h>
 
 #include "ap/hostapd.h"
-#include "drivers/nl80211_copy.h"
 #include "ap/beacon.h"
 #include "ap/wimaster_80211.h"
-#include "agent/handler.h"
+#include "agent/controller_event.h"
 #include "agent/push.h"
 #include "drivers/driver.h"
+#include "drivers/nl80211_copy.h"
 
 #include "utils/common.h"
 #include "utils/wimaster_event.h"
@@ -109,7 +109,7 @@ int main(int argc, char **argv)
     struct timeval tv_beacon;
 
 	char *controller_ip;
-    struct evconnlistener *control_listener;
+    struct evconnlistener *controller_listener;
 	struct sockaddr_in sin;
     struct sockaddr_in push_addr;
     
@@ -123,17 +123,50 @@ int main(int argc, char **argv)
     }
     
     /**
+     * Initialize the wireless interfaces (wlan0), 
+     * the code is transplanted from hostapd.
+     */
+    os_memset(&interfaces, 0, sizeof(struct hapd_interfaces));
+    if (init_hostapd_interface(&interfaces) < 0) { 
+        wpa_printf(MSG_ERROR, "Initialize the wireless interfaces failed.\n");
+        return -1;
+    }
+
+    /**
+     * Set the socket fd that receive management frame 
+     * to a non-blocking state.
+     */
+    hapd = interfaces.iface[0]->bss[0];
+    frame_sock = hostapd_get_mgmt_socket_fd(hapd);
+    frame_sock_flags = fcntl(frame_sock, F_GETFL, 0); //获取文件的flags值。
+    fcntl(frame_sock, F_SETFL, frame_sock_flags | O_NONBLOCK);   //设置成非阻塞模式；
+    
+    ev_frame = wimaster_event_new(frame_sock, EV_READ | EV_PERSIST,
+            wimaster_mgmt_frame_cb, hapd);
+    wimaster_event_add(ev_frame, NULL);
+
+    /**
+     * Creating a new event which broadcast beacon frames every 200ms.
+     */
+    ev_beacon = wimaster_event_new(-1, EV_TIMEOUT | EV_PERSIST, 
+            wimaster_send_beacon, hapd);
+	tv_beacon.tv_sec = 0;
+    tv_beacon.tv_usec = 200 * 1000;
+	wimaster_event_add(ev_beacon, &tv_beacon);
+	
+
+    /**
      * Listening controller connection, which is 
      * used to send its control commands.
      */
     memset(&sin, 0, sizeof(sin));
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(CONTROL_PORT);
-	control_listener = wimaster_evconnlistener_new_bind(control_listener_cb, NULL,
+    controller_listener = wimaster_evconnlistener_new_bind(controller_listener_cb, hapd,
 	    LEV_OPT_REUSEABLE|LEV_OPT_CLOSE_ON_FREE, -1,
 	    (struct sockaddr*)&sin, sizeof(sin));
     
-    if (!control_listener) {
+    if (!controller_listener) {
 		wpa_printf(MSG_ERROR, "Could not create a listener!\n");
 		return 1;
 	}
@@ -169,38 +202,6 @@ int main(int argc, char **argv)
     two_sec.tv_usec = 0;
 	wimaster_event_add(ev_ping, &two_sec);
 
-    /**
-     * Initialize the wireless interfaces (wlan0), 
-     * the code is transplanted from hostapd.
-     */
-    os_memset(&interfaces, 0, sizeof(struct hapd_interfaces));
-    if (init_hostapd_interface(&interfaces) < 0) { 
-        wpa_printf(MSG_ERROR, "Initialize the wireless interfaces failed.\n");
-        return -1;
-    }
-
-    /**
-     * Set the socket fd that receive management frame 
-     * to a non-blocking state.
-     */
-    hapd = interfaces.iface[0]->bss[0];
-    frame_sock = hostapd_get_mgmt_socket_fd(hapd);
-    frame_sock_flags = fcntl(frame_sock, F_GETFL, 0); //获取文件的flags值。
-    fcntl(frame_sock, F_SETFL, frame_sock_flags | O_NONBLOCK);   //设置成非阻塞模式；
-    
-    ev_frame = wimaster_event_new(frame_sock, EV_READ | EV_PERSIST,
-            wimaster_mgmt_frame_cb, hapd);
-    wimaster_event_add(ev_frame, NULL);
-
-    /**
-     * Creating a new event which broadcast beacon frames every 200ms.
-     */
-    ev_beacon = wimaster_event_new(-1, EV_TIMEOUT | EV_PERSIST, 
-            wimaster_send_beacon, hapd);
-	tv_beacon.tv_sec = 0;
-    tv_beacon.tv_usec = 200 * 1000;
-	wimaster_event_add(ev_beacon, &tv_beacon);
-	
     wimaster_event_dispatch();
 
 	return 0;

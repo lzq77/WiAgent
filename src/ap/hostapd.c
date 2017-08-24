@@ -595,6 +595,19 @@ u8 *hostapd_handle_assoc(struct hostapd_data *hapd,
 	return NULL;
 }
 
+int hostapd_read_all_sta_data(struct hostapd_data *hapd, 
+            struct hostap_sta_list *sta_list)
+{
+    fprintf(stderr, "-------> signal debug: hostapd_read_all_sta_data start.\n");
+	
+    if (hapd->driver == NULL || hapd->driver->read_all_sta_data == NULL)
+		return 0;
+    
+    fprintf(stderr, "-------> signal debug: hostapd_read_all_sta_data start 222.\n");
+	
+    return hapd->driver->read_all_sta_data(hapd->drv_priv, sta_list);
+}
+
 
 
 void hostapd_handle_assoc_cb(struct hostapd_data *hapd,u8 *addr){
