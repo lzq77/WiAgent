@@ -18,6 +18,6 @@ struct bufferevent *wimaster_bufferevent_socket_new(evutil_socket_t fd, int opti
 
 int wimaster_event_add(struct event *ev, const struct timeval *timeout);
 
-int wimaster_event_dispatch();
+int wimaster_event_dispatch(void);
 
 #endif

@@ -25,7 +25,6 @@
 #include "agent/push.h"
 #include "drivers/driver.h"
 #include "drivers/nl80211_copy.h"
-
 #include "utils/common.h"
 #include "utils/wimaster_event.h"
 

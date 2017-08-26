@@ -23,12 +23,13 @@ OBJS += ./drivers/drivers.o
 OBJS += ./agent/controller_event.o
 OBJS += ./agent/push.o
 OBJS += ./agent/subscription.o
+OBJS += ./agent/vap.o
+OBJS += ./agent/stainfo_handler.o
 OBJS += ./ap/config_file.o
 OBJS += ./ap/hostapd.o
 OBJS += ./ap/beacon.o
 OBJS += ./ap/hw_features.o
 OBJS += ./ap/wimaster_80211.o
-OBJS += ./ap/wimaster_vap.o
 
 -include $(OBJS:%.o=%.d)
 

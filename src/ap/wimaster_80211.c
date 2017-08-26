@@ -15,7 +15,8 @@
 #include <netlink/attr.h>
 #include "../drivers/nl80211_copy.h"
 #include "beacon.h"
-#include "wimaster_vap.h"
+#include "../agent/stainfo_handler.h"
+#include "../agent/vap.h"
 #include "../agent/push.h"
 #include "wimaster_80211.h"
 
@@ -70,7 +71,7 @@ int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
     struct vap_data *vap = wimaster_get_vap(da);
     if (vap == NULL) {
         wimaster_probe(da, ssid);
-        return -1;
+        return;
     }
 
     /**
@@ -137,11 +138,18 @@ send_auth_reply(struct hostapd_data *hapd,
 }
 
 static void wimaster_handle_auth(struct hostapd_data *hapd,
-			const struct ieee80211_mgmt *mgmt)
+			const struct ieee80211_mgmt *mgmt, const char *ssid)
 {
 	u16 auth_alg, auth_transaction, status_code;
 	u16 resp = WLAN_STATUS_SUCCESS;
 	struct sta_info *sta = NULL;
+
+    struct vap_data *vap = wimaster_get_vap(mgmt->da);
+    if (vap == NULL) {
+        wimaster_probe(mgmt->da, ssid);
+        return;
+    }
+    vap->is_beacon = 1;
 
 	auth_alg = le_to_host16(mgmt->u.auth.auth_alg);
 	auth_transaction = le_to_host16(mgmt->u.auth.auth_transaction);
@@ -168,7 +176,7 @@ static void wimaster_handle_auth(struct hostapd_data *hapd,
 }
 
 /***
- * proberesponse construct
+ * probe response construct
  */
 static int send_assoc_resp(struct hostapd_data *hapd, struct sta_info *sta, u16 status_code, int reassoc, u8 *vbssid)
 {
@@ -360,7 +368,11 @@ static void wimaster_handle_assoc(struct hostapd_data *hapd,
 
     hostapd_handle_assoc_cb(hapd, mgmt->sa);//通知内核添加sta_info
 
-    wimaster_station(hapd, mgmt->sa);
+    /**
+     * Convert struct sta_info to a json string format,
+     * then push this json to controller.
+     */
+    wimaster_push_stainfo(hapd, mgmt->sa);
 
     return;
 
@@ -369,11 +381,13 @@ fail:
 	return;
 }
 
-static int vap_send_beacon_cb(struct vap_data *vap, void *ctx)
+static void vap_send_beacon_cb(struct vap_data *vap, void *ctx)
 {
     struct hostapd_data *hapd = (struct hostapd_data *)ctx;
 
-    wimaster_handle_beacon(hapd, vap->addr, vap->bssid, vap->ssid, strlen(vap->ssid)-2);    
+    if (vap->is_beacon) {
+        wimaster_handle_beacon(hapd, vap->addr, vap->bssid, vap->ssid, strlen(vap->ssid));
+    }
 }
 
 void wimaster_send_beacon(evutil_socket_t fd, short what, void *arg)
@@ -391,7 +405,6 @@ static int hostapd_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)
 	u16 fc, stype;
     int len; 
     char *ssid = "wimaster";
-
  
     mgmt = (struct ieee80211_mgmt *)rx_mgmt->frame;
     len = rx_mgmt->frame_len;
@@ -401,13 +414,18 @@ static int hostapd_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)
 	fc = le_to_host16(mgmt->frame_control);
 	stype = WLAN_FC_GET_STYPE(fc);
 
+
+    push_subscription(mgmt->sa, 1, 1, rx_mgmt->ssi_signal + 100);
+
     switch (stype) {
         case WLAN_FC_STYPE_PROBE_REQ:
-            wimaster_handle_probe_req(hapd, mgmt->sa, mgmt->bssid,
+            wimaster_handle_probe_req(hapd, mgmt->sa, hapd->own_addr,
+                    ssid, strlen(ssid));
+            wimaster_handle_beacon(hapd, mgmt->sa, hapd->own_addr,
                     ssid, strlen(ssid));
             break;
         case WLAN_FC_STYPE_AUTH:
-            wimaster_handle_auth(hapd, mgmt);
+            wimaster_handle_auth(hapd, mgmt, ssid);
             break;
         case WLAN_FC_STYPE_DEAUTH:
             break;

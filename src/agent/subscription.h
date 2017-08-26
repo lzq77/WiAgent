@@ -19,7 +19,7 @@ void add_subscription(struct hostapd_data *hapd, struct subscription *sub);
 
 void remove_subscription(int sub_id);
 
-void clear_subscriptions();
+void clear_subscriptions(void);
 
 struct subscription * get_subscription(int sub_id);
 

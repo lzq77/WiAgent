@@ -290,8 +290,6 @@ void  hostapd_get_vht_capab(struct hostapd_data *hapd,
 	neg_vht_cap->vht_capabilities_info = cpu_to_le32(cap);
 }
 
-
-
 int hostapd_sta_add(struct hostapd_data *hapd,
 		const u8 *addr, u16 aid, u16 capability,
 		const u8 *supp_rates, size_t supp_rates_len,
@@ -598,19 +596,15 @@ u8 *hostapd_handle_assoc(struct hostapd_data *hapd,
 int hostapd_read_all_sta_data(struct hostapd_data *hapd, 
             struct hostap_sta_list *sta_list)
 {
-    fprintf(stderr, "-------> signal debug: hostapd_read_all_sta_data start.\n");
-	
     if (hapd->driver == NULL || hapd->driver->read_all_sta_data == NULL)
 		return 0;
-    
-    fprintf(stderr, "-------> signal debug: hostapd_read_all_sta_data start 222.\n");
 	
     return hapd->driver->read_all_sta_data(hapd->drv_priv, sta_list);
 }
 
 
 
-void hostapd_handle_assoc_cb(struct hostapd_data *hapd,u8 *addr){
+void hostapd_handle_assoc_cb(struct hostapd_data *hapd, const u8 *addr){
 	struct sta_info *sta;
 	struct ieee80211_ht_capabilities ht_cap;
 	struct ieee80211_vht_capabilities vht_cap;

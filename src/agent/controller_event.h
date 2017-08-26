@@ -1,5 +1,5 @@
-#ifndef HANDLER_H
-#define HANDLER_H
+#ifndef CONTROLLER_EVENT_H
+#define CONTROLLER_EVENT_H
 
 #include <event2/bufferevent.h>
 #include <event2/listener.h>

@@ -15,10 +15,10 @@
 #include <errno.h>
 #include <assert.h>
 #include <stdbool.h>
-#include <json.h>
+#include <unistd.h>
 
 #include "../utils/common.h"
-#include "../ap/wimaster_vap.h"
+#include "vap.h"
 #include "push.h"
 
 static int udp_fd;
@@ -30,7 +30,7 @@ push(const char *data)
        if (write(udp_fd, data, strlen(data)) < 0) {
             return -1;
        }
-       fprintf(stderr, "push: %s\n", data);
+       wpa_printf(MSG_DEBUG, "push: %s\n", data);
        return 0;
     }
     return -1;
@@ -41,7 +41,7 @@ push(const char *data)
 #define PING "ping"
 #define PROBE "probe"
 #define STATION "station"
-
+#define PUBLISH "publish"
 
 void
 push_ping(void) 
@@ -67,6 +67,14 @@ ping_timer(evutil_socket_t fd, short what, void *address)
 }
 
 
+void push_subscription(const u8 *addr, 
+        int count, int sub_id, int value)
+{
+    char str[1024];
+    sprintf(str, PUBLISH" "MACSTR" %d %d:%d", MAC2STR(addr), count, sub_id, value);
+    push(str);
+}
+
 void wimaster_probe(const u8 *addr, const char *ssid)
 {
     assert(addr != NULL);
@@ -85,17 +93,14 @@ void wimaster_probe(const u8 *addr, const char *ssid)
     os_free(str);
 }
 
-void wimaster_station(struct hostapd_data *hapd, const u8 *addr)
+void push_stainfo(const u8 *addr, const char *stainfo)
 {
-    assert(addr != NULL);
     char *str;
-    const char *stainfo_json;
 
-    stainfo_json = get_stainfo_json(hapd, addr);
-    if (stainfo_json) {
+    if (stainfo) {
         str = (char *)os_zalloc(strlen(STATION) + 1 + MAC_STR_LEN + 1 
-                        + strlen(stainfo_json) + 1);
-        sprintf(str, STATION" "MACSTR" %s", MAC2STR(addr), stainfo_json);
+                        + strlen(stainfo) + 1);
+        sprintf(str, STATION" "MACSTR" %s", MAC2STR(addr), stainfo);
         push(str);
         os_free(str);
     }

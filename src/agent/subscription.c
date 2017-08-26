@@ -3,12 +3,13 @@
 #include "../ap/hostapd.h"
 #include "../drivers/driver.h"
 #include "../utils/wimaster_event.h"
+#include "push.h"
 #include "subscription.h"
 
 static struct subscription *list_head = NULL;
 static struct subscription *list_tail = NULL;
 
-static void list_subscription()
+static void list_subscription(void)
 {
     struct subscription *list = list_head;
     int num = 0;
@@ -23,6 +24,18 @@ static void list_subscription()
 
 }
 
+static void handle_subscription(struct hostap_sta_list *sta_list)
+{
+    /* FIXME: subscription count and id */
+    int count = 0;
+    while (sta_list) {
+        if (sta_list->sta_addr) {
+            push_subscription(sta_list->sta_addr, 1, 1, sta_list->sta_data->last_rssi+100);
+        }
+        sta_list = sta_list->next;
+    }
+}
+
 static void get_signal_strength(evutil_socket_t fd, short what, void *arg)
 {
     struct hostap_sta_list sta_list_head;
@@ -34,14 +47,11 @@ static void get_signal_strength(evutil_socket_t fd, short what, void *arg)
     fprintf(stderr, "-------> signal debug: %s start ... \n", __func__);
     
     hostapd_read_all_sta_data(hapd, &sta_list_head);
-    
-    wpa_printf(MSG_DEBUG, "\nsta signal strength:\n");
+
+    handle_subscription(sta_list_head.next);
     
     list_temp = sta_list_head.next;
     while(list_temp) {
-        wpa_printf(MSG_DEBUG, "station("MACSTR") rssi(%d) connected_time(%d)", 
-                        MAC2STR(list_temp->sta_addr), list_temp->sta_data->last_rssi, 
-                        list_temp->sta_data->connected_msec);
         list_temp_prev = list_temp;
         list_temp = list_temp->next;
         os_free(list_temp_prev->sta_data);

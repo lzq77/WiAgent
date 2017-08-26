@@ -3,7 +3,7 @@
 
 static struct event_base *base = NULL;
 
-static inline void check_event_base()
+static inline void check_event_base(void)
 {
     if(!base) {
         base = event_base_new();
@@ -41,7 +41,7 @@ int wimaster_event_add(struct event *ev, const struct timeval *timeout)
     return event_add(ev, timeout);
 }
 
-int wimaster_event_dispatch()
+int wimaster_event_dispatch(void)
 {
     event_base_dispatch(base);
     event_base_free(base);

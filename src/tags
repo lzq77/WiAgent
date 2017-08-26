@@ -60,8 +60,8 @@ BLOCKED_CLIENT	drivers/driver.h	/^			BLOCKED_CLIENT$/;"	e	enum:wpa_event_data::c
 BSS_MEMBERSHIP_SELECTOR_HT_PHY	ap/ieee802_1x_defs.h	929;"	d
 BSS_MEMBERSHIP_SELECTOR_VHT_PHY	ap/ieee802_1x_defs.h	928;"	d
 Boolean	utils/common_defs.h	/^typedef enum { FALSE = 0, TRUE = 1 } Boolean;$/;"	t	typeref:enum:__anon36
-C2S	drivers/driver_nl80211.c	606;"	d	file:
-C2S	drivers/driver_nl80211.c	716;"	d	file:
+C2S	drivers/driver_nl80211.c	609;"	d	file:
+C2S	drivers/driver_nl80211.c	719;"	d	file:
 CC	Makefile	/^CC ?= "gcc"$/;"	m
 CFLAGS	Makefile	/^CFLAGS ?= -MMD -O2 -g$/;"	m
 CHAN_SWITCH_MODE_ALLOW_TX	ap/ieee802_1x_defs.h	1432;"	d
@@ -78,7 +78,7 @@ COMMON_H	utils/common.h	9;"	d
 CONFIG_FILE_HH	ap/config_file.h	10;"	d
 CONTROLLER_READ	agent/controller_event.c	21;"	d	file:
 CONTROLLER_WRITE	agent/controller_event.c	22;"	d	file:
-CONTROL_PORT	main.c	33;"	d	file:
+CONTROL_PORT	main.c	32;"	d	file:
 DEFINE_DL_LIST	utils/list.h	94;"	d
 DENY_UNLESS_ACCEPTED	ap/ap_config.h	/^		DENY_UNLESS_ACCEPTED = 1,$/;"	e	enum:Macaddr_acl
 DFS_EVENT_CAC_COMPLETED	ap/ieee802_1x_defs.h	45;"	d
@@ -334,7 +334,7 @@ LIST_H	utils/list.h	10;"	d
 LONG_PREAMBLE	ap/ieee802_1x_defs.h	/^		LONG_PREAMBLE = 0,$/;"	e	enum:Preamble
 MAC2STR	utils/common.h	229;"	d
 MACSTR	utils/common.h	230;"	d
-MAC_STR_LEN	agent/push.c	39;"	d	file:
+MAC_STR_LEN	agent/push.c	38;"	d	file:
 MANDIR	Makefile	/^MANDIR ?= $(PREFIX)\/share\/man$/;"	m
 MAX_CLIENT_REACHED	drivers/driver.h	/^			MAX_CLIENT_REACHED,$/;"	e	enum:wpa_event_data::connect_failed_reason::__anon5
 MAX_NL80211_IFACE_COMB	drivers/nl80211_copy.h	/^	MAX_NL80211_IFACE_COMB = NUM_NL80211_IFACE_COMB - 1$/;"	e	enum:nl80211_if_combination_attrs
@@ -1310,18 +1310,19 @@ P2P_SERV_WS_DISCOVERY	ap/ieee802_1x_defs.h	/^	P2P_SERV_WS_DISCOVERY = 3,$/;"	e	e
 P2P_WILDCARD_SSID	ap/ieee802_1x_defs.h	1213;"	d
 P2P_WILDCARD_SSID_LEN	ap/ieee802_1x_defs.h	1214;"	d
 PARSE_TEST_PROBABILITY	ap/config_file.c	3410;"	d	file:
-PING	agent/push.c	41;"	d	file:
+PING	agent/push.c	40;"	d	file:
 PKG_CONFIG	Makefile	/^PKG_CONFIG ?= pkg-config$/;"	m
 PMK_LEN	ap/ap_config.h	20;"	d
 PREFIX	Makefile	/^PREFIX ?= \/usr$/;"	m
 PRINTF_FORMAT	utils/common.h	261;"	d
 PRINTF_FORMAT	utils/common.h	264;"	d
-PROBE	agent/push.c	42;"	d	file:
+PROBE	agent/push.c	41;"	d	file:
 PSK_RADIUS_ACCEPTED	ap/ap_config.h	/^		PSK_RADIUS_ACCEPTED = 1,$/;"	e	enum:Wpa_psk_radius
 PSK_RADIUS_IGNORED	ap/ap_config.h	/^		PSK_RADIUS_IGNORED = 0,$/;"	e	enum:Wpa_psk_radius
 PSK_RADIUS_REQUIRED	ap/ap_config.h	/^		PSK_RADIUS_REQUIRED = 2$/;"	e	enum:Wpa_psk_radius
+PUBLISH	agent/push.c	43;"	d	file:
 PUSH_H	agent/push.h	2;"	d
-PUSH_PORT	main.c	32;"	d	file:
+PUSH_PORT	main.c	31;"	d	file:
 ParseFailed	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	e	enum:__anon6
 ParseOK	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	e	enum:__anon6
 ParseRes	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	t	typeref:enum:__anon6
@@ -1372,7 +1373,7 @@ SECURITY_STATIC_WEP	ap/ap_config.h	/^	SECURITY_STATIC_WEP = 1,$/;"	e	enum:hostap
 SECURITY_WPA	ap/ap_config.h	/^	SECURITY_WPA = 4,$/;"	e	enum:hostap_security_policy
 SECURITY_WPA_PSK	ap/ap_config.h	/^	SECURITY_WPA_PSK = 3,$/;"	e	enum:hostap_security_policy
 SHORT_PREAMBLE	ap/ieee802_1x_defs.h	/^		SHORT_PREAMBLE = 1$/;"	e	enum:Preamble
-STATION	agent/push.c	43;"	d	file:
+STATION	agent/push.c	42;"	d	file:
 STA_DEAUTH	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:Timeout_next
 STA_DISASSOC	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:Timeout_next
 STA_DISASSOC_FROM_CLI	ap/sta_info.h	/^		STA_DISASSOC_FROM_CLI$/;"	e	enum:Timeout_next
@@ -1400,12 +1401,12 @@ STRUCT_PACKED	ap/ieee802_1x_defs.h	/^} STRUCT_PACKED;$/;"	v	typeref:struct:wnm_s
 STRUCT_PACKED	utils/common.h	262;"	d
 STRUCT_PACKED	utils/common.h	265;"	d
 SUBSCRIPTION_H	agent/subscription.h	2;"	d
-SUBSCRIPTION_PARAMS_NUM	agent/controller_event.c	68;"	d	file:
-SURVEY_HAS_CHAN_TIME	drivers/driver.h	3535;"	d
-SURVEY_HAS_CHAN_TIME_BUSY	drivers/driver.h	3536;"	d
-SURVEY_HAS_CHAN_TIME_RX	drivers/driver.h	3537;"	d
-SURVEY_HAS_CHAN_TIME_TX	drivers/driver.h	3538;"	d
-SURVEY_HAS_NF	drivers/driver.h	3534;"	d
+SUBSCRIPTION_PARAMS_NUM	agent/controller_event.c	73;"	d	file:
+SURVEY_HAS_CHAN_TIME	drivers/driver.h	3538;"	d
+SURVEY_HAS_CHAN_TIME_BUSY	drivers/driver.h	3539;"	d
+SURVEY_HAS_CHAN_TIME_RX	drivers/driver.h	3540;"	d
+SURVEY_HAS_CHAN_TIME_TX	drivers/driver.h	3541;"	d
+SURVEY_HAS_NF	drivers/driver.h	3537;"	d
 TDLS_DISABLE	drivers/driver.h	/^	TDLS_DISABLE$/;"	e	enum:tdls_oper
 TDLS_DISABLE_LINK	drivers/driver.h	/^	TDLS_DISABLE_LINK,$/;"	e	enum:tdls_oper
 TDLS_DISCOVERY_REQ	drivers/driver.h	/^	TDLS_DISCOVERY_REQ,$/;"	e	enum:tdls_oper
@@ -1506,7 +1507,8 @@ WFD_SUBELEM_SESSION_INFO	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_SESSION_INFO = 9$/;
 WFD_SUBELEM_VIDEO_FORMATS	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_VIDEO_FORMATS = 3,$/;"	e	enum:wifi_display_subelem
 WIMASTER_80211_H	ap/wimaster_80211.h	2;"	d
 WIMASTER_EVENT_H	utils/wimaster_event.h	2;"	d
-WIMASTER_VAP_H	ap/wimaster_vap.h	2;"	d
+WIMASTER_STAINFO_H	agent/stainfo_handler.h	2;"	d
+WIMASTER_VAP_H	agent/vap.h	2;"	d
 WLAN_20_40_BSS_COEX_20MHZ_WIDTH_REQ	ap/ieee802_1x_defs.h	1379;"	d
 WLAN_20_40_BSS_COEX_40MHZ_INTOL	ap/ieee802_1x_defs.h	1378;"	d
 WLAN_20_40_BSS_COEX_INFO_REQ	ap/ieee802_1x_defs.h	1377;"	d
@@ -2123,15 +2125,15 @@ WPA_SCAN_LEVEL_INVALID	drivers/driver.h	189;"	d
 WPA_SCAN_NOISE_INVALID	drivers/driver.h	188;"	d
 WPA_SCAN_QUAL_INVALID	drivers/driver.h	187;"	d
 WPA_STA_AUTHORIZED	ap/sta_info.h	37;"	d
-WPA_STA_AUTHORIZED	drivers/driver.h	1203;"	d
+WPA_STA_AUTHORIZED	drivers/driver.h	1206;"	d
 WPA_STA_MFP	ap/sta_info.h	40;"	d
-WPA_STA_MFP	drivers/driver.h	1206;"	d
+WPA_STA_MFP	drivers/driver.h	1209;"	d
 WPA_STA_SHORT_PREAMBLE	ap/sta_info.h	39;"	d
-WPA_STA_SHORT_PREAMBLE	drivers/driver.h	1205;"	d
+WPA_STA_SHORT_PREAMBLE	drivers/driver.h	1208;"	d
 WPA_STA_TDLS_PEER	ap/sta_info.h	41;"	d
-WPA_STA_TDLS_PEER	drivers/driver.h	1207;"	d
+WPA_STA_TDLS_PEER	drivers/driver.h	1210;"	d
 WPA_STA_WMM	ap/sta_info.h	38;"	d
-WPA_STA_WMM	drivers/driver.h	1204;"	d
+WPA_STA_WMM	drivers/driver.h	1207;"	d
 WPA_SUPPLICANT_DRIVER_VERSION	drivers/driver.h	20;"	d
 WPA_TYPES_DEFINED	utils/common.h	101;"	d
 WPA_TYPES_DEFINED	utils/common.h	113;"	d
@@ -2150,7 +2152,7 @@ WPS_MODE_OPEN	drivers/driver.h	/^	WPS_MODE_OPEN \/* WPS provisioning with AP tha
 WPS_MODE_PRIVACY	drivers/driver.h	/^	WPS_MODE_PRIVACY \/* WPS provisioning with AP that is using protection$/;"	e	enum:wps_mode
 WPS_RF_24GHZ	ap/ieee802_1x_defs.h	116;"	d
 WPS_RF_50GHZ	ap/ieee802_1x_defs.h	117;"	d
-WRITE_ARGS_MAX	agent/controller_event.c	122;"	d	file:
+WRITE_ARGS_MAX	agent/controller_event.c	127;"	d	file:
 Wpa_psk_radius	ap/ap_config.h	/^enum Wpa_psk_radius{$/;"	g
 __BIG_ENDIAN	utils/common.h	184;"	d
 __BIG_ENDIAN	utils/common.h	28;"	d
@@ -2280,11 +2282,11 @@ add_tspec	drivers/driver.h	/^	 int (*add_tspec)(void *priv, const u8 *addr, u8 *
 added_bridge	drivers/driver_nl80211.c	/^	unsigned int added_bridge:1;$/;"	m	struct:i802_bss	file:
 added_if	drivers/driver_nl80211.c	/^	unsigned int added_if:1;$/;"	m	struct:i802_bss	file:
 added_if_into_bridge	drivers/driver_nl80211.c	/^	unsigned int added_if_into_bridge:1;$/;"	m	struct:i802_bss	file:
+addr	agent/vap.h	/^    u8 addr[ETH_ALEN];$/;"	m	struct:vap_data
 addr	ap/ap_config.h	/^	macaddr addr;$/;"	m	struct:mac_acl_entry
 addr	ap/ap_config.h	/^	struct hostapd_ip_addr addr;$/;"	m	struct:hostapd_radius_server	typeref:struct:hostapd_radius_server::hostapd_ip_addr
 addr	ap/ap_config.h	/^	u8 addr[ETH_ALEN];$/;"	m	struct:hostapd_wpa_psk
 addr	ap/sta_info.h	/^	u8 addr[6];$/;"	m	struct:sta_info
-addr	ap/wimaster_vap.h	/^    u8 addr[ETH_ALEN];$/;"	m	struct:vap_data
 addr	drivers/driver.h	/^		const u8 *addr;$/;"	m	struct:wpa_event_data::assoc_info
 addr	drivers/driver.h	/^		const u8 *addr;$/;"	m	struct:wpa_event_data::deauth_info
 addr	drivers/driver.h	/^		const u8 *addr;$/;"	m	struct:wpa_event_data::disassoc_info
@@ -2444,9 +2446,9 @@ bss_tm_req	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED bss_tm_req;$/;"	m	union:ie
 bss_tm_resp	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED bss_tm_resp;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon30
 bss_trans_mgmt_status_code	ap/ieee802_1x_defs.h	/^enum bss_trans_mgmt_status_code {$/;"	g
 bss_transition	ap/ap_config.h	/^	int bss_transition;$/;"	m	struct:hostapd_bss_config
+bssid	agent/vap.h	/^    u8 bssid[ETH_ALEN];$/;"	m	struct:vap_data
 bssid	ap/ap_config.h	/^	macaddr bssid;$/;"	m	struct:hostapd_bss_config
 bssid	ap/ieee802_1x_defs.h	/^	u8 bssid[6];$/;"	m	struct:ieee80211_mgmt
-bssid	ap/wimaster_vap.h	/^    u8 bssid[ETH_ALEN];$/;"	m	struct:vap_data
 bssid	drivers/driver.h	/^		const u8 *bssid;$/;"	m	struct:wpa_event_data::assoc_reject
 bssid	drivers/driver.h	/^		const u8 *bssid;$/;"	m	struct:wpa_event_data::driver_gtk_rekey
 bssid	drivers/driver.h	/^		const u8 *bssid;$/;"	m	struct:wpa_event_data::rx_from_unknown
@@ -2458,9 +2460,9 @@ bssid	drivers/driver.h	/^	const u8 *bssid;$/;"	m	struct:wpa_driver_auth_params
 bssid	drivers/driver.h	/^	const u8 *bssid;$/;"	m	struct:wpa_init_params
 bssid	drivers/driver.h	/^	u8 bssid[ETH_ALEN];$/;"	m	struct:wpa_scan_res
 bssid	drivers/driver_nl80211.c	/^	u8 bssid[ETH_ALEN];$/;"	m	struct:wpa_driver_nl80211_data	file:
-bssid_file_path	ap/wimaster_vap.c	/^static char *bssid_file_path = "\/sys\/kernel\/debug\/ieee80211\/phy0\/ath9k\/bssid_extra";$/;"	v	file:
+bssid_file_path	agent/vap.c	/^static char *bssid_file_path = "\/sys\/kernel\/debug\/ieee80211\/phy0\/ath9k\/bssid_extra";$/;"	v	file:
 bssid_hint	drivers/driver.h	/^	const u8 *bssid_hint;$/;"	m	struct:wpa_driver_associate_params
-bssid_mask	ap/wimaster_vap.c	/^static u8 bssid_mask[6] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};$/;"	v	file:
+bssid_mask	agent/vap.c	/^static u8 bssid_mask[6] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};$/;"	v	file:
 bswap_16	utils/common.h	/^static inline unsigned short bswap_16(unsigned short v)$/;"	f
 bswap_16	utils/common.h	30;"	d
 bswap_16	utils/common.h	34;"	d
@@ -2534,7 +2536,7 @@ close	utils/common.h	86;"	d
 code	drivers/driver.h	/^		} code;$/;"	m	struct:wpa_event_data::connect_failed_reason	typeref:enum:wpa_event_data::connect_failed_reason::__anon5
 coex_param	ap/ieee802_1x_defs.h	/^	u8 coex_param;$/;"	m	struct:ieee80211_2040_bss_coex_ie
 commit	drivers/driver.h	/^	int (*commit)(void *priv);$/;"	m	struct:wpa_driver_ops
-compute_bssid_mask	ap/wimaster_vap.c	/^static void compute_bssid_mask(const u8 *hw, const u8 *bssid)$/;"	f	file:
+compute_bssid_mask	agent/vap.c	/^static void compute_bssid_mask(const u8 *hw, const u8 *bssid)$/;"	f	file:
 conf	ap/hostapd.h	/^	struct hostapd_bss_config *conf;$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::hostapd_bss_config
 conf	ap/hostapd.h	/^	struct hostapd_config *conf;$/;"	m	struct:hostapd_iface	typeref:struct:hostapd_iface::hostapd_config
 config_fname	ap/hostapd.h	/^	char *config_fname;$/;"	m	struct:hostapd_iface
@@ -2542,6 +2544,8 @@ config_methods	ap/ap_config.h	/^	char *config_methods;$/;"	m	struct:hostapd_bss_
 config_read_cb	ap/hostapd.h	/^	struct hostapd_config * (*config_read_cb)(const char *config_fname);$/;"	m	struct:hapd_interfaces	typeref:struct:hapd_interfaces::config_read_cb
 connect_failed_reason	drivers/driver.h	/^	struct connect_failed_reason {$/;"	s	union:wpa_event_data
 connect_failed_reason	drivers/driver.h	/^	} connect_failed_reason;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::connect_failed_reason
+connected_msec	drivers/driver.h	/^    unsigned long connected_msec;$/;"	m	struct:hostap_sta_driver_data
+controller_add_stainfo	agent/controller_event.c	/^static void controller_add_stainfo(struct hostapd_data *hapd,$/;"	f	file:
 controller_add_vap	agent/controller_event.c	/^static void controller_add_vap(char *data[], int size)$/;"	f	file:
 controller_eventcb	agent/controller_event.c	/^void controller_eventcb(struct bufferevent *bev, short events, void *user_data)$/;"	f
 controller_listener_cb	agent/controller_event.c	/^void controller_listener_cb(struct evconnlistener *listener, evutil_socket_t fd,$/;"	f
@@ -2847,7 +2851,6 @@ gas_dialog_next	ap/sta_info.h	/^	u8 gas_dialog_next;$/;"	m	struct:sta_info
 gas_frag_limit	ap/ap_config.h	/^	int gas_frag_limit;$/;"	m	struct:hostapd_bss_config
 gas_frag_limit	ap/hostapd.h	/^	size_t gas_frag_limit;$/;"	m	struct:hostapd_data
 generate_assoc_resp	ap/beacon.c	/^u8 * generate_assoc_resp(struct hostapd_data *hapd, struct sta_info *sta,u8 *vbssid,$/;"	f
-get_all_sta_handler	drivers/driver_nl80211.c	/^static int get_all_sta_handler(struct nl_msg *msg, void *arg)$/;"	f	file:
 get_available_receive_sc	drivers/driver.h	/^	int (*get_available_receive_sc)(void *priv, u32 *channel);$/;"	m	struct:wpa_driver_ops
 get_available_transmit_sc	drivers/driver.h	/^	int (*get_available_transmit_sc)(void *priv, u32 *channel);$/;"	m	struct:wpa_driver_ops
 get_bssid	drivers/driver.h	/^	int (*get_bssid)(void *priv, u8 *bssid);$/;"	m	struct:wpa_driver_ops
@@ -2867,7 +2870,8 @@ get_scan_results2	drivers/driver.h	/^	 struct wpa_scan_results * (*get_scan_resu
 get_seqnum	drivers/driver.h	/^	int (*get_seqnum)(const char *ifname, void *priv, const u8 *addr,$/;"	m	struct:wpa_driver_ops
 get_signal_strength	agent/subscription.c	/^static void get_signal_strength(evutil_socket_t fd, short what, void *arg)$/;"	f	file:
 get_ssid	drivers/driver.h	/^	int (*get_ssid)(void *priv, u8 *ssid);$/;"	m	struct:wpa_driver_ops
-get_stainfo_json	ap/wimaster_vap.c	/^const char *get_stainfo_json(struct hostapd_data *hapd, const u8 *addr)$/;"	f
+get_sta_handler	drivers/driver_nl80211.c	/^static int get_sta_handler(struct nl_msg *msg, void *arg)$/;"	f	file:
+get_sta_list_handler	drivers/driver_nl80211.c	/^static int get_sta_list_handler(struct nl_msg *msg, void *arg)$/;"	f	file:
 get_survey	drivers/driver.h	/^	int (*get_survey)(void *priv, unsigned int freq);$/;"	m	struct:wpa_driver_ops
 get_transmit_next_pn	drivers/driver.h	/^	int (*get_transmit_next_pn)(void *priv, u32 channel, u8 an,$/;"	m	struct:wpa_driver_ops
 global	drivers/driver_nl80211.c	/^	struct nl80211_global *global;$/;"	m	struct:wpa_driver_nl80211_data	typeref:struct:wpa_driver_nl80211_data::nl80211_global	file:
@@ -2886,6 +2890,7 @@ gtk_rekey_failure	drivers/driver.h	/^	u8 gtk_rekey_failure;$/;"	m	struct:wowlan_
 handle_auth	ap/hostapd.c	/^void handle_auth(struct hostapd_data *hapd,const u8 *addr,int auth_alg)$/;"	f
 handle_readcb_data	agent/controller_event.c	/^void handle_readcb_data(struct bufferevent *bev, struct hostapd_data *hapd, $/;"	f
 handle_signal_strength	agent/subscription.c	/^void handle_signal_strength(struct hostapd_data *hapd)$/;"	f
+handle_subscription	agent/subscription.c	/^static void handle_subscription(struct hostap_sta_list *sta_list)$/;"	f	file:
 hapd_deinit	drivers/driver.h	/^	void (*hapd_deinit)(void *priv);$/;"	m	struct:wpa_driver_ops
 hapd_get_ssid	drivers/driver.h	/^	int (*hapd_get_ssid)(void *priv, u8 *buf, int len);$/;"	m	struct:wpa_driver_ops
 hapd_init	drivers/driver.h	/^	void * (*hapd_init)(struct hostapd_data *hapd,$/;"	m	struct:wpa_driver_ops
@@ -2980,7 +2985,7 @@ hostapd_get_hw_features	ap/hw_features.c	/^int hostapd_get_hw_features(struct ho
 hostapd_get_mgmt_socket_fd	ap/hostapd.c	/^int hostapd_get_mgmt_socket_fd(struct hostapd_data *hapd)$/;"	f
 hostapd_get_vht_capab	ap/hostapd.c	/^void  hostapd_get_vht_capab(struct hostapd_data *hapd,$/;"	f
 hostapd_handle_assoc	ap/hostapd.c	/^u8 *hostapd_handle_assoc(struct hostapd_data *hapd,$/;"	f
-hostapd_handle_assoc_cb	ap/hostapd.c	/^void hostapd_handle_assoc_cb(struct hostapd_data *hapd,u8 *addr){$/;"	f
+hostapd_handle_assoc_cb	ap/hostapd.c	/^void hostapd_handle_assoc_cb(struct hostapd_data *hapd,const u8 *addr){$/;"	f
 hostapd_hw_get_freq	ap/hw_features.c	/^int hostapd_hw_get_freq(struct hostapd_data *hapd, int chan)$/;"	f
 hostapd_hw_mode	utils/common_defs.h	/^enum hostapd_hw_mode {$/;"	g
 hostapd_hw_mode_txt	ap/hw_features.c	/^const char * hostapd_hw_mode_txt(int mode)$/;"	f
@@ -3079,7 +3084,7 @@ ht_set	drivers/driver.h	/^	int ht_set;$/;"	m	struct:wpa_driver_associate_params
 htcaps	drivers/driver.h	/^	const u8 *htcaps;       \/* struct ieee80211_ht_capabilities * *\/$/;"	m	struct:wpa_driver_associate_params
 htcaps_mask	drivers/driver.h	/^	const u8 *htcaps_mask;  \/* struct ieee80211_ht_capabilities * *\/$/;"	m	struct:wpa_driver_associate_params
 htmode	drivers/driver.h	/^	unsigned int htmode;$/;"	m	struct:wpa_driver_associate_params
-hw_addr	ap/wimaster_vap.c	/^static u8 hw_addr[6] = {0xc4, 0x04, 0x15, 0x9c, 0xf6, 0xe3};$/;"	v	file:
+hw_addr	agent/vap.c	/^static u8 hw_addr[6] = {0xc4, 0x04, 0x15, 0x9c, 0xf6, 0xe3};$/;"	v	file:
 hw_features	ap/hostapd.h	/^	struct hostapd_hw_modes *hw_features;$/;"	m	struct:hostapd_iface	typeref:struct:hostapd_iface::hostapd_hw_modes
 hw_flags	ap/hostapd.h	/^	u16 hw_flags;$/;"	m	struct:hostapd_iface
 hw_mode	ap/ap_config.h	/^	enum hostapd_hw_mode hw_mode; \/* HOSTAPD_MODE_IEEE80211A, .. *\/$/;"	m	struct:hostapd_config	typeref:enum:hostapd_config::hostapd_hw_mode
@@ -3198,11 +3203,13 @@ ip_addr_mask	ap/ap_config.h	/^	u8 ip_addr_mask[4];$/;"	m	struct:hostapd_bss_conf
 ip_addr_start	ap/ap_config.h	/^	u8 ip_addr_start[4];$/;"	m	struct:hostapd_bss_config
 ipaddr_type_availability	ap/ap_config.h	/^	u8 ipaddr_type_availability;$/;"	m	struct:hostapd_bss_config
 ipaddr_type_configured	ap/ap_config.h	/^	u8 ipaddr_type_configured;$/;"	m	struct:hostapd_bss_config
-ipv4	ap/wimaster_vap.h	/^    struct in_addr ipv4;$/;"	m	struct:vap_data	typeref:struct:vap_data::in_addr
+ipv4	agent/vap.h	/^    struct in_addr ipv4;$/;"	m	struct:vap_data	typeref:struct:vap_data::in_addr
 is_ap_interface	drivers/driver_nl80211.c	/^static int is_ap_interface(enum nl80211_iftype nlmode)$/;"	f	file:
+is_beacon	agent/vap.h	/^    int is_beacon;$/;"	m	struct:vap_data
 is_sta_interface	drivers/driver_nl80211.c	/^static int is_sta_interface(enum nl80211_iftype nlmode)$/;"	f	file:
 isolate	ap/ap_config.h	/^	int isolate;$/;"	m	struct:hostapd_bss_config
 isolate	drivers/driver.h	/^	int isolate;$/;"	m	struct:wpa_driver_ap_params
+json_to_stainfo	agent/stainfo_handler.c	/^static int json_to_stainfo(const char *json, struct sta_info *sta)$/;"	f	file:
 key	ap/ap_config.h	/^	u8 *key[NUM_WEP_KEYS];$/;"	m	struct:hostapd_wep_keys
 key_mgmt	drivers/driver.h	/^	unsigned int key_mgmt;$/;"	m	struct:wpa_driver_capa
 key_mgmt_suite	drivers/driver.h	/^	unsigned int key_mgmt_suite;$/;"	m	struct:wpa_driver_associate_params
@@ -3354,11 +3361,11 @@ new_psk_cb_ctx	ap/hostapd.h	/^	void *new_psk_cb_ctx;$/;"	m	struct:hostapd_data
 new_sta	drivers/driver.h	/^	struct new_sta {$/;"	s	union:wpa_event_data
 new_sta	drivers/driver.h	/^	} new_sta;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::new_sta
 next	agent/subscription.h	/^    struct subscription *next;$/;"	m	struct:subscription	typeref:struct:subscription::subscription
+next	agent/vap.h	/^    struct vap_data *next;$/;"	m	struct:vap_data	typeref:struct:vap_data::vap_data
 next	ap/ap_config.h	/^	struct hostapd_radius_attr *next;$/;"	m	struct:hostapd_radius_attr	typeref:struct:hostapd_radius_attr::hostapd_radius_attr
 next	ap/ap_config.h	/^	struct hostapd_vlan *next;$/;"	m	struct:hostapd_vlan	typeref:struct:hostapd_vlan::hostapd_vlan
 next	ap/ap_config.h	/^	struct hostapd_wpa_psk *next;$/;"	m	struct:hostapd_wpa_psk	typeref:struct:hostapd_wpa_psk::hostapd_wpa_psk
 next	ap/sta_info.h	/^	struct sta_info *next; \/* next entry in sta list *\/$/;"	m	struct:sta_info	typeref:struct:sta_info::sta_info
-next	ap/wimaster_vap.h	/^    struct vap_data *next;$/;"	m	struct:vap_data	typeref:struct:vap_data::vap_data
 next	drivers/driver.h	/^	struct wpa_interface_info *next;$/;"	m	struct:wpa_interface_info	typeref:struct:wpa_interface_info::wpa_interface_info
 next	drivers/driver.h	/^    struct hostap_sta_list *next;$/;"	m	struct:hostap_sta_list	typeref:struct:hostap_sta_list::hostap_sta_list
 next	drivers/driver_nl80211.c	/^	struct i802_bss *next;$/;"	m	struct:i802_bss	typeref:struct:i802_bss::i802_bss	file:
@@ -3695,6 +3702,8 @@ public_action_cb2_ctx	ap/hostapd.h	/^	void *public_action_cb2_ctx;$/;"	m	struct:
 public_action_cb_ctx	ap/hostapd.h	/^	void *public_action_cb_ctx;$/;"	m	struct:hostapd_data
 push	agent/push.c	/^push(const char *data)$/;"	f	file:
 push_ping	agent/push.c	/^push_ping(void) $/;"	f
+push_stainfo	agent/push.c	/^void push_stainfo(const u8 *addr, const char *stainfo)$/;"	f
+push_subscription	agent/push.c	/^void push_subscription(const u8 *addr, $/;"	f
 pwd_group	ap/ap_config.h	/^	u16 pwd_group;$/;"	m	struct:hostapd_bss_config
 qca_nl80211_vendor_subcmds	utils/qca-vendor.h	/^enum qca_nl80211_vendor_subcmds {$/;"	g
 qca_radiotap_vendor_ids	utils/qca-vendor.h	/^enum qca_radiotap_vendor_ids {$/;"	g
@@ -3775,7 +3784,7 @@ require_ht	ap/ap_config.h	/^	int require_ht;$/;"	m	struct:hostapd_config
 require_vht	ap/ap_config.h	/^	int require_vht;$/;"	m	struct:hostapd_config
 res	drivers/driver.h	/^	struct wpa_scan_res **res;$/;"	m	struct:wpa_scan_results	typeref:struct:wpa_scan_results::wpa_scan_res
 reserved	ap/ieee802_1x_defs.h	/^	u8 reserved; \/* 0 *\/$/;"	m	struct:wmm_parameter_element
-reset_bssid_mask	ap/wimaster_vap.c	/^static void reset_bssid_mask(void)$/;"	f	file:
+reset_bssid_mask	agent/vap.c	/^static void reset_bssid_mask(void)$/;"	f	file:
 resp_ies	drivers/driver.h	/^		const u8 *resp_ies;$/;"	m	struct:wpa_event_data::assoc_info
 resp_ies	drivers/driver.h	/^		const u8 *resp_ies;$/;"	m	struct:wpa_event_data::assoc_reject
 resp_ies_len	drivers/driver.h	/^		size_t resp_ies_len;$/;"	m	struct:wpa_event_data::assoc_info
@@ -3797,6 +3806,7 @@ rsn_pairwise	ap/ap_config.h	/^	int rsn_pairwise;$/;"	m	struct:hostapd_bss_config
 rsn_preauth	ap/ap_config.h	/^	int rsn_preauth;$/;"	m	struct:hostapd_bss_config
 rsn_preauth	drivers/driver.h	/^	int rsn_preauth;$/;"	m	struct:wpa_bss_params
 rsn_preauth_interfaces	ap/ap_config.h	/^	char *rsn_preauth_interfaces;$/;"	m	struct:hostapd_bss_config
+rssi_avg	drivers/driver.h	/^    int rssi_avg;$/;"	m	struct:hostap_sta_driver_data
 rts_threshold	ap/ap_config.h	/^	int rts_threshold;$/;"	m	struct:hostapd_config
 rx_bytes	drivers/driver.h	/^	unsigned long rx_packets, tx_packets, rx_bytes, tx_bytes;$/;"	m	struct:hostap_sta_driver_data
 rx_from_unknown	drivers/driver.h	/^	struct rx_from_unknown {$/;"	s	union:wpa_event_data
@@ -3933,11 +3943,11 @@ src	drivers/driver.h	/^		const u8 *src;$/;"	m	struct:wpa_event_data::michael_mic
 ssi	drivers/driver.h	/^		int ssi;$/;"	m	struct:wpa_event_data::mlme_rx
 ssi_signal	drivers/driver.h	/^		int ssi_signal;$/;"	m	struct:wpa_event_data::rx_mgmt
 ssi_signal	drivers/driver.h	/^		int ssi_signal;$/;"	m	struct:wpa_event_data::rx_probe_req
+ssid	agent/vap.h	/^    char *ssid;$/;"	m	struct:vap_data
 ssid	ap/ap_config.h	/^	struct hostapd_ssid ssid;$/;"	m	struct:hostapd_bss_config	typeref:struct:hostapd_bss_config::hostapd_ssid
 ssid	ap/ap_config.h	/^	u8 ssid[HOSTAPD_MAX_SSID_LEN];$/;"	m	struct:hostapd_ssid
 ssid	ap/ieee802_1x_defs.h	/^	const u8 *ssid;$/;"	m	struct:ieee802_11_elems
 ssid	ap/sta_info.h	/^	struct hostapd_ssid *ssid; \/* SSID selection based on (Re)AssocReq *\/$/;"	m	struct:sta_info	typeref:struct:sta_info::hostapd_ssid
-ssid	ap/wimaster_vap.h	/^    char *ssid;$/;"	m	struct:vap_data
 ssid	drivers/driver.h	/^		const u8 *ssid;$/;"	m	struct:wpa_driver_scan_params::wpa_driver_scan_ssid
 ssid	drivers/driver.h	/^		u8 ssid[32];$/;"	m	struct:wpa_driver_scan_params::wpa_driver_scan_filter
 ssid	drivers/driver.h	/^	const u8 *ssid;$/;"	m	struct:wpa_driver_ap_params
@@ -3961,11 +3971,12 @@ ssid_set	ap/ap_config.h	/^	unsigned int ssid_set:1;$/;"	m	struct:hostapd_ssid
 ssids	drivers/driver.h	/^		struct wpa_driver_scan_ssid ssids[WPAS_MAX_SCAN_SSIDS];$/;"	m	struct:wpa_event_data::scan_info	typeref:struct:wpa_event_data::scan_info::wpa_driver_scan_ssid
 ssids	drivers/driver.h	/^	} ssids[WPAS_MAX_SCAN_SSIDS];$/;"	m	struct:wpa_driver_scan_params	typeref:struct:wpa_driver_scan_params::wpa_driver_scan_ssid
 ssl_ctx	ap/hostapd.h	/^	void *ssl_ctx;$/;"	m	struct:hostapd_data
-sta	ap/wimaster_vap.h	/^    struct sta_info *sta;    $/;"	m	struct:vap_data	typeref:struct:vap_data::sta_info
+sta	agent/vap.h	/^    struct sta_info *sta;    $/;"	m	struct:vap_data	typeref:struct:vap_data::sta_info
 sta_add	drivers/driver.h	/^	int (*sta_add)(void *priv, struct hostapd_sta_add_params *params);$/;"	m	struct:wpa_driver_ops
 sta_addr	agent/subscription.h	/^    u8 sta_addr[6];$/;"	m	struct:subscription
 sta_addr	ap/ieee802_1x_defs.h	/^					u8 sta_addr[ETH_ALEN];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon21
 sta_addr	ap/ieee802_1x_defs.h	/^					u8 sta_addr[ETH_ALEN];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon22
+sta_addr	drivers/driver.h	/^    u8 sta_addr[ETH_ALEN];$/;"	m	struct:hostap_sta_list
 sta_aid	ap/hostapd.h	/^	u32 sta_aid[AID_WORDS];$/;"	m	struct:hostapd_data
 sta_assoc	drivers/driver.h	/^	 int (*sta_assoc)(void *priv, const u8 *own_addr, const u8 *addr,$/;"	m	struct:wpa_driver_ops
 sta_auth	drivers/driver.h	/^	 int (*sta_auth)(void *priv, const u8 *own_addr, const u8 *addr,$/;"	m	struct:wpa_driver_ops
@@ -3982,7 +3993,7 @@ sta_info_convert_to_json	ap/hostapd.c	/^json_object * sta_info_convert_to_json(s
 sta_list	ap/hostapd.h	/^	struct sta_info *sta_list; \/* STA info list head *\/$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::sta_info
 sta_remove	drivers/driver.h	/^	int (*sta_remove)(void *priv, const u8 *addr);$/;"	m	struct:wpa_driver_ops
 sta_set_flags	drivers/driver.h	/^	int (*sta_set_flags)(void *priv, const u8 *addr,$/;"	m	struct:wpa_driver_ops
-stainfo_to_json	ap/wimaster_vap.c	/^static const char *stainfo_to_json(const struct sta_info *sta, $/;"	f	file:
+stainfo_to_json	agent/stainfo_handler.c	/^static const char *stainfo_to_json(const struct sta_info *sta, $/;"	f	file:
 start	drivers/nl80211_copy.h	/^	__u32 start, offset, len;$/;"	m	struct:nl80211_wowlan_tcp_data_seq
 start_dfs_cac	drivers/driver.h	/^	int (*start_dfs_cac)(void *priv, struct hostapd_freq_params *freq);$/;"	m	struct:wpa_driver_ops
 start_disabled	ap/ap_config.h	/^	int start_disabled;$/;"	m	struct:hostapd_bss_config
@@ -4132,9 +4143,9 @@ val	agent/subscription.h	/^    double val;$/;"	m	struct:subscription
 val	ap/ap_config.h	/^	struct wpabuf *val;$/;"	m	struct:hostapd_radius_attr	typeref:struct:hostapd_radius_attr::wpabuf
 valid_cw	ap/config_file.c	/^static int valid_cw(int cw)$/;"	f	file:
 validity_interval	ap/ieee802_1x_defs.h	/^					u8 validity_interval;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon29
-vap_data	ap/wimaster_vap.h	/^struct vap_data {$/;"	s
-vap_first	ap/wimaster_vap.c	/^static struct vap_data *vap_first = NULL;$/;"	v	typeref:struct:vap_data	file:
-vap_last	ap/wimaster_vap.c	/^static struct vap_data *vap_last = NULL;$/;"	v	typeref:struct:vap_data	file:
+vap_data	agent/vap.h	/^struct vap_data {$/;"	s
+vap_first	agent/vap.c	/^static struct vap_data *vap_first = NULL;$/;"	v	typeref:struct:vap_data	file:
+vap_last	agent/vap.c	/^static struct vap_data *vap_last = NULL;$/;"	v	typeref:struct:vap_data	file:
 vap_send_beacon_cb	ap/wimaster_80211.c	/^static int vap_send_beacon_cb(struct vap_data *vap, void *ctx)$/;"	f	file:
 variable	ap/ieee802_1x_defs.h	/^					u8 variable[0]; \/* FT Request *\/$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon21
 variable	ap/ieee802_1x_defs.h	/^					u8 variable[0]; \/* FT Request *\/$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon22
@@ -4226,24 +4237,25 @@ wfd_len	ap/ieee802_1x_defs.h	/^	u8 wfd_len;$/;"	m	struct:ieee802_11_elems
 width	ap/ap_config.h	/^		u16 width;$/;"	m	struct:hostapd_bss_config::hs20_icon
 width_trigger_scan_interval	ap/ieee802_1x_defs.h	/^	le16 width_trigger_scan_interval;$/;"	m	struct:ieee80211_obss_scan_parameters
 wifi_display_subelem	ap/ieee802_1x_defs.h	/^enum wifi_display_subelem {$/;"	g
+wimaster_add_stainfo	agent/stainfo_handler.c	/^int wimaster_add_stainfo(struct hostapd_data *hapd, $/;"	f
 wimaster_bufferevent_socket_new	utils/wimaster_event.c	/^struct bufferevent *wimaster_bufferevent_socket_new(evutil_socket_t fd, int options)$/;"	f
 wimaster_evconnlistener_new_bind	utils/wimaster_event.c	/^struct evconnlistener *wimaster_evconnlistener_new_bind(evconnlistener_cb cb, $/;"	f
 wimaster_event_add	utils/wimaster_event.c	/^int wimaster_event_add(struct event *ev, const struct timeval *timeout)$/;"	f
 wimaster_event_dispatch	utils/wimaster_event.c	/^int wimaster_event_dispatch()$/;"	f
 wimaster_event_new	utils/wimaster_event.c	/^struct event *wimaster_event_new(evutil_socket_t fd, short events, $/;"	f
-wimaster_for_each_vap	ap/wimaster_vap.c	/^int wimaster_for_each_vap(int (*cb)(struct vap_data *vap, void *ctx), void *ctx)$/;"	f
-wimaster_get_vap	ap/wimaster_vap.c	/^struct vap_data *wimaster_get_vap(const u8 *addr)$/;"	f
+wimaster_for_each_vap	agent/vap.c	/^int wimaster_for_each_vap(int (*cb)(struct vap_data *vap, void *ctx), void *ctx)$/;"	f
+wimaster_get_vap	agent/vap.c	/^struct vap_data *wimaster_get_vap(const u8 *addr)$/;"	f
 wimaster_handle_assoc	ap/wimaster_80211.c	/^static void wimaster_handle_assoc(struct hostapd_data *hapd,$/;"	f	file:
 wimaster_handle_auth	ap/wimaster_80211.c	/^static void wimaster_handle_auth(struct hostapd_data *hapd,$/;"	f	file:
 wimaster_handle_beacon	ap/wimaster_80211.c	/^int wimaster_handle_beacon(struct hostapd_data *_hapd,u8 *da,u8 *bssid,$/;"	f
 wimaster_handle_probe_req	ap/wimaster_80211.c	/^int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,$/;"	f
 wimaster_mgmt_frame_cb	main.c	/^wimaster_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)$/;"	f	file:
 wimaster_probe	agent/push.c	/^void wimaster_probe(const u8 *addr, const char *ssid)$/;"	f
+wimaster_push_stainfo	agent/stainfo_handler.c	/^int wimaster_push_stainfo(struct hostapd_data *hapd, const u8 *addr)$/;"	f
 wimaster_send_beacon	ap/wimaster_80211.c	/^void wimaster_send_beacon(evutil_socket_t fd, short what, void *arg)$/;"	f
-wimaster_station	agent/push.c	/^void wimaster_station(struct hostapd_data *hapd, const u8 *addr)$/;"	f
-wimaster_vap_add	ap/wimaster_vap.c	/^struct vap_data * wimaster_vap_add(const u8 *addr, const u8 *bssid, const char *ssid)$/;"	f
-wimaster_vap_list	ap/wimaster_vap.c	/^static void wimaster_vap_list()$/;"	f	file:
-wimaster_vap_remove	ap/wimaster_vap.c	/^int wimaster_vap_remove(const u8 *addr)$/;"	f
+wimaster_vap_add	agent/vap.c	/^struct vap_data * wimaster_vap_add(const u8 *addr, const u8 *bssid, const char *ssid)$/;"	f
+wimaster_vap_list	agent/vap.c	/^static void wimaster_vap_list()$/;"	f	file:
+wimaster_vap_remove	agent/vap.c	/^int wimaster_vap_remove(const u8 *addr)$/;"	f
 wiphy_data	drivers/driver_nl80211.c	/^	struct nl80211_wiphy_data *wiphy_data;$/;"	m	struct:i802_bss	typeref:struct:i802_bss::nl80211_wiphy_data	file:
 wmm	ap/ieee802_1x_defs.h	/^	const u8 *wmm; \/* WMM Information or Parameter Element *\/$/;"	m	struct:ieee802_11_elems
 wmm_ac_parameter	ap/ieee802_1x_defs.h	/^struct wmm_ac_parameter {$/;"	s

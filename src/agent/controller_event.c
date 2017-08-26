@@ -10,11 +10,16 @@
 #include <string.h>                             // for memset
 #include <assert.h>
 
+#include <sys/socket.h>             //for inet_aton(...)
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
 #include "../utils/common.h"
 #include "../utils/wimaster_event.h"
 #include "../ap/hostapd.h"
-#include "../ap/wimaster_vap.h"
 #include "../ap/config_file.h"
+#include "vap.h"
+#include "stainfo_handler.h"
 #include "subscription.h"
 #include "controller_event.h"
 
@@ -23,9 +28,7 @@
 
 static struct bufferevent *bev;
 
-
-
-static void controller_add_vap(char *data[], int size)
+static void controller_add_vap(struct hostapd_data *hapd, char *data[], int size)
 {
     struct vap_data *vap;
     u8 addr[6];
@@ -34,23 +37,24 @@ static void controller_add_vap(char *data[], int size)
     assert(data != NULL);
 
     if (hwaddr_aton(data[0], addr) < 0) {
-        wpa_printf(MSG_WARN, "handler_add_vap convert string to MAC address failed!\n");
+        wpa_printf(MSG_WARN, "%s: convert string %s to MAC address failed!\n", __func__, data[0]);
         return;
     }
     if (hwaddr_aton(data[2], bssid) < 0) {
-        wpa_printf(MSG_WARN, "handler_add_vap convert string to MAC address failed!\n");
+        wpa_printf(MSG_WARN, "%s: convert string %s to MAC address failed!\n", __func__, data[2]);
         return;
     }
 
-    vap = wimaster_vap_add(addr, bssid, data[3]);
+    vap = wimaster_vap_add(hapd->own_addr, addr, bssid, data[3]);
     if(vap == NULL) {
         wpa_printf(MSG_WARN, "handler_add_vap cannot add vap!\n");
         return;
     }
     inet_aton(data[1], &vap->ipv4);
+    vap->is_beacon = 0;
 }
 
-static void controller_remove_vap(char *data[], int size)
+static void controller_remove_vap(struct hostapd_data *hapd, char *data[], int size)
 {
     u8 addr[6];
 
@@ -61,8 +65,25 @@ static void controller_remove_vap(char *data[], int size)
         return;
     }
 
-    if (wimaster_vap_remove(addr) == 0)
-        wpa_printf(MSG_DEBUG, "handler_remove_vap remove vap(%s) success!\n", data[0]);
+    if (wimaster_vap_remove(hapd->own_addr, addr) == 0) {
+        if (wimaster_remove_stainfo(hapd, addr) == 0)
+            wpa_printf(MSG_DEBUG, "Have remove (%s) vap and sta_info success!\n", data[0]);
+    }
+}
+
+static void controller_add_stainfo(struct hostapd_data *hapd,
+        char *data[], int size)
+{
+    u8 addr[6];
+    if (hwaddr_aton(data[0], addr) < 0) {
+        wpa_printf(MSG_WARN, "%s: convert string %s to MAC address failed!\n", __func__, data[0]);
+        return;
+    }
+
+    if (wimaster_add_stainfo(hapd, addr, data[1]) < 0) {
+        wpa_printf(MSG_WARN, "Add sta_info "MACSTR" failed.\n", MAC2STR(addr));
+        return;
+    }
 }
 
 #define SUBSCRIPTION_PARAMS_NUM 6
@@ -144,15 +165,22 @@ void write_handler(struct hostapd_data *hapd, char* data)
             command = strsep(&data, delim)) {
         array[size] = (char *)os_zalloc(strlen(command) + 1);
         strcpy(array[size], command);
+        if (size == 1 && strcmp(array[0], "add_station") == 0) {
+            array[++size] = (char *)os_zalloc(strlen(data) + 1);
+            strcpy(array[size], data);
+            break;
+        }
         size++;
     }
 
     if (strcmp(array[0], "add_vap") == 0)
-        controller_add_vap(&array[1], size);
+        controller_add_vap(hapd, &array[1], size);
     else if (strcmp(array[0], "remove_vap") == 0)
-        controller_remove_vap(&array[1], size);
+        controller_remove_vap(hapd, &array[1], size);
     else if (strcmp(array[0], "subscriptions") == 0)
         controller_subscriptions(hapd, &array[1], size);
+    else if (strcmp(array[0], "add_station") == 0)
+        controller_add_stainfo(hapd, &array[1], size);
 
     for(;size > 0; size--) {
         os_free(array[size - 1]);

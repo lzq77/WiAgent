@@ -2716,7 +2716,6 @@ static int get_sta_list_handler(struct nl_msg *msg, void *arg)
 		wpa_printf(MSG_DEBUG, "sta stats missing!");
 		return NL_SKIP;
 	}
-
     
     while(sta_list->next) {
         sta_list = sta_list->next;
@@ -2739,8 +2738,6 @@ static int get_sta_list_handler(struct nl_msg *msg, void *arg)
 
 static int nl80211_read_all_sta_data(void *priv, struct hostap_sta_list *sta_list)
 {
-    fprintf(stderr, "-------> signal debug: nl80211_read_all_sta_data start.\n");
-    
     struct i802_bss *bss = (struct i802_bss *)priv;
     struct wpa_driver_nl80211_data *drv = bss->drv;
 	struct nl_msg *msg;
@@ -2752,8 +2749,6 @@ static int nl80211_read_all_sta_data(void *priv, struct hostap_sta_list *sta_lis
 	nl80211_cmd(drv, msg, NLM_F_DUMP, NL80211_CMD_GET_STATION);
 
 	NLA_PUT_U32(msg, NL80211_ATTR_IFINDEX, if_nametoindex(bss->ifname));
-
-    fprintf(stderr, "-------> signal debug: nl80211_read_all_sta_data finish.\n");
 
 	return send_and_recv_msgs(drv, msg, get_sta_list_handler, sta_list);
  nla_put_failure:

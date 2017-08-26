@@ -272,6 +272,11 @@ static inline unsigned int wpa_swap_32(unsigned int v)
 #define __force
 #define __bitwise
 #endif
+
+#ifndef ARRAY_SIZE(a)
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
+#endif
+
 typedef u16 __bitwise be16;
 typedef u16 __bitwise le16;
 typedef u32 __bitwise be32;
@@ -345,6 +350,6 @@ void * os_realloc_array(void *ptr, size_t nmemb, size_t size);
 
 int os_snprintf(char *str, size_t size, const char *format, ...);
 
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
+
 
 #endif

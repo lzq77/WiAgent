@@ -236,7 +236,7 @@ u8* hostapd_handle_assoc(struct hostapd_data *hapd,
 			 const u8 *packet, int len, u8 *vbssid,
 			 int reassoc,int *frame_len);	
 
-void hostapd_handle_assoc_cb(struct hostapd_data *hapd,u8 *addr);
+void hostapd_handle_assoc_cb(struct hostapd_data *hapd, const u8 *addr);
 
 int hostapd_driver_init(struct hostapd_iface *iface);		
 	
