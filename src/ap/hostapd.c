@@ -805,7 +805,8 @@ const char * hostapd_drv_get_radio_name(struct hostapd_data *hapd)
 }
 
 //这个函数获取网卡的物理参数重要 phy: 可以打印显示
-int hostapd_setup_interface(struct hostapd_iface *iface){
+int hostapd_setup_interface(struct hostapd_iface *iface)
+{
 	int ret;
 	struct hostapd_data *hapd = iface->bss[0];
 	size_t i;
@@ -1009,9 +1010,10 @@ fail:
 	return NULL;
 }
 
-struct hostapd_iface *
-hostapd_interface_init(struct hapd_interfaces *interfaces,
-		       const char *config_fname, int debug)
+struct hostapd_iface * hostapd_interface_init(
+        struct hapd_interfaces *interfaces, 
+        const char *config_fname, 
+        int debug)
 {
 	struct hostapd_iface *iface;
 	int k;

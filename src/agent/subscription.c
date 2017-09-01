@@ -43,8 +43,6 @@ static void get_signal_strength(evutil_socket_t fd, short what, void *arg)
     struct hostap_sta_list *list_temp_prev;
     struct hostapd_data *hapd = (struct hostapd_data *)arg;
     sta_list_head.next = NULL;
-   
-    fprintf(stderr, "-------> signal debug: %s start ... \n", __func__);
     
     hostapd_read_all_sta_data(hapd, &sta_list_head);
 
@@ -65,6 +63,10 @@ void handle_signal_strength(struct hostapd_data *hapd)
     struct event *ev_signal;
     struct timeval tv_signal;
 
+    /**
+     * Add a timed event that get station's rssi value from 
+     * struct station_info in kernel.
+     */
     ev_signal = wimaster_event_new(-1, EV_TIMEOUT | EV_PERSIST, 
             get_signal_strength, hapd);
 	tv_signal.tv_sec = 1;
@@ -83,6 +85,8 @@ void add_subscription(struct hostapd_data *hapd, struct subscription *sub)
         list_tail = list_head = sub;
         sub->next = NULL;
     }
+
+    /* FIXME: the code is not good. */
     handle_signal_strength(hapd);
 }
 

@@ -273,7 +273,7 @@ static inline unsigned int wpa_swap_32(unsigned int v)
 #define __bitwise
 #endif
 
-#ifndef ARRAY_SIZE(a)
+#ifndef ARRAY_SIZE
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 #endif
 

@@ -4,52 +4,7 @@
 static struct vap_data *vap_first = NULL;
 static struct vap_data *vap_last = NULL;
 
-static u8 bssid_mask[6] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
 static char *bssid_file_path = "/sys/kernel/debug/ieee80211/phy0/ath9k/bssid_extra";
-
-static void compute_bssid_mask(const u8 *hw, const u8 *bssid)
-{
-    // For each VAP, update the bssid mask to include
-    // the common bits of all VAPs.
-    int i = 0;
-    for (; i < 6; i++)
-    {
-          bssid_mask[i] &= ~(hw[i] ^ bssid[i]);
-    }
-}
-
-/*
- * This re-computes the BSSID mask for this node
- * using all the BSSIDs of the VAPs, and sets the
- * hardware register accordingly.
- */
-static void reset_bssid_mask(const u8 *hw_addr)
-{
-    struct vap_data *vap_temp = vap_first;
-    while (vap_temp !=NULL) {
-        compute_bssid_mask(hw_addr, vap_temp->bssid);
-        vap_temp = vap_temp->next;
-    }
-    // Update bssid mask register through debugfs
-    FILE *debugfs_file = fopen(bssid_file_path, "w");
-
-    if (debugfs_file!=NULL) {
-        fprintf(debugfs_file,MACSTR"\n", MAC2STR(bssid_mask));
-        fclose(debugfs_file);
-    }
-}
-
-struct vap_data *wimaster_get_vap(const u8 *addr)
-{
-    struct vap_data *vap_temp = vap_first;
-
-    while (vap_temp !=  NULL) {
-        if (os_memcmp(vap_temp->addr, addr, ETH_ALEN) == 0) 
-            return vap_temp;
-        vap_temp = vap_temp->next;
-    }
-    return NULL;
-}
 
 static void wimaster_vap_list(void)
 {
@@ -66,6 +21,89 @@ static void wimaster_vap_list(void)
 
 }
 
+/*
+ * This re-computes the BSSID mask for this node
+ * using all the BSSIDs of the VAPs, and sets the
+ * hardware register accordingly.
+ */
+static void reset_bssid_mask(const u8 *hw_addr)
+{
+    int i;
+    u8 bssid_mask[6] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
+    struct vap_data *vap_temp = vap_first;
+    
+    /**
+     * compute bssid mask
+     */
+    while (vap_temp) {
+        for (i = 0; i < 6; i++)
+            bssid_mask[i] &= ~(hw_addr[i] ^ vap_temp->bssid[i]);
+        vap_temp = vap_temp->next;
+    }
+    
+    // Update bssid mask register through debugfs
+    FILE *debugfs_file = fopen(bssid_file_path, "w");
+    if (debugfs_file!=NULL) {
+        fprintf(debugfs_file,MACSTR"\n", MAC2STR(bssid_mask));
+        fclose(debugfs_file);
+    }
+}
+
+void wimaster_vap_cleaner(int fd, short what, void *arg)
+{
+    u8 *bss_addr = arg;
+    struct vap_data *vap = vap_first;
+    struct vap_data *vap_previous = NULL;
+    time_t now_time = time(NULL);
+
+    wpa_printf(MSG_INFO, "\nbefore clean vap:\n");
+    wimaster_vap_list();
+
+    while (vap) {
+        if (difftime(now_time, vap->connected_time) > CLEANER_SECONDS
+                && vap->is_beacon == 0) {
+
+            if (vap_previous) {
+                vap_previous->next = vap->next;
+                if (vap->ssid) {
+                    os_free(vap->ssid);
+                }
+                os_free(vap);
+                vap = vap_previous->next;
+            }
+            else {
+                vap_first = vap->next;
+                if (vap->ssid) {
+                    os_free(vap->ssid);
+                }
+                os_free(vap);
+                vap = vap_first;
+                vap_previous = NULL;
+            }
+        }
+        else {
+            vap_previous = vap;
+            vap = vap->next;
+        }
+    }
+    reset_bssid_mask(bss_addr);
+
+    wpa_printf(MSG_INFO, "\nafter clean vap:\n");
+    wimaster_vap_list();
+}
+
+struct vap_data *wimaster_get_vap(const u8 *addr)
+{
+    struct vap_data *vap_temp = vap_first;
+
+    while (vap_temp !=  NULL) {
+        if (os_memcmp(vap_temp->addr, addr, ETH_ALEN) == 0) 
+            return vap_temp;
+        vap_temp = vap_temp->next;
+    }
+    return NULL;
+}
+
 struct vap_data * wimaster_vap_add(const u8 *bss_addr,
                     const u8 *addr, const u8 *bssid, const char *ssid)
 {
@@ -77,7 +115,7 @@ struct vap_data * wimaster_vap_add(const u8 *bss_addr,
 
     vap_temp = (struct vap_data *)os_zalloc(sizeof(struct vap_data));
     if(vap_temp == NULL) {
-        fprintf(stderr, "vap malloc failed, memory is not enough!\n");
+        wpa_printf(MSG_DEBUG, "vap malloc failed, memory is not enough!\n");
         return NULL;
     }
 
@@ -93,10 +131,9 @@ struct vap_data * wimaster_vap_add(const u8 *bss_addr,
     os_memcpy(vap_last->bssid, bssid, ETH_ALEN);
     vap_last->ssid = (char *)os_zalloc(strlen(ssid) + 1);
     strcpy(vap_last->ssid, ssid);
+    vap_last->connected_time = time(NULL);    //get current time as vap connected time
     vap_last->next = NULL;
-
-    wimaster_vap_list();
-
+    
     reset_bssid_mask(bss_addr);
 
     return vap_last;
@@ -107,7 +144,7 @@ int wimaster_vap_remove(const u8 *bss_addr, const u8 *addr)
     struct vap_data *vap_temp = vap_first;
     struct vap_data *vap_previous = NULL;
 
-    while (vap_temp !=  NULL) {
+    while (vap_temp) {
         if (os_memcmp(vap_temp->addr, addr, ETH_ALEN) == 0) {
 
             if(vap_previous) {
@@ -129,7 +166,6 @@ int wimaster_vap_remove(const u8 *bss_addr, const u8 *addr)
         
         vap_previous = vap_temp;
         vap_temp = vap_temp->next;
-
     }
     reset_bssid_mask(bss_addr);
     return 0;
@@ -142,6 +178,3 @@ void wimaster_for_each_vap(void (*cb)(struct vap_data *vap, void *ctx), void *ct
         cb(vap, ctx);
     }
 }
-
-
-

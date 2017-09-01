@@ -19,6 +19,7 @@
 #include "../ap/hostapd.h"
 #include "../ap/config_file.h"
 #include "vap.h"
+#include "push.h"
 #include "stainfo_handler.h"
 #include "subscription.h"
 #include "controller_event.h"
@@ -27,6 +28,80 @@
 #define CONTROLLER_WRITE "WRITE"
 
 static struct bufferevent *bev;
+
+int controller_event_init(struct hostapd_data *hapd, char *controller_ip)
+{
+    /**
+     * libevent event.
+     */
+    struct event *ev_ping;
+	struct timeval tv_ping;
+    struct event *ev_vap_cleaner;
+    struct timeval tv_vap_cleaner;
+    struct evconnlistener *controller_listener;
+	struct sockaddr_in sin;
+    struct sockaddr_in push_addr;
+    int push_sock;
+
+    /**
+     * Listening controller connection, which is 
+     * used to send its control commands.
+     */
+    memset(&sin, 0, sizeof(sin));
+	sin.sin_family = AF_INET;
+	sin.sin_port = htons(CONTROL_PORT);
+    controller_listener = wimaster_evconnlistener_new_bind(controller_listener_cb, hapd,
+	    LEV_OPT_REUSEABLE|LEV_OPT_CLOSE_ON_FREE, -1,
+	    (struct sockaddr*)&sin, sizeof(sin));
+    
+    if (!controller_listener) {
+		wpa_printf(MSG_ERROR, "Could not create a listener!\n");
+		return -1;
+	}
+    
+    /*
+     * Timing send a ping message to controller.
+     */
+	memset(&push_addr, 0, sizeof(push_addr));
+	push_addr.sin_family = AF_INET;
+	if(inet_pton(push_addr.sin_family, controller_ip, &push_addr.sin_addr) != 1)
+	{
+		wpa_printf(MSG_ERROR, "controller_ip address error!\n");
+		return -1;
+	}
+	push_addr.sin_port = htons(PUSH_PORT);
+
+    push_sock = socket(AF_INET, SOCK_DGRAM, 0);   //Using UDP socket.
+    if (push_sock < 0) {
+        wpa_printf(MSG_ERROR, "Create Socket Failed!\n");  
+        return -1;
+    }
+    if(connect(push_sock, (struct sockaddr*)&push_addr, sizeof(push_addr) ) < 0) {
+		wpa_printf(MSG_ERROR, "UDP connect error!\n");
+		return -1;
+	}
+    
+    /**
+     * Add push_sock to event, send heartbeat packet regularly.
+     */
+    ev_ping = wimaster_event_new(push_sock, EV_TIMEOUT | EV_PERSIST, 
+            ping_timer, NULL);
+	tv_ping.tv_sec = 2;
+    tv_ping.tv_usec = 0;
+	wimaster_event_add(ev_ping, &tv_ping);
+
+    /**
+     * Add push_sock to event, send heartbeat packet regularly.
+     */
+    ev_vap_cleaner = wimaster_event_new(push_sock, EV_TIMEOUT | EV_PERSIST, 
+            wimaster_vap_cleaner, hapd->own_addr);
+	tv_vap_cleaner.tv_sec = CLEANER_SECONDS;
+    tv_vap_cleaner.tv_usec = 0;
+	wimaster_event_add(ev_vap_cleaner, &tv_vap_cleaner);
+
+    
+    return 0;
+}
 
 static void controller_add_vap(struct hostapd_data *hapd, char *data[], int size)
 {
@@ -51,14 +126,15 @@ static void controller_add_vap(struct hostapd_data *hapd, char *data[], int size
         return;
     }
     inet_aton(data[1], &vap->ipv4);
-    vap->is_beacon = 0;
+    vap->is_beacon = atoi(data[4]);
+    wpa_printf(MSG_DEBUG, "%s - %s - add vap %s success!\n", 
+                    __TIME__, __func__, data[0]);
+
 }
 
 static void controller_remove_vap(struct hostapd_data *hapd, char *data[], int size)
 {
     u8 addr[6];
-
-    assert(data != NULL);
 
     if (hwaddr_aton(data[0], addr) < 0) {
         wpa_printf(MSG_WARN, "handler_remove_vap convert string to MAC address failed!\n");
@@ -66,8 +142,10 @@ static void controller_remove_vap(struct hostapd_data *hapd, char *data[], int s
     }
 
     if (wimaster_vap_remove(hapd->own_addr, addr) == 0) {
+
         if (wimaster_remove_stainfo(hapd, addr) == 0)
-            wpa_printf(MSG_DEBUG, "Have remove (%s) vap and sta_info success!\n", data[0]);
+            wpa_printf(MSG_DEBUG, "%s - %s - remove (%s) vap and sta_info success!\n", 
+                    __TIME__, __func__, data[0]);
     }
 }
 
@@ -81,9 +159,12 @@ static void controller_add_stainfo(struct hostapd_data *hapd,
     }
 
     if (wimaster_add_stainfo(hapd, addr, data[1]) < 0) {
-        wpa_printf(MSG_WARN, "Add sta_info "MACSTR" failed.\n", MAC2STR(addr));
+        wpa_printf(MSG_WARN, "Add sta_info %s failed.\n", data[0]);
         return;
     }
+    wpa_printf(MSG_DEBUG, "%s - %s - add sta_info %s success!\n", 
+                    __TIME__, __func__, data[0]);
+
 }
 
 #define SUBSCRIPTION_PARAMS_NUM 6
@@ -132,37 +213,38 @@ fail:
     return;
 }
 
-void read_handler(struct bufferevent *bev, struct hostapd_data *hapd, char* arg) 
+static void handle_read(struct bufferevent *bev, 
+                struct hostapd_data *hapd, char* arg) 
 {
     char *write_str = "DATA 0\n";
-    printf("read_handler: %s\n", arg);
     bufferevent_write(bev, write_str, strlen(write_str));
 }
 
 
 #define WRITE_ARGS_MAX 12
 
-void write_handler(struct hostapd_data *hapd, char* data)
+void handle_write(struct hostapd_data *hapd, char* data)
 {
     char *delim = ".";
     char *command;
     char *array[WRITE_ARGS_MAX];
-    short size = 0; 
-
-    wpa_printf(MSG_DEBUG, "write_handler: %s\n", data);
+    int size = 0; 
     
     /**
      * Parsing write_handler string, the format is: "module.action mac ip bssid ssid\r\n"
      * for example: "odinagent.add_vap 58:7F:66:DA:81:7C 0.0.0.0 00:1B:B3:DA:81:7C wimaster\r\n"
      */
     command = strsep(&data, delim);
-    if (strcmp(command, "odinagent") != 0) {
+    if (strcmp(command, "odinagent") != 0) 
         return;
-    } 
 
-    delim = " \r\n";
+    delim = " ";
     for (command = strsep(&data, delim); command != NULL;
             command = strsep(&data, delim)) {
+
+        if (strcmp(command, "") == 0)
+            continue;
+
         array[size] = (char *)os_zalloc(strlen(command) + 1);
         strcpy(array[size], command);
         if (size == 1 && strcmp(array[0], "add_station") == 0) {
@@ -190,25 +272,42 @@ void write_handler(struct hostapd_data *hapd, char* data)
 void handle_readcb_data(struct bufferevent *bev, struct hostapd_data *hapd, 
                             char* data)
 {
-    char *delim = " ";
     char *command;
+    char *delim = " ";
 
     command = strsep(&data, delim);  
     if (strcmp(command, CONTROLLER_READ) == 0) {
-        read_handler(bev, hapd, data);
+        handle_read(bev, hapd, data);
     }
     else if (strcmp(command, CONTROLLER_WRITE) == 0) {
-        write_handler(hapd, data);
+        handle_write(hapd, data);
     }
 }
 
 
 void controller_readcb(struct bufferevent *bev, struct hostapd_data *hapd)
 {
+    char *delim;
+    char *line;
+    char *cur;
     char read_buf[2048]={0};
+
     bufferevent_read(bev,read_buf,sizeof(read_buf));
-   
-    handle_readcb_data(bev, hapd, read_buf);
+
+    wpa_printf(MSG_DEBUG, "%s - controller command: %s\n", __TIME__, read_buf);
+
+    /**
+     * Read and process every row of data.
+     */
+    cur = read_buf;
+    delim = "\r\n";
+    for (line = strsep(&cur, delim); line != NULL;
+            line = strsep(&cur, delim)) {
+        if (strcmp(line, "") == 0)
+            continue;
+
+        handle_readcb_data(bev, hapd, line);
+    }
 }
 
 void controller_eventcb(struct bufferevent *bev, short events, void *user_data)

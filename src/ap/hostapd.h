@@ -422,5 +422,10 @@ void hostapd_interface_init_bss(struct hapd_interfaces *interfaces);
 
 void hostapd_inf_init(struct hapd_interfaces *interfaces);
 
+int hostapd_setup_interface(struct hostapd_iface *iface);
+
+int hostapd_get_mgmt_socket_fd(struct hostapd_data *hapd);
+
+
 #endif
 

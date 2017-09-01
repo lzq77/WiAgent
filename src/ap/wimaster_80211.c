@@ -59,10 +59,6 @@ free_params:
 int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
 					const char *ssid,int ssid_len)
 {
-
-	wpa_printf(MSG_INFO, "wimaster_handle_probe_req,da:"MACSTR", bssid:"MACSTR",\n",
-            MAC2STR(da), MAC2STR(bssid));
-	
     u8 *packet;
     struct hostapd_data *hapd = _hapd;
 	struct wpa_driver_ap_params params;
@@ -71,7 +67,7 @@ int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
     struct vap_data *vap = wimaster_get_vap(da);
     if (vap == NULL) {
         wimaster_probe(da, ssid);
-        return;
+        return -1;
     }
 
     /**
@@ -88,7 +84,7 @@ int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
 	os_memcpy(packet+params.head_len, params.tail, params.tail_len);//复制beacon的尾部
 
     if (hostapd_drv_send_mlme(hapd, packet, beacon_len, 1) < 0) {
-		wpa_printf(MSG_INFO, "handle_beacon: send failed\n");
+		wpa_printf(MSG_DEBUG, "handle_beacon: send failed\n");
         return -1;
     }
     
@@ -132,7 +128,7 @@ send_auth_reply(struct hostapd_data *hapd,
 	reply->u.auth.status_code = host_to_le16(resp);
 
 	if (hostapd_drv_send_mlme(hapd, (u8 *)reply, rlen, 0) < 0)
-		wpa_printf(MSG_INFO, "send_auth_reply: send");
+		wpa_printf(MSG_DEBUG, "send_auth_reply: failed!");
 
 	os_free(buf);
 }
@@ -144,9 +140,9 @@ static void wimaster_handle_auth(struct hostapd_data *hapd,
 	u16 resp = WLAN_STATUS_SUCCESS;
 	struct sta_info *sta = NULL;
 
-    struct vap_data *vap = wimaster_get_vap(mgmt->da);
+    struct vap_data *vap = wimaster_get_vap(mgmt->sa);
     if (vap == NULL) {
-        wimaster_probe(mgmt->da, ssid);
+        wimaster_probe(mgmt->sa, ssid);
         return;
     }
     vap->is_beacon = 1;
@@ -277,7 +273,7 @@ static void wimaster_handle_assoc(struct hostapd_data *hapd,
 	if (sta == NULL || (sta->flags & WLAN_STA_AUTH) == 0) {
 		//send_deauth(hapd, mgmt->sa,
 		//	    WLAN_REASON_CLASS2_FRAME_FROM_NONAUTH_STA);
-        wpa_printf(MSG_DEBUG, "staion is null association has not authriened\n");
+        wpa_printf(MSG_DEBUG, "staion is null or association has not authriened\n");
 		return;
 	}
 
@@ -361,7 +357,7 @@ static void wimaster_handle_assoc(struct hostapd_data *hapd,
 	sta->timeout_next = STA_NULLFUNC;
 
 	if (send_assoc_resp(hapd, sta, resp, reassoc, vbssid) < 0) {
-	   wpa_printf(MSG_INFO, "Failed to send assoc resp: %s",
+	   wpa_printf(MSG_DEBUG, "Failed to send assoc resp: %s",
 			   strerror(errno)); 
        return;
     }
@@ -386,6 +382,8 @@ static void vap_send_beacon_cb(struct vap_data *vap, void *ctx)
     struct hostapd_data *hapd = (struct hostapd_data *)ctx;
 
     if (vap->is_beacon) {
+        wpa_printf(MSG_DEBUG, "send beacon station("MACSTR") ssid(%s)\n", 
+                MAC2STR(vap->addr), vap->ssid);
         wimaster_handle_beacon(hapd, vap->addr, vap->bssid, vap->ssid, strlen(vap->ssid));
     }
 }

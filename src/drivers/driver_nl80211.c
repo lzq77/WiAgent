@@ -730,7 +730,6 @@ static void mlme_event_mgmt(struct i802_bss *bss,
 	int ssi_signal = 0;
 	int rx_freq = 0;
 
-	wpa_printf(MSG_MSGDUMP, "nl80211: Frame event");
 	mgmt = (const struct ieee80211_mgmt *) frame;
 	if (len < 24) {
 		wpa_printf(MSG_DEBUG, "nl80211: Too short management frame");
@@ -748,9 +747,11 @@ static void mlme_event_mgmt(struct i802_bss *bss,
 		event.rx_mgmt.freq = nla_get_u32(freq);
 		rx_freq = drv->last_mgmt_freq = event.rx_mgmt.freq;
 	}
+    /**
 	wpa_printf(MSG_DEBUG,
 		   "nl80211: RX frame freq=%d ssi_signal=%d stype=%u len=%u",
 		   rx_freq, ssi_signal, stype, (unsigned int) len);
+    **/
 	event.rx_mgmt.frame = frame;
 	event.rx_mgmt.frame_len = len;
 	event.rx_mgmt.ssi_signal = ssi_signal;
@@ -797,7 +798,6 @@ static int process_bss_event(struct nl_msg *msg, void *arg)
 	struct nlattr *tb[NL80211_ATTR_MAX + 1];
 	nla_parse(tb, NL80211_ATTR_MAX, genlmsg_attrdata(gnlh, 0),
 		  genlmsg_attrlen(gnlh, 0), NULL);
-		wpa_printf(MSG_DEBUG, "SDWN ---process_bss_event CMD = %d\n",gnlh->cmd);
 
 	switch (gnlh->cmd) {
 	case NL80211_CMD_FRAME:
