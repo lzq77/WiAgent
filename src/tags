@@ -73,7 +73,7 @@ CHAN_WIDTH_40	drivers/driver.h	/^	CHAN_WIDTH_40,$/;"	e	enum:chan_width
 CHAN_WIDTH_80	drivers/driver.h	/^	CHAN_WIDTH_80,$/;"	e	enum:chan_width
 CHAN_WIDTH_80P80	drivers/driver.h	/^	CHAN_WIDTH_80P80,$/;"	e	enum:chan_width
 CHAN_WIDTH_UNKNOWN	drivers/driver.h	/^	CHAN_WIDTH_UNKNOWN$/;"	e	enum:chan_width
-CLEANER_SECONDS	agent/vap.c	24;"	d	file:
+CLEANER_SECONDS	agent/vap.h	10;"	d
 COMMON_DEFS_H	utils/common_defs.h	10;"	d
 COMMON_H	utils/common.h	9;"	d
 CONFIG_FILE_HH	ap/config_file.h	10;"	d
@@ -1403,7 +1403,7 @@ STRUCT_PACKED	ap/ieee802_1x_defs.h	/^} STRUCT_PACKED;$/;"	v	typeref:struct:wnm_s
 STRUCT_PACKED	utils/common.h	262;"	d
 STRUCT_PACKED	utils/common.h	265;"	d
 SUBSCRIPTION_H	agent/subscription.h	2;"	d
-SUBSCRIPTION_PARAMS_NUM	agent/controller_event.c	151;"	d	file:
+SUBSCRIPTION_PARAMS_NUM	agent/controller_event.c	196;"	d	file:
 SURVEY_HAS_CHAN_TIME	drivers/driver.h	3538;"	d
 SURVEY_HAS_CHAN_TIME_BUSY	drivers/driver.h	3539;"	d
 SURVEY_HAS_CHAN_TIME_RX	drivers/driver.h	3540;"	d
@@ -2153,7 +2153,7 @@ WPS_MODE_OPEN	drivers/driver.h	/^	WPS_MODE_OPEN \/* WPS provisioning with AP tha
 WPS_MODE_PRIVACY	drivers/driver.h	/^	WPS_MODE_PRIVACY \/* WPS provisioning with AP that is using protection$/;"	e	enum:wps_mode
 WPS_RF_24GHZ	ap/ieee802_1x_defs.h	116;"	d
 WPS_RF_50GHZ	ap/ieee802_1x_defs.h	117;"	d
-WRITE_ARGS_MAX	agent/controller_event.c	205;"	d	file:
+WRITE_ARGS_MAX	agent/controller_event.c	250;"	d	file:
 Wpa_psk_radius	ap/ap_config.h	/^enum Wpa_psk_radius{$/;"	g
 __BIG_ENDIAN	utils/common.h	184;"	d
 __BIG_ENDIAN	utils/common.h	28;"	d
@@ -2545,6 +2545,7 @@ connect_failed_reason	drivers/driver.h	/^	struct connect_failed_reason {$/;"	s	u
 connect_failed_reason	drivers/driver.h	/^	} connect_failed_reason;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::connect_failed_reason
 connected_msec	drivers/driver.h	/^    unsigned long connected_msec;$/;"	m	struct:hostap_sta_driver_data
 connected_time	agent/vap.h	/^    time_t connected_time;$/;"	m	struct:vap_data
+controller_action_csa	agent/controller_event.c	/^static void controller_action_csa(struct hostapd_data *hapd,$/;"	f	file:
 controller_add_stainfo	agent/controller_event.c	/^static void controller_add_stainfo(struct hostapd_data *hapd,$/;"	f	file:
 controller_add_vap	agent/controller_event.c	/^static void controller_add_vap(struct hostapd_data *hapd, char *data[], int size)$/;"	f	file:
 controller_event_init	agent/controller_event.c	/^int controller_event_init(struct hostapd_data *hapd, char *controller_ip)$/;"	f
@@ -3013,6 +3014,7 @@ hostapd_rate_found	ap/hw_features.c	/^int hostapd_rate_found(int *list, int rate
 hostapd_read_all_sta_data	ap/hostapd.c	/^int hostapd_read_all_sta_data(struct hostapd_data *hapd, $/;"	f
 hostapd_recv_mgmt_frame	ap/hostapd.c	/^int hostapd_recv_mgmt_frame(struct hostapd_data *hapd)$/;"	f
 hostapd_select_hw_mode	ap/hw_features.c	/^int hostapd_select_hw_mode(struct hostapd_iface *iface)$/;"	f
+hostapd_send_csa_action_frame	ap/hostapd.c	/^int hostapd_send_csa_action_frame(struct hostapd_data *hapd, $/;"	f
 hostapd_set_freq	ap/hw_features.c	/^int hostapd_set_freq(struct hostapd_data *hapd, int mode, int freq,$/;"	f
 hostapd_set_freq_params	ap/hw_features.c	/^int hostapd_set_freq_params(struct hostapd_freq_params *data, int mode,$/;"	f
 hostapd_set_security_params	ap/config_file.c	/^void hostapd_set_security_params(struct hostapd_bss_config *bss,$/;"	f
@@ -4257,7 +4259,7 @@ wimaster_push_stainfo	agent/stainfo_handler.c	/^int wimaster_push_stainfo(struct
 wimaster_remove_stainfo	agent/stainfo_handler.c	/^int wimaster_remove_stainfo(struct hostapd_data *hapd, const u8 *addr) $/;"	f
 wimaster_send_beacon	ap/wimaster_80211.c	/^void wimaster_send_beacon(evutil_socket_t fd, short what, void *arg)$/;"	f
 wimaster_vap_add	agent/vap.c	/^struct vap_data * wimaster_vap_add(const u8 *bss_addr,$/;"	f
-wimaster_vap_cleaner	agent/vap.c	/^void wimaster_vap_cleaner(void)$/;"	f
+wimaster_vap_cleaner	agent/vap.c	/^void wimaster_vap_cleaner(int fd, short what, void *arg)$/;"	f
 wimaster_vap_list	agent/vap.c	/^static void wimaster_vap_list(void)$/;"	f	file:
 wimaster_vap_remove	agent/vap.c	/^int wimaster_vap_remove(const u8 *bss_addr, const u8 *addr)$/;"	f
 wiphy_data	drivers/driver_nl80211.c	/^	struct nl80211_wiphy_data *wiphy_data;$/;"	m	struct:i802_bss	typeref:struct:i802_bss::nl80211_wiphy_data	file:
@@ -4310,6 +4312,7 @@ wpa_driver_nl80211_init_nl	drivers/driver_nl80211.c	/^static int wpa_driver_nl80
 wpa_driver_nl80211_init_nl_global	drivers/driver_nl80211.c	/^static int wpa_driver_nl80211_init_nl_global(struct nl80211_global *global)$/;"	f	file:
 wpa_driver_nl80211_ops	drivers/driver_nl80211.c	/^const struct wpa_driver_ops wpa_driver_nl80211_ops = {$/;"	v	typeref:struct:wpa_driver_ops
 wpa_driver_nl80211_postprocess_modes	drivers/driver_nl80211.c	/^wpa_driver_nl80211_postprocess_modes(struct hostapd_hw_modes *modes,$/;"	f	file:
+wpa_driver_nl80211_send_action	drivers/driver_nl80211.c	/^static int wpa_driver_nl80211_send_action(struct i802_bss *bss,$/;"	f	file:
 wpa_driver_nl80211_send_frame	drivers/driver_nl80211.c	/^static int wpa_driver_nl80211_send_frame(struct i802_bss *bss,$/;"	f	file:
 wpa_driver_nl80211_send_mlme	drivers/driver_nl80211.c	/^static int wpa_driver_nl80211_send_mlme(struct i802_bss *bss, const u8 *data,$/;"	f	file:
 wpa_driver_nl80211_set_mode	drivers/driver_nl80211.c	/^static int wpa_driver_nl80211_set_mode(struct i802_bss *bss,$/;"	f	file:

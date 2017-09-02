@@ -420,6 +420,10 @@ hostapd_interface_init(struct hapd_interfaces *interfaces,
 
 void hostapd_interface_init_bss(struct hapd_interfaces *interfaces);
 
+int hostapd_send_csa_action_frame(struct hostapd_data *hapd, 
+            const u8 *addr, const u8 *bssid,
+            const u8 block_tx, const u8 new_channel, const u8 cs_count);
+
 void hostapd_inf_init(struct hapd_interfaces *interfaces);
 
 int hostapd_setup_interface(struct hostapd_iface *iface);

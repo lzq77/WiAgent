@@ -2611,6 +2611,51 @@ static int wpa_driver_nl80211_send_mlme(struct i802_bss *bss, const u8 *data,
 					     wait_time);
 }
 
+static int wpa_driver_nl80211_send_action(struct i802_bss *bss,
+					  unsigned int freq,
+					  unsigned int wait_time,
+					  const u8 *dst, const u8 *src,
+					  const u8 *bssid,
+					  const u8 *data, size_t data_len,
+					  int no_cck)
+{
+	struct wpa_driver_nl80211_data *drv = bss->drv;
+	int ret = -1;
+	u8 *buf;
+	struct ieee80211_hdr *hdr;
+
+	wpa_printf(MSG_DEBUG, "nl80211: Send Action frame (ifindex=%d, "
+		   "freq=%u MHz wait=%d ms no_cck=%d)",
+		   drv->ifindex, freq, wait_time, no_cck);
+
+	buf = os_zalloc(24 + data_len);
+	if (buf == NULL)
+		return ret;
+	os_memcpy(buf + 24, data, data_len);
+	hdr = (struct ieee80211_hdr *) buf;
+	hdr->frame_control =
+		IEEE80211_FC(WLAN_FC_TYPE_MGMT, WLAN_FC_STYPE_ACTION);
+	os_memcpy(hdr->addr1, dst, ETH_ALEN);
+	os_memcpy(hdr->addr2, src, ETH_ALEN);
+	os_memcpy(hdr->addr3, bssid, ETH_ALEN);
+
+	if (is_ap_interface(drv->nlmode) &&
+	    (!(drv->capa.flags & WPA_DRIVER_FLAGS_OFFCHANNEL_TX) ||
+	     (int) freq == bss->freq || drv->device_ap_sme ||
+	     !drv->use_monitor))
+		ret = wpa_driver_nl80211_send_mlme(bss, buf, 24 + data_len,
+						   0, freq, no_cck, 1,
+						   wait_time);
+	else
+		ret = nl80211_send_frame_cmd(bss, freq, wait_time, buf,
+					     24 + data_len,
+					     &drv->send_action_cookie,
+					     no_cck, 0, 1);
+
+	os_free(buf);
+	return ret;
+}
+
 static int driver_nl80211_send_mlme(void *priv, const u8 *data,
 				    size_t data_len, int noack)
 {
@@ -2778,6 +2823,7 @@ const struct wpa_driver_ops wpa_driver_nl80211_ops = {
 	.get_radio_name = nl80211_get_radio_name,
 	.set_freq = i802_set_freq,
 	.send_mlme = driver_nl80211_send_mlme,
+    .send_action = wpa_driver_nl80211_send_action,
     .get_mgmt_socket_fd = nl80211_get_mgmt_socket_fd,
     .recv_mgmt_frame = nl80211_recv_mgmt_frame,
     .read_all_sta_data = nl80211_read_all_sta_data

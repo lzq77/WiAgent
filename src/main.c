@@ -28,7 +28,6 @@
 #include "utils/common.h"
 #include "utils/wimaster_event.h"
 
-
 static void
 wimaster_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)
 {

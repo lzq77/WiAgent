@@ -399,6 +399,51 @@ int hostapd_set_sta_flags(struct hostapd_data *hapd, struct sta_info *sta)
 					   flags_or, flags_and);
 }
 
+int hostapd_send_csa_action_frame(struct hostapd_data *hapd, 
+            const u8 *addr, const u8 *bssid,
+            const u8 block_tx, const u8 new_channel, const u8 cs_count)
+{
+    int ret;
+	struct sta_info *sta;
+	u8 *buf;
+    int len = 7;
+
+	sta = ap_get_sta(hapd, addr);
+	if (sta == NULL) {
+		wpa_printf(MSG_DEBUG, "Station " MACSTR " not found "
+			   "for channel switch message",
+			   MAC2STR(addr));
+		return -1;
+	}
+
+	buf = os_zalloc(len);
+	if (buf == NULL)
+		return -1;
+
+    u8 *pos = buf;
+	*pos++ = WLAN_ACTION_SPECTRUM_MGMT;
+	*pos++ = WLAN_PROT_EXT_CSA;
+
+	/* Channel Switch Announcement Element*/
+	*pos++ = WLAN_EID_CHANNEL_SWITCH;
+	*pos++ = 3;
+	*pos++ = block_tx ? 1 : 0;
+    *pos++ = new_channel;
+    *pos++ = cs_count;
+
+    if (hapd->driver == NULL || hapd->driver->send_action == NULL) {
+		ret = -1;
+    }
+    else {
+	    ret = hapd->driver->send_action(hapd->drv_priv, hapd->iface->freq, 0, addr,
+					 bssid, bssid, buf, len, 0);
+    }
+	os_free(buf);
+
+	return ret;
+
+}
+
 //return 0:WLAN_STATUS_SUCCESS 1:WLAN_STATUS_UNSPECIFIED_FAILURE
 u16 check_assoc_ies(struct hostapd_data *hapd, struct sta_info *sta,
 			   const u8 *ies, size_t ies_len, int reassoc)

@@ -99,7 +99,6 @@ int controller_event_init(struct hostapd_data *hapd, char *controller_ip)
     tv_vap_cleaner.tv_usec = 0;
 	wimaster_event_add(ev_vap_cleaner, &tv_vap_cleaner);
 
-    
     return 0;
 }
 
@@ -108,8 +107,6 @@ static void controller_add_vap(struct hostapd_data *hapd, char *data[], int size
     struct vap_data *vap;
     u8 addr[6];
     u8 bssid[6];
-
-    assert(data != NULL);
 
     if (hwaddr_aton(data[0], addr) < 0) {
         wpa_printf(MSG_WARN, "%s: convert string %s to MAC address failed!\n", __func__, data[0]);
@@ -148,6 +145,40 @@ static void controller_remove_vap(struct hostapd_data *hapd, char *data[], int s
                     __TIME__, __func__, data[0]);
     }
 }
+
+static void controller_action_csa(struct hostapd_data *hapd,
+        char *data[], int size)
+{
+    u8 addr[6];
+    u8 block_tx, new_channel, cs_count;
+    struct vap_data *vap;
+    int i;
+
+    if (hwaddr_aton(data[0], addr) < 0) {
+        wpa_printf(MSG_WARN, " convert string to MAC address failed!\n");
+        return;
+    }
+
+    vap = wimaster_get_vap(addr);
+    if (!vap) {
+        wpa_printf(MSG_WARN, "There is no "MACSTR" vap data on wimaster!\n", MAC2STR(addr));
+        return;
+    }
+
+    block_tx = (u8)atoi(data[1]);
+    new_channel = (u8)atoi(data[2]);
+    cs_count = (u8)atoi(data[3]);
+
+    for (i = 0; i < 10; i++) {
+    if (hostapd_send_csa_action_frame(hapd, addr, 
+                vap->bssid, block_tx, new_channel, cs_count) < 0) {
+        wpa_printf(MSG_WARN, "controller_action_csa send csa action frame failed.\n");
+        return;
+    }
+    wpa_printf(MSG_WARN, "controller_action_csa send csa action frame repeat %d.\n", i);
+    }
+}
+
 
 static void controller_add_stainfo(struct hostapd_data *hapd,
         char *data[], int size)
@@ -263,6 +294,8 @@ void handle_write(struct hostapd_data *hapd, char* data)
         controller_subscriptions(hapd, &array[1], size);
     else if (strcmp(array[0], "add_station") == 0)
         controller_add_stainfo(hapd, &array[1], size);
+    else if (strcmp(array[0], "switch_channel") == 0)
+        controller_action_csa(hapd, &array[1], size);
 
     for(;size > 0; size--) {
         os_free(array[size - 1]);

@@ -903,8 +903,7 @@ u8 * generate_assoc_resp(struct hostapd_data *hapd, struct sta_info *sta,u8 *vbs
 	struct ieee80211_mgmt *reply;
 	u8 *p;
 
-	buf = (u8 *) os_malloc(sizeof(struct ieee80211_mgmt) + 1024);// may need debug -- nm
-	os_memset(buf, 0, sizeof(buf));
+	buf = (u8 *) os_zalloc(sizeof(struct ieee80211_mgmt) + 1024);// may need debug -- nm
 	reply = (struct ieee80211_mgmt *) buf;
 	reply->frame_control =
 		IEEE80211_FC(WLAN_FC_TYPE_MGMT,
