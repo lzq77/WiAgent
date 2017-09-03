@@ -11,9 +11,11 @@ const u8 * wpa_auth_get_wpa_ie(struct wpa_authenticator *wpa_auth, size_t *len);
 u8 * hostapd_eid_ht_capabilities(struct hostapd_data *hapd, u8 *eid);
 u8 * hostapd_eid_ht_operation(struct hostapd_data *hapd, u8 *eid);
 u8 * hostapd_eid_ext_capab(struct hostapd_data *hapd, u8 *eid);
+
 int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
-					const char *ssid,int ssid_len,int probe,struct wpa_driver_ap_params *params);
-					
+					const char *ssid,int ssid_len,int probe, 
+                    int is_csa, int channel, struct wpa_driver_ap_params *params);
+
 u8 * hostapd_eid_bss_max_idle_period(struct hostapd_data *hapd, u8 *eid);
 u8 * hostapd_eid_qos_map_set(struct hostapd_data *hapd, u8 *eid);					
 u8 * generate_assoc_resp(struct hostapd_data *hapd, struct sta_info *sta, u8 *vbssid,

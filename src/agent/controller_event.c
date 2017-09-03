@@ -179,6 +179,48 @@ static void controller_action_csa(struct hostapd_data *hapd,
     }
 }
 
+static void controller_switch_channel(struct hostapd_data *hapd,
+        char *data[], int size)
+{
+    u8 addr[6];
+    u8 block_tx, new_channel, cs_count;
+    struct vap_data *vap;
+    u8 *beacon_data;
+	struct wpa_driver_ap_params params;
+	int beacon_len = 0;
+
+    if (hwaddr_aton(data[0], addr) < 0) {
+        wpa_printf(MSG_WARN, " convert string to MAC address failed!\n");
+        return;
+    }
+
+    vap = wimaster_get_vap(addr);
+    if (!vap) {
+        wpa_printf(MSG_WARN, "There is no "MACSTR" vap data on wimaster!\n", MAC2STR(addr));
+        return;
+    }
+
+    block_tx = (u8)atoi(data[1]);
+    new_channel = (u8)atoi(data[2]);
+    cs_count = (u8)atoi(data[3]);
+
+	if (ieee802_11_build_ap_params(hapd, vap->addr, vap->bssid, vap->ssid,
+            vap->ssid_len, 0, 1, new_channel, &params) < 0)
+        return;
+	
+    beacon_len = params.head_len + params.tail_len;
+	beacon_data = (u8 *)os_zalloc(beacon_len);//为beacon分配内存
+	os_memcpy(beacon_data, params.head, params.head_len);//复制beacon的头部
+    os_memcpy(beacon_data + params.head_len, params.tail, params.tail_len);//复制beacon的尾部
+	os_free(params.head);
+	os_free(params.tail);
+    if (vap->beacon_data)
+        os_free(vap->beacon_data);
+    vap->beacon_data = beacon_data;
+    vap->beacon_len = beacon_len;
+}
+
+
 
 static void controller_add_stainfo(struct hostapd_data *hapd,
         char *data[], int size)
@@ -295,7 +337,7 @@ void handle_write(struct hostapd_data *hapd, char* data)
     else if (strcmp(array[0], "add_station") == 0)
         controller_add_stainfo(hapd, &array[1], size);
     else if (strcmp(array[0], "switch_channel") == 0)
-        controller_action_csa(hapd, &array[1], size);
+        controller_switch_channel(hapd, &array[1], size);
 
     for(;size > 0; size--) {
         os_free(array[size - 1]);

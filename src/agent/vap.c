@@ -68,6 +68,10 @@ void wimaster_vap_cleaner(int fd, short what, void *arg)
                 if (vap->ssid) {
                     os_free(vap->ssid);
                 }
+                if (vap->beacon_data) {
+                    os_free(vap->beacon_data);
+                    vap->beacon_len = 0;
+                }
                 os_free(vap);
                 vap = vap_previous->next;
             }
@@ -75,6 +79,10 @@ void wimaster_vap_cleaner(int fd, short what, void *arg)
                 vap_first = vap->next;
                 if (vap->ssid) {
                     os_free(vap->ssid);
+                }
+                if (vap->beacon_data) {
+                    os_free(vap->beacon_data);
+                    vap->beacon_len = 0;
                 }
                 os_free(vap);
                 vap = vap_first;
@@ -131,7 +139,11 @@ struct vap_data * wimaster_vap_add(const u8 *bss_addr,
     os_memcpy(vap_last->bssid, bssid, ETH_ALEN);
     vap_last->ssid = (char *)os_zalloc(strlen(ssid) + 1);
     strcpy(vap_last->ssid, ssid);
+    vap_last->ssid_len = strlen(vap_last->ssid);
     vap_last->connected_time = time(NULL);    //get current time as vap connected time
+    vap_last->beacon_data = NULL;
+    vap_last->beacon_len = 0;
+    vap_last->sta = NULL;
     vap_last->next = NULL;
     
     reset_bssid_mask(bss_addr);
@@ -156,7 +168,10 @@ int wimaster_vap_remove(const u8 *bss_addr, const u8 *addr)
             
             if (vap_temp->ssid) {
                 os_free(vap_temp->ssid);
-                vap_temp->ssid = NULL;
+            }
+            if (vap_temp->beacon_data) {
+                os_free(vap_temp->beacon_data);
+                vap_temp->beacon_len == 0;
             }
             os_free(vap_temp);
             vap_temp = NULL;

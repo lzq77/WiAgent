@@ -664,6 +664,21 @@ u8 * hostapd_eid_wmm(struct hostapd_data *hapd, u8 *eid)
 	return pos;
 }
 
+static u8 * wimaster_eid_channel_switch(struct hostapd_data *hapd, u8 *eid, int channel)
+{
+	u8 *pos = eid;
+	int i, num, count;
+
+	*pos++ = WLAN_EID_CHANNEL_SWITCH;
+	*pos++ =3;
+	*pos++ =0;
+	*pos++ =channel;
+	*pos++ =0;
+	
+	return pos;
+}
+
+
 /**/
 
 //���ղ�����proberesponse
@@ -689,7 +704,8 @@ static u8 * hostapd_probe_resp_offloads(struct hostapd_data *hapd,
 
 
 int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
-					const char *ssid,int ssid_len,int probe,struct wpa_driver_ap_params *params){
+					const char *ssid,int ssid_len,int probe, 
+                    int is_csa, int channel, struct wpa_driver_ap_params *params){
 	struct ieee80211_mgmt *head = NULL;
 	u8 *tail = NULL;
 	size_t head_len = 0, tail_len = 0;
@@ -805,9 +821,10 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 	tailpos = hostapd_eid_interworking(hapd, tailpos);
 	tailpos = hostapd_eid_adv_proto(hapd, tailpos);
 	tailpos = hostapd_eid_roaming_consortium(hapd, tailpos);
-	tailpos = hostapd_add_csa_elems(hapd, tailpos, tail,
-					&hapd->iface->cs_c_off_beacon);
-					*/
+	*/
+    if (is_csa) {
+	    tailpos = wimaster_eid_channel_switch(hapd, tailpos, channel);
+    }
 #ifdef CONFIG_IEEE80211AC
 	//tailpos = hostapd_eid_vht_capabilities(hapd, tailpos);
 	//tailpos = hostapd_eid_vht_operation(hapd, tailpos);

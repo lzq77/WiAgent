@@ -14,8 +14,12 @@ struct vap_data {
     u8 addr[ETH_ALEN];
     struct in_addr ipv4;
     char *ssid;
+    int ssid_len;
     int is_beacon;
     time_t connected_time;
+    
+    u8 *beacon_data;
+    int beacon_len;
     struct sta_info *sta;    
     
     struct vap_data *next;

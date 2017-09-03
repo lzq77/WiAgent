@@ -20,42 +20,6 @@
 #include "../agent/push.h"
 #include "wimaster_80211.h"
 
-int wimaster_handle_beacon(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
-					const char *ssid,int ssid_len)
-{
-	u8 *packet;
-    struct hostapd_data *hapd = _hapd;
-	struct wpa_driver_ap_params params;
-	int packet_len = 0;
-
-	ieee802_11_build_ap_params(hapd,da,bssid,ssid,ssid_len, 0,&params);//产生beacon帧,头部和EX字段分开
-	
-    packet_len = params.head_len + params.tail_len;
-	packet = (u8 *)os_zalloc(packet_len);//为beacon分配内存
-	if (!packet)
-		goto free_params;
-
-	os_memcpy(packet, params.head, params.head_len);//复制beacon的头部
-	os_memcpy(packet+params.head_len, params.tail, params.tail_len);//复制beacon的尾部
-
-    if (hostapd_drv_send_mlme(hapd, packet, packet_len, 1) < 0) {
-		wpa_printf(MSG_INFO, "handle_beacon: send failed\n");
-        return -1;
-    }
-    
-	os_free(params.head);
-	os_free(params.tail);
-	os_free(packet);
-
-	return 0;
-
-free_params:
-	os_free(params.head);
-	os_free(params.tail);
-	os_free(packet);
-	return -1;
-}
-
 int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
 					const char *ssid,int ssid_len)
 {
@@ -73,7 +37,7 @@ int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
     /**
      * Generating probe response frame.
      */
-	ieee802_11_build_ap_params(hapd,da,bssid,ssid,ssid_len, true, &params);
+	ieee802_11_build_ap_params(hapd,da,bssid,ssid,ssid_len, true, 0, -1, &params);
 	
     beacon_len = params.head_len + params.tail_len;
 	packet = (u8 *)os_zalloc(beacon_len);//为beacon分配内存
@@ -377,14 +341,46 @@ fail:
 	return;
 }
 
+static int wimaster_handle_beacon(struct hostapd_data *hapd, struct vap_data *vap)
+{
+	u8 *packet;
+	struct wpa_driver_ap_params params;
+	int packet_len = 0;
+
+	if (ieee802_11_build_ap_params(hapd, vap->addr, vap->bssid, vap->ssid,
+            vap->ssid_len, 0, 0, -1, &params) < 0)
+        return -1;
+	
+    packet_len = params.head_len + params.tail_len;
+	packet = (u8 *)os_zalloc(packet_len);//为beacon分配内存
+	os_memcpy(packet, params.head, params.head_len);//复制beacon的头部
+    os_memcpy(packet+params.head_len, params.tail, params.tail_len);//复制beacon的尾部
+	os_free(params.head);
+	os_free(params.tail);
+
+    vap->beacon_data = packet;
+    vap->beacon_len = packet_len;
+    return 0;
+}
+
+
 static void vap_send_beacon_cb(struct vap_data *vap, void *ctx)
 {
     struct hostapd_data *hapd = (struct hostapd_data *)ctx;
 
     if (vap->is_beacon) {
-        wpa_printf(MSG_DEBUG, "send beacon station("MACSTR") ssid(%s)\n", 
-                MAC2STR(vap->addr), vap->ssid);
-        wimaster_handle_beacon(hapd, vap->addr, vap->bssid, vap->ssid, strlen(vap->ssid));
+        if (!vap->beacon_data) {
+           if (wimaster_handle_beacon(hapd, vap) < 0) {
+                wpa_printf(MSG_DEBUG, "Unable to handle ("MACSTR") beacon, send failed.\n", 
+                        MAC2STR(vap->addr));
+                return;
+           }
+        }
+
+        if (hostapd_drv_send_mlme(hapd, vap->beacon_data, vap->beacon_len, 1) < 0) {
+            wpa_printf(MSG_INFO, "handle_beacon: send failed\n");
+            return;
+        }
     }
 }
 
@@ -418,8 +414,6 @@ static int hostapd_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)
     switch (stype) {
         case WLAN_FC_STYPE_PROBE_REQ:
             wimaster_handle_probe_req(hapd, mgmt->sa, hapd->own_addr,
-                    ssid, strlen(ssid));
-            wimaster_handle_beacon(hapd, mgmt->sa, hapd->own_addr,
                     ssid, strlen(ssid));
             break;
         case WLAN_FC_STYPE_AUTH:
