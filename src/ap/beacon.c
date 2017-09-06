@@ -664,16 +664,16 @@ u8 * hostapd_eid_wmm(struct hostapd_data *hapd, u8 *eid)
 	return pos;
 }
 
-static u8 * wimaster_eid_channel_switch(struct hostapd_data *hapd, u8 *eid, int channel)
+static u8 * wimaster_eid_channel_switch(struct hostapd_data *hapd, u8 *eid, 
+        struct channel_switch_params cs_params)
 {
 	u8 *pos = eid;
-	int i, num, count;
 
 	*pos++ = WLAN_EID_CHANNEL_SWITCH;
-	*pos++ =3;
-	*pos++ =0;
-	*pos++ =channel;
-	*pos++ =0;
+	*pos++ = 3;
+	*pos++ = cs_params.cs_mode;
+	*pos++ = cs_params.channel;
+	*pos++ = cs_params.cs_count;
 	
 	return pos;
 }
@@ -702,10 +702,8 @@ static u8 * hostapd_probe_resp_offloads(struct hostapd_data *hapd,
 }
 */
 
-
-int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
-					const char *ssid,int ssid_len,int probe, 
-                    int is_csa, int channel, struct wpa_driver_ap_params *params){
+int ieee802_11_build_ap_beacon(struct hostapd_data *hapd, struct beacon_settings *bs, 
+        struct wpa_driver_ap_params *params){
 	struct ieee80211_mgmt *head = NULL;
 	u8 *tail = NULL;
 	size_t head_len = 0, tail_len = 0;
@@ -724,14 +722,14 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 	
 	tailpos = tail = (u8 *)os_malloc(tail_len);
 	if (head == NULL || tail == NULL) {
-		wpa_printf(MSG_ERROR, "Failed to set beacon data\n");
+		wpa_printf(MSG_ERROR, "Failed to set beacon data");
 		os_free(head);
 		os_free(tail);
 		return -1;
 	}
 	
 	//is beacon or proberesp,then set header
-	if(probe){
+	if(bs->is_probe){
 		head->frame_control = IEEE80211_FC(WLAN_FC_TYPE_MGMT,
 						   WLAN_FC_STYPE_PROBE_RESP);		
 	}else
@@ -740,9 +738,9 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 	head->duration = host_to_le16(0);
 	
     //sdwn: specify the address
-	os_memcpy(head->da, da, ETH_ALEN);
-	os_memcpy(head->sa, bssid, ETH_ALEN);
-	os_memcpy(head->bssid, bssid, ETH_ALEN);
+	os_memcpy(head->da, bs->da, ETH_ALEN);
+	os_memcpy(head->sa, bs->bssid, ETH_ALEN);
+	os_memcpy(head->bssid, bs->bssid, ETH_ALEN);
 
     //wpa_printf(MSG_DEBUG, "da:"MACSTR", sa:"MACSTR", bssid:"MACSTR"\n",
     //          MAC2STR(head->da), MAC2STR(head->sa), MAC2STR(head->bssid));
@@ -772,9 +770,9 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 		pos += hapd->conf->ssid.ssid_len;
 		*/
 		//for SDWN
-		*pos++ = ssid_len;
-		os_memcpy(pos, ssid,ssid_len);
-		pos += ssid_len;	
+		*pos++ = bs->ssid_len;
+		os_memcpy(pos, bs->ssid, bs->ssid_len);
+		pos += bs->ssid_len;	
 	}
 
 	/* Supported rates */
@@ -822,8 +820,8 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 	tailpos = hostapd_eid_adv_proto(hapd, tailpos);
 	tailpos = hostapd_eid_roaming_consortium(hapd, tailpos);
 	*/
-    if (is_csa) {
-	    tailpos = wimaster_eid_channel_switch(hapd, tailpos, channel);
+    if (bs->is_csa) {
+	    tailpos = wimaster_eid_channel_switch(hapd, tailpos, bs->cs_params);
     }
 #ifdef CONFIG_IEEE80211AC
 	//tailpos = hostapd_eid_vht_capabilities(hapd, tailpos);
@@ -859,7 +857,6 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
 	params->proberesp_len = resp_len;
 	return 0;
 }
-
 
 
 

@@ -10,92 +10,6 @@
 #include "hw_features.h"
 #include "beacon.h"
 
-/*************************hostapd_data 的成员函数*******************/
-
-//Json style date sent to ccontroller
-json_object * sta_info_convert_to_json(struct hostapd_data *hapd,const u8 *addr)
-{
-	//char *rates;
-	struct sta_info *sta;
-	struct ieee80211_ht_capabilities ht_cap;
-	//struct ieee80211_vht_capabilities vht_cap;
-	int rate_len = 0;
-	int i = 0;
-	//const char *str;//json style string
-
-	sta = ap_get_sta(hapd, addr);
-	if (!sta){
-		fprintf(stderr, "sta_info do not exist\n");
-		return NULL;
-	}
-	//802.11n
-	if (sta->flags & WLAN_STA_HT){
-		//fprintf(stderr,"sta support HT\n");
-		hostapd_get_ht_capab(hapd, sta->ht_capabilities, &ht_cap);
-	}
-
-	//TODO: 80211ac
-	//if (sta->flags & WLAN_STA_VHT)
-	//	hapd->hostapd_get_vht_capab(hapd, sta->vht_capabilities, &vht_cap);
-
-	if(!sta)
-		fprintf(stderr,"send_sta_to_ctrol sta is null\n");
-	if(sta->flags & WLAN_STA_HT == 0)
-		fprintf(stderr,"send_sta_to_ctrol ht_cap is null\n");
-
-    json_object *json=json_object_new_object();//main object
-	json_object *json_supported_rates=json_object_new_array();//supported_rates
-	json_object *json_ht_cap=json_object_new_object();//ht_cap
-	json_object *supported_mcs_set=json_object_new_array();//ht_cap.supported_mcs_set
-
-	//json_object *vht_cap=json_object_new_array();//vht_cap
-	//json_object *vht_supported-mcs_set=json_object_new_array();//vht_cap.vht_supported-mcs_set
-
-	//construct json
-    json_object_object_add(json,"aid",json_object_new_int(sta->aid));
-    json_object_object_add(json,"cap",json_object_new_int(sta->capability));
-    json_object_object_add(json,"interval",json_object_new_int(sta->listen_interval));
-    json_object_object_add(json,"flags",json_object_new_int(sta->flags));
-    json_object_object_add(json,"qosinfo",json_object_new_int(sta->qosinfo));
-    json_object_object_add(json,"vht_opmode",json_object_new_int(sta->vht_opmode));
-    json_object_object_add(json,"supported_rates_len",json_object_new_int(sta->supported_rates_len));
-
-	//construst json_supported_rates
-	rate_len = sta->supported_rates_len;
-	for(i = 0; i < rate_len; i++){
-		json_object_array_add(json_supported_rates,json_object_new_int(sta->supported_rates[i]));
-	}
-	//add  json_supported_rates to json
-	json_object_object_add(json,"supported_rates",json_supported_rates);
-
-	//construst json_ht_cap
-	json_object_object_add(json_ht_cap,"ht_capabilities_info",json_object_new_int(ht_cap.ht_capabilities_info));
-	json_object_object_add(json_ht_cap,"a_mpdu_params",json_object_new_int(ht_cap.a_mpdu_params));
-	json_object_object_add(json_ht_cap,"ht_extended_capabilities",json_object_new_int(ht_cap.ht_extended_capabilities));
-	json_object_object_add(json_ht_cap,"tx_bf_capability_info",json_object_new_int(ht_cap.tx_bf_capability_info));
-	json_object_object_add(json_ht_cap,"asel_capabilities",json_object_new_int(ht_cap.asel_capabilities));
-
-	//construst supported_mcs_set
-	for(i = 0; i < 15; i++){
-		json_object_array_add(supported_mcs_set,json_object_new_int(ht_cap.supported_mcs_set[i]));
-	}
-	//add  supported_mcs_set to ht_cap
-	json_object_object_add(json_ht_cap,"supported_mcs_set",supported_mcs_set);
-	//fprintf(stderr,"sta 004\n");
-
-	//add  json_ht_cap to json
-	json_object_object_add(json,"ht_cap",json_ht_cap);
-	return json;
-	/*
-	//convert json to sting
-    str=json_object_to_json_string(json);
-	printf("%s\n",str);
-	//release memory
-    json_object_put(json);
-	return str;
-	*/
-}
-
 u32 hostapd_sta_flags_to_drv(u32 flags)
 {
 	int res = 0;
@@ -108,74 +22,6 @@ u32 hostapd_sta_flags_to_drv(u32 flags)
 	if (flags & WLAN_STA_MFP)
 		res |= WPA_STA_MFP;
 	return res;
-}
-
-void ap_sta_hash_add(struct hostapd_data *hapd, struct sta_info *sta)
-{
-	sta->hnext = hapd->sta_hash[STA_HASH(sta->addr)];
-	hapd->sta_hash[STA_HASH(sta->addr)] = sta;
-	//
-}
-
-void ap_sta_hash_del(struct hostapd_data *hapd, struct sta_info *sta)
-{
-	struct sta_info *s;
-
-	s = hapd->sta_hash[STA_HASH(sta->addr)];
-	if (s == NULL) return;
-	if (os_memcmp(s->addr, sta->addr, 6) == 0) {
-		hapd->sta_hash[STA_HASH(sta->addr)] = s->hnext;
-		return;
-	}
-
-	while (s->hnext != NULL &&
-	       os_memcmp(s->hnext->addr, sta->addr, ETH_ALEN) != 0)
-		s = s->hnext;
-	if (s->hnext != NULL)
-		s->hnext = s->hnext->hnext;
-	else
-		wpa_printf(MSG_DEBUG, "AP: could not remove STA " MACSTR
-			   " from hash table", MAC2STR(sta->addr));
-}
-
-struct sta_info * ap_get_sta(struct hostapd_data *hapd, const u8 *sta)
-{
-	struct sta_info *s;
-
-	s = hapd->sta_hash[STA_HASH(sta)];
-	while (s != NULL && os_memcmp(s->addr, sta, 6) != 0)
-		s = s->hnext;
-	return s;
-}
-
-//用户态增加sta_info 供后面内核态使用111111111177
-struct sta_info * ap_sta_add(struct hostapd_data *hapd, const u8 *addr)
-{
-	struct sta_info *sta;
-
-	sta = ap_get_sta(hapd, addr);
-	if (sta)
-		return sta;
-
-	sta = (struct sta_info*)os_zalloc(sizeof(struct sta_info));
-	if (sta == NULL) {
-
-		return NULL;
-	}
-	//sta->acct_interim_interval = hapd->conf->acct_interim_interval;
-	//accounting_sta_get_id(hapd, sta);
-	/* initialize STA info data */
-	os_memcpy(sta->addr, addr, ETH_ALEN);
-	sta->next = hapd->sta_list;
-	hapd->sta_list = sta;
-	hapd->num_sta++;
-	ap_sta_hash_add(hapd, sta);
-	//sta->ssid = &hapd->conf->ssid;
-	//ap_sta_remove_in_other_bss(hapd, sta);
-    //
-    wpa_printf(MSG_DEBUG, "AP add one sta("MACSTR")\n", MAC2STR(addr));
-
-	return sta;
 }
 
 int hostapd_get_mgmt_socket_fd(struct hostapd_data *hapd)
@@ -301,8 +147,7 @@ int hostapd_sta_add(struct hostapd_data *hapd,
 
 	if (hapd->driver == NULL || hapd->driver->sta_add == NULL) {
 		//nl80211 driver驱动不可用,可能出现空指针，未赋值
-		//wpa_printf(MSG_ERROR, "No hostapd driver wrapper available");
-		fprintf(stderr, "hapd->driver || hapd->driver->sta_add == NULL\n");
+		wpa_printf(MSG_ERROR, "No hostapd driver wrapper available");
 		return 0;
 	}
 	///ff
@@ -346,7 +191,6 @@ void handle_auth(struct hostapd_data *hapd,const u8 *addr,int auth_alg)
 			//hostapd_logger(hapd, sta->addr, HOSTAPD_MODULE_IEEE80211,
 			//		   HOSTAPD_LEVEL_DEBUG,
 				//	   "authentication OK (open system)");
-			//fprintf(stderr, "authentication OK (open system) --nm\n");
 			sta->flags |= WLAN_STA_AUTH;//#define WLAN_STA_ASSOC BIT(1) ???????
 			//wpa_auth_sm_event(sta->wpa_sm, WPA_AUTH);
 			sta->auth_alg = WLAN_AUTH_OPEN;
@@ -368,10 +212,10 @@ void handle_auth(struct hostapd_data *hapd,const u8 *addr,int auth_alg)
 		#endif /* CONFIG_SAE */
 	}
 
-	//fprintf(stderr, "authentication success,add station:"MACSTR" in userspace (open system) --nm\n",MAC2STR(addr));
+	wpa_printf(MSG_DEBUG, "The station "MACSTR" authentication successful.", MAC2STR(addr));
 	return ;
-	fail:
-		fprintf(stderr, "authentication failed (open system) --nm\n");
+fail:
+    wpa_printf(MSG_DEBUG, "The station "MACSTR" authentication failed.", MAC2STR(addr));
 }
 
 int hostapd_drv_sta_remove(struct hostapd_data *hapd,
@@ -454,14 +298,13 @@ u16 check_assoc_ies(struct hostapd_data *hapd, struct sta_info *sta,
 	size_t wpa_ie_len;
 	const u8 *p2p_dev_addr = NULL;
 
-	//fprintf(stderr,"check_assoc_ies start\n");
 	//解析的核心代码
 	if (ieee802_11_parse_elems(ies, ies_len, &elems, 0) == ParseFailed) {
 	//if (1) {
 		//hostapd_logger(hapd, sta->addr, HOSTAPD_MODULE_IEEE80211,
 		//	       HOSTAPD_LEVEL_INFO, "Station sent an invalid "
 		//	       "association request");
-		fprintf(stderr,"ieee802_11_parse_elems failed \n");
+		wpa_printf(MSG_ERROR,"ieee802_11_parse_elems failed.");
 		return WLAN_STATUS_UNSPECIFIED_FAILURE;
 	}
 	/*
@@ -489,10 +332,9 @@ u16 check_assoc_ies(struct hostapd_data *hapd, struct sta_info *sta,
 		//hostapd_logger(hapd, sta->addr, HOSTAPD_MODULE_IEEE80211,
 		//	       HOSTAPD_LEVEL_INFO, "Station does not support "
 		//	       "mandatory HT PHY - reject association");
-		wpa_printf(MSG_DEBUG,"station:%s association do not support HT\n",sta->addr,sta->aid);
+		wpa_printf(MSG_DEBUG,"The station %s association do not support HT",sta->addr,sta->aid);
 		return WLAN_STATUS_ASSOC_DENIED_NO_HT;
 	}
-	fprintf(stderr,"check_assoc_ies over\n");
 	return WLAN_STATUS_SUCCESS;
 }
 
@@ -528,7 +370,7 @@ u8 *hostapd_handle_assoc(struct hostapd_data *hapd,
 	sta = ap_get_sta(hapd, mgmt->sa);
 	//认证时候就因该分配了内存,如果为空代表没有经过认证
 	if (sta == NULL /*|| (sta->flags & WLAN_STA_AUTH) == 0*/) {
-		wpa_printf(MSG_DEBUG, "staion is null association has not authriened\n");
+		wpa_printf(MSG_DEBUG, "staion is null association has not authriened");
 		//send_deauth(hapd, mgmt->sa,
 		//	    WLAN_REASON_CLASS2_FRAME_FROM_NONAUTH_STA);
 		return NULL;
@@ -538,7 +380,7 @@ u8 *hostapd_handle_assoc(struct hostapd_data *hapd,
 		//	       HOSTAPD_LEVEL_DEBUG,
 			//       "Too large Listen Interval (%d)",
 		//	       listen_interval);
-		wpa_printf(MSG_DEBUG, "association Too large Listen Interval (%d)\n",	listen_interval);
+		wpa_printf(MSG_DEBUG, "Association Too large Listen Interval (%d)",	listen_interval);
 		//resp = WLAN_STATUS_ASSOC_DENIED_LISTEN_INT_TOO_LARGE;
 		//goto fail;
 	}
@@ -546,7 +388,6 @@ u8 *hostapd_handle_assoc(struct hostapd_data *hapd,
 	/* followed by SSID and Supported rates; and HT capabilities if 802.11n
 	 * is used */
 	resp = check_assoc_ies(hapd, sta, pos, left, reassoc);//解析参数---核心函数 返回值0 才正确，如果不正确影响终端接入或者速率异常
-	//fprintf(stderr,"check_assoc_ies over resp = %d\n",resp);
 	if (resp != WLAN_STATUS_SUCCESS)
 		goto fail;
 
@@ -555,7 +396,7 @@ u8 *hostapd_handle_assoc(struct hostapd_data *hapd,
 		//hostapd_logger(hapd, mgmt->sa, HOSTAPD_MODULE_IEEE80211,
 			//       HOSTAPD_LEVEL_INFO, "No room for more AIDs");
 		resp = WLAN_STATUS_AP_UNABLE_TO_HANDLE_NEW_STA;
-		fprintf(stderr,"hostapd_get_aid failed\n");
+		wpa_printf(MSG_ERROR, "hostapd_get_aid failed.");
 		goto fail;
 	}
 
@@ -563,7 +404,6 @@ u8 *hostapd_handle_assoc(struct hostapd_data *hapd,
 	sta->listen_interval = listen_interval;
 	//这句可能出现segment error
 	if (hapd->iface->current_mode->mode == HOSTAPD_MODE_IEEE80211G){
-		//wpa_printf(MSG_DEBUG, "	current_mode support 80211g\n");
 		sta->flags |= WLAN_STA_NONERP;
 	}
 
@@ -626,7 +466,6 @@ u8 *hostapd_handle_assoc(struct hostapd_data *hapd,
 
 	//for sdwn --nm
 	res = generate_assoc_resp(hapd, sta,vbssid,WLAN_STATUS_SUCCESS,0/*reassociation*/,&res_len);
-	//wpa_printf(MSG_DEBUG,"generate resp\n");
 	*frame_len = res_len;//frame length
 	return res;
 
@@ -634,7 +473,7 @@ u8 *hostapd_handle_assoc(struct hostapd_data *hapd,
 	//发送关联的响应帧
 	//send_assoc_resp(hapd, sta, resp, reassoc, pos, left);
 
-	wpa_printf(MSG_DEBUG,"handle_assoc failed\n");
+	wpa_printf(MSG_ERROR,"handle_assoc failed.");
 	return NULL;
 }
 
@@ -658,7 +497,7 @@ void hostapd_handle_assoc_cb(struct hostapd_data *hapd, const u8 *addr){
 	//fprintf(stderr, "hostapd_handle_assoc_cb 111 --nm\n");
 	sta = ap_get_sta(hapd, addr);
 	if (!sta){
-		fprintf(stderr, "sta_info do not exist\n");
+		wpa_printf(MSG_WARN, "The "MACSTR" sta_info does not exist.", MAC2STR(addr));
 		return;
 	}
 	//通知内核态增加sta_infoll
@@ -699,7 +538,6 @@ void hostapd_handle_assoc_cb(struct hostapd_data *hapd, const u8 *addr){
 				sta->flags & WLAN_STA_HT ? &ht_cap : NULL,
 				sta->flags & WLAN_STA_VHT ? &vht_cap : NULL,
 				sta->flags, sta->qosinfo, sta->vht_opmode,sta->acct_session_started)) {
-		///fprintf(stderr, "_hapd->hostapd_sta_add add failed\n");
 		//ap_sta_disconnect(_hapd, sta, sta->addr,
 		//		  WLAN_REASON_DISASSOC_AP_BUSY);
 
@@ -710,10 +548,8 @@ void hostapd_handle_assoc_cb(struct hostapd_data *hapd, const u8 *addr){
 	// 设置增加还是设置station
 	//if(sta->acct_session_started == 0)
 		sta->acct_session_started = 1;
-	//wpa_printf(MSG_DEBUG,"\nstation:"MACSTR" association OK (aid %d)\n\n",MAC2STR(sta->addr),sta->aid);
 	//设置标志
 	hostapd_set_sta_flags(hapd, sta);
-	//fprintf(stderr, "hostapd_handle_assoc_cb 888 --nm\n");
 }
 
 
@@ -731,8 +567,7 @@ int hostapd_driver_init(struct hostapd_iface *iface)
 	//初始化驱动,建立netlink连接
 	if (hapd->driver == NULL || hapd->driver->global_init == NULL) {
 		//nl80211 driver驱动不可用,可能出现空指针，未赋值
-		//wpa_printf(MSG_ERROR, "No hostapd driver wrapper available");
-		wpa_printf(MSG_ERROR, "hapd->driver || hapd->driver->global_init == NULL\n");
+		wpa_printf(MSG_ERROR, "hapd->driver || hapd->driver->global_init == NULL");
 		return -1;
 	}
 	/* Initialize the driver interface */
@@ -744,7 +579,6 @@ int hostapd_driver_init(struct hostapd_iface *iface)
 	hapd->driver = wpa_drivers[0];
 	//global_init返回值类型为 nl80211_global_init === global
 	params.global_priv = hapd->driver->global_init();
-	//fprintf(stderr, "hapd->driver->global_init() 111 --nm\n");
 
 	//TODO:填充params的参数/////////
 	params.bssid = b; //BSSID
@@ -757,7 +591,7 @@ int hostapd_driver_init(struct hostapd_iface *iface)
 	params.num_bridge = hapd->iface->num_bss;
 	params.bridge = (char**)os_calloc(hapd->iface->num_bss, sizeof(char *));
 	if (params.bridge == NULL){
-		fprintf(stderr, "params.bridge == NULL \n");
+		wpa_printf(MSG_ERROR, "params.bridge == NULL.");
 		return -1;
 	}
 
@@ -767,7 +601,7 @@ int hostapd_driver_init(struct hostapd_iface *iface)
 	params.own_addr = hapd->own_addr;
 	if (hapd->driver == NULL || hapd->driver->hapd_init == NULL) {
 		//nl80211 driver驱动不可用,可能出现空指针，未赋值
-		wpa_printf(MSG_ERROR, "No hostapd driver wrapper available");
+		wpa_printf(MSG_ERROR, "No hostapd driver wrapper available.");
 		return -1;
 	}
 	//真正的为bss和drv分配内存,将params中信息填充到bss和drv中
@@ -1024,31 +858,25 @@ struct hostapd_iface * hostapd_init(struct hapd_interfaces *interfaces,
 		goto fail;
 	
 	//这里应该默认的为1   需要打印conf->num_bss
-    //fprintf(stderr, "conf->num_bss =%d 111111\n",conf->num_bss);
 	for (i = 0; i < conf->num_bss; i++) {
 		hapd = hapd_iface->bss[i] =
 			hostapd_alloc_bss_data(hapd_iface, conf,
 					       conf->bss[i]);//初始化每个BSS 数据结构  
 		if (hapd == NULL)
 			goto fail;
-		///fprintf(stderr, "conf->num_bss =%d 22225\n",conf->num_bss);
 		hapd->msg_ctx = hapd;
 	}
-    //fprintf(stderr, "conf->num_bss =%d,%d 333333\n",i,conf->num_bss);
 	return hapd_iface;
-    //fprintf(stderr, "conf->num_bss =%d 44\n",conf->num_bss);
 fail:
-	//wpa_printf(MSG_ERROR, "Failed to set up interface with %s",
-	//	   config_file);
-	fprintf(stderr, "Failed to set up interface with\n");		   
+	wpa_printf(MSG_ERROR, "Failed to set up interface.");		   
 	if (conf)
 		os_free(conf);
 		//hostapd_config_free(conf);
 	if (hapd_iface) {
 		os_free(hapd_iface->config_fname);
 		os_free(hapd_iface->bss);
-		//wpa_printf(MSG_DEBUG, "%s: free iface %p",
-		//	   __func__, hapd_iface);
+		wpa_printf(MSG_DEBUG, "%s: free iface %p",
+			   __func__, hapd_iface);
 		
 		os_free(hapd_iface);
 	}
@@ -1065,25 +893,20 @@ struct hostapd_iface * hostapd_interface_init(
 
 	//wpa_printf(MSG_ERROR, "Configuration file: %s", config_fname);
 	iface = hostapd_init(interfaces, config_fname);//读取配置文件
-	//fprintf(stderr, "hostapd_interface_init 11111\n");
 	if (!iface)
 		return NULL;
-	//fprintf(stderr, "hostapd_interface_init 2222\n");
 	iface->interfaces = interfaces;
-	//fprintf(stderr, "hostapd_interface_init 3333\n");
 	//for (k = 0; k < debug; k++) {
 	//	if (iface->bss[0]->conf->logger_stdout_level > 0)
 	//		iface->bss[0]->conf->logger_stdout_level--;
 	//}
 
 	if (iface->conf->bss[0]->iface[0] == '\0') {
-		//wpa_printf(MSG_ERROR, "Interface name not specified in %s",
-		//	   config_fname);
-		fprintf(stderr, "Interface name not specified in\n");
+		wpa_printf(MSG_ERROR, "Interface name not specified in %s",
+			   config_fname);
 		os_free(iface);
 		return NULL;
 	}
-	//fprintf(stderr, "hostapd_interface_init 44444\n");
 	return iface;
 }
 
@@ -1105,10 +928,6 @@ hostapd_alloc_bss_data(struct hostapd_iface *hapd_iface,
 	hapd->driver = hapd->iconf->driver;
 	hapd->ctrl_sock = -1;
 	os_memcpy(hapd->own_addr,bss->bssid,6);
-	//hapd->own_addr = bss->bssid;//myself add  --nm
-	//fprintf(stderr, "SDWN11" MACSTR" \n",MAC2STR(conf->bss[0]->bssid));
-	//fprintf(stderr, "SDWN22" MACSTR" \n",MAC2STR(bss->bssid));
-	//fprintf(stderr, "SDWN33" MACSTR" \n",MAC2STR(hapd->own_addr));
 
 	return hapd;
 }
@@ -1122,7 +941,7 @@ void hostapd_interface_init_bss(struct hapd_interfaces *interfaces){
 	struct hostapd_bss_config **tmp_conf;
 	iface = interfaces->iface[0];//第一个
 	if (iface == NULL) {
-		fprintf(stderr, "hostapd_iface can not access\n");
+		wpa_printf(MSG_ERROR, "hostapd_iface can not access.");
 		//hostapd_config_free(conf);
 		return ;
 	}	
@@ -1134,7 +953,7 @@ void hostapd_interface_init_bss(struct hapd_interfaces *interfaces){
 		iface->conf->last_bss = tmp_conf[0];
 	}
 	if (tmp_conf == NULL) {
-		fprintf(stderr, "hostapd_bss_config alloc failed\n");
+		wpa_printf(MSG_ERROR, "hostapd_bss_config alloc failed.");
 		os_free(tmp_conf);
 		//hostapd_config_free(conf);
 		return ;
@@ -1145,8 +964,7 @@ void hostapd_interface_init_bss(struct hapd_interfaces *interfaces){
 	
 	if (interfaces->iface[0] == NULL || interfaces->iface[0]->bss[0] == NULL) {
 		//nl80211 driver驱动不可用,可能出现空指针，未赋值
-		//wpa_printf(MSG_ERROR, "No hostapd driver wrapper available");
-		fprintf(stderr, "interfaces->iface[0]->bss[0] --nm\n");
+		wpa_printf(MSG_ERROR, "No hostapd driver wrapper available");
 		return ;
     }
 	//之前hapd应该已经分配过内存了
@@ -1167,7 +985,6 @@ void hostapd_interface_init_bss(struct hapd_interfaces *interfaces){
 }
 	//void hostapd_data::hostapd_inf_init(struct hapd_interfaces &interfaces){
 void hostapd_inf_init(struct hapd_interfaces *interfaces){
-	fprintf(stderr, "hostapd_inf_init 001 debug\n");		
 	os_memset(interfaces, 0, sizeof(struct hapd_interfaces));
 	interfaces->config_read_cb = hostapd_config_read;
 		
@@ -1175,29 +992,20 @@ void hostapd_inf_init(struct hapd_interfaces *interfaces){
 	interfaces->global_iface_name = NULL;
 	interfaces->global_ctrl_sock = -1;
 		
-	fprintf(stderr, "hostapd_inf_init 002 debug\n");		
 	interfaces->count = 1;
 	if (interfaces->count) {
 	    interfaces->iface = (struct hostapd_iface**)os_calloc(interfaces->count,sizeof(struct hostapd_iface *));
-	fprintf(stderr, "hostapd_inf_init 003 debug\n");		
 		if (interfaces->iface == NULL) {
-			wpa_printf(MSG_ERROR, "interfaces->iface malloc failed、\n");
+			wpa_printf(MSG_ERROR, "interfaces->iface malloc failed.");
 			return ;
 		}
 	}
-		
-	fprintf(stderr, "hostapd_inf_init 1111 debug\n");		
-		
 	interfaces->iface[0] = hostapd_interface_init(interfaces,"/tmp/run/hostapd-phy0.conf", 0);		
-	fprintf(stderr, "hostapd_inf_init  2222 debug\n");	
 	if (!interfaces->iface[0]) {
-		//wpa_printf(MSG_ERROR, "Failed to initialize interface");
-		fprintf(stderr, "hostapd_inf_init初始化接口失败\n");
+		wpa_printf(MSG_ERROR, "Failed to initialize interface");
 		goto out;
 	}
-	//hostapd_interface_init_bss(&interfaces);
-	fprintf(stderr, "hostapd_inf_init success\n");		
-	//fprintf(stderr, "hostapd_inf_init success\n");		
+	wpa_printf(MSG_DEBUG, "hostapd_inf_init success\n");		
 	return ;
 out:
 	os_free(interfaces->iface);

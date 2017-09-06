@@ -11,10 +11,10 @@ static void wimaster_vap_list(void)
     int num = 0;
     struct vap_data *vap_temp = vap_first;
 
-    wpa_printf(MSG_INFO, "\nwi vap list:\n");
+    wpa_printf(MSG_INFO, "wi vap list:");
     while (vap_temp) {
         wpa_printf(MSG_INFO, "%d. vap:"MACSTR" bssid:"
-                MACSTR" ssid:%s\n", ++num, MAC2STR(vap_temp->addr),
+                MACSTR" ssid:%s", ++num, MAC2STR(vap_temp->addr),
                 MAC2STR(vap_temp->bssid), vap_temp->ssid);
         vap_temp =  vap_temp->next;
     }
@@ -56,9 +56,6 @@ void wimaster_vap_cleaner(int fd, short what, void *arg)
     struct vap_data *vap_previous = NULL;
     time_t now_time = time(NULL);
 
-    wpa_printf(MSG_INFO, "\nbefore clean vap:\n");
-    wimaster_vap_list();
-
     while (vap) {
         if (difftime(now_time, vap->connected_time) > CLEANER_SECONDS
                 && vap->is_beacon == 0) {
@@ -96,8 +93,6 @@ void wimaster_vap_cleaner(int fd, short what, void *arg)
     }
     reset_bssid_mask(bss_addr);
 
-    wpa_printf(MSG_INFO, "\nafter clean vap:\n");
-    wimaster_vap_list();
 }
 
 struct vap_data *wimaster_get_vap(const u8 *addr)

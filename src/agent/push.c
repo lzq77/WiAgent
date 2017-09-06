@@ -23,14 +23,13 @@
 
 static int udp_fd;
 
-static int
-push(const char *data)
+static int push(const char *data)
 {
-    if (data != NULL) {
+    if (data != NULL && udp_fd > 0) {
        if (write(udp_fd, data, strlen(data)) < 0) {
             return -1;
        }
-       wpa_printf(MSG_DEBUG, "push: %s\n", data);
+       wpa_printf(MSG_DEBUG, "Push to the controller: %s", data);
        return 0;
     }
     return -1;
@@ -42,17 +41,17 @@ push(const char *data)
 #define PROBE "probe"
 #define STATION "station"
 #define PUBLISH "publish"
+#define DISASSOC "disassoc"
+#define DEAUTH "deauth"
 
-void
-push_ping(void) 
+void push_ping(void) 
 {
     if (push(PING) > 0) {
         printf("ping controller.\n");
     }
 }
 
-void 
-ping_timer(evutil_socket_t fd, short what, void *address)
+void ping_timer(evutil_socket_t fd, short what, void *address)
 {
     static bool first = true;
 
@@ -66,31 +65,39 @@ ping_timer(evutil_socket_t fd, short what, void *address)
     }
 }
 
-
 void push_subscription(const u8 *addr, 
         int count, int sub_id, int value)
 {
-    char str[1024];
+    char str[256];
     sprintf(str, PUBLISH" "MACSTR" %d %d:%d", MAC2STR(addr), count, sub_id, value);
+    push(str);
+}
+
+void push_disassoc(const u8 *addr, const char *ssid)
+{
+    char str[256];
+    sprintf(str, DISASSOC" "MACSTR" %s", 
+                    MAC2STR(addr), ssid);
+    push(str);
+}
+
+void push_deauth(const u8 *addr, const int reason_code)
+{
+    char str[256];
+    sprintf(str, DEAUTH" "MACSTR" %d", MAC2STR(addr), reason_code);
     push(str);
 }
 
 void wimaster_probe(const u8 *addr, const char *ssid)
 {
-    assert(addr != NULL);
-    char *str;
+    char str[128];
 
-    if (ssid == NULL) {
-        str = (char *)os_zalloc(strlen(PROBE) + 1 + MAC_STR_LEN + 1);
+    if (ssid == NULL) 
         sprintf(str, PROBE" "MACSTR, MAC2STR(addr));
-    }
-    else {
-        str = (char *)os_zalloc(strlen(PROBE) + 1 
-                + MAC_STR_LEN + 1 + strlen(ssid) + 1);
+    else 
         sprintf(str, PROBE" "MACSTR" %s", MAC2STR(addr), ssid);
-    }
+    
     push(str);
-    os_free(str);
 }
 
 void push_stainfo(const u8 *addr, const char *stainfo)
@@ -105,7 +112,7 @@ void push_stainfo(const u8 *addr, const char *stainfo)
         os_free(str);
     }
     else {
-        wpa_printf(MSG_INFO, "sta_info is null, unable to push to controller.\n");
+        wpa_printf(MSG_INFO, "The "MACSTR" sta_info is null, unable to push to controller.", MAC2STR(addr));
     }
 }
 

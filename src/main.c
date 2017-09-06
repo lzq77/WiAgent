@@ -36,7 +36,7 @@ wimaster_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)
         
     res = hostapd_recv_mgmt_frame(hapd);
     if (res < 0) {
-        wpa_printf(MSG_ERROR, "nl80211: %s->nl_recvmsgs failed: %d\n",
+        wpa_printf(MSG_ERROR, "%s - nl_recvmsgs failed, return code: %d",
             __func__, res);
     }	
 }
@@ -56,7 +56,7 @@ init_hostapd_interface(struct hapd_interfaces *interfaces)
 	    interfaces->iface = (struct hostapd_iface**)os_calloc(
                 interfaces->count,sizeof(struct hostapd_iface *));
 		if (interfaces->iface == NULL) {
-			wpa_printf(MSG_ERROR, "interfaces->iface malloc failed\n");
+			wpa_printf(MSG_ERROR, "interfaces->iface malloc failed");
 			goto out;
 		}
 	}
@@ -71,7 +71,7 @@ init_hostapd_interface(struct hapd_interfaces *interfaces)
     if (interfaces->iface[0] == NULL || interfaces->iface[0]->bss[0] == NULL) {
 		//nl80211 driver驱动不可用,可能出现空指针，未赋值
 		//wpa_printf(MSG_ERROR, "No hostapd driver wrapper available");
-		wpa_printf(MSG_ERROR, "read config failed.\n");
+		wpa_printf(MSG_ERROR, "Fail to read wireless interface configuration.");
 		goto out;
     }
 
@@ -86,7 +86,7 @@ init_hostapd_interface(struct hapd_interfaces *interfaces)
 
 out:
 	os_free(interfaces->iface);
-    wpa_printf(MSG_ERROR, "Hostapd interface initialize failed.\n");
+    wpa_printf(MSG_ERROR, "Hostapd interface initialize failed.");
     return -1;
 }
 
@@ -140,7 +140,7 @@ int main(int argc, char **argv)
      */
     os_memset(&interfaces, 0, sizeof(struct hapd_interfaces));
     if (init_hostapd_interface(&interfaces) < 0) { 
-        wpa_printf(MSG_ERROR, "Initialize the wireless interfaces failed.\n");
+        wpa_printf(MSG_ERROR, "Initialize the wireless interfaces failed.");
         return 1;
     }
     hapd = interfaces.iface[0]->bss[0];
@@ -148,7 +148,7 @@ int main(int argc, char **argv)
     
     if (controller_event_init(hapd, controller_ip) < 0 ||
             wimaster_80211_event_init(hapd) < 0) {
-        wpa_printf(MSG_ERROR, "Failed to initialize wimaster.\n");
+        wpa_printf(MSG_ERROR, "Failed to initialize wimaster.");
         return 1;
     }
 

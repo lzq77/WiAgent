@@ -10,7 +10,7 @@ ACS_EVENT_COMPLETED	ap/ieee802_1x_defs.h	39;"	d
 ACS_EVENT_FAILED	ap/ieee802_1x_defs.h	40;"	d
 ACS_EVENT_STARTED	ap/ieee802_1x_defs.h	38;"	d
 ADV_PROTO_VENDOR_SPECIFIC	ap/ieee802_1x_defs.h	/^	ADV_PROTO_VENDOR_SPECIFIC = 221$/;"	e	enum:adv_proto_id
-AID_WORDS	ap/hostapd.h	270;"	d
+AID_WORDS	ap/hostapd.h	261;"	d
 ANQP_3GPP_CELLULAR_NETWORK	ap/ieee802_1x_defs.h	/^	ANQP_3GPP_CELLULAR_NETWORK = 264,$/;"	e	enum:anqp_info_id
 ANQP_AP_CIVIC_LOCATION	ap/ieee802_1x_defs.h	/^	ANQP_AP_CIVIC_LOCATION = 266,$/;"	e	enum:anqp_info_id
 ANQP_AP_GEOSPATIAL_LOCATION	ap/ieee802_1x_defs.h	/^	ANQP_AP_GEOSPATIAL_LOCATION = 265,$/;"	e	enum:anqp_info_id
@@ -28,44 +28,44 @@ ANQP_ROAMING_CONSORTIUM	ap/ieee802_1x_defs.h	/^	ANQP_ROAMING_CONSORTIUM = 261,$/
 ANQP_VENDOR_SPECIFIC	ap/ieee802_1x_defs.h	/^	ANQP_VENDOR_SPECIFIC = 56797$/;"	e	enum:anqp_info_id
 ANQP_VENUE_NAME	ap/ieee802_1x_defs.h	/^	ANQP_VENUE_NAME = 258,$/;"	e	enum:anqp_info_id
 AP_CSA_FINISHED	ap/ieee802_1x_defs.h	48;"	d
-AP_DEAUTH_DELAY	ap/sta_info.h	174;"	d
-AP_DEAUTH_DELAY	ap/sta_info.h	61;"	d
-AP_DISASSOC_DELAY	ap/sta_info.h	173;"	d
-AP_DISASSOC_DELAY	ap/sta_info.h	60;"	d
+AP_DEAUTH_DELAY	ap/sta_info.h	171;"	d
+AP_DEAUTH_DELAY	ap/sta_info.h	55;"	d
+AP_DISASSOC_DELAY	ap/sta_info.h	170;"	d
+AP_DISASSOC_DELAY	ap/sta_info.h	54;"	d
 AP_EVENT_DISABLED	ap/ieee802_1x_defs.h	36;"	d
 AP_EVENT_ENABLED	ap/ieee802_1x_defs.h	35;"	d
-AP_MAX_INACTIVITY	ap/sta_info.h	172;"	d
-AP_MAX_INACTIVITY	ap/sta_info.h	59;"	d
-AP_MAX_INACTIVITY_AFTER_DEAUTH	ap/sta_info.h	179;"	d
-AP_MAX_INACTIVITY_AFTER_DEAUTH	ap/sta_info.h	66;"	d
-AP_MAX_INACTIVITY_AFTER_DISASSOC	ap/sta_info.h	177;"	d
-AP_MAX_INACTIVITY_AFTER_DISASSOC	ap/sta_info.h	64;"	d
+AP_MAX_INACTIVITY	ap/sta_info.h	169;"	d
+AP_MAX_INACTIVITY	ap/sta_info.h	53;"	d
+AP_MAX_INACTIVITY_AFTER_DEAUTH	ap/sta_info.h	176;"	d
+AP_MAX_INACTIVITY_AFTER_DEAUTH	ap/sta_info.h	60;"	d
+AP_MAX_INACTIVITY_AFTER_DISASSOC	ap/sta_info.h	174;"	d
+AP_MAX_INACTIVITY_AFTER_DISASSOC	ap/sta_info.h	58;"	d
 AP_REJECTED_BLOCKED_STA	ap/ieee802_1x_defs.h	33;"	d
 AP_REJECTED_MAX_STA	ap/ieee802_1x_defs.h	32;"	d
 AP_STA_CONNECTED	ap/ieee802_1x_defs.h	29;"	d
 AP_STA_DISCONNECTED	ap/ieee802_1x_defs.h	30;"	d
-ARRAY_SIZE	utils/common.h	277;"	d
-ASEL_CAP_ANT_INDICES_FEEDBACK_BASED_TX_AS_CAP	ap/ieee802_1x_defs.h	890;"	d
-ASEL_CAP_ANT_INDICES_FEEDBACK_CAP	ap/ieee802_1x_defs.h	892;"	d
-ASEL_CAP_ASEL_CAPABLE	ap/ieee802_1x_defs.h	888;"	d
-ASEL_CAP_EXPLICIT_CSI_FEEDBACK_BASED_TX_AS_CAP	ap/ieee802_1x_defs.h	889;"	d
-ASEL_CAP_EXPLICIT_CSI_FEEDBACK_CAP	ap/ieee802_1x_defs.h	891;"	d
-ASEL_CAP_RX_AS_CAP	ap/ieee802_1x_defs.h	893;"	d
-ASEL_CAP_TX_SOUNDING_PPDUS_CAP	ap/ieee802_1x_defs.h	894;"	d
+ARRAY_SIZE	utils/common.h	266;"	d
+ASEL_CAP_ANT_INDICES_FEEDBACK_BASED_TX_AS_CAP	ap/ieee802_1x_defs.h	889;"	d
+ASEL_CAP_ANT_INDICES_FEEDBACK_CAP	ap/ieee802_1x_defs.h	891;"	d
+ASEL_CAP_ASEL_CAPABLE	ap/ieee802_1x_defs.h	887;"	d
+ASEL_CAP_EXPLICIT_CSI_FEEDBACK_BASED_TX_AS_CAP	ap/ieee802_1x_defs.h	888;"	d
+ASEL_CAP_EXPLICIT_CSI_FEEDBACK_CAP	ap/ieee802_1x_defs.h	890;"	d
+ASEL_CAP_RX_AS_CAP	ap/ieee802_1x_defs.h	892;"	d
+ASEL_CAP_TX_SOUNDING_PPDUS_CAP	ap/ieee802_1x_defs.h	893;"	d
 BEACON_H	ap/beacon.h	2;"	d
-BEACON_HEAD_BUF_SIZE	ap/beacon.c	701;"	d	file:
-BEACON_TAIL_BUF_SIZE	ap/beacon.c	702;"	d	file:
+BEACON_HEAD_BUF_SIZE	ap/beacon.c	715;"	d	file:
+BEACON_TAIL_BUF_SIZE	ap/beacon.c	716;"	d	file:
 BIT	utils/common.h	245;"	d
 BLOCKED_CLIENT	drivers/driver.h	/^			BLOCKED_CLIENT$/;"	e	enum:wpa_event_data::connect_failed_reason::__anon5
-BSS_MEMBERSHIP_SELECTOR_HT_PHY	ap/ieee802_1x_defs.h	929;"	d
-BSS_MEMBERSHIP_SELECTOR_VHT_PHY	ap/ieee802_1x_defs.h	928;"	d
-Boolean	utils/common_defs.h	/^typedef enum { FALSE = 0, TRUE = 1 } Boolean;$/;"	t	typeref:enum:__anon36
+BSS_MEMBERSHIP_SELECTOR_HT_PHY	ap/ieee802_1x_defs.h	928;"	d
+BSS_MEMBERSHIP_SELECTOR_VHT_PHY	ap/ieee802_1x_defs.h	927;"	d
+Boolean	utils/common_defs.h	/^typedef enum { FALSE = 0, TRUE = 1 } Boolean;$/;"	t	typeref:enum:__anon37
 C2S	drivers/driver_nl80211.c	609;"	d	file:
 C2S	drivers/driver_nl80211.c	719;"	d	file:
 CC	Makefile	/^CC ?= "gcc"$/;"	m
 CFLAGS	Makefile	/^CFLAGS ?= -MMD -O2 -g$/;"	m
-CHAN_SWITCH_MODE_ALLOW_TX	ap/ieee802_1x_defs.h	1432;"	d
-CHAN_SWITCH_MODE_BLOCK_TX	ap/ieee802_1x_defs.h	1433;"	d
+CHAN_SWITCH_MODE_ALLOW_TX	ap/ieee802_1x_defs.h	1431;"	d
+CHAN_SWITCH_MODE_BLOCK_TX	ap/ieee802_1x_defs.h	1432;"	d
 CHAN_WIDTH_160	drivers/driver.h	/^	CHAN_WIDTH_160,$/;"	e	enum:chan_width
 CHAN_WIDTH_20	drivers/driver.h	/^	CHAN_WIDTH_20,$/;"	e	enum:chan_width
 CHAN_WIDTH_20_NOHT	drivers/driver.h	/^	CHAN_WIDTH_20_NOHT,$/;"	e	enum:chan_width
@@ -77,10 +77,12 @@ CLEANER_SECONDS	agent/vap.h	10;"	d
 COMMON_DEFS_H	utils/common_defs.h	10;"	d
 COMMON_H	utils/common.h	9;"	d
 CONFIG_FILE_HH	ap/config_file.h	10;"	d
+CONFIG_MSG_MIN_PRIORITY	utils/wpa_debug.h	22;"	d
 CONTROLLER_EVENT_H	agent/controller_event.h	2;"	d
-CONTROLLER_READ	agent/controller_event.c	27;"	d	file:
-CONTROLLER_WRITE	agent/controller_event.c	28;"	d	file:
+CONTROLLER_READ	agent/controller_event.c	28;"	d	file:
+CONTROLLER_WRITE	agent/controller_event.c	29;"	d	file:
 CONTROL_PORT	agent/controller_event.h	8;"	d
+DEAUTH	agent/push.c	45;"	d	file:
 DEFINE_DL_LIST	utils/list.h	94;"	d
 DENY_UNLESS_ACCEPTED	ap/ap_config.h	/^		DENY_UNLESS_ACCEPTED = 1,$/;"	e	enum:Macaddr_acl
 DFS_EVENT_CAC_COMPLETED	ap/ieee802_1x_defs.h	45;"	d
@@ -88,6 +90,7 @@ DFS_EVENT_CAC_START	ap/ieee802_1x_defs.h	44;"	d
 DFS_EVENT_NEW_CHANNEL	ap/ieee802_1x_defs.h	43;"	d
 DFS_EVENT_NOP_FINISHED	ap/ieee802_1x_defs.h	46;"	d
 DFS_EVENT_RADAR_DETECTED	ap/ieee802_1x_defs.h	42;"	d
+DISASSOC	agent/push.c	44;"	d	file:
 DRIVER_H	drivers/driver.h	18;"	d
 DRIVER_NL80211_H	drivers/driver_nl80211.c	2;"	d	file:
 DVLAN_CLEAN_BR	ap/ap_config.h	31;"	d
@@ -103,9 +106,9 @@ DYNAMIC_VLAN_REQUIRED	ap/ap_config.h	122;"	d
 EAP_MAX_METHODS	utils/common_defs.h	301;"	d
 EMERGENCY_ALERT_SYSTEM	ap/ieee802_1x_defs.h	/^	EMERGENCY_ALERT_SYSTEM = 3,$/;"	e	enum:adv_proto_id
 EQUALS	agent/subscription.h	/^    EQUALS, GREATER_THAN, LESSER_THAN$/;"	e	enum:relation_t
-ERP_INFO_BARKER_PREAMBLE_MODE	ap/ieee802_1x_defs.h	825;"	d
-ERP_INFO_NON_ERP_PRESENT	ap/ieee802_1x_defs.h	823;"	d
-ERP_INFO_USE_PROTECTION	ap/ieee802_1x_defs.h	824;"	d
+ERP_INFO_BARKER_PREAMBLE_MODE	ap/ieee802_1x_defs.h	824;"	d
+ERP_INFO_NON_ERP_PRESENT	ap/ieee802_1x_defs.h	822;"	d
+ERP_INFO_USE_PROTECTION	ap/ieee802_1x_defs.h	823;"	d
 ETH_ALEN	utils/common.h	235;"	d
 EVENT_ASSOC	drivers/driver.h	/^	EVENT_ASSOC,$/;"	e	enum:wpa_event_type
 EVENT_ASSOCINFO	drivers/driver.h	/^	EVENT_ASSOCINFO,$/;"	e	enum:wpa_event_type
@@ -160,16 +163,16 @@ EVENT_UNPROT_DEAUTH	drivers/driver.h	/^	EVENT_UNPROT_DEAUTH,$/;"	e	enum:wpa_even
 EVENT_UNPROT_DISASSOC	drivers/driver.h	/^	EVENT_UNPROT_DISASSOC,$/;"	e	enum:wpa_event_type
 EVENT_WNM	drivers/driver.h	/^	EVENT_WNM,$/;"	e	enum:wpa_event_type
 EVENT_WPS_BUTTON_PUSHED	drivers/driver.h	/^	EVENT_WPS_BUTTON_PUSHED,$/;"	e	enum:wpa_event_type
-EXT_HT_CAP_INFO_HTC_SUPPORT	ap/ieee802_1x_defs.h	858;"	d
-EXT_HT_CAP_INFO_MCS_FEEDBACK_MASK	ap/ieee802_1x_defs.h	856;"	d
-EXT_HT_CAP_INFO_MCS_FEEDBACK_OFFSET	ap/ieee802_1x_defs.h	857;"	d
-EXT_HT_CAP_INFO_PCO	ap/ieee802_1x_defs.h	852;"	d
-EXT_HT_CAP_INFO_PCO_TRANS_TIME_MASK	ap/ieee802_1x_defs.h	853;"	d
-EXT_HT_CAP_INFO_RD_RESPONDER	ap/ieee802_1x_defs.h	859;"	d
-EXT_HT_CAP_INFO_TRANS_TIME_OFFSET	ap/ieee802_1x_defs.h	854;"	d
-FALSE	utils/common_defs.h	/^typedef enum { FALSE = 0, TRUE = 1 } Boolean;$/;"	e	enum:__anon36
+EXT_HT_CAP_INFO_HTC_SUPPORT	ap/ieee802_1x_defs.h	857;"	d
+EXT_HT_CAP_INFO_MCS_FEEDBACK_MASK	ap/ieee802_1x_defs.h	855;"	d
+EXT_HT_CAP_INFO_MCS_FEEDBACK_OFFSET	ap/ieee802_1x_defs.h	856;"	d
+EXT_HT_CAP_INFO_PCO	ap/ieee802_1x_defs.h	851;"	d
+EXT_HT_CAP_INFO_PCO_TRANS_TIME_MASK	ap/ieee802_1x_defs.h	852;"	d
+EXT_HT_CAP_INFO_RD_RESPONDER	ap/ieee802_1x_defs.h	858;"	d
+EXT_HT_CAP_INFO_TRANS_TIME_OFFSET	ap/ieee802_1x_defs.h	853;"	d
+FALSE	utils/common_defs.h	/^typedef enum { FALSE = 0, TRUE = 1 } Boolean;$/;"	e	enum:__anon37
 FALSE	utils/common_defs.h	13;"	d
-GAS_DIALOG_MAX	ap/sta_info.h	144;"	d
+GAS_DIALOG_MAX	ap/sta_info.h	141;"	d
 GREATER_THAN	agent/subscription.h	/^    EQUALS, GREATER_THAN, LESSER_THAN$/;"	e	enum:relation_t
 HAPD_IFACE_ACS	ap/hostapd.h	/^		HAPD_IFACE_ACS,$/;"	e	enum:Hostapd_iface_state
 HAPD_IFACE_COUNTRY_UPDATE	ap/hostapd.h	/^		HAPD_IFACE_COUNTRY_UPDATE,$/;"	e	enum:Hostapd_iface_state
@@ -232,68 +235,68 @@ HOSTAPD_MODE_IEEE80211AD	utils/common_defs.h	/^	HOSTAPD_MODE_IEEE80211AD,$/;"	e	
 HOSTAPD_MODE_IEEE80211B	utils/common_defs.h	/^	HOSTAPD_MODE_IEEE80211B,$/;"	e	enum:hostapd_hw_mode
 HOSTAPD_MODE_IEEE80211G	utils/common_defs.h	/^	HOSTAPD_MODE_IEEE80211G,$/;"	e	enum:hostapd_hw_mode
 HOSTAPD_RATE_BASIC	ap/hostapd.h	23;"	d
-HS20_ANQP_DOMAIN_ID_PRESENT	ap/ieee802_1x_defs.h	1126;"	d
-HS20_ANQP_OUI_TYPE	ap/ieee802_1x_defs.h	1111;"	d
-HS20_DEAUTH_REASON_CODE_BSS	ap/ieee802_1x_defs.h	1133;"	d
-HS20_DEAUTH_REASON_CODE_ESS	ap/ieee802_1x_defs.h	1134;"	d
-HS20_DGAF_DISABLED	ap/ieee802_1x_defs.h	1124;"	d
-HS20_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	995;"	d
-HS20_INDICATION_OUI_TYPE	ap/ieee802_1x_defs.h	1110;"	d
-HS20_OSEN_OUI_TYPE	ap/ieee802_1x_defs.h	1112;"	d
-HS20_PPS_MO_ID_PRESENT	ap/ieee802_1x_defs.h	1125;"	d
-HS20_STYPE_CAPABILITY_LIST	ap/ieee802_1x_defs.h	1114;"	d
-HS20_STYPE_CONNECTION_CAPABILITY	ap/ieee802_1x_defs.h	1117;"	d
-HS20_STYPE_ICON_BINARY_FILE	ap/ieee802_1x_defs.h	1122;"	d
-HS20_STYPE_ICON_REQUEST	ap/ieee802_1x_defs.h	1121;"	d
-HS20_STYPE_NAI_HOME_REALM_QUERY	ap/ieee802_1x_defs.h	1118;"	d
-HS20_STYPE_OPERATING_CLASS	ap/ieee802_1x_defs.h	1119;"	d
-HS20_STYPE_OPERATOR_FRIENDLY_NAME	ap/ieee802_1x_defs.h	1115;"	d
-HS20_STYPE_OSU_PROVIDERS_LIST	ap/ieee802_1x_defs.h	1120;"	d
-HS20_STYPE_QUERY_LIST	ap/ieee802_1x_defs.h	1113;"	d
-HS20_STYPE_WAN_METRICS	ap/ieee802_1x_defs.h	1116;"	d
-HS20_VERSION	ap/ieee802_1x_defs.h	1127;"	d
-HS20_WNM_DEAUTH_IMMINENT_NOTICE	ap/ieee802_1x_defs.h	1131;"	d
-HS20_WNM_SUB_REM_NEEDED	ap/ieee802_1x_defs.h	1130;"	d
-HT_CAP_INFO_40MHZ_INTOLERANT	ap/ieee802_1x_defs.h	848;"	d
-HT_CAP_INFO_DELAYED_BA	ap/ieee802_1x_defs.h	844;"	d
-HT_CAP_INFO_DSSS_CCK40MHZ	ap/ieee802_1x_defs.h	846;"	d
-HT_CAP_INFO_GREEN_FIELD	ap/ieee802_1x_defs.h	836;"	d
-HT_CAP_INFO_LDPC_CODING_CAP	ap/ieee802_1x_defs.h	830;"	d
-HT_CAP_INFO_LSIG_TXOP_PROTECT_SUPPORT	ap/ieee802_1x_defs.h	849;"	d
-HT_CAP_INFO_MAX_AMSDU_SIZE	ap/ieee802_1x_defs.h	845;"	d
-HT_CAP_INFO_RX_STBC_1	ap/ieee802_1x_defs.h	841;"	d
-HT_CAP_INFO_RX_STBC_12	ap/ieee802_1x_defs.h	842;"	d
-HT_CAP_INFO_RX_STBC_123	ap/ieee802_1x_defs.h	843;"	d
-HT_CAP_INFO_RX_STBC_MASK	ap/ieee802_1x_defs.h	840;"	d
-HT_CAP_INFO_SHORT_GI20MHZ	ap/ieee802_1x_defs.h	837;"	d
-HT_CAP_INFO_SHORT_GI40MHZ	ap/ieee802_1x_defs.h	838;"	d
-HT_CAP_INFO_SMPS_DISABLED	ap/ieee802_1x_defs.h	835;"	d
-HT_CAP_INFO_SMPS_DYNAMIC	ap/ieee802_1x_defs.h	834;"	d
-HT_CAP_INFO_SMPS_MASK	ap/ieee802_1x_defs.h	832;"	d
-HT_CAP_INFO_SMPS_STATIC	ap/ieee802_1x_defs.h	833;"	d
-HT_CAP_INFO_SUPP_CHANNEL_WIDTH_SET	ap/ieee802_1x_defs.h	831;"	d
-HT_CAP_INFO_TX_STBC	ap/ieee802_1x_defs.h	839;"	d
-HT_INFO_HT_PARAM_RIFS_MODE	ap/ieee802_1x_defs.h	902;"	d
-HT_INFO_HT_PARAM_SECONDARY_CHNL_ABOVE	ap/ieee802_1x_defs.h	899;"	d
-HT_INFO_HT_PARAM_SECONDARY_CHNL_BELOW	ap/ieee802_1x_defs.h	900;"	d
-HT_INFO_HT_PARAM_SECONDARY_CHNL_OFF_MASK	ap/ieee802_1x_defs.h	898;"	d
-HT_INFO_HT_PARAM_STA_CHNL_WIDTH	ap/ieee802_1x_defs.h	901;"	d
-HT_OPER_OP_MODE_HT_PROT_MASK	ap/ieee802_1x_defs.h	912;"	d
-HT_OPER_OP_MODE_NON_GF_HT_STAS_PRESENT	ap/ieee802_1x_defs.h	913;"	d
-HT_OPER_OP_MODE_OBSS_NON_HT_STAS_PRESENT	ap/ieee802_1x_defs.h	915;"	d
-HT_OPER_PARAM_DUAL_BEACON	ap/ieee802_1x_defs.h	920;"	d
-HT_OPER_PARAM_DUAL_CTS_PROTECTION	ap/ieee802_1x_defs.h	921;"	d
-HT_OPER_PARAM_LSIG_TXOP_PROT_FULL_SUPP	ap/ieee802_1x_defs.h	923;"	d
-HT_OPER_PARAM_PCO_ACTIVE	ap/ieee802_1x_defs.h	924;"	d
-HT_OPER_PARAM_PCO_PHASE	ap/ieee802_1x_defs.h	925;"	d
-HT_OPER_PARAM_STBC_BEACON	ap/ieee802_1x_defs.h	922;"	d
-HT_PROT_20MHZ_PROTECTION	ap/ieee802_1x_defs.h	908;"	d
-HT_PROT_NONMEMBER_PROTECTION	ap/ieee802_1x_defs.h	907;"	d
-HT_PROT_NON_HT_MIXED	ap/ieee802_1x_defs.h	909;"	d
-HT_PROT_NO_PROTECTION	ap/ieee802_1x_defs.h	906;"	d
+HS20_ANQP_DOMAIN_ID_PRESENT	ap/ieee802_1x_defs.h	1125;"	d
+HS20_ANQP_OUI_TYPE	ap/ieee802_1x_defs.h	1110;"	d
+HS20_DEAUTH_REASON_CODE_BSS	ap/ieee802_1x_defs.h	1132;"	d
+HS20_DEAUTH_REASON_CODE_ESS	ap/ieee802_1x_defs.h	1133;"	d
+HS20_DGAF_DISABLED	ap/ieee802_1x_defs.h	1123;"	d
+HS20_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	994;"	d
+HS20_INDICATION_OUI_TYPE	ap/ieee802_1x_defs.h	1109;"	d
+HS20_OSEN_OUI_TYPE	ap/ieee802_1x_defs.h	1111;"	d
+HS20_PPS_MO_ID_PRESENT	ap/ieee802_1x_defs.h	1124;"	d
+HS20_STYPE_CAPABILITY_LIST	ap/ieee802_1x_defs.h	1113;"	d
+HS20_STYPE_CONNECTION_CAPABILITY	ap/ieee802_1x_defs.h	1116;"	d
+HS20_STYPE_ICON_BINARY_FILE	ap/ieee802_1x_defs.h	1121;"	d
+HS20_STYPE_ICON_REQUEST	ap/ieee802_1x_defs.h	1120;"	d
+HS20_STYPE_NAI_HOME_REALM_QUERY	ap/ieee802_1x_defs.h	1117;"	d
+HS20_STYPE_OPERATING_CLASS	ap/ieee802_1x_defs.h	1118;"	d
+HS20_STYPE_OPERATOR_FRIENDLY_NAME	ap/ieee802_1x_defs.h	1114;"	d
+HS20_STYPE_OSU_PROVIDERS_LIST	ap/ieee802_1x_defs.h	1119;"	d
+HS20_STYPE_QUERY_LIST	ap/ieee802_1x_defs.h	1112;"	d
+HS20_STYPE_WAN_METRICS	ap/ieee802_1x_defs.h	1115;"	d
+HS20_VERSION	ap/ieee802_1x_defs.h	1126;"	d
+HS20_WNM_DEAUTH_IMMINENT_NOTICE	ap/ieee802_1x_defs.h	1130;"	d
+HS20_WNM_SUB_REM_NEEDED	ap/ieee802_1x_defs.h	1129;"	d
+HT_CAP_INFO_40MHZ_INTOLERANT	ap/ieee802_1x_defs.h	847;"	d
+HT_CAP_INFO_DELAYED_BA	ap/ieee802_1x_defs.h	843;"	d
+HT_CAP_INFO_DSSS_CCK40MHZ	ap/ieee802_1x_defs.h	845;"	d
+HT_CAP_INFO_GREEN_FIELD	ap/ieee802_1x_defs.h	835;"	d
+HT_CAP_INFO_LDPC_CODING_CAP	ap/ieee802_1x_defs.h	829;"	d
+HT_CAP_INFO_LSIG_TXOP_PROTECT_SUPPORT	ap/ieee802_1x_defs.h	848;"	d
+HT_CAP_INFO_MAX_AMSDU_SIZE	ap/ieee802_1x_defs.h	844;"	d
+HT_CAP_INFO_RX_STBC_1	ap/ieee802_1x_defs.h	840;"	d
+HT_CAP_INFO_RX_STBC_12	ap/ieee802_1x_defs.h	841;"	d
+HT_CAP_INFO_RX_STBC_123	ap/ieee802_1x_defs.h	842;"	d
+HT_CAP_INFO_RX_STBC_MASK	ap/ieee802_1x_defs.h	839;"	d
+HT_CAP_INFO_SHORT_GI20MHZ	ap/ieee802_1x_defs.h	836;"	d
+HT_CAP_INFO_SHORT_GI40MHZ	ap/ieee802_1x_defs.h	837;"	d
+HT_CAP_INFO_SMPS_DISABLED	ap/ieee802_1x_defs.h	834;"	d
+HT_CAP_INFO_SMPS_DYNAMIC	ap/ieee802_1x_defs.h	833;"	d
+HT_CAP_INFO_SMPS_MASK	ap/ieee802_1x_defs.h	831;"	d
+HT_CAP_INFO_SMPS_STATIC	ap/ieee802_1x_defs.h	832;"	d
+HT_CAP_INFO_SUPP_CHANNEL_WIDTH_SET	ap/ieee802_1x_defs.h	830;"	d
+HT_CAP_INFO_TX_STBC	ap/ieee802_1x_defs.h	838;"	d
+HT_INFO_HT_PARAM_RIFS_MODE	ap/ieee802_1x_defs.h	901;"	d
+HT_INFO_HT_PARAM_SECONDARY_CHNL_ABOVE	ap/ieee802_1x_defs.h	898;"	d
+HT_INFO_HT_PARAM_SECONDARY_CHNL_BELOW	ap/ieee802_1x_defs.h	899;"	d
+HT_INFO_HT_PARAM_SECONDARY_CHNL_OFF_MASK	ap/ieee802_1x_defs.h	897;"	d
+HT_INFO_HT_PARAM_STA_CHNL_WIDTH	ap/ieee802_1x_defs.h	900;"	d
+HT_OPER_OP_MODE_HT_PROT_MASK	ap/ieee802_1x_defs.h	911;"	d
+HT_OPER_OP_MODE_NON_GF_HT_STAS_PRESENT	ap/ieee802_1x_defs.h	912;"	d
+HT_OPER_OP_MODE_OBSS_NON_HT_STAS_PRESENT	ap/ieee802_1x_defs.h	914;"	d
+HT_OPER_PARAM_DUAL_BEACON	ap/ieee802_1x_defs.h	919;"	d
+HT_OPER_PARAM_DUAL_CTS_PROTECTION	ap/ieee802_1x_defs.h	920;"	d
+HT_OPER_PARAM_LSIG_TXOP_PROT_FULL_SUPP	ap/ieee802_1x_defs.h	922;"	d
+HT_OPER_PARAM_PCO_ACTIVE	ap/ieee802_1x_defs.h	923;"	d
+HT_OPER_PARAM_PCO_PHASE	ap/ieee802_1x_defs.h	924;"	d
+HT_OPER_PARAM_STBC_BEACON	ap/ieee802_1x_defs.h	921;"	d
+HT_PROT_20MHZ_PROTECTION	ap/ieee802_1x_defs.h	907;"	d
+HT_PROT_NONMEMBER_PROTECTION	ap/ieee802_1x_defs.h	906;"	d
+HT_PROT_NON_HT_MIXED	ap/ieee802_1x_defs.h	908;"	d
+HT_PROT_NO_PROTECTION	ap/ieee802_1x_defs.h	905;"	d
 HW_FEATURES_H	ap/hw_features.h	2;"	d
 Hostapd_iface_state	ap/hostapd.h	/^enum Hostapd_iface_state{$/;"	g
-IEEE80211_BSSID_FROMDS	ap/ieee802_1x_defs.h	599;"	d
+IEEE80211_BSSID_FROMDS	ap/ieee802_1x_defs.h	598;"	d
 IEEE80211_CAP_DMG_AP	drivers/driver.h	185;"	d
 IEEE80211_CAP_DMG_IBSS	drivers/driver.h	183;"	d
 IEEE80211_CAP_DMG_MASK	drivers/driver.h	182;"	d
@@ -301,41 +304,41 @@ IEEE80211_CAP_DMG_PBSS	drivers/driver.h	184;"	d
 IEEE80211_CAP_ESS	drivers/driver.h	176;"	d
 IEEE80211_CAP_IBSS	drivers/driver.h	177;"	d
 IEEE80211_CAP_PRIVACY	drivers/driver.h	178;"	d
-IEEE80211_DA_FROMDS	ap/ieee802_1x_defs.h	598;"	d
-IEEE80211_FC	ap/ieee802_1x_defs.h	604;"	d
-IEEE80211_HDRLEN	ap/ieee802_1x_defs.h	602;"	d
-IEEE80211_HT_MCS_MASK_LEN	ap/ieee802_1x_defs.h	765;"	d
+IEEE80211_DA_FROMDS	ap/ieee802_1x_defs.h	597;"	d
+IEEE80211_FC	ap/ieee802_1x_defs.h	603;"	d
+IEEE80211_HDRLEN	ap/ieee802_1x_defs.h	601;"	d
+IEEE80211_HT_MCS_MASK_LEN	ap/ieee802_1x_defs.h	764;"	d
 IEEE80211_MODE_AP	drivers/driver.h	174;"	d
 IEEE80211_MODE_IBSS	drivers/driver.h	173;"	d
 IEEE80211_MODE_INFRA	drivers/driver.h	172;"	d
-IEEE80211_SA_FROMDS	ap/ieee802_1x_defs.h	600;"	d
-IEEE80211_TX_QUEUE_DATA0	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA0 = 0, \/* used for EDCA AC_VO data *\/$/;"	e	enum:__anon35	file:
-IEEE80211_TX_QUEUE_DATA1	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA1 = 1, \/* used for EDCA AC_VI data *\/$/;"	e	enum:__anon35	file:
-IEEE80211_TX_QUEUE_DATA2	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA2 = 2, \/* used for EDCA AC_BE data *\/$/;"	e	enum:__anon35	file:
-IEEE80211_TX_QUEUE_DATA3	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA3 = 3 \/* used for EDCA AC_BK data *\/$/;"	e	enum:__anon35	file:
+IEEE80211_SA_FROMDS	ap/ieee802_1x_defs.h	599;"	d
+IEEE80211_TX_QUEUE_DATA0	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA0 = 0, \/* used for EDCA AC_VO data *\/$/;"	e	enum:__anon36	file:
+IEEE80211_TX_QUEUE_DATA1	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA1 = 1, \/* used for EDCA AC_VI data *\/$/;"	e	enum:__anon36	file:
+IEEE80211_TX_QUEUE_DATA2	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA2 = 2, \/* used for EDCA AC_BE data *\/$/;"	e	enum:__anon36	file:
+IEEE80211_TX_QUEUE_DATA3	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA3 = 3 \/* used for EDCA AC_BK data *\/$/;"	e	enum:__anon36	file:
 IEEE802_11_DEFS_H	ap/ieee802_1x_defs.h	16;"	d
 IFNAMSIZ	ap/ap_config.h	21;"	d
 IFNAMSIZ	utils/common.h	240;"	d
 INSTALL	Makefile	/^INSTALL ?= install$/;"	m
-INTERWORKING_ANO_ACCESS_NETWORK_MASK	ap/ieee802_1x_defs.h	436;"	d
-INTERWORKING_ANO_ASRA	ap/ieee802_1x_defs.h	438;"	d
-INTERWORKING_ANO_ESR	ap/ieee802_1x_defs.h	439;"	d
-INTERWORKING_ANO_INTERNET	ap/ieee802_1x_defs.h	437;"	d
-INTERWORKING_ANO_UESA	ap/ieee802_1x_defs.h	440;"	d
-INTERWORKING_ANT_CHARGEABLE_PUBLIC	ap/ieee802_1x_defs.h	444;"	d
-INTERWORKING_ANT_EMERGENCY_SERVICES	ap/ieee802_1x_defs.h	447;"	d
-INTERWORKING_ANT_FREE_PUBLIC	ap/ieee802_1x_defs.h	445;"	d
-INTERWORKING_ANT_PERSONAL_DEVICE	ap/ieee802_1x_defs.h	446;"	d
-INTERWORKING_ANT_PRIVATE	ap/ieee802_1x_defs.h	442;"	d
-INTERWORKING_ANT_PRIVATE_WITH_GUEST	ap/ieee802_1x_defs.h	443;"	d
-INTERWORKING_ANT_TEST	ap/ieee802_1x_defs.h	448;"	d
-INTERWORKING_ANT_WILDCARD	ap/ieee802_1x_defs.h	449;"	d
+INTERWORKING_ANO_ACCESS_NETWORK_MASK	ap/ieee802_1x_defs.h	435;"	d
+INTERWORKING_ANO_ASRA	ap/ieee802_1x_defs.h	437;"	d
+INTERWORKING_ANO_ESR	ap/ieee802_1x_defs.h	438;"	d
+INTERWORKING_ANO_INTERNET	ap/ieee802_1x_defs.h	436;"	d
+INTERWORKING_ANO_UESA	ap/ieee802_1x_defs.h	439;"	d
+INTERWORKING_ANT_CHARGEABLE_PUBLIC	ap/ieee802_1x_defs.h	443;"	d
+INTERWORKING_ANT_EMERGENCY_SERVICES	ap/ieee802_1x_defs.h	446;"	d
+INTERWORKING_ANT_FREE_PUBLIC	ap/ieee802_1x_defs.h	444;"	d
+INTERWORKING_ANT_PERSONAL_DEVICE	ap/ieee802_1x_defs.h	445;"	d
+INTERWORKING_ANT_PRIVATE	ap/ieee802_1x_defs.h	441;"	d
+INTERWORKING_ANT_PRIVATE_WITH_GUEST	ap/ieee802_1x_defs.h	442;"	d
+INTERWORKING_ANT_TEST	ap/ieee802_1x_defs.h	447;"	d
+INTERWORKING_ANT_WILDCARD	ap/ieee802_1x_defs.h	448;"	d
 LESSER_THAN	agent/subscription.h	/^    EQUALS, GREATER_THAN, LESSER_THAN$/;"	e	enum:relation_t
 LIST_H	utils/list.h	10;"	d
 LONG_PREAMBLE	ap/ieee802_1x_defs.h	/^		LONG_PREAMBLE = 0,$/;"	e	enum:Preamble
 MAC2STR	utils/common.h	229;"	d
 MACSTR	utils/common.h	230;"	d
-MAC_STR_LEN	agent/push.c	39;"	d	file:
+MAC_STR_LEN	agent/push.c	38;"	d	file:
 MANDIR	Makefile	/^MANDIR ?= $(PREFIX)\/share\/man$/;"	m
 MAX_CLIENT_REACHED	drivers/driver.h	/^			MAX_CLIENT_REACHED,$/;"	e	enum:wpa_event_data::connect_failed_reason::__anon5
 MAX_NL80211_IFACE_COMB	drivers/nl80211_copy.h	/^	MAX_NL80211_IFACE_COMB = NUM_NL80211_IFACE_COMB - 1$/;"	e	enum:nl80211_if_combination_attrs
@@ -361,13 +364,13 @@ MLME_SETPROTECTION_PROTECT_TYPE_NONE	utils/common_defs.h	255;"	d
 MLME_SETPROTECTION_PROTECT_TYPE_RX	utils/common_defs.h	256;"	d
 MLME_SETPROTECTION_PROTECT_TYPE_RX_TX	utils/common_defs.h	258;"	d
 MLME_SETPROTECTION_PROTECT_TYPE_TX	utils/common_defs.h	257;"	d
-MSG_DEBUG	utils/common.h	253;"	d
+MSG_DEBUG	utils/wpa_debug.h	/^	MSG_EXCESSIVE, MSG_MSGDUMP, MSG_DEBUG, MSG_INFO, MSG_WARN, MSG_ERROR$/;"	e	enum:__anon38
 MSG_DONTWAIT	utils/common.h	75;"	d
-MSG_ERROR	utils/common.h	250;"	d
-MSG_EXCESSIVE	utils/common.h	255;"	d
-MSG_INFO	utils/common.h	252;"	d
-MSG_MSGDUMP	utils/common.h	254;"	d
-MSG_WARN	utils/common.h	251;"	d
+MSG_ERROR	utils/wpa_debug.h	/^	MSG_EXCESSIVE, MSG_MSGDUMP, MSG_DEBUG, MSG_INFO, MSG_WARN, MSG_ERROR$/;"	e	enum:__anon38
+MSG_EXCESSIVE	utils/wpa_debug.h	/^	MSG_EXCESSIVE, MSG_MSGDUMP, MSG_DEBUG, MSG_INFO, MSG_WARN, MSG_ERROR$/;"	e	enum:__anon38
+MSG_INFO	utils/wpa_debug.h	/^	MSG_EXCESSIVE, MSG_MSGDUMP, MSG_DEBUG, MSG_INFO, MSG_WARN, MSG_ERROR$/;"	e	enum:__anon38
+MSG_MSGDUMP	utils/wpa_debug.h	/^	MSG_EXCESSIVE, MSG_MSGDUMP, MSG_DEBUG, MSG_INFO, MSG_WARN, MSG_ERROR$/;"	e	enum:__anon38
+MSG_WARN	utils/wpa_debug.h	/^	MSG_EXCESSIVE, MSG_MSGDUMP, MSG_DEBUG, MSG_INFO, MSG_WARN, MSG_ERROR$/;"	e	enum:__anon38
 Macaddr_acl	ap/ap_config.h	/^enum Macaddr_acl{$/;"	g
 NAI_REALM_CRED_TYPE_ANONYMOUS	ap/ieee802_1x_defs.h	/^	NAI_REALM_CRED_TYPE_ANONYMOUS = 9,$/;"	e	enum:nai_realm_eap_cred_type
 NAI_REALM_CRED_TYPE_CERTIFICATE	ap/ieee802_1x_defs.h	/^	NAI_REALM_CRED_TYPE_CERTIFICATE = 6,$/;"	e	enum:nai_realm_eap_cred_type
@@ -1216,13 +1219,13 @@ NUM_TX_QUEUES	utils/common.h	236;"	d
 NUM_WEP_KEYS	ap/ap_config.h	101;"	d
 NUM_WEP_KEYS	utils/common.h	237;"	d
 NUM_WPA_CTRL_REQS	utils/common_defs.h	/^	NUM_WPA_CTRL_REQS$/;"	e	enum:wpa_ctrl_req_type
-OSEN_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	996;"	d
-OUI_BROADCOM	ap/ieee802_1x_defs.h	1268;"	d
-OUI_MICROSOFT	ap/ieee802_1x_defs.h	987;"	d
+OSEN_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	995;"	d
+OUI_BROADCOM	ap/ieee802_1x_defs.h	1267;"	d
+OUI_MICROSOFT	ap/ieee802_1x_defs.h	986;"	d
 OUI_QCA	drivers/driver_nl80211.c	33;"	d	file:
 OUI_QCA	utils/qca-vendor.h	19;"	d
-OUI_WFA	ap/ieee802_1x_defs.h	991;"	d
-OVERLAPPING_BSS_TRANS_DELAY_FACTOR	ap/ieee802_1x_defs.h	827;"	d
+OUI_WFA	ap/ieee802_1x_defs.h	990;"	d
+OVERLAPPING_BSS_TRANS_DELAY_FACTOR	ap/ieee802_1x_defs.h	826;"	d
 P2P_ALLOW_CROSS_CONNECTION	ap/ap_config.h	572;"	d
 P2P_ATTR_CAPABILITY	ap/ieee802_1x_defs.h	/^	P2P_ATTR_CAPABILITY = 2,$/;"	e	enum:p2p_attr_id
 P2P_ATTR_CHANNEL_LIST	ap/ieee802_1x_defs.h	/^	P2P_ATTR_CHANNEL_LIST = 11,$/;"	e	enum:p2p_attr_id
@@ -1247,12 +1250,12 @@ P2P_ATTR_STATUS	ap/ieee802_1x_defs.h	/^	P2P_ATTR_STATUS = 0,$/;"	e	enum:p2p_attr
 P2P_ATTR_VENDOR_SPECIFIC	ap/ieee802_1x_defs.h	/^	P2P_ATTR_VENDOR_SPECIFIC = 221$/;"	e	enum:p2p_attr_id
 P2P_CLIENT_IN_A_GROUP	ap/ieee802_1x_defs.h	/^	P2P_CLIENT_IN_A_GROUP = 0x01,$/;"	e	enum:p2p_role_indication
 P2P_DEVICE_NOT_IN_GROUP	ap/ieee802_1x_defs.h	/^	P2P_DEVICE_NOT_IN_GROUP = 0x00,$/;"	e	enum:p2p_role_indication
-P2P_DEV_CAPAB_CLIENT_DISCOVERABILITY	ap/ieee802_1x_defs.h	1168;"	d
-P2P_DEV_CAPAB_CONCURRENT_OPER	ap/ieee802_1x_defs.h	1169;"	d
-P2P_DEV_CAPAB_DEVICE_LIMIT	ap/ieee802_1x_defs.h	1171;"	d
-P2P_DEV_CAPAB_INFRA_MANAGED	ap/ieee802_1x_defs.h	1170;"	d
-P2P_DEV_CAPAB_INVITATION_PROCEDURE	ap/ieee802_1x_defs.h	1172;"	d
-P2P_DEV_CAPAB_SERVICE_DISCOVERY	ap/ieee802_1x_defs.h	1167;"	d
+P2P_DEV_CAPAB_CLIENT_DISCOVERABILITY	ap/ieee802_1x_defs.h	1167;"	d
+P2P_DEV_CAPAB_CONCURRENT_OPER	ap/ieee802_1x_defs.h	1168;"	d
+P2P_DEV_CAPAB_DEVICE_LIMIT	ap/ieee802_1x_defs.h	1170;"	d
+P2P_DEV_CAPAB_INFRA_MANAGED	ap/ieee802_1x_defs.h	1169;"	d
+P2P_DEV_CAPAB_INVITATION_PROCEDURE	ap/ieee802_1x_defs.h	1171;"	d
+P2P_DEV_CAPAB_SERVICE_DISCOVERY	ap/ieee802_1x_defs.h	1166;"	d
 P2P_DEV_DISC_REQ	ap/ieee802_1x_defs.h	/^	P2P_DEV_DISC_REQ = 5,$/;"	e	enum:p2p_action_frame_type
 P2P_DEV_DISC_RESP	ap/ieee802_1x_defs.h	/^	P2P_DEV_DISC_RESP = 6,$/;"	e	enum:p2p_action_frame_type
 P2P_ENABLED	ap/ap_config.h	568;"	d
@@ -1261,27 +1264,27 @@ P2P_GO_IN_A_GROUP	ap/ieee802_1x_defs.h	/^	P2P_GO_IN_A_GROUP = 0x02,$/;"	e	enum:p
 P2P_GO_NEG_CONF	ap/ieee802_1x_defs.h	/^	P2P_GO_NEG_CONF = 2,$/;"	e	enum:p2p_action_frame_type
 P2P_GO_NEG_REQ	ap/ieee802_1x_defs.h	/^	P2P_GO_NEG_REQ = 0,$/;"	e	enum:p2p_action_frame_type
 P2P_GO_NEG_RESP	ap/ieee802_1x_defs.h	/^	P2P_GO_NEG_RESP = 1,$/;"	e	enum:p2p_action_frame_type
-P2P_GROUP_CAPAB_CROSS_CONN	ap/ieee802_1x_defs.h	1179;"	d
-P2P_GROUP_CAPAB_GROUP_FORMATION	ap/ieee802_1x_defs.h	1181;"	d
-P2P_GROUP_CAPAB_GROUP_LIMIT	ap/ieee802_1x_defs.h	1177;"	d
-P2P_GROUP_CAPAB_GROUP_OWNER	ap/ieee802_1x_defs.h	1175;"	d
-P2P_GROUP_CAPAB_INTRA_BSS_DIST	ap/ieee802_1x_defs.h	1178;"	d
-P2P_GROUP_CAPAB_IP_ADDR_ALLOCATION	ap/ieee802_1x_defs.h	1182;"	d
-P2P_GROUP_CAPAB_PERSISTENT_GROUP	ap/ieee802_1x_defs.h	1176;"	d
-P2P_GROUP_CAPAB_PERSISTENT_RECONN	ap/ieee802_1x_defs.h	1180;"	d
+P2P_GROUP_CAPAB_CROSS_CONN	ap/ieee802_1x_defs.h	1178;"	d
+P2P_GROUP_CAPAB_GROUP_FORMATION	ap/ieee802_1x_defs.h	1180;"	d
+P2P_GROUP_CAPAB_GROUP_LIMIT	ap/ieee802_1x_defs.h	1176;"	d
+P2P_GROUP_CAPAB_GROUP_OWNER	ap/ieee802_1x_defs.h	1174;"	d
+P2P_GROUP_CAPAB_INTRA_BSS_DIST	ap/ieee802_1x_defs.h	1177;"	d
+P2P_GROUP_CAPAB_IP_ADDR_ALLOCATION	ap/ieee802_1x_defs.h	1181;"	d
+P2P_GROUP_CAPAB_PERSISTENT_GROUP	ap/ieee802_1x_defs.h	1175;"	d
+P2P_GROUP_CAPAB_PERSISTENT_RECONN	ap/ieee802_1x_defs.h	1179;"	d
 P2P_GROUP_FORMATION	ap/ap_config.h	570;"	d
 P2P_GROUP_OWNER	ap/ap_config.h	569;"	d
-P2P_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	992;"	d
-P2P_INVITATION_FLAGS_TYPE	ap/ieee802_1x_defs.h	1185;"	d
+P2P_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	991;"	d
+P2P_INVITATION_FLAGS_TYPE	ap/ieee802_1x_defs.h	1184;"	d
 P2P_INVITATION_REQ	ap/ieee802_1x_defs.h	/^	P2P_INVITATION_REQ = 3,$/;"	e	enum:p2p_action_frame_type
 P2P_INVITATION_RESP	ap/ieee802_1x_defs.h	/^	P2P_INVITATION_RESP = 4,$/;"	e	enum:p2p_action_frame_type
 P2P_MANAGE	ap/ap_config.h	571;"	d
-P2P_MAN_COEXISTENCE_OPTIONAL	ap/ieee802_1x_defs.h	1190;"	d
-P2P_MAN_CROSS_CONNECTION_PERMITTED	ap/ieee802_1x_defs.h	1189;"	d
-P2P_MAN_DEVICE_MANAGEMENT	ap/ieee802_1x_defs.h	1188;"	d
-P2P_MAX_GO_INTENT	ap/ieee802_1x_defs.h	1164;"	d
+P2P_MAN_COEXISTENCE_OPTIONAL	ap/ieee802_1x_defs.h	1189;"	d
+P2P_MAN_CROSS_CONNECTION_PERMITTED	ap/ieee802_1x_defs.h	1188;"	d
+P2P_MAN_DEVICE_MANAGEMENT	ap/ieee802_1x_defs.h	1187;"	d
+P2P_MAX_GO_INTENT	ap/ieee802_1x_defs.h	1163;"	d
 P2P_NOA	ap/ieee802_1x_defs.h	/^	P2P_NOA = 0,$/;"	e	enum:p2p_act_frame_type
-P2P_OUI_TYPE	ap/ieee802_1x_defs.h	1138;"	d
+P2P_OUI_TYPE	ap/ieee802_1x_defs.h	1137;"	d
 P2P_PRESENCE_REQ	ap/ieee802_1x_defs.h	/^	P2P_PRESENCE_REQ = 1,$/;"	e	enum:p2p_act_frame_type
 P2P_PRESENCE_RESP	ap/ieee802_1x_defs.h	/^	P2P_PRESENCE_RESP = 2,$/;"	e	enum:p2p_act_frame_type
 P2P_PROV_DISC_REQ	ap/ieee802_1x_defs.h	/^	P2P_PROV_DISC_REQ = 7,$/;"	e	enum:p2p_action_frame_type
@@ -1308,20 +1311,20 @@ P2P_SERV_UPNP	ap/ieee802_1x_defs.h	/^	P2P_SERV_UPNP = 2,$/;"	e	enum:p2p_service_
 P2P_SERV_VENDOR_SPECIFIC	ap/ieee802_1x_defs.h	/^	P2P_SERV_VENDOR_SPECIFIC = 255$/;"	e	enum:p2p_service_protocol_type
 P2P_SERV_WIFI_DISPLAY	ap/ieee802_1x_defs.h	/^	P2P_SERV_WIFI_DISPLAY = 4,$/;"	e	enum:p2p_service_protocol_type
 P2P_SERV_WS_DISCOVERY	ap/ieee802_1x_defs.h	/^	P2P_SERV_WS_DISCOVERY = 3,$/;"	e	enum:p2p_service_protocol_type
-P2P_WILDCARD_SSID	ap/ieee802_1x_defs.h	1213;"	d
-P2P_WILDCARD_SSID_LEN	ap/ieee802_1x_defs.h	1214;"	d
+P2P_WILDCARD_SSID	ap/ieee802_1x_defs.h	1212;"	d
+P2P_WILDCARD_SSID_LEN	ap/ieee802_1x_defs.h	1213;"	d
 PARSE_TEST_PROBABILITY	ap/config_file.c	3410;"	d	file:
-PING	agent/push.c	41;"	d	file:
+PING	agent/push.c	40;"	d	file:
 PKG_CONFIG	Makefile	/^PKG_CONFIG ?= pkg-config$/;"	m
 PMK_LEN	ap/ap_config.h	20;"	d
 PREFIX	Makefile	/^PREFIX ?= \/usr$/;"	m
-PRINTF_FORMAT	utils/common.h	261;"	d
-PRINTF_FORMAT	utils/common.h	264;"	d
-PROBE	agent/push.c	42;"	d	file:
+PRINTF_FORMAT	utils/common.h	250;"	d
+PRINTF_FORMAT	utils/common.h	253;"	d
+PROBE	agent/push.c	41;"	d	file:
 PSK_RADIUS_ACCEPTED	ap/ap_config.h	/^		PSK_RADIUS_ACCEPTED = 1,$/;"	e	enum:Wpa_psk_radius
 PSK_RADIUS_IGNORED	ap/ap_config.h	/^		PSK_RADIUS_IGNORED = 0,$/;"	e	enum:Wpa_psk_radius
 PSK_RADIUS_REQUIRED	ap/ap_config.h	/^		PSK_RADIUS_REQUIRED = 2$/;"	e	enum:Wpa_psk_radius
-PUBLISH	agent/push.c	44;"	d	file:
+PUBLISH	agent/push.c	43;"	d	file:
 PUSH_H	agent/push.h	2;"	d
 PUSH_PORT	agent/controller_event.h	7;"	d
 ParseFailed	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	e	enum:__anon6
@@ -1375,17 +1378,17 @@ SECURITY_WPA	ap/ap_config.h	/^	SECURITY_WPA = 4,$/;"	e	enum:hostap_security_poli
 SECURITY_WPA_PSK	ap/ap_config.h	/^	SECURITY_WPA_PSK = 3,$/;"	e	enum:hostap_security_policy
 SHORT_PREAMBLE	ap/ieee802_1x_defs.h	/^		SHORT_PREAMBLE = 1$/;"	e	enum:Preamble
 STAINFO_HANDLER_H	agent/stainfo_handler.h	2;"	d
-STATION	agent/push.c	43;"	d	file:
-STA_DEAUTH	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:Timeout_next
-STA_DISASSOC	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:Timeout_next
-STA_DISASSOC_FROM_CLI	ap/sta_info.h	/^		STA_DISASSOC_FROM_CLI$/;"	e	enum:Timeout_next
-STA_HASH	ap/hostapd.h	262;"	d
+STATION	agent/push.c	42;"	d	file:
+STA_DEAUTH	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon34
+STA_DISASSOC	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon34
+STA_DISASSOC_FROM_CLI	ap/sta_info.h	/^		STA_DISASSOC_FROM_CLI$/;"	e	enum:sta_info::__anon34
+STA_HASH	ap/hostapd.h	253;"	d
 STA_HASH	utils/common.h	239;"	d
-STA_HASH_SIZE	ap/hostapd.h	261;"	d
+STA_HASH_SIZE	ap/hostapd.h	252;"	d
 STA_HASH_SIZE	utils/common.h	238;"	d
 STA_INFO_H	ap/sta_info.h	10;"	d
-STA_NULLFUNC	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:Timeout_next
-STA_REMOVE	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:Timeout_next
+STA_NULLFUNC	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon34
+STA_REMOVE	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon34
 STRUCT_PACKED	ap/ieee802_1x_defs.h	/^}  STRUCT_PACKED;$/;"	v	typeref:struct:wmm_ac_parameter
 STRUCT_PACKED	ap/ieee802_1x_defs.h	/^} STRUCT_PACKED;$/;"	v	typeref:struct:ieee80211_2040_bss_coex_ie
 STRUCT_PACKED	ap/ieee802_1x_defs.h	/^} STRUCT_PACKED;$/;"	v	typeref:struct:ieee80211_2040_intol_chan_report
@@ -1400,10 +1403,10 @@ STRUCT_PACKED	ap/ieee802_1x_defs.h	/^} STRUCT_PACKED;$/;"	v	typeref:struct:wmm_i
 STRUCT_PACKED	ap/ieee802_1x_defs.h	/^} STRUCT_PACKED;$/;"	v	typeref:struct:wmm_parameter_element
 STRUCT_PACKED	ap/ieee802_1x_defs.h	/^} STRUCT_PACKED;$/;"	v	typeref:struct:wmm_tspec_element
 STRUCT_PACKED	ap/ieee802_1x_defs.h	/^} STRUCT_PACKED;$/;"	v	typeref:struct:wnm_sleep_element
-STRUCT_PACKED	utils/common.h	262;"	d
-STRUCT_PACKED	utils/common.h	265;"	d
+STRUCT_PACKED	utils/common.h	251;"	d
+STRUCT_PACKED	utils/common.h	254;"	d
 SUBSCRIPTION_H	agent/subscription.h	2;"	d
-SUBSCRIPTION_PARAMS_NUM	agent/controller_event.c	196;"	d	file:
+SUBSCRIPTION_PARAMS_NUM	agent/controller_event.c	246;"	d	file:
 SURVEY_HAS_CHAN_TIME	drivers/driver.h	3538;"	d
 SURVEY_HAS_CHAN_TIME_BUSY	drivers/driver.h	3539;"	d
 SURVEY_HAS_CHAN_TIME_RX	drivers/driver.h	3540;"	d
@@ -1423,80 +1426,79 @@ TDLS_REQUEST_SETUP	drivers/driver.h	/^			TDLS_REQUEST_SETUP,$/;"	e	enum:wpa_even
 TDLS_REQUEST_TEARDOWN	drivers/driver.h	/^			TDLS_REQUEST_TEARDOWN$/;"	e	enum:wpa_event_data::tdls::__anon2
 TDLS_SETUP	drivers/driver.h	/^	TDLS_SETUP,$/;"	e	enum:tdls_oper
 TDLS_TEARDOWN	drivers/driver.h	/^	TDLS_TEARDOWN,$/;"	e	enum:tdls_oper
-TRUE	utils/common_defs.h	/^typedef enum { FALSE = 0, TRUE = 1 } Boolean;$/;"	e	enum:__anon36
+TRUE	utils/common_defs.h	/^typedef enum { FALSE = 0, TRUE = 1 } Boolean;$/;"	e	enum:__anon37
 TRUE	utils/common_defs.h	16;"	d
-TX_BF_CAP_CALIBRATION_MASK	ap/ieee802_1x_defs.h	869;"	d
-TX_BF_CAP_CALIB_OFFSET	ap/ieee802_1x_defs.h	870;"	d
-TX_BF_CAP_CHANNEL_ESTIMATION_CAP_MASK	ap/ieee802_1x_defs.h	883;"	d
-TX_BF_CAP_CHANNEL_ESTIMATION_CAP_OFFSET	ap/ieee802_1x_defs.h	884;"	d
-TX_BF_CAP_COMPRESSED_STEERING_MATRIX_BEAMFORMER_ANT_OFFSET	ap/ieee802_1x_defs.h	881;"	d
-TX_BF_CAP_CSI_NUM_BEAMFORMER_ANT_OFFSET	ap/ieee802_1x_defs.h	879;"	d
-TX_BF_CAP_EXPLICIT_BF_CSI_FEEDBACK_OFFSET	ap/ieee802_1x_defs.h	875;"	d
-TX_BF_CAP_EXPLICIT_COMPRESSED_STEERING_MATRIX_FEEDBACK_OFFSET	ap/ieee802_1x_defs.h	877;"	d
-TX_BF_CAP_EXPLICIT_COMPR_STEERING_CAP	ap/ieee802_1x_defs.h	873;"	d
-TX_BF_CAP_EXPLICIT_CSI_TXBF_CAP	ap/ieee802_1x_defs.h	871;"	d
-TX_BF_CAP_EXPLICIT_NONCOMPR_STEERING_CAP	ap/ieee802_1x_defs.h	872;"	d
-TX_BF_CAP_EXPLICIT_TX_BF_CSI_FEEDBACK_MASK	ap/ieee802_1x_defs.h	874;"	d
-TX_BF_CAP_EXPLICIT_UNCOMPR_STEERING_MATRIX_FEEDBACK_OFFSET	ap/ieee802_1x_defs.h	876;"	d
-TX_BF_CAP_IMPLICIT_TXBF_RX_CAP	ap/ieee802_1x_defs.h	863;"	d
-TX_BF_CAP_IMPLICIT_TX_BF_CAP	ap/ieee802_1x_defs.h	868;"	d
-TX_BF_CAP_MINIMAL_GROUPING_OFFSET	ap/ieee802_1x_defs.h	878;"	d
-TX_BF_CAP_RX_NDP_CAP	ap/ieee802_1x_defs.h	866;"	d
-TX_BF_CAP_RX_STAGGERED_SOUNDING_CAP	ap/ieee802_1x_defs.h	864;"	d
-TX_BF_CAP_SCI_MAX_OF_ROWS_BEANFORMER_SUPPORTED_OFFSET	ap/ieee802_1x_defs.h	882;"	d
-TX_BF_CAP_TX_NDP_CAP	ap/ieee802_1x_defs.h	867;"	d
-TX_BF_CAP_TX_STAGGERED_SOUNDING_CAP	ap/ieee802_1x_defs.h	865;"	d
-TX_BF_CAP_UNCOMPRESSED_STEERING_MATRIX_BEAMFORMER_ANT_OFFSET	ap/ieee802_1x_defs.h	880;"	d
-Timeout_next	ap/sta_info.h	/^enum Timeout_next{$/;"	g
+TX_BF_CAP_CALIBRATION_MASK	ap/ieee802_1x_defs.h	868;"	d
+TX_BF_CAP_CALIB_OFFSET	ap/ieee802_1x_defs.h	869;"	d
+TX_BF_CAP_CHANNEL_ESTIMATION_CAP_MASK	ap/ieee802_1x_defs.h	882;"	d
+TX_BF_CAP_CHANNEL_ESTIMATION_CAP_OFFSET	ap/ieee802_1x_defs.h	883;"	d
+TX_BF_CAP_COMPRESSED_STEERING_MATRIX_BEAMFORMER_ANT_OFFSET	ap/ieee802_1x_defs.h	880;"	d
+TX_BF_CAP_CSI_NUM_BEAMFORMER_ANT_OFFSET	ap/ieee802_1x_defs.h	878;"	d
+TX_BF_CAP_EXPLICIT_BF_CSI_FEEDBACK_OFFSET	ap/ieee802_1x_defs.h	874;"	d
+TX_BF_CAP_EXPLICIT_COMPRESSED_STEERING_MATRIX_FEEDBACK_OFFSET	ap/ieee802_1x_defs.h	876;"	d
+TX_BF_CAP_EXPLICIT_COMPR_STEERING_CAP	ap/ieee802_1x_defs.h	872;"	d
+TX_BF_CAP_EXPLICIT_CSI_TXBF_CAP	ap/ieee802_1x_defs.h	870;"	d
+TX_BF_CAP_EXPLICIT_NONCOMPR_STEERING_CAP	ap/ieee802_1x_defs.h	871;"	d
+TX_BF_CAP_EXPLICIT_TX_BF_CSI_FEEDBACK_MASK	ap/ieee802_1x_defs.h	873;"	d
+TX_BF_CAP_EXPLICIT_UNCOMPR_STEERING_MATRIX_FEEDBACK_OFFSET	ap/ieee802_1x_defs.h	875;"	d
+TX_BF_CAP_IMPLICIT_TXBF_RX_CAP	ap/ieee802_1x_defs.h	862;"	d
+TX_BF_CAP_IMPLICIT_TX_BF_CAP	ap/ieee802_1x_defs.h	867;"	d
+TX_BF_CAP_MINIMAL_GROUPING_OFFSET	ap/ieee802_1x_defs.h	877;"	d
+TX_BF_CAP_RX_NDP_CAP	ap/ieee802_1x_defs.h	865;"	d
+TX_BF_CAP_RX_STAGGERED_SOUNDING_CAP	ap/ieee802_1x_defs.h	863;"	d
+TX_BF_CAP_SCI_MAX_OF_ROWS_BEANFORMER_SUPPORTED_OFFSET	ap/ieee802_1x_defs.h	881;"	d
+TX_BF_CAP_TX_NDP_CAP	ap/ieee802_1x_defs.h	866;"	d
+TX_BF_CAP_TX_STAGGERED_SOUNDING_CAP	ap/ieee802_1x_defs.h	864;"	d
+TX_BF_CAP_UNCOMPRESSED_STEERING_MATRIX_BEAMFORMER_ANT_OFFSET	ap/ieee802_1x_defs.h	879;"	d
 USE_EXTERNAL_RADIUS_AUTH	ap/ap_config.h	/^		USE_EXTERNAL_RADIUS_AUTH = 2$/;"	e	enum:Macaddr_acl
-VENDOR_HT_CAPAB_OUI_TYPE	ap/ieee802_1x_defs.h	1270;"	d
-VHT_CAP_BEAMFORMEE_STS_MAX	ap/ieee802_1x_defs.h	950;"	d
-VHT_CAP_BEAMFORMEE_STS_OFFSET	ap/ieee802_1x_defs.h	952;"	d
-VHT_CAP_HTC_VHT	ap/ieee802_1x_defs.h	959;"	d
-VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_1	ap/ieee802_1x_defs.h	961;"	d
-VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_2	ap/ieee802_1x_defs.h	962;"	d
-VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_3	ap/ieee802_1x_defs.h	963;"	d
-VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_4	ap/ieee802_1x_defs.h	964;"	d
-VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_5	ap/ieee802_1x_defs.h	965;"	d
-VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_6	ap/ieee802_1x_defs.h	966;"	d
-VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_MAX	ap/ieee802_1x_defs.h	967;"	d
-VHT_CAP_MAX_MPDU_LENGTH_11454	ap/ieee802_1x_defs.h	933;"	d
-VHT_CAP_MAX_MPDU_LENGTH_7991	ap/ieee802_1x_defs.h	932;"	d
-VHT_CAP_MAX_MPDU_LENGTH_MASK	ap/ieee802_1x_defs.h	934;"	d
-VHT_CAP_MU_BEAMFORMEE_CAPABLE	ap/ieee802_1x_defs.h	957;"	d
-VHT_CAP_MU_BEAMFORMER_CAPABLE	ap/ieee802_1x_defs.h	956;"	d
-VHT_CAP_RXLDPC	ap/ieee802_1x_defs.h	938;"	d
-VHT_CAP_RXSTBC_1	ap/ieee802_1x_defs.h	942;"	d
-VHT_CAP_RXSTBC_2	ap/ieee802_1x_defs.h	943;"	d
-VHT_CAP_RXSTBC_3	ap/ieee802_1x_defs.h	944;"	d
-VHT_CAP_RXSTBC_4	ap/ieee802_1x_defs.h	945;"	d
-VHT_CAP_RXSTBC_MASK	ap/ieee802_1x_defs.h	946;"	d
-VHT_CAP_RX_ANTENNA_PATTERN	ap/ieee802_1x_defs.h	971;"	d
-VHT_CAP_SHORT_GI_160	ap/ieee802_1x_defs.h	940;"	d
-VHT_CAP_SHORT_GI_80	ap/ieee802_1x_defs.h	939;"	d
-VHT_CAP_SOUNDING_DIMENSION_MAX	ap/ieee802_1x_defs.h	953;"	d
-VHT_CAP_SOUNDING_DIMENSION_OFFSET	ap/ieee802_1x_defs.h	955;"	d
-VHT_CAP_SUPP_CHAN_WIDTH_160MHZ	ap/ieee802_1x_defs.h	935;"	d
-VHT_CAP_SUPP_CHAN_WIDTH_160_80PLUS80MHZ	ap/ieee802_1x_defs.h	936;"	d
-VHT_CAP_SUPP_CHAN_WIDTH_MASK	ap/ieee802_1x_defs.h	937;"	d
-VHT_CAP_SU_BEAMFORMEE_CAPABLE	ap/ieee802_1x_defs.h	949;"	d
-VHT_CAP_SU_BEAMFORMER_CAPABLE	ap/ieee802_1x_defs.h	948;"	d
-VHT_CAP_TXSTBC	ap/ieee802_1x_defs.h	941;"	d
-VHT_CAP_TX_ANTENNA_PATTERN	ap/ieee802_1x_defs.h	972;"	d
-VHT_CAP_VHT_LINK_ADAPTATION_VHT_MRQ_MFB	ap/ieee802_1x_defs.h	970;"	d
-VHT_CAP_VHT_LINK_ADAPTATION_VHT_UNSOL_MFB	ap/ieee802_1x_defs.h	969;"	d
-VHT_CAP_VHT_TXOP_PS	ap/ieee802_1x_defs.h	958;"	d
-VHT_CHANWIDTH_160MHZ	ap/ieee802_1x_defs.h	984;"	d
-VHT_CHANWIDTH_80MHZ	ap/ieee802_1x_defs.h	983;"	d
-VHT_CHANWIDTH_80P80MHZ	ap/ieee802_1x_defs.h	985;"	d
-VHT_CHANWIDTH_USE_HT	ap/ieee802_1x_defs.h	982;"	d
-VHT_OPMODE_CHANNEL_RxNSS_MASK	ap/ieee802_1x_defs.h	975;"	d
-VHT_OPMODE_CHANNEL_WIDTH_MASK	ap/ieee802_1x_defs.h	974;"	d
-VHT_OPMODE_NOTIF_RX_NSS_SHIFT	ap/ieee802_1x_defs.h	977;"	d
-VHT_RX_NSS_MAX_STREAMS	ap/ieee802_1x_defs.h	979;"	d
+VENDOR_HT_CAPAB_OUI_TYPE	ap/ieee802_1x_defs.h	1269;"	d
+VHT_CAP_BEAMFORMEE_STS_MAX	ap/ieee802_1x_defs.h	949;"	d
+VHT_CAP_BEAMFORMEE_STS_OFFSET	ap/ieee802_1x_defs.h	951;"	d
+VHT_CAP_HTC_VHT	ap/ieee802_1x_defs.h	958;"	d
+VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_1	ap/ieee802_1x_defs.h	960;"	d
+VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_2	ap/ieee802_1x_defs.h	961;"	d
+VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_3	ap/ieee802_1x_defs.h	962;"	d
+VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_4	ap/ieee802_1x_defs.h	963;"	d
+VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_5	ap/ieee802_1x_defs.h	964;"	d
+VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_6	ap/ieee802_1x_defs.h	965;"	d
+VHT_CAP_MAX_A_MPDU_LENGTH_EXPONENT_MAX	ap/ieee802_1x_defs.h	966;"	d
+VHT_CAP_MAX_MPDU_LENGTH_11454	ap/ieee802_1x_defs.h	932;"	d
+VHT_CAP_MAX_MPDU_LENGTH_7991	ap/ieee802_1x_defs.h	931;"	d
+VHT_CAP_MAX_MPDU_LENGTH_MASK	ap/ieee802_1x_defs.h	933;"	d
+VHT_CAP_MU_BEAMFORMEE_CAPABLE	ap/ieee802_1x_defs.h	956;"	d
+VHT_CAP_MU_BEAMFORMER_CAPABLE	ap/ieee802_1x_defs.h	955;"	d
+VHT_CAP_RXLDPC	ap/ieee802_1x_defs.h	937;"	d
+VHT_CAP_RXSTBC_1	ap/ieee802_1x_defs.h	941;"	d
+VHT_CAP_RXSTBC_2	ap/ieee802_1x_defs.h	942;"	d
+VHT_CAP_RXSTBC_3	ap/ieee802_1x_defs.h	943;"	d
+VHT_CAP_RXSTBC_4	ap/ieee802_1x_defs.h	944;"	d
+VHT_CAP_RXSTBC_MASK	ap/ieee802_1x_defs.h	945;"	d
+VHT_CAP_RX_ANTENNA_PATTERN	ap/ieee802_1x_defs.h	970;"	d
+VHT_CAP_SHORT_GI_160	ap/ieee802_1x_defs.h	939;"	d
+VHT_CAP_SHORT_GI_80	ap/ieee802_1x_defs.h	938;"	d
+VHT_CAP_SOUNDING_DIMENSION_MAX	ap/ieee802_1x_defs.h	952;"	d
+VHT_CAP_SOUNDING_DIMENSION_OFFSET	ap/ieee802_1x_defs.h	954;"	d
+VHT_CAP_SUPP_CHAN_WIDTH_160MHZ	ap/ieee802_1x_defs.h	934;"	d
+VHT_CAP_SUPP_CHAN_WIDTH_160_80PLUS80MHZ	ap/ieee802_1x_defs.h	935;"	d
+VHT_CAP_SUPP_CHAN_WIDTH_MASK	ap/ieee802_1x_defs.h	936;"	d
+VHT_CAP_SU_BEAMFORMEE_CAPABLE	ap/ieee802_1x_defs.h	948;"	d
+VHT_CAP_SU_BEAMFORMER_CAPABLE	ap/ieee802_1x_defs.h	947;"	d
+VHT_CAP_TXSTBC	ap/ieee802_1x_defs.h	940;"	d
+VHT_CAP_TX_ANTENNA_PATTERN	ap/ieee802_1x_defs.h	971;"	d
+VHT_CAP_VHT_LINK_ADAPTATION_VHT_MRQ_MFB	ap/ieee802_1x_defs.h	969;"	d
+VHT_CAP_VHT_LINK_ADAPTATION_VHT_UNSOL_MFB	ap/ieee802_1x_defs.h	968;"	d
+VHT_CAP_VHT_TXOP_PS	ap/ieee802_1x_defs.h	957;"	d
+VHT_CHANWIDTH_160MHZ	ap/ieee802_1x_defs.h	983;"	d
+VHT_CHANWIDTH_80MHZ	ap/ieee802_1x_defs.h	982;"	d
+VHT_CHANWIDTH_80P80MHZ	ap/ieee802_1x_defs.h	984;"	d
+VHT_CHANWIDTH_USE_HT	ap/ieee802_1x_defs.h	981;"	d
+VHT_OPMODE_CHANNEL_RxNSS_MASK	ap/ieee802_1x_defs.h	974;"	d
+VHT_OPMODE_CHANNEL_WIDTH_MASK	ap/ieee802_1x_defs.h	973;"	d
+VHT_OPMODE_NOTIF_RX_NSS_SHIFT	ap/ieee802_1x_defs.h	976;"	d
+VHT_RX_NSS_MAX_STREAMS	ap/ieee802_1x_defs.h	978;"	d
 VLAN_ID_WILDCARD	ap/ap_config.h	23;"	d
-WFD_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	993;"	d
-WFD_OUI_TYPE	ap/ieee802_1x_defs.h	994;"	d
+WFD_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	992;"	d
+WFD_OUI_TYPE	ap/ieee802_1x_defs.h	993;"	d
 WFD_SUBELEM_3D_VIDEO_FORMATS	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_3D_VIDEO_FORMATS = 4,$/;"	e	enum:wifi_display_subelem
 WFD_SUBELEM_ASSOCIATED_BSSID	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_ASSOCIATED_BSSID = 1,$/;"	e	enum:wifi_display_subelem
 WFD_SUBELEM_AUDIO_FORMATS	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_AUDIO_FORMATS = 2,$/;"	e	enum:wifi_display_subelem
@@ -1510,34 +1512,34 @@ WFD_SUBELEM_VIDEO_FORMATS	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_VIDEO_FORMATS = 3,
 WIMASTER_80211_H	ap/wimaster_80211.h	2;"	d
 WIMASTER_EVENT_H	utils/wimaster_event.h	2;"	d
 WIMASTER_VAP_H	agent/vap.h	2;"	d
-WLAN_20_40_BSS_COEX_20MHZ_WIDTH_REQ	ap/ieee802_1x_defs.h	1379;"	d
-WLAN_20_40_BSS_COEX_40MHZ_INTOL	ap/ieee802_1x_defs.h	1378;"	d
-WLAN_20_40_BSS_COEX_INFO_REQ	ap/ieee802_1x_defs.h	1377;"	d
-WLAN_20_40_BSS_COEX_OBSS_EXEMPT_GRNT	ap/ieee802_1x_defs.h	1381;"	d
-WLAN_20_40_BSS_COEX_OBSS_EXEMPT_REQ	ap/ieee802_1x_defs.h	1380;"	d
-WLAN_ACTION_BLOCK_ACK	ap/ieee802_1x_defs.h	376;"	d
-WLAN_ACTION_DLS	ap/ieee802_1x_defs.h	375;"	d
-WLAN_ACTION_FT	ap/ieee802_1x_defs.h	379;"	d
-WLAN_ACTION_HT	ap/ieee802_1x_defs.h	380;"	d
-WLAN_ACTION_PROTECTED_DUAL	ap/ieee802_1x_defs.h	382;"	d
-WLAN_ACTION_PUBLIC	ap/ieee802_1x_defs.h	377;"	d
-WLAN_ACTION_QOS	ap/ieee802_1x_defs.h	374;"	d
-WLAN_ACTION_RADIO_MEASUREMENT	ap/ieee802_1x_defs.h	378;"	d
-WLAN_ACTION_SA_QUERY	ap/ieee802_1x_defs.h	381;"	d
-WLAN_ACTION_SPECTRUM_MGMT	ap/ieee802_1x_defs.h	373;"	d
-WLAN_ACTION_TDLS	ap/ieee802_1x_defs.h	385;"	d
-WLAN_ACTION_UNPROTECTED_WNM	ap/ieee802_1x_defs.h	384;"	d
-WLAN_ACTION_VENDOR_SPECIFIC	ap/ieee802_1x_defs.h	387;"	d
-WLAN_ACTION_WMM	ap/ieee802_1x_defs.h	386;"	d
-WLAN_ACTION_WNM	ap/ieee802_1x_defs.h	383;"	d
-WLAN_AKM_SUITE_8021X	ap/ieee802_1x_defs.h	1296;"	d
-WLAN_AKM_SUITE_8021X_SHA256	ap/ieee802_1x_defs.h	1300;"	d
-WLAN_AKM_SUITE_CCKM	ap/ieee802_1x_defs.h	1302;"	d
-WLAN_AKM_SUITE_FT_8021X	ap/ieee802_1x_defs.h	1298;"	d
-WLAN_AKM_SUITE_FT_PSK	ap/ieee802_1x_defs.h	1299;"	d
-WLAN_AKM_SUITE_OSEN	ap/ieee802_1x_defs.h	1303;"	d
-WLAN_AKM_SUITE_PSK	ap/ieee802_1x_defs.h	1297;"	d
-WLAN_AKM_SUITE_PSK_SHA256	ap/ieee802_1x_defs.h	1301;"	d
+WLAN_20_40_BSS_COEX_20MHZ_WIDTH_REQ	ap/ieee802_1x_defs.h	1378;"	d
+WLAN_20_40_BSS_COEX_40MHZ_INTOL	ap/ieee802_1x_defs.h	1377;"	d
+WLAN_20_40_BSS_COEX_INFO_REQ	ap/ieee802_1x_defs.h	1376;"	d
+WLAN_20_40_BSS_COEX_OBSS_EXEMPT_GRNT	ap/ieee802_1x_defs.h	1380;"	d
+WLAN_20_40_BSS_COEX_OBSS_EXEMPT_REQ	ap/ieee802_1x_defs.h	1379;"	d
+WLAN_ACTION_BLOCK_ACK	ap/ieee802_1x_defs.h	375;"	d
+WLAN_ACTION_DLS	ap/ieee802_1x_defs.h	374;"	d
+WLAN_ACTION_FT	ap/ieee802_1x_defs.h	378;"	d
+WLAN_ACTION_HT	ap/ieee802_1x_defs.h	379;"	d
+WLAN_ACTION_PROTECTED_DUAL	ap/ieee802_1x_defs.h	381;"	d
+WLAN_ACTION_PUBLIC	ap/ieee802_1x_defs.h	376;"	d
+WLAN_ACTION_QOS	ap/ieee802_1x_defs.h	373;"	d
+WLAN_ACTION_RADIO_MEASUREMENT	ap/ieee802_1x_defs.h	377;"	d
+WLAN_ACTION_SA_QUERY	ap/ieee802_1x_defs.h	380;"	d
+WLAN_ACTION_SPECTRUM_MGMT	ap/ieee802_1x_defs.h	372;"	d
+WLAN_ACTION_TDLS	ap/ieee802_1x_defs.h	384;"	d
+WLAN_ACTION_UNPROTECTED_WNM	ap/ieee802_1x_defs.h	383;"	d
+WLAN_ACTION_VENDOR_SPECIFIC	ap/ieee802_1x_defs.h	386;"	d
+WLAN_ACTION_WMM	ap/ieee802_1x_defs.h	385;"	d
+WLAN_ACTION_WNM	ap/ieee802_1x_defs.h	382;"	d
+WLAN_AKM_SUITE_8021X	ap/ieee802_1x_defs.h	1295;"	d
+WLAN_AKM_SUITE_8021X_SHA256	ap/ieee802_1x_defs.h	1299;"	d
+WLAN_AKM_SUITE_CCKM	ap/ieee802_1x_defs.h	1301;"	d
+WLAN_AKM_SUITE_FT_8021X	ap/ieee802_1x_defs.h	1297;"	d
+WLAN_AKM_SUITE_FT_PSK	ap/ieee802_1x_defs.h	1298;"	d
+WLAN_AKM_SUITE_OSEN	ap/ieee802_1x_defs.h	1302;"	d
+WLAN_AKM_SUITE_PSK	ap/ieee802_1x_defs.h	1296;"	d
+WLAN_AKM_SUITE_PSK_SHA256	ap/ieee802_1x_defs.h	1300;"	d
 WLAN_AUTH_CHALLENGE_LEN	ap/ieee802_1x_defs.h	188;"	d
 WLAN_AUTH_FT	ap/ieee802_1x_defs.h	184;"	d
 WLAN_AUTH_LEAP	ap/ieee802_1x_defs.h	186;"	d
@@ -1555,24 +1557,24 @@ WLAN_CAPABILITY_PRIVACY	ap/ieee802_1x_defs.h	194;"	d
 WLAN_CAPABILITY_SHORT_PREAMBLE	ap/ieee802_1x_defs.h	195;"	d
 WLAN_CAPABILITY_SHORT_SLOT_TIME	ap/ieee802_1x_defs.h	199;"	d
 WLAN_CAPABILITY_SPECTRUM_MGMT	ap/ieee802_1x_defs.h	198;"	d
-WLAN_CIPHER_SUITE_AES_CMAC	ap/ieee802_1x_defs.h	1279;"	d
-WLAN_CIPHER_SUITE_BIP_CMAC_256	ap/ieee802_1x_defs.h	1286;"	d
-WLAN_CIPHER_SUITE_BIP_GMAC_128	ap/ieee802_1x_defs.h	1284;"	d
-WLAN_CIPHER_SUITE_BIP_GMAC_256	ap/ieee802_1x_defs.h	1285;"	d
-WLAN_CIPHER_SUITE_CCMP	ap/ieee802_1x_defs.h	1277;"	d
-WLAN_CIPHER_SUITE_CCMP_256	ap/ieee802_1x_defs.h	1283;"	d
-WLAN_CIPHER_SUITE_CKIP	ap/ieee802_1x_defs.h	1290;"	d
-WLAN_CIPHER_SUITE_CKIP_CMIC	ap/ieee802_1x_defs.h	1291;"	d
-WLAN_CIPHER_SUITE_CMIC	ap/ieee802_1x_defs.h	1292;"	d
-WLAN_CIPHER_SUITE_GCMP	ap/ieee802_1x_defs.h	1281;"	d
-WLAN_CIPHER_SUITE_GCMP_256	ap/ieee802_1x_defs.h	1282;"	d
-WLAN_CIPHER_SUITE_KRK	ap/ieee802_1x_defs.h	1293;"	d
-WLAN_CIPHER_SUITE_NO_GROUP_ADDR	ap/ieee802_1x_defs.h	1280;"	d
-WLAN_CIPHER_SUITE_SMS4	ap/ieee802_1x_defs.h	1288;"	d
-WLAN_CIPHER_SUITE_TKIP	ap/ieee802_1x_defs.h	1275;"	d
-WLAN_CIPHER_SUITE_USE_GROUP	ap/ieee802_1x_defs.h	1273;"	d
-WLAN_CIPHER_SUITE_WEP104	ap/ieee802_1x_defs.h	1278;"	d
-WLAN_CIPHER_SUITE_WEP40	ap/ieee802_1x_defs.h	1274;"	d
+WLAN_CIPHER_SUITE_AES_CMAC	ap/ieee802_1x_defs.h	1278;"	d
+WLAN_CIPHER_SUITE_BIP_CMAC_256	ap/ieee802_1x_defs.h	1285;"	d
+WLAN_CIPHER_SUITE_BIP_GMAC_128	ap/ieee802_1x_defs.h	1283;"	d
+WLAN_CIPHER_SUITE_BIP_GMAC_256	ap/ieee802_1x_defs.h	1284;"	d
+WLAN_CIPHER_SUITE_CCMP	ap/ieee802_1x_defs.h	1276;"	d
+WLAN_CIPHER_SUITE_CCMP_256	ap/ieee802_1x_defs.h	1282;"	d
+WLAN_CIPHER_SUITE_CKIP	ap/ieee802_1x_defs.h	1289;"	d
+WLAN_CIPHER_SUITE_CKIP_CMIC	ap/ieee802_1x_defs.h	1290;"	d
+WLAN_CIPHER_SUITE_CMIC	ap/ieee802_1x_defs.h	1291;"	d
+WLAN_CIPHER_SUITE_GCMP	ap/ieee802_1x_defs.h	1280;"	d
+WLAN_CIPHER_SUITE_GCMP_256	ap/ieee802_1x_defs.h	1281;"	d
+WLAN_CIPHER_SUITE_KRK	ap/ieee802_1x_defs.h	1292;"	d
+WLAN_CIPHER_SUITE_NO_GROUP_ADDR	ap/ieee802_1x_defs.h	1279;"	d
+WLAN_CIPHER_SUITE_SMS4	ap/ieee802_1x_defs.h	1287;"	d
+WLAN_CIPHER_SUITE_TKIP	ap/ieee802_1x_defs.h	1274;"	d
+WLAN_CIPHER_SUITE_USE_GROUP	ap/ieee802_1x_defs.h	1272;"	d
+WLAN_CIPHER_SUITE_WEP104	ap/ieee802_1x_defs.h	1277;"	d
+WLAN_CIPHER_SUITE_WEP40	ap/ieee802_1x_defs.h	1273;"	d
 WLAN_EID_20_40_BSS_COEXISTENCE	ap/ieee802_1x_defs.h	343;"	d
 WLAN_EID_20_40_BSS_INTOLERANT	ap/ieee802_1x_defs.h	344;"	d
 WLAN_EID_ADV_PROTO	ap/ieee802_1x_defs.h	355;"	d
@@ -1684,23 +1686,23 @@ WLAN_FC_TYPE_DATA	ap/ieee802_1x_defs.h	140;"	d
 WLAN_FC_TYPE_MGMT	ap/ieee802_1x_defs.h	138;"	d
 WLAN_GET_SEQ_FRAG	ap/ieee802_1x_defs.h	134;"	d
 WLAN_GET_SEQ_SEQ	ap/ieee802_1x_defs.h	135;"	d
-WLAN_PA_20_40_BSS_COEX	ap/ieee802_1x_defs.h	390;"	d
-WLAN_PA_GAS_COMEBACK_REQ	ap/ieee802_1x_defs.h	394;"	d
-WLAN_PA_GAS_COMEBACK_RESP	ap/ieee802_1x_defs.h	395;"	d
-WLAN_PA_GAS_INITIAL_REQ	ap/ieee802_1x_defs.h	392;"	d
-WLAN_PA_GAS_INITIAL_RESP	ap/ieee802_1x_defs.h	393;"	d
-WLAN_PA_VENDOR_SPECIFIC	ap/ieee802_1x_defs.h	391;"	d
-WLAN_PROT_DSE_DEENABLEMENT	ap/ieee802_1x_defs.h	400;"	d
-WLAN_PROT_DSE_ENABLEMENT	ap/ieee802_1x_defs.h	399;"	d
-WLAN_PROT_DSE_POWER_CONSTRAINT	ap/ieee802_1x_defs.h	404;"	d
-WLAN_PROT_EXT_CSA	ap/ieee802_1x_defs.h	401;"	d
-WLAN_PROT_GAS_COMEBACK_REQ	ap/ieee802_1x_defs.h	408;"	d
-WLAN_PROT_GAS_COMEBACK_RESP	ap/ieee802_1x_defs.h	409;"	d
-WLAN_PROT_GAS_INITIAL_REQ	ap/ieee802_1x_defs.h	406;"	d
-WLAN_PROT_GAS_INITIAL_RESP	ap/ieee802_1x_defs.h	407;"	d
-WLAN_PROT_MEASUREMENT_REPORT	ap/ieee802_1x_defs.h	403;"	d
-WLAN_PROT_MEASUREMENT_REQ	ap/ieee802_1x_defs.h	402;"	d
-WLAN_PROT_VENDOR_SPECIFIC	ap/ieee802_1x_defs.h	405;"	d
+WLAN_PA_20_40_BSS_COEX	ap/ieee802_1x_defs.h	389;"	d
+WLAN_PA_GAS_COMEBACK_REQ	ap/ieee802_1x_defs.h	393;"	d
+WLAN_PA_GAS_COMEBACK_RESP	ap/ieee802_1x_defs.h	394;"	d
+WLAN_PA_GAS_INITIAL_REQ	ap/ieee802_1x_defs.h	391;"	d
+WLAN_PA_GAS_INITIAL_RESP	ap/ieee802_1x_defs.h	392;"	d
+WLAN_PA_VENDOR_SPECIFIC	ap/ieee802_1x_defs.h	390;"	d
+WLAN_PROT_DSE_DEENABLEMENT	ap/ieee802_1x_defs.h	399;"	d
+WLAN_PROT_DSE_ENABLEMENT	ap/ieee802_1x_defs.h	398;"	d
+WLAN_PROT_DSE_POWER_CONSTRAINT	ap/ieee802_1x_defs.h	403;"	d
+WLAN_PROT_EXT_CSA	ap/ieee802_1x_defs.h	400;"	d
+WLAN_PROT_GAS_COMEBACK_REQ	ap/ieee802_1x_defs.h	407;"	d
+WLAN_PROT_GAS_COMEBACK_RESP	ap/ieee802_1x_defs.h	408;"	d
+WLAN_PROT_GAS_INITIAL_REQ	ap/ieee802_1x_defs.h	405;"	d
+WLAN_PROT_GAS_INITIAL_RESP	ap/ieee802_1x_defs.h	406;"	d
+WLAN_PROT_MEASUREMENT_REPORT	ap/ieee802_1x_defs.h	402;"	d
+WLAN_PROT_MEASUREMENT_REQ	ap/ieee802_1x_defs.h	401;"	d
+WLAN_PROT_VENDOR_SPECIFIC	ap/ieee802_1x_defs.h	404;"	d
 WLAN_REASON_4WAY_HANDSHAKE_TIMEOUT	ap/ieee802_1x_defs.h	289;"	d
 WLAN_REASON_AKMP_NOT_VALID	ap/ieee802_1x_defs.h	294;"	d
 WLAN_REASON_CIPHER_SUITE_REJECTED	ap/ieee802_1x_defs.h	298;"	d
@@ -1727,9 +1729,9 @@ WLAN_REASON_TDLS_TEARDOWN_UNREACHABLE	ap/ieee802_1x_defs.h	299;"	d
 WLAN_REASON_TDLS_TEARDOWN_UNSPECIFIED	ap/ieee802_1x_defs.h	300;"	d
 WLAN_REASON_UNSPECIFIED	ap/ieee802_1x_defs.h	274;"	d
 WLAN_REASON_UNSUPPORTED_RSN_IE_VERSION	ap/ieee802_1x_defs.h	295;"	d
-WLAN_SA_QUERY_REQUEST	ap/ieee802_1x_defs.h	412;"	d
-WLAN_SA_QUERY_RESPONSE	ap/ieee802_1x_defs.h	413;"	d
-WLAN_SA_QUERY_TR_ID_LEN	ap/ieee802_1x_defs.h	415;"	d
+WLAN_SA_QUERY_REQUEST	ap/ieee802_1x_defs.h	411;"	d
+WLAN_SA_QUERY_RESPONSE	ap/ieee802_1x_defs.h	412;"	d
+WLAN_SA_QUERY_TR_ID_LEN	ap/ieee802_1x_defs.h	414;"	d
 WLAN_STATUS_ADV_SRV_UNREACHABLE	ap/ieee802_1x_defs.h	263;"	d
 WLAN_STATUS_AKMP_NOT_VALID	ap/ieee802_1x_defs.h	243;"	d
 WLAN_STATUS_ANTI_CLOGGING_TOKEN_REQ	ap/ieee802_1x_defs.h	267;"	d
@@ -1815,51 +1817,51 @@ WLAN_STA_WNM_SLEEP_MODE	ap/sta_info.h	31;"	d
 WLAN_STA_WPS	ap/sta_info.h	24;"	d
 WLAN_STA_WPS2	ap/sta_info.h	28;"	d
 WLAN_SUPP_RATES_MAX	ap/sta_info.h	45;"	d
-WLAN_TDLS_CHANNEL_SWITCH_REQUEST	ap/ieee802_1x_defs.h	423;"	d
-WLAN_TDLS_CHANNEL_SWITCH_RESPONSE	ap/ieee802_1x_defs.h	424;"	d
-WLAN_TDLS_DISCOVERY_REQUEST	ap/ieee802_1x_defs.h	428;"	d
-WLAN_TDLS_DISCOVERY_RESPONSE	ap/ieee802_1x_defs.h	396;"	d
-WLAN_TDLS_PEER_PSM_REQUEST	ap/ieee802_1x_defs.h	425;"	d
-WLAN_TDLS_PEER_PSM_RESPONSE	ap/ieee802_1x_defs.h	426;"	d
-WLAN_TDLS_PEER_TRAFFIC_INDICATION	ap/ieee802_1x_defs.h	422;"	d
-WLAN_TDLS_PEER_TRAFFIC_RESPONSE	ap/ieee802_1x_defs.h	427;"	d
-WLAN_TDLS_SETUP_CONFIRM	ap/ieee802_1x_defs.h	420;"	d
-WLAN_TDLS_SETUP_REQUEST	ap/ieee802_1x_defs.h	418;"	d
-WLAN_TDLS_SETUP_RESPONSE	ap/ieee802_1x_defs.h	419;"	d
-WLAN_TDLS_TEARDOWN	ap/ieee802_1x_defs.h	421;"	d
-WLAN_TIMEOUT_ASSOC_COMEBACK	ap/ieee802_1x_defs.h	433;"	d
-WLAN_TIMEOUT_KEY_LIFETIME	ap/ieee802_1x_defs.h	432;"	d
-WLAN_TIMEOUT_REASSOC_DEADLINE	ap/ieee802_1x_defs.h	431;"	d
-WMM_ACTION_CODE_ADDTS_REQ	ap/ieee802_1x_defs.h	1004;"	d
-WMM_ACTION_CODE_ADDTS_RESP	ap/ieee802_1x_defs.h	1005;"	d
-WMM_ACTION_CODE_DELTS	ap/ieee802_1x_defs.h	1006;"	d
-WMM_AC_ACI_MASK	ap/ieee802_1x_defs.h	1042;"	d
-WMM_AC_ACI_SHIFT	ap/ieee802_1x_defs.h	1043;"	d
-WMM_AC_ACM	ap/ieee802_1x_defs.h	1041;"	d
-WMM_AC_AIFNS_SHIFT	ap/ieee802_1x_defs.h	1040;"	d
-WMM_AC_AIFSN_MASK	ap/ieee802_1x_defs.h	1039;"	d
+WLAN_TDLS_CHANNEL_SWITCH_REQUEST	ap/ieee802_1x_defs.h	422;"	d
+WLAN_TDLS_CHANNEL_SWITCH_RESPONSE	ap/ieee802_1x_defs.h	423;"	d
+WLAN_TDLS_DISCOVERY_REQUEST	ap/ieee802_1x_defs.h	427;"	d
+WLAN_TDLS_DISCOVERY_RESPONSE	ap/ieee802_1x_defs.h	395;"	d
+WLAN_TDLS_PEER_PSM_REQUEST	ap/ieee802_1x_defs.h	424;"	d
+WLAN_TDLS_PEER_PSM_RESPONSE	ap/ieee802_1x_defs.h	425;"	d
+WLAN_TDLS_PEER_TRAFFIC_INDICATION	ap/ieee802_1x_defs.h	421;"	d
+WLAN_TDLS_PEER_TRAFFIC_RESPONSE	ap/ieee802_1x_defs.h	426;"	d
+WLAN_TDLS_SETUP_CONFIRM	ap/ieee802_1x_defs.h	419;"	d
+WLAN_TDLS_SETUP_REQUEST	ap/ieee802_1x_defs.h	417;"	d
+WLAN_TDLS_SETUP_RESPONSE	ap/ieee802_1x_defs.h	418;"	d
+WLAN_TDLS_TEARDOWN	ap/ieee802_1x_defs.h	420;"	d
+WLAN_TIMEOUT_ASSOC_COMEBACK	ap/ieee802_1x_defs.h	432;"	d
+WLAN_TIMEOUT_KEY_LIFETIME	ap/ieee802_1x_defs.h	431;"	d
+WLAN_TIMEOUT_REASSOC_DEADLINE	ap/ieee802_1x_defs.h	430;"	d
+WMM_ACTION_CODE_ADDTS_REQ	ap/ieee802_1x_defs.h	1003;"	d
+WMM_ACTION_CODE_ADDTS_RESP	ap/ieee802_1x_defs.h	1004;"	d
+WMM_ACTION_CODE_DELTS	ap/ieee802_1x_defs.h	1005;"	d
+WMM_AC_ACI_MASK	ap/ieee802_1x_defs.h	1041;"	d
+WMM_AC_ACI_SHIFT	ap/ieee802_1x_defs.h	1042;"	d
+WMM_AC_ACM	ap/ieee802_1x_defs.h	1040;"	d
+WMM_AC_AIFNS_SHIFT	ap/ieee802_1x_defs.h	1039;"	d
+WMM_AC_AIFSN_MASK	ap/ieee802_1x_defs.h	1038;"	d
 WMM_AC_BE	ap/ieee802_1x_defs.h	/^	WMM_AC_BE = 0 \/* Best Effort *\/,$/;"	e	enum:__anon33
 WMM_AC_BK	ap/ieee802_1x_defs.h	/^	WMM_AC_BK = 1 \/* Background *\/,$/;"	e	enum:__anon33
-WMM_AC_ECWMAX_MASK	ap/ieee802_1x_defs.h	1047;"	d
-WMM_AC_ECWMAX_SHIFT	ap/ieee802_1x_defs.h	1048;"	d
-WMM_AC_ECWMIN_MASK	ap/ieee802_1x_defs.h	1045;"	d
-WMM_AC_ECWMIN_SHIFT	ap/ieee802_1x_defs.h	1046;"	d
+WMM_AC_ECWMAX_MASK	ap/ieee802_1x_defs.h	1046;"	d
+WMM_AC_ECWMAX_SHIFT	ap/ieee802_1x_defs.h	1047;"	d
+WMM_AC_ECWMIN_MASK	ap/ieee802_1x_defs.h	1044;"	d
+WMM_AC_ECWMIN_SHIFT	ap/ieee802_1x_defs.h	1045;"	d
 WMM_AC_VI	ap/ieee802_1x_defs.h	/^	WMM_AC_VI = 2 \/* Video *\/,$/;"	e	enum:__anon33
 WMM_AC_VO	ap/ieee802_1x_defs.h	/^	WMM_AC_VO = 3 \/* Voice *\/$/;"	e	enum:__anon33
-WMM_ADDTS_STATUS_ADMISSION_ACCEPTED	ap/ieee802_1x_defs.h	1008;"	d
-WMM_ADDTS_STATUS_INVALID_PARAMETERS	ap/ieee802_1x_defs.h	1009;"	d
-WMM_ADDTS_STATUS_REFUSED	ap/ieee802_1x_defs.h	1011;"	d
-WMM_OUI_SUBTYPE_INFORMATION_ELEMENT	ap/ieee802_1x_defs.h	999;"	d
-WMM_OUI_SUBTYPE_PARAMETER_ELEMENT	ap/ieee802_1x_defs.h	1000;"	d
-WMM_OUI_SUBTYPE_TSPEC_ELEMENT	ap/ieee802_1x_defs.h	1001;"	d
-WMM_OUI_TYPE	ap/ieee802_1x_defs.h	998;"	d
-WMM_QOSINFO_STA_AC_MASK	ap/ieee802_1x_defs.h	1035;"	d
-WMM_QOSINFO_STA_SP_MASK	ap/ieee802_1x_defs.h	1036;"	d
-WMM_QOSINFO_STA_SP_SHIFT	ap/ieee802_1x_defs.h	1037;"	d
-WMM_TSPEC_DIRECTION_BI_DIRECTIONAL	ap/ieee802_1x_defs.h	1018;"	d
-WMM_TSPEC_DIRECTION_DOWNLINK	ap/ieee802_1x_defs.h	1016;"	d
-WMM_TSPEC_DIRECTION_UPLINK	ap/ieee802_1x_defs.h	1015;"	d
-WMM_VERSION	ap/ieee802_1x_defs.h	1002;"	d
+WMM_ADDTS_STATUS_ADMISSION_ACCEPTED	ap/ieee802_1x_defs.h	1007;"	d
+WMM_ADDTS_STATUS_INVALID_PARAMETERS	ap/ieee802_1x_defs.h	1008;"	d
+WMM_ADDTS_STATUS_REFUSED	ap/ieee802_1x_defs.h	1010;"	d
+WMM_OUI_SUBTYPE_INFORMATION_ELEMENT	ap/ieee802_1x_defs.h	998;"	d
+WMM_OUI_SUBTYPE_PARAMETER_ELEMENT	ap/ieee802_1x_defs.h	999;"	d
+WMM_OUI_SUBTYPE_TSPEC_ELEMENT	ap/ieee802_1x_defs.h	1000;"	d
+WMM_OUI_TYPE	ap/ieee802_1x_defs.h	997;"	d
+WMM_QOSINFO_STA_AC_MASK	ap/ieee802_1x_defs.h	1034;"	d
+WMM_QOSINFO_STA_SP_MASK	ap/ieee802_1x_defs.h	1035;"	d
+WMM_QOSINFO_STA_SP_SHIFT	ap/ieee802_1x_defs.h	1036;"	d
+WMM_TSPEC_DIRECTION_BI_DIRECTIONAL	ap/ieee802_1x_defs.h	1017;"	d
+WMM_TSPEC_DIRECTION_DOWNLINK	ap/ieee802_1x_defs.h	1015;"	d
+WMM_TSPEC_DIRECTION_UPLINK	ap/ieee802_1x_defs.h	1014;"	d
+WMM_VERSION	ap/ieee802_1x_defs.h	1001;"	d
 WNM_BSS_TM_ACCEPT	ap/ieee802_1x_defs.h	/^	WNM_BSS_TM_ACCEPT = 0,$/;"	e	enum:bss_trans_mgmt_status_code
 WNM_BSS_TM_REJECT_DELAY_REQUEST	ap/ieee802_1x_defs.h	/^	WNM_BSS_TM_REJECT_DELAY_REQUEST = 5,$/;"	e	enum:bss_trans_mgmt_status_code
 WNM_BSS_TM_REJECT_INSUFFICIENT_BEACON	ap/ieee802_1x_defs.h	/^	WNM_BSS_TM_REJECT_INSUFFICIENT_BEACON = 2,$/;"	e	enum:bss_trans_mgmt_status_code
@@ -1869,11 +1871,11 @@ WNM_BSS_TM_REJECT_NO_SUITABLE_CANDIDATES	ap/ieee802_1x_defs.h	/^	WNM_BSS_TM_REJE
 WNM_BSS_TM_REJECT_STA_CANDIDATE_LIST_PROVIDED	ap/ieee802_1x_defs.h	/^	WNM_BSS_TM_REJECT_STA_CANDIDATE_LIST_PROVIDED = 6,$/;"	e	enum:bss_trans_mgmt_status_code
 WNM_BSS_TM_REJECT_UNDESIRED	ap/ieee802_1x_defs.h	/^	WNM_BSS_TM_REJECT_UNDESIRED = 4,$/;"	e	enum:bss_trans_mgmt_status_code
 WNM_BSS_TM_REJECT_UNSPECIFIED	ap/ieee802_1x_defs.h	/^	WNM_BSS_TM_REJECT_UNSPECIFIED = 1,$/;"	e	enum:bss_trans_mgmt_status_code
-WNM_BSS_TM_REQ_ABRIDGED	ap/ieee802_1x_defs.h	1340;"	d
-WNM_BSS_TM_REQ_BSS_TERMINATION_INCLUDED	ap/ieee802_1x_defs.h	1342;"	d
-WNM_BSS_TM_REQ_DISASSOC_IMMINENT	ap/ieee802_1x_defs.h	1341;"	d
-WNM_BSS_TM_REQ_ESS_DISASSOC_IMMINENT	ap/ieee802_1x_defs.h	1343;"	d
-WNM_BSS_TM_REQ_PREF_CAND_LIST_INCLUDED	ap/ieee802_1x_defs.h	1339;"	d
+WNM_BSS_TM_REQ_ABRIDGED	ap/ieee802_1x_defs.h	1339;"	d
+WNM_BSS_TM_REQ_BSS_TERMINATION_INCLUDED	ap/ieee802_1x_defs.h	1341;"	d
+WNM_BSS_TM_REQ_DISASSOC_IMMINENT	ap/ieee802_1x_defs.h	1340;"	d
+WNM_BSS_TM_REQ_ESS_DISASSOC_IMMINENT	ap/ieee802_1x_defs.h	1342;"	d
+WNM_BSS_TM_REQ_PREF_CAND_LIST_INCLUDED	ap/ieee802_1x_defs.h	1338;"	d
 WNM_BSS_TRANS_MGMT_QUERY	ap/ieee802_1x_defs.h	/^	WNM_BSS_TRANS_MGMT_QUERY = 6,$/;"	e	enum:wnm_action
 WNM_BSS_TRANS_MGMT_REQ	ap/ieee802_1x_defs.h	/^	WNM_BSS_TRANS_MGMT_REQ = 7,$/;"	e	enum:wnm_action
 WNM_BSS_TRANS_MGMT_RESP	ap/ieee802_1x_defs.h	/^	WNM_BSS_TRANS_MGMT_RESP = 8,$/;"	e	enum:wnm_action
@@ -1891,14 +1893,14 @@ WNM_FMS_REQ	ap/ieee802_1x_defs.h	/^	WNM_FMS_REQ = 9,$/;"	e	enum:wnm_action
 WNM_FMS_RESP	ap/ieee802_1x_defs.h	/^	WNM_FMS_RESP = 10,$/;"	e	enum:wnm_action
 WNM_LOCATION_CFG_REQ	ap/ieee802_1x_defs.h	/^	WNM_LOCATION_CFG_REQ = 4,$/;"	e	enum:wnm_action
 WNM_LOCATION_CFG_RESP	ap/ieee802_1x_defs.h	/^	WNM_LOCATION_CFG_RESP = 5,$/;"	e	enum:wnm_action
-WNM_NEIGHBOR_BEARING	ap/ieee802_1x_defs.h	1362;"	d
-WNM_NEIGHBOR_BSS_TERMINATION_DURATION	ap/ieee802_1x_defs.h	1361;"	d
-WNM_NEIGHBOR_BSS_TRANSITION_CANDIDATE	ap/ieee802_1x_defs.h	1360;"	d
-WNM_NEIGHBOR_CONDENSED_COUNTRY_STRING	ap/ieee802_1x_defs.h	1359;"	d
-WNM_NEIGHBOR_MEASUREMENT_PILOT	ap/ieee802_1x_defs.h	1363;"	d
-WNM_NEIGHBOR_MULTIPLE_BSSID	ap/ieee802_1x_defs.h	1365;"	d
-WNM_NEIGHBOR_RRM_ENABLED_CAPABILITIES	ap/ieee802_1x_defs.h	1364;"	d
-WNM_NEIGHBOR_TSF	ap/ieee802_1x_defs.h	1358;"	d
+WNM_NEIGHBOR_BEARING	ap/ieee802_1x_defs.h	1361;"	d
+WNM_NEIGHBOR_BSS_TERMINATION_DURATION	ap/ieee802_1x_defs.h	1360;"	d
+WNM_NEIGHBOR_BSS_TRANSITION_CANDIDATE	ap/ieee802_1x_defs.h	1359;"	d
+WNM_NEIGHBOR_CONDENSED_COUNTRY_STRING	ap/ieee802_1x_defs.h	1358;"	d
+WNM_NEIGHBOR_MEASUREMENT_PILOT	ap/ieee802_1x_defs.h	1362;"	d
+WNM_NEIGHBOR_MULTIPLE_BSSID	ap/ieee802_1x_defs.h	1364;"	d
+WNM_NEIGHBOR_RRM_ENABLED_CAPABILITIES	ap/ieee802_1x_defs.h	1363;"	d
+WNM_NEIGHBOR_TSF	ap/ieee802_1x_defs.h	1357;"	d
 WNM_NOTIFICATION_REQ	ap/ieee802_1x_defs.h	/^	WNM_NOTIFICATION_REQ = 26,$/;"	e	enum:wnm_action
 WNM_NOTIFICATION_RESP	ap/ieee802_1x_defs.h	/^	WNM_NOTIFICATION_RESP = 27$/;"	e	enum:wnm_action
 WNM_OPER_SLEEP	drivers/driver.h	/^			WNM_OPER_SLEEP,$/;"	e	enum:wpa_event_data::wnm::__anon3
@@ -1909,8 +1911,8 @@ WNM_SLEEP_ENTER_FAIL	drivers/driver.h	/^	WNM_SLEEP_ENTER_FAIL,$/;"	e	enum:wnm_op
 WNM_SLEEP_EXIT	drivers/driver.h	/^			WNM_SLEEP_EXIT$/;"	e	enum:wpa_event_data::wnm::__anon4
 WNM_SLEEP_EXIT_CONFIRM	drivers/driver.h	/^	WNM_SLEEP_EXIT_CONFIRM,$/;"	e	enum:wnm_oper
 WNM_SLEEP_EXIT_FAIL	drivers/driver.h	/^	WNM_SLEEP_EXIT_FAIL,$/;"	e	enum:wnm_oper
-WNM_SLEEP_MODE_ENTER	ap/ieee802_1x_defs.h	1405;"	d
-WNM_SLEEP_MODE_EXIT	ap/ieee802_1x_defs.h	1406;"	d
+WNM_SLEEP_MODE_ENTER	ap/ieee802_1x_defs.h	1404;"	d
+WNM_SLEEP_MODE_EXIT	ap/ieee802_1x_defs.h	1405;"	d
 WNM_SLEEP_MODE_REQ	ap/ieee802_1x_defs.h	/^	WNM_SLEEP_MODE_REQ = 16,$/;"	e	enum:wnm_action
 WNM_SLEEP_MODE_RESP	ap/ieee802_1x_defs.h	/^	WNM_SLEEP_MODE_RESP = 17,$/;"	e	enum:wnm_action
 WNM_SLEEP_SUBELEM_GTK	ap/ieee802_1x_defs.h	/^	WNM_SLEEP_SUBELEM_GTK = 0,$/;"	e	enum:wnm_sleep_mode_subelement_id
@@ -2004,6 +2006,7 @@ WPA_CTRL_REQ_EAP_PASSWORD	utils/common_defs.h	/^	WPA_CTRL_REQ_EAP_PASSWORD,$/;"	
 WPA_CTRL_REQ_EAP_PIN	utils/common_defs.h	/^	WPA_CTRL_REQ_EAP_PIN,$/;"	e	enum:wpa_ctrl_req_type
 WPA_CTRL_REQ_SIM	utils/common_defs.h	/^	WPA_CTRL_REQ_SIM,$/;"	e	enum:wpa_ctrl_req_type
 WPA_CTRL_REQ_UNKNOWN	utils/common_defs.h	/^	WPA_CTRL_REQ_UNKNOWN,$/;"	e	enum:wpa_ctrl_req_type
+WPA_DEBUG_H	utils/wpa_debug.h	10;"	d
 WPA_DISCONNECTED	utils/common_defs.h	/^	WPA_DISCONNECTED,$/;"	e	enum:wpa_states
 WPA_DRIVER_AUTH_LEAP	drivers/driver.h	928;"	d
 WPA_DRIVER_AUTH_OPEN	drivers/driver.h	926;"	d
@@ -2067,7 +2070,7 @@ WPA_DRIVER_PROBE_RESP_OFFLOAD_WPS	drivers/driver.h	1030;"	d
 WPA_DRIVER_PROBE_RESP_OFFLOAD_WPS2	drivers/driver.h	1032;"	d
 WPA_GET_BE24	ap/ieee802_1x_defs.h	/^static inline u32 WPA_GET_BE24(const u8 *a)$/;"	f
 WPA_GROUP_HANDSHAKE	utils/common_defs.h	/^	WPA_GROUP_HANDSHAKE,$/;"	e	enum:wpa_states
-WPA_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	989;"	d
+WPA_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	988;"	d
 WPA_IF_AP_BSS	drivers/driver.h	/^	WPA_IF_AP_BSS,$/;"	e	enum:wpa_driver_if_type
 WPA_IF_AP_VLAN	drivers/driver.h	/^	WPA_IF_AP_VLAN,$/;"	e	enum:wpa_driver_if_type
 WPA_IF_P2P_CLIENT	drivers/driver.h	/^	WPA_IF_P2P_CLIENT,$/;"	e	enum:wpa_driver_if_type
@@ -2147,13 +2150,13 @@ WPS_EVENT_AP_SETUP_UNLOCKED	ap/ieee802_1x_defs.h	26;"	d
 WPS_EVENT_NEW_AP_SETTINGS	ap/ieee802_1x_defs.h	23;"	d
 WPS_EVENT_PIN_NEEDED	ap/ieee802_1x_defs.h	22;"	d
 WPS_EVENT_REG_SUCCESS	ap/ieee802_1x_defs.h	24;"	d
-WPS_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	990;"	d
+WPS_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	989;"	d
 WPS_MODE_NONE	drivers/driver.h	/^	WPS_MODE_NONE \/* no WPS provisioning being used *\/,$/;"	e	enum:wps_mode
 WPS_MODE_OPEN	drivers/driver.h	/^	WPS_MODE_OPEN \/* WPS provisioning with AP that is in open mode *\/,$/;"	e	enum:wps_mode
 WPS_MODE_PRIVACY	drivers/driver.h	/^	WPS_MODE_PRIVACY \/* WPS provisioning with AP that is using protection$/;"	e	enum:wps_mode
 WPS_RF_24GHZ	ap/ieee802_1x_defs.h	116;"	d
 WPS_RF_50GHZ	ap/ieee802_1x_defs.h	117;"	d
-WRITE_ARGS_MAX	agent/controller_event.c	250;"	d	file:
+WRITE_ARGS_MAX	agent/controller_event.c	300;"	d	file:
 Wpa_psk_radius	ap/ap_config.h	/^enum Wpa_psk_radius{$/;"	g
 __BIG_ENDIAN	utils/common.h	184;"	d
 __BIG_ENDIAN	utils/common.h	28;"	d
@@ -2223,10 +2226,11 @@ __NL80211_TXRATE_INVALID	drivers/nl80211_copy.h	/^	__NL80211_TXRATE_INVALID,$/;"
 __NL80211_WOWLAN_PKTPAT_INVALID	drivers/nl80211_copy.h	3396;"	d
 __NL80211_WOWLAN_TCP_INVALID	drivers/nl80211_copy.h	/^	__NL80211_WOWLAN_TCP_INVALID,$/;"	e	enum:nl80211_wowlan_tcp_attrs
 __NL80211_WOWLAN_TRIG_INVALID	drivers/nl80211_copy.h	/^	__NL80211_WOWLAN_TRIG_INVALID,$/;"	e	enum:nl80211_wowlan_triggers
-__bitwise	utils/common.h	270;"	d
-__bitwise	utils/common.h	273;"	d
-__force	utils/common.h	269;"	d
-__force	utils/common.h	272;"	d
+__bitwise	utils/common.h	259;"	d
+__bitwise	utils/common.h	262;"	d
+__force	utils/common.h	258;"	d
+__force	utils/common.h	261;"	d
+_wpa_printf	utils/wpa_debug.c	/^void _wpa_printf(int level, const char *fmt, ...)$/;"	f
 a_mpdu_params	ap/ieee802_1x_defs.h	/^	u8 a_mpdu_params; \/* Maximum A-MPDU Length Exponent B0..B1$/;"	m	struct:ieee80211_ht_capabilities
 a_mpdu_params	drivers/driver.h	/^	u8 a_mpdu_params;$/;"	m	struct:hostapd_hw_modes
 aborted	drivers/driver.h	/^		int aborted;$/;"	m	struct:wpa_event_data::scan_info
@@ -2322,7 +2326,7 @@ anqp_3gpp_cell_net_len	ap/ap_config.h	/^	size_t anqp_3gpp_cell_net_len;$/;"	m	st
 anqp_domain_id	ap/ap_config.h	/^	u16 anqp_domain_id;$/;"	m	struct:hostapd_bss_config
 anqp_info_id	ap/ieee802_1x_defs.h	/^enum anqp_info_id {$/;"	g
 any	drivers/driver.h	/^	u8 any;$/;"	m	struct:wowlan_triggers
-ap_get_sta	ap/hostapd.c	/^struct sta_info * ap_get_sta(struct hostapd_data *hapd, const u8 *sta)$/;"	f
+ap_get_sta	ap/sta_info.c	/^struct sta_info * ap_get_sta(struct hostapd_data *hapd, const u8 *sta)$/;"	f
 ap_hash	ap/hostapd.h	/^	struct ap_info *ap_hash[STA_HASH_SIZE];$/;"	m	struct:hostapd_iface	typeref:struct:hostapd_iface::ap_info
 ap_list	ap/hostapd.h	/^	struct ap_info *ap_list; \/* AP info list head *\/$/;"	m	struct:hostapd_iface	typeref:struct:hostapd_iface::ap_info
 ap_max_inactivity	ap/ap_config.h	/^	int ap_max_inactivity;$/;"	m	struct:hostapd_bss_config
@@ -2335,9 +2339,10 @@ ap_scan_as_station	drivers/driver_nl80211.c	/^	enum nl80211_iftype ap_scan_as_st
 ap_settings	ap/ap_config.h	/^	u8 *ap_settings;$/;"	m	struct:hostapd_bss_config
 ap_settings_len	ap/ap_config.h	/^	size_t ap_settings_len;$/;"	m	struct:hostapd_bss_config
 ap_setup_locked	ap/ap_config.h	/^	int ap_setup_locked;$/;"	m	struct:hostapd_bss_config
-ap_sta_add	ap/hostapd.c	/^struct sta_info * ap_sta_add(struct hostapd_data *hapd, const u8 *addr)$/;"	f
-ap_sta_hash_add	ap/hostapd.c	/^void ap_sta_hash_add(struct hostapd_data *hapd, struct sta_info *sta)$/;"	f
-ap_sta_hash_del	ap/hostapd.c	/^void ap_sta_hash_del(struct hostapd_data *hapd, struct sta_info *sta)$/;"	f
+ap_sta_add	ap/sta_info.c	/^struct sta_info * ap_sta_add(struct hostapd_data *hapd, const u8 *addr)$/;"	f
+ap_sta_hash_add	ap/sta_info.c	/^void ap_sta_hash_add(struct hostapd_data *hapd, struct sta_info *sta)$/;"	f
+ap_sta_hash_del	ap/sta_info.c	/^void ap_sta_hash_del(struct hostapd_data *hapd, struct sta_info *sta)$/;"	f
+ap_sta_is_authorized	ap/sta_info.h	/^static inline int ap_sta_is_authorized(struct sta_info *sta)$/;"	f
 ap_table_expiration_time	ap/ap_config.h	/^	int ap_table_expiration_time;$/;"	m	struct:hostapd_config
 ap_table_max_size	ap/ap_config.h	/^	int ap_table_max_size;$/;"	m	struct:hostapd_config
 asel_capabilities	ap/ieee802_1x_defs.h	/^	u8 asel_capabilities;$/;"	m	struct:ieee80211_ht_capabilities
@@ -2410,6 +2415,7 @@ be_to_host64	utils/common.h	216;"	d
 beacon	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED beacon;$/;"	m	union:ieee80211_mgmt::__anon7	typeref:struct:ieee80211_mgmt::__anon7::__anon14
 beacon_after	drivers/driver.h	/^	struct beacon_data beacon_after;$/;"	m	struct:csa_settings	typeref:struct:csa_settings::beacon_data
 beacon_csa	drivers/driver.h	/^	struct beacon_data beacon_csa;$/;"	m	struct:csa_settings	typeref:struct:csa_settings::beacon_data
+beacon_data	agent/vap.h	/^    u8 *beacon_data;$/;"	m	struct:vap_data
 beacon_data	drivers/driver.h	/^struct beacon_data {$/;"	s
 beacon_ie_len	drivers/driver.h	/^	size_t beacon_ie_len;$/;"	m	struct:wpa_scan_res
 beacon_ies	drivers/driver.h	/^		const u8 *beacon_ies;$/;"	m	struct:wpa_event_data::assoc_info
@@ -2424,8 +2430,10 @@ beacon_int	drivers/driver.h	/^	int beacon_int;$/;"	m	struct:wpa_driver_ap_params
 beacon_int	drivers/driver.h	/^	int beacon_int;$/;"	m	struct:wpa_driver_associate_params
 beacon_int	drivers/driver.h	/^	u16 beacon_int;$/;"	m	struct:wpa_scan_res
 beacon_interval	drivers/driver.h	/^	int beacon_interval;$/;"	m	struct:wpa_driver_associate_params
+beacon_len	agent/vap.h	/^    int beacon_len;$/;"	m	struct:vap_data
 beacon_set	drivers/driver_nl80211.c	/^	unsigned int beacon_set:1;$/;"	m	struct:i802_bss	file:
 beacon_set_done	ap/hostapd.h	/^	int beacon_set_done;$/;"	m	struct:hostapd_data
+beacon_settings	ap/beacon.h	/^struct beacon_settings {$/;"	s
 best_chan	drivers/driver.h	/^	} best_chan;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::best_channel
 best_channel	drivers/driver.h	/^	struct best_channel {$/;"	s	union:wpa_event_data
 bev	agent/controller_event.c	/^static struct bufferevent *bev;$/;"	v	typeref:struct:bufferevent	file:
@@ -2449,6 +2457,7 @@ bss_trans_mgmt_status_code	ap/ieee802_1x_defs.h	/^enum bss_trans_mgmt_status_cod
 bss_transition	ap/ap_config.h	/^	int bss_transition;$/;"	m	struct:hostapd_bss_config
 bssid	agent/vap.h	/^    u8 bssid[ETH_ALEN];$/;"	m	struct:vap_data
 bssid	ap/ap_config.h	/^	macaddr bssid;$/;"	m	struct:hostapd_bss_config
+bssid	ap/beacon.h	/^    u8 *bssid;$/;"	m	struct:beacon_settings
 bssid	ap/ieee802_1x_defs.h	/^	u8 bssid[6];$/;"	m	struct:ieee80211_mgmt
 bssid	drivers/driver.h	/^		const u8 *bssid;$/;"	m	struct:wpa_event_data::assoc_reject
 bssid	drivers/driver.h	/^		const u8 *bssid;$/;"	m	struct:wpa_event_data::driver_gtk_rekey
@@ -2512,10 +2521,12 @@ chan_width	drivers/driver.h	/^		enum chan_width chan_width;$/;"	m	struct:wpa_eve
 chan_width	drivers/driver.h	/^enum chan_width {$/;"	g
 chanlist	ap/ap_config.h	/^	int *chanlist;$/;"	m	struct:hostapd_config
 channel	ap/ap_config.h	/^	u8 channel;$/;"	m	struct:hostapd_config
+channel	ap/beacon.h	/^    u8 channel;$/;"	m	struct:channel_switch_params
 channel	drivers/driver.h	/^		int channel;$/;"	m	struct:wpa_event_data::mlme_rx
 channel	drivers/driver.h	/^	int channel;$/;"	m	struct:hostapd_freq_params
 channel_list_changed	drivers/driver.h	/^	struct channel_list_changed {$/;"	s	union:wpa_event_data
 channel_list_changed	drivers/driver.h	/^	} channel_list_changed;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::channel_list_changed
+channel_switch_params	ap/beacon.h	/^struct channel_switch_params {$/;"	s
 channel_time	drivers/driver.h	/^	u64 channel_time;$/;"	m	struct:freq_survey
 channel_time_busy	drivers/driver.h	/^	u64 channel_time_busy;$/;"	m	struct:freq_survey
 channel_time_rx	drivers/driver.h	/^	u64 channel_time_rx;$/;"	m	struct:freq_survey
@@ -2554,6 +2565,7 @@ controller_listener_cb	agent/controller_event.c	/^void controller_listener_cb(st
 controller_readcb	agent/controller_event.c	/^void controller_readcb(struct bufferevent *bev, struct hostapd_data *hapd)$/;"	f
 controller_remove_vap	agent/controller_event.c	/^static void controller_remove_vap(struct hostapd_data *hapd, char *data[], int size)$/;"	f	file:
 controller_subscriptions	agent/controller_event.c	/^static void controller_subscriptions(struct hostapd_data *hapd, $/;"	f	file:
+controller_switch_channel	agent/controller_event.c	/^static void controller_switch_channel(struct hostapd_data *hapd,$/;"	f	file:
 cookie_handler	drivers/driver_nl80211.c	/^static int cookie_handler(struct nl_msg *msg, void *arg)$/;"	f	file:
 copy_sta_ht_capab	ap/hostapd.c	/^u16 copy_sta_ht_capab(struct hostapd_data *hapd, struct sta_info *sta,$/;"	f
 copy_supp_rates	ap/hostapd.c	/^u16 copy_supp_rates(struct hostapd_data *hapd, struct sta_info *sta,$/;"	f
@@ -2569,9 +2581,12 @@ create_transmit_sc	drivers/driver.h	/^	int (*create_transmit_sc)(void *priv, u32
 cs_block_tx	ap/hostapd.h	/^	int cs_block_tx;$/;"	m	struct:hostapd_iface
 cs_c_off_beacon	ap/hostapd.h	/^	unsigned int cs_c_off_beacon;$/;"	m	struct:hostapd_iface
 cs_c_off_proberesp	ap/hostapd.h	/^	unsigned int cs_c_off_proberesp;$/;"	m	struct:hostapd_iface
+cs_count	ap/beacon.h	/^    u8 cs_count;$/;"	m	struct:channel_switch_params
 cs_count	ap/hostapd.h	/^	u8 cs_count;$/;"	m	struct:hostapd_iface
 cs_count	drivers/driver.h	/^	u8 cs_count;$/;"	m	struct:csa_settings
 cs_freq_params	ap/hostapd.h	/^	struct hostapd_freq_params cs_freq_params;$/;"	m	struct:hostapd_iface	typeref:struct:hostapd_iface::hostapd_freq_params
+cs_mode	ap/beacon.h	/^    u8 cs_mode;$/;"	m	struct:channel_switch_params
+cs_params	ap/beacon.h	/^    struct channel_switch_params cs_params;$/;"	m	struct:beacon_settings	typeref:struct:beacon_settings::channel_switch_params
 csa_in_progress	ap/hostapd.h	/^	int csa_in_progress;$/;"	m	struct:hostapd_iface
 csa_settings	drivers/driver.h	/^struct csa_settings {$/;"	s
 ctrl_dst	ap/hostapd.h	/^	struct wpa_ctrl_dst *ctrl_dst;$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::wpa_ctrl_dst
@@ -2597,6 +2612,7 @@ cwmax	ap/ap_config.h	/^	int cwmax;$/;"	m	struct:hostapd_tx_queue_params
 cwmax	ap/ieee802_1x_defs.h	/^	int cwmax;$/;"	m	struct:hostapd_wmm_ac_params
 cwmin	ap/ap_config.h	/^	int cwmin;$/;"	m	struct:hostapd_tx_queue_params
 cwmin	ap/ieee802_1x_defs.h	/^	int cwmin;$/;"	m	struct:hostapd_wmm_ac_params
+da	ap/beacon.h	/^    u8 *da;$/;"	m	struct:beacon_settings
 da	ap/ieee802_1x_defs.h	/^	u8 da[6];$/;"	m	struct:ieee80211_mgmt
 da	drivers/driver.h	/^		const u8 *da;$/;"	m	struct:wpa_event_data::rx_probe_req
 da	drivers/driver.h	/^		const u8 *da;$/;"	m	struct:wpa_event_data::unprot_deauth
@@ -3001,7 +3017,6 @@ hostapd_interface_init	ap/hostapd.c	/^struct hostapd_iface * hostapd_interface_i
 hostapd_interface_init_bss	ap/hostapd.c	/^void hostapd_interface_init_bss(struct hapd_interfaces *interfaces){$/;"	f
 hostapd_ip_addr	ap/ap_config.h	/^struct hostapd_ip_addr {$/;"	s
 hostapd_logger_level	utils/common.h	/^enum hostapd_logger_level {$/;"	g
-hostapd_mgmt_rx	ap/wimaster_80211.c	/^static int hostapd_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)$/;"	f	file:
 hostapd_own_capab_info	ap/beacon.c	/^u16 hostapd_own_capab_info(struct hostapd_data *hapd, struct sta_info *sta,$/;"	f
 hostapd_parse_intlist	ap/config_file.c	/^static int hostapd_parse_intlist(int **int_list, char *val)$/;"	f	file:
 hostapd_parse_ip_addr	ap/config_file.c	/^int hostapd_parse_ip_addr(const char *txt, struct hostapd_ip_addr *addr)$/;"	f
@@ -3134,7 +3149,7 @@ ieee80211h	ap/ap_config.h	/^	int ieee80211h; \/* DFS *\/$/;"	m	struct:hostapd_co
 ieee80211n	ap/ap_config.h	/^	int ieee80211n;$/;"	m	struct:hostapd_config
 ieee80211w	ap/ap_config.h	/^	enum mfp_options ieee80211w;$/;"	m	struct:hostapd_bss_config	typeref:enum:hostapd_bss_config::mfp_options
 ieee80211w	drivers/driver.h	/^	enum mfp_options ieee80211w;$/;"	m	struct:wpa_bss_params	typeref:enum:wpa_bss_params::mfp_options
-ieee802_11_build_ap_params	ap/beacon.c	/^int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,$/;"	f
+ieee802_11_build_ap_beacon	ap/beacon.c	/^int ieee802_11_build_ap_beacon(struct hostapd_data *hapd, struct beacon_settings *bs, $/;"	f
 ieee802_11_elems	ap/ieee802_1x_defs.h	/^struct ieee802_11_elems {$/;"	s
 ieee802_11_erp_info	ap/beacon.c	/^static u8 ieee802_11_erp_info(struct hostapd_data *hapd)$/;"	f	file:
 ieee802_11_parse_elems	ap/ieee802_1x_defs.h	/^static  ParseRes ieee802_11_parse_elems(const u8 *start, size_t len,$/;"	f
@@ -3210,6 +3225,8 @@ ipaddr_type_configured	ap/ap_config.h	/^	u8 ipaddr_type_configured;$/;"	m	struct
 ipv4	agent/vap.h	/^    struct in_addr ipv4;$/;"	m	struct:vap_data	typeref:struct:vap_data::in_addr
 is_ap_interface	drivers/driver_nl80211.c	/^static int is_ap_interface(enum nl80211_iftype nlmode)$/;"	f	file:
 is_beacon	agent/vap.h	/^    int is_beacon;$/;"	m	struct:vap_data
+is_csa	ap/beacon.h	/^    int is_csa;$/;"	m	struct:beacon_settings
+is_probe	ap/beacon.h	/^    int is_probe;$/;"	m	struct:beacon_settings
 is_sta_interface	drivers/driver_nl80211.c	/^static int is_sta_interface(enum nl80211_iftype nlmode)$/;"	f	file:
 isolate	ap/ap_config.h	/^	int isolate;$/;"	m	struct:hostapd_bss_config
 isolate	drivers/driver.h	/^	int isolate;$/;"	m	struct:wpa_driver_ap_params
@@ -3290,7 +3307,7 @@ manufacturer_url	ap/ap_config.h	/^	char *manufacturer_url;$/;"	m	struct:hostapd_
 mask	drivers/nl80211_copy.h	/^	__u32 mask;$/;"	m	struct:nl80211_sta_flag_update
 max_acl_mac_addrs	drivers/driver.h	/^	unsigned int max_acl_mac_addrs;$/;"	m	struct:wpa_driver_capa
 max_delay	drivers/nl80211_copy.h	/^	__u32 max_delay;$/;"	m	struct:nl80211_coalesce_rule_support
-max_len	ap/ap_config.h	/^		u8 max_len[16];$/;"	m	union:hostapd_ip_addr::__anon34
+max_len	ap/ap_config.h	/^		u8 max_len[16];$/;"	m	union:hostapd_ip_addr::__anon35
 max_len	drivers/nl80211_copy.h	/^	__u32 min_len, max_len, bufsize;$/;"	m	struct:nl80211_wowlan_tcp_data_token_feature
 max_listen_interval	ap/ap_config.h	/^	u16 max_listen_interval;$/;"	m	struct:hostapd_bss_config
 max_match_sets	drivers/driver.h	/^	int max_match_sets;$/;"	m	struct:wpa_driver_capa
@@ -3656,7 +3673,7 @@ phy_info_ht_capa	drivers/driver_nl80211.c	/^static void phy_info_ht_capa(struct 
 phy_info_rates	drivers/driver_nl80211.c	/^static int phy_info_rates(struct hostapd_hw_modes *mode, struct nlattr *tb)$/;"	f	file:
 phy_info_vht_capa	drivers/driver_nl80211.c	/^static void phy_info_vht_capa(struct hostapd_hw_modes *mode,$/;"	f	file:
 phyname	drivers/driver_nl80211.c	/^	char phyname[32];$/;"	m	struct:wpa_driver_nl80211_data	file:
-ping_timer	agent/push.c	/^ping_timer(evutil_socket_t fd, short what, void *address)$/;"	f
+ping_timer	agent/push.c	/^void ping_timer(evutil_socket_t fd, short what, void *address)$/;"	f
 plink_actions	drivers/nl80211_copy.h	/^enum plink_actions {$/;"	g
 pmk_r1_push	ap/ap_config.h	/^	int pmk_r1_push;$/;"	m	struct:hostapd_bss_config
 pmkid_candidate	drivers/driver.h	/^	struct pmkid_candidate {$/;"	s	union:wpa_event_data
@@ -3704,8 +3721,10 @@ public_action_cb	ap/hostapd.h	/^	void (*public_action_cb)(void *ctx, const u8 *b
 public_action_cb2	ap/hostapd.h	/^	void (*public_action_cb2)(void *ctx, const u8 *buf, size_t len,$/;"	m	struct:hostapd_data
 public_action_cb2_ctx	ap/hostapd.h	/^	void *public_action_cb2_ctx;$/;"	m	struct:hostapd_data
 public_action_cb_ctx	ap/hostapd.h	/^	void *public_action_cb_ctx;$/;"	m	struct:hostapd_data
-push	agent/push.c	/^push(const char *data)$/;"	f	file:
-push_ping	agent/push.c	/^push_ping(void) $/;"	f
+push	agent/push.c	/^static int push(const char *data)$/;"	f	file:
+push_deauth	agent/push.c	/^void push_deauth(const u8 *addr, const int reason_code)$/;"	f
+push_disassoc	agent/push.c	/^void push_disassoc(const u8 *addr, const char *ssid)$/;"	f
+push_ping	agent/push.c	/^void push_ping(void) $/;"	f
 push_stainfo	agent/push.c	/^void push_stainfo(const u8 *addr, const char *stainfo)$/;"	f
 push_subscription	agent/push.c	/^void push_subscription(const u8 *addr, $/;"	f
 pwd_group	ap/ap_config.h	/^	u16 pwd_group;$/;"	m	struct:hostapd_bss_config
@@ -3949,6 +3968,7 @@ ssi_signal	drivers/driver.h	/^		int ssi_signal;$/;"	m	struct:wpa_event_data::rx_
 ssid	agent/vap.h	/^    char *ssid;$/;"	m	struct:vap_data
 ssid	ap/ap_config.h	/^	struct hostapd_ssid ssid;$/;"	m	struct:hostapd_bss_config	typeref:struct:hostapd_bss_config::hostapd_ssid
 ssid	ap/ap_config.h	/^	u8 ssid[HOSTAPD_MAX_SSID_LEN];$/;"	m	struct:hostapd_ssid
+ssid	ap/beacon.h	/^    char *ssid;$/;"	m	struct:beacon_settings
 ssid	ap/ieee802_1x_defs.h	/^	const u8 *ssid;$/;"	m	struct:ieee802_11_elems
 ssid	ap/sta_info.h	/^	struct hostapd_ssid *ssid; \/* SSID selection based on (Re)AssocReq *\/$/;"	m	struct:sta_info	typeref:struct:sta_info::hostapd_ssid
 ssid	drivers/driver.h	/^		const u8 *ssid;$/;"	m	struct:wpa_driver_scan_params::wpa_driver_scan_ssid
@@ -3958,7 +3978,9 @@ ssid	drivers/driver.h	/^	const u8 *ssid;$/;"	m	struct:wpa_driver_associate_param
 ssid	drivers/driver.h	/^	const u8 *ssid;$/;"	m	struct:wpa_driver_auth_params
 ssid	drivers/driver.h	/^	const u8 *ssid;$/;"	m	struct:wpa_init_params
 ssid	drivers/driver_nl80211.c	/^	u8 ssid[32];$/;"	m	struct:wpa_driver_nl80211_data	file:
+ssid_len	agent/vap.h	/^    int ssid_len;$/;"	m	struct:vap_data
 ssid_len	ap/ap_config.h	/^	size_t ssid_len;$/;"	m	struct:hostapd_ssid
+ssid_len	ap/beacon.h	/^    int ssid_len;$/;"	m	struct:beacon_settings
 ssid_len	ap/ieee802_1x_defs.h	/^	u8 ssid_len;$/;"	m	struct:ieee802_11_elems
 ssid_len	drivers/driver.h	/^		size_t ssid_len;$/;"	m	struct:wpa_driver_scan_params::wpa_driver_scan_filter
 ssid_len	drivers/driver.h	/^		size_t ssid_len;$/;"	m	struct:wpa_driver_scan_params::wpa_driver_scan_ssid
@@ -3992,7 +4014,6 @@ sta_disassoc	drivers/driver.h	/^	int (*sta_disassoc)(void *priv, const u8 *own_a
 sta_flags_nl80211	drivers/driver_nl80211.c	/^static u32 sta_flags_nl80211(int flags)$/;"	f	file:
 sta_hash	ap/hostapd.h	/^	struct sta_info *sta_hash[STA_HASH_SIZE];$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::sta_info
 sta_info	ap/sta_info.h	/^struct sta_info {$/;"	s
-sta_info_convert_to_json	ap/hostapd.c	/^json_object * sta_info_convert_to_json(struct hostapd_data *hapd,const u8 *addr)$/;"	f
 sta_list	ap/hostapd.h	/^	struct sta_info *sta_list; \/* STA info list head *\/$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::sta_info
 sta_remove	drivers/driver.h	/^	int (*sta_remove)(void *priv, const u8 *addr);$/;"	m	struct:wpa_driver_ops
 sta_set_flags	drivers/driver.h	/^	int (*sta_set_flags)(void *priv, const u8 *addr,$/;"	m	struct:wpa_driver_ops
@@ -4072,7 +4093,7 @@ timeout_event	drivers/driver.h	/^	struct timeout_event {$/;"	s	union:wpa_event_d
 timeout_event	drivers/driver.h	/^	} timeout_event;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::timeout_event
 timeout_int	ap/ieee802_1x_defs.h	/^	const u8 *timeout_int;$/;"	m	struct:ieee802_11_elems
 timeout_int_len	ap/ieee802_1x_defs.h	/^	u8 timeout_int_len;$/;"	m	struct:ieee802_11_elems
-timeout_next	ap/sta_info.h	/^	enum Timeout_next timeout_next;$/;"	m	struct:sta_info	typeref:enum:sta_info::Timeout_next
+timeout_next	ap/sta_info.h	/^	} timeout_next;$/;"	m	struct:sta_info	typeref:enum:sta_info::__anon34
 timeouts	ap/ap_config.h	/^	u32 timeouts;$/;"	m	struct:hostapd_radius_server
 timestamp	ap/ieee802_1x_defs.h	/^			u8 timestamp[8];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon14
 timestamp	ap/ieee802_1x_defs.h	/^			u8 timestamp[8];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon16
@@ -4100,7 +4121,7 @@ type	ap/ap_config.h	/^		char type[256];$/;"	m	struct:hostapd_bss_config::hs20_ic
 type	ap/ap_config.h	/^	u8 type;$/;"	m	struct:hostapd_radius_attr
 type	drivers/driver.h	/^		enum reg_type type;$/;"	m	struct:wpa_event_data::channel_list_changed	typeref:enum:wpa_event_data::channel_list_changed::reg_type
 type	drivers/driver.h	/^		u16 type;$/;"	m	struct:wpa_event_data::tx_status
-u	ap/ap_config.h	/^	} u;$/;"	m	struct:hostapd_ip_addr	typeref:union:hostapd_ip_addr::__anon34
+u	ap/ap_config.h	/^	} u;$/;"	m	struct:hostapd_ip_addr	typeref:union:hostapd_ip_addr::__anon35
 u	ap/ieee802_1x_defs.h	/^			} u;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17	typeref:union:ieee80211_mgmt::__anon7::__anon17::__anon18
 u	ap/ieee802_1x_defs.h	/^	} u;$/;"	m	struct:ieee80211_mgmt	typeref:union:ieee80211_mgmt::__anon7
 u16	utils/common.h	/^typedef UINT16 u16;$/;"	t
@@ -4140,8 +4161,8 @@ usec	utils/common.h	/^	os_time_t usec;$/;"	m	struct:os_time
 used	ap/wpabuf.h	/^	size_t used; \/* length of data in the buffer *\/$/;"	m	struct:wpabuf
 utf8_ssid	ap/ap_config.h	/^	unsigned int utf8_ssid:1;$/;"	m	struct:hostapd_ssid
 uuid	ap/ap_config.h	/^	u8 uuid[16];$/;"	m	struct:hostapd_bss_config
-v4	ap/ap_config.h	/^		struct in_addr v4;$/;"	m	union:hostapd_ip_addr::__anon34	typeref:struct:hostapd_ip_addr::__anon34::in_addr
-v6	ap/ap_config.h	/^		struct in6_addr v6;$/;"	m	union:hostapd_ip_addr::__anon34	typeref:struct:hostapd_ip_addr::__anon34::in6_addr
+v4	ap/ap_config.h	/^		struct in_addr v4;$/;"	m	union:hostapd_ip_addr::__anon35	typeref:struct:hostapd_ip_addr::__anon35::in_addr
+v6	ap/ap_config.h	/^		struct in6_addr v6;$/;"	m	union:hostapd_ip_addr::__anon35	typeref:struct:hostapd_ip_addr::__anon35::in6_addr
 val	agent/subscription.h	/^    double val;$/;"	m	struct:subscription
 val	ap/ap_config.h	/^	struct wpabuf *val;$/;"	m	struct:hostapd_radius_attr	typeref:struct:hostapd_radius_attr::wpabuf
 valid_cw	ap/config_file.c	/^static int valid_cw(int cw)$/;"	f	file:
@@ -4243,6 +4264,7 @@ wifi_display_subelem	ap/ieee802_1x_defs.h	/^enum wifi_display_subelem {$/;"	g
 wimaster_80211_event_init	main.c	/^int wimaster_80211_event_init(struct hostapd_data *hapd)$/;"	f
 wimaster_add_stainfo	agent/stainfo_handler.c	/^int wimaster_add_stainfo(struct hostapd_data *hapd, $/;"	f
 wimaster_bufferevent_socket_new	utils/wimaster_event.c	/^struct bufferevent *wimaster_bufferevent_socket_new(evutil_socket_t fd, int options)$/;"	f
+wimaster_eid_channel_switch	ap/beacon.c	/^static u8 * wimaster_eid_channel_switch(struct hostapd_data *hapd, u8 *eid, $/;"	f	file:
 wimaster_evconnlistener_new_bind	utils/wimaster_event.c	/^struct evconnlistener *wimaster_evconnlistener_new_bind(evconnlistener_cb cb, $/;"	f
 wimaster_event_add	utils/wimaster_event.c	/^int wimaster_event_add(struct event *ev, const struct timeval *timeout)$/;"	f
 wimaster_event_dispatch	utils/wimaster_event.c	/^int wimaster_event_dispatch(void)$/;"	f
@@ -4251,9 +4273,12 @@ wimaster_for_each_vap	agent/vap.c	/^void wimaster_for_each_vap(void (*cb)(struct
 wimaster_get_vap	agent/vap.c	/^struct vap_data *wimaster_get_vap(const u8 *addr)$/;"	f
 wimaster_handle_assoc	ap/wimaster_80211.c	/^static void wimaster_handle_assoc(struct hostapd_data *hapd,$/;"	f	file:
 wimaster_handle_auth	ap/wimaster_80211.c	/^static void wimaster_handle_auth(struct hostapd_data *hapd,$/;"	f	file:
-wimaster_handle_beacon	ap/wimaster_80211.c	/^int wimaster_handle_beacon(struct hostapd_data *_hapd,u8 *da,u8 *bssid,$/;"	f
-wimaster_handle_probe_req	ap/wimaster_80211.c	/^int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,$/;"	f
+wimaster_handle_beacon	ap/wimaster_80211.c	/^static int wimaster_handle_beacon(struct hostapd_data *hapd, struct vap_data *vap)$/;"	f	file:
+wimaster_handle_deauth	ap/wimaster_80211.c	/^static void wimaster_handle_deauth(struct hostapd_data *hapd,$/;"	f	file:
+wimaster_handle_disassoc	ap/wimaster_80211.c	/^static void wimaster_handle_disassoc(struct hostapd_data *hapd,$/;"	f	file:
+wimaster_handle_probe_req	ap/wimaster_80211.c	/^static int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,$/;"	f	file:
 wimaster_mgmt_frame_cb	main.c	/^wimaster_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)$/;"	f	file:
+wimaster_mgmt_rx	ap/wimaster_80211.c	/^static int wimaster_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)$/;"	f	file:
 wimaster_probe	agent/push.c	/^void wimaster_probe(const u8 *addr, const char *ssid)$/;"	f
 wimaster_push_stainfo	agent/stainfo_handler.c	/^int wimaster_push_stainfo(struct hostapd_data *hapd, const u8 *addr)$/;"	f
 wimaster_remove_stainfo	agent/stainfo_handler.c	/^int wimaster_remove_stainfo(struct hostapd_data *hapd, const u8 *addr) $/;"	f
@@ -4297,6 +4322,7 @@ wpa_auth	ap/hostapd.h	/^	struct wpa_authenticator *wpa_auth;$/;"	m	struct:hostap
 wpa_bss_params	drivers/driver.h	/^struct wpa_bss_params {$/;"	s
 wpa_config_parse_string	ap/config_file.h	/^static char * wpa_config_parse_string(const char *value, size_t *len)$/;"	f
 wpa_ctrl_req_type	utils/common_defs.h	/^enum wpa_ctrl_req_type {$/;"	g
+wpa_debug_level	utils/wpa_debug.c	/^int wpa_debug_level = MSG_DEBUG;$/;"	v
 wpa_driver_ap_params	drivers/driver.h	/^struct wpa_driver_ap_params {$/;"	s
 wpa_driver_associate_params	drivers/driver.h	/^struct wpa_driver_associate_params {$/;"	s
 wpa_driver_auth_params	drivers/driver.h	/^struct wpa_driver_auth_params {$/;"	s
@@ -4351,7 +4377,7 @@ wpa_pairwise	drivers/driver.h	/^	int wpa_pairwise;$/;"	m	struct:wpa_bss_params
 wpa_parse_cipher	ap/config_file.c	/^int wpa_parse_cipher(const char *value)$/;"	f
 wpa_passphrase	ap/ap_config.h	/^	char *wpa_passphrase;$/;"	m	struct:hostapd_ssid
 wpa_passphrase_set	ap/ap_config.h	/^	unsigned int wpa_passphrase_set:1;$/;"	m	struct:hostapd_ssid
-wpa_printf	utils/common.h	257;"	d
+wpa_printf	utils/wpa_debug.h	39;"	d
 wpa_proto	drivers/driver.h	/^	unsigned int wpa_proto;$/;"	m	struct:wpa_driver_associate_params
 wpa_psk	ap/ap_config.h	/^	struct hostapd_wpa_psk *wpa_psk;$/;"	m	struct:hostapd_ssid	typeref:struct:hostapd_ssid::hostapd_wpa_psk
 wpa_psk_file	ap/ap_config.h	/^	char *wpa_psk_file;$/;"	m	struct:hostapd_ssid

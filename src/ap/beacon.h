@@ -3,6 +3,22 @@
 
 #include "hostapd.h"
 
+struct channel_switch_params {
+    u8 cs_mode;
+    u8 channel;
+    u8 cs_count;
+};
+
+struct beacon_settings {
+    u8 *da;
+    u8 *bssid;
+    char *ssid;
+    int ssid_len;
+    int is_probe;
+    int is_csa;
+    struct channel_switch_params cs_params;
+};
+
 u16 hostapd_own_capab_info(struct hostapd_data *hapd, struct sta_info *sta,
 			   int probe);
 u8 * hostapd_eid_supp_rates(struct hostapd_data *hapd, u8 *eid);
@@ -12,9 +28,8 @@ u8 * hostapd_eid_ht_capabilities(struct hostapd_data *hapd, u8 *eid);
 u8 * hostapd_eid_ht_operation(struct hostapd_data *hapd, u8 *eid);
 u8 * hostapd_eid_ext_capab(struct hostapd_data *hapd, u8 *eid);
 
-int ieee802_11_build_ap_params(struct hostapd_data *hapd,u8 *da,u8 *bssid,
-					const char *ssid,int ssid_len,int probe, 
-                    int is_csa, int channel, struct wpa_driver_ap_params *params);
+int ieee802_11_build_ap_beacon(struct hostapd_data *hapd, struct beacon_settings *bs,
+        struct wpa_driver_ap_params *params);
 
 u8 * hostapd_eid_bss_max_idle_period(struct hostapd_data *hapd, u8 *eid);
 u8 * hostapd_eid_qos_map_set(struct hostapd_data *hapd, u8 *eid);					

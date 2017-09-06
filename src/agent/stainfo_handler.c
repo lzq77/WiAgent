@@ -179,18 +179,18 @@ static int json_to_stainfo(const char *json, struct sta_info *sta)
 
 int wimaster_push_stainfo(struct hostapd_data *hapd, const u8 *addr)
 {
-    char *stainfo;    
+    char *stainfo; 
     struct sta_info *sta;
     struct ieee80211_ht_capabilities ht_cap;
 
     sta = ap_get_sta(hapd, addr);
     if(!sta) {
-        wpa_printf(MSG_ERROR, "sta_info do not exist\n");
+        wpa_printf(MSG_DEBUG, "The "MACSTR" sta_info do not exist.", MAC2STR(addr));
         return -1;
     }
 
     if(sta->flags & WLAN_STA_HT) {
-        wpa_printf(MSG_DEBUG, "station("MACSTR") support HT\n",
+        wpa_printf(MSG_DEBUG, "The station "MACSTR" support HT",
                 MAC2STR(addr));
         hostapd_get_ht_capab(hapd, sta->ht_capabilities, &ht_cap);
     }
@@ -201,7 +201,8 @@ int wimaster_push_stainfo(struct hostapd_data *hapd, const u8 *addr)
         return 0;
     }
     else {
-        wpa_printf(MSG_WARN, "Error convert struct sta_info to json, push sta_info failed.\n");
+        wpa_printf(MSG_WARN, "Fail to convert "MACSTR" struct sta_info to json.", 
+                        MAC2STR(addr));
         return -1;
     }
 }
@@ -223,8 +224,8 @@ int wimaster_add_stainfo(struct hostapd_data *hapd,
 		return -1;
 	}
     if(json_to_stainfo(stainfo, sta) < 0) {
-        wpa_printf(MSG_WARN, "%s: Convert json string format of sta_info to struct sta_info failed.\n",
-                __func__);
+        wpa_printf(MSG_WARN, "Fail to convert "MACSTR" sta_info json string format to struct sta_info.",
+                MAC2STR(addr));
         ap_sta_hash_del(hapd, sta);
         return -1;
     }
@@ -232,7 +233,7 @@ int wimaster_add_stainfo(struct hostapd_data *hapd,
 	//last. sta_info填充完毕之后,这时候需要将其添加到内核中去
 	hostapd_handle_assoc_cb(hapd, addr);	
 
-    wpa_printf(MSG_DEBUG, "add_stainfo "MACSTR"\n", MAC2STR(addr));
+    wpa_printf(MSG_DEBUG, "Add "MACSTR" sta_info", MAC2STR(addr));
 
 	return 0;      
 }
@@ -246,12 +247,12 @@ int wimaster_remove_stainfo(struct hostapd_data *hapd, const u8 *addr)
     ap_sta_hash_del(hapd,sta);
     //2.内核态删除
     if (hostapd_drv_sta_remove(hapd, addr) < 0) {
-        wpa_printf(MSG_WARN, "Remove sta_info "MACSTR" from kernel failed.\n",
+        wpa_printf(MSG_WARN, "Fail to remove "MACSTR" sta_info from kernel.",
                 MAC2STR(addr));
         return -1;
     }
     
-    wpa_printf(MSG_DEBUG, "Have removed sta_info "MACSTR" from kernel.\n",
+    wpa_printf(MSG_DEBUG, "Have removed sta_info "MACSTR" from kernel.",
                 MAC2STR(addr));
 
     return 0;

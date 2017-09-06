@@ -245,17 +245,6 @@ static inline unsigned int wpa_swap_32(unsigned int v)
 #define BIT(x) (1 << (x))
 #endif
 
-//输出操作
-
-#define MSG_ERROR stderr
-#define MSG_WARN stderr
-#define MSG_INFO stderr
-#define MSG_DEBUG stderr
-#define MSG_MSGDUMP stderr
-#define MSG_EXCESSIVE stderr
-
-#define wpa_printf fprintf
-
 //对齐使用
 #ifdef __GNUC__
 #define PRINTF_FORMAT(a,b) __attribute__ ((format (printf, (a), (b))))
@@ -304,6 +293,8 @@ struct os_reltime {
 	os_time_t sec;
 	os_time_t usec;
 };
+
+#include "wpa_debug.h"
 
 void * os_memset(void *s, int c, size_t n);
 

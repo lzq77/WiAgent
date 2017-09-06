@@ -9,6 +9,10 @@ void push_ping(void);
 
 void push_subscription(const u8 *addr, int count, int sub_id, int value);
 
+void push_disassoc(const u8 *addr, const char *ssid);
+
+void push_deauth(const u8 *addr, const int reason_code);
+
 void wimaster_probe(const u8 *addr, const char *ssid);
 
 void push_stainfo(const u8 *addr, const char *stainfo);

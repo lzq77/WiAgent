@@ -190,16 +190,7 @@ struct hostapd_iface {
 	int num_ht40_scan_tries;
 };
 
-//json style date sent to controller
-json_object * sta_info_convert_to_json(struct hostapd_data *hapd,const u8 *addr);
-
 u32 hostapd_sta_flags_to_drv(u32 flags);
-	
-struct sta_info * ap_get_sta(struct hostapd_data *hapd, const u8 *sta);
-	
-void ap_sta_hash_add(struct hostapd_data *hapd, struct sta_info *sta);
-	
-void ap_sta_hash_del(struct hostapd_data *hapd, struct sta_info *sta);
 
 int hostapd_get_frame_socket_fd(struct hostapd_data *hapd);
 

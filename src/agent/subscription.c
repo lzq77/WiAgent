@@ -14,9 +14,9 @@ static void list_subscription(void)
     struct subscription *list = list_head;
     int num = 0;
 
-    wpa_printf(MSG_DEBUG, "\n wimaster subscriptions list:\n");
+    wpa_printf(MSG_DEBUG, "Wimaster subscriptions list:");
     while (list) {
-        wpa_printf(MSG_DEBUG, "%d. %d "MACSTR" %s %d %lf\n", 
+        wpa_printf(MSG_DEBUG, "%d. %d "MACSTR" %s %d %lf", 
                     ++num, list->id, MAC2STR(list->sta_addr), list->statistic, 
                     list->rel, list->val);
         list = list->next;

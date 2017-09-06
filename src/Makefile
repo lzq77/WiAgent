@@ -18,6 +18,7 @@ LIBS += -levent -lnl-tiny -ljson-c
 OBJS += ./main.o
 OBJS += ./utils/common.o
 OBJS += ./utils/wimaster_event.o
+OBJS += ./utils/wpa_debug.o
 OBJS += ./drivers/driver_nl80211.o
 OBJS += ./drivers/drivers.o
 OBJS += ./agent/controller_event.o
@@ -30,6 +31,7 @@ OBJS += ./ap/hostapd.o
 OBJS += ./ap/beacon.o
 OBJS += ./ap/hw_features.o
 OBJS += ./ap/wimaster_80211.o
+OBJS += ./ap/sta_info.o
 
 -include $(OBJS:%.o=%.d)
 

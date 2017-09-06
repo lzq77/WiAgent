@@ -18,6 +18,7 @@
 #include "../utils/wimaster_event.h"
 #include "../ap/hostapd.h"
 #include "../ap/config_file.h"
+#include "../ap/beacon.h"
 #include "vap.h"
 #include "push.h"
 #include "stainfo_handler.h"
@@ -55,7 +56,7 @@ int controller_event_init(struct hostapd_data *hapd, char *controller_ip)
 	    (struct sockaddr*)&sin, sizeof(sin));
     
     if (!controller_listener) {
-		wpa_printf(MSG_ERROR, "Could not create a listener!\n");
+		wpa_printf(MSG_ERROR, "Could not create a controller's listener.");
 		return -1;
 	}
     
@@ -66,18 +67,18 @@ int controller_event_init(struct hostapd_data *hapd, char *controller_ip)
 	push_addr.sin_family = AF_INET;
 	if(inet_pton(push_addr.sin_family, controller_ip, &push_addr.sin_addr) != 1)
 	{
-		wpa_printf(MSG_ERROR, "controller_ip address error!\n");
+		wpa_printf(MSG_ERROR, "Controller's ip address error.");
 		return -1;
 	}
 	push_addr.sin_port = htons(PUSH_PORT);
 
     push_sock = socket(AF_INET, SOCK_DGRAM, 0);   //Using UDP socket.
     if (push_sock < 0) {
-        wpa_printf(MSG_ERROR, "Create Socket Failed!\n");  
+        wpa_printf(MSG_ERROR, "Failed to create Ping udp socket.");  
         return -1;
     }
     if(connect(push_sock, (struct sockaddr*)&push_addr, sizeof(push_addr) ) < 0) {
-		wpa_printf(MSG_ERROR, "UDP connect error!\n");
+		wpa_printf(MSG_ERROR, "Error on connecting the controller with udp socket.");
 		return -1;
 	}
     
@@ -109,23 +110,22 @@ static void controller_add_vap(struct hostapd_data *hapd, char *data[], int size
     u8 bssid[6];
 
     if (hwaddr_aton(data[0], addr) < 0) {
-        wpa_printf(MSG_WARN, "%s: convert string %s to MAC address failed!\n", __func__, data[0]);
+        wpa_printf(MSG_WARN, "%s - convert string %s to MAC address failed.", __func__, data[0]);
         return;
     }
     if (hwaddr_aton(data[2], bssid) < 0) {
-        wpa_printf(MSG_WARN, "%s: convert string %s to MAC address failed!\n", __func__, data[2]);
+        wpa_printf(MSG_WARN, "%s - convert string %s to MAC address failed!", __func__, data[2]);
         return;
     }
 
     vap = wimaster_vap_add(hapd->own_addr, addr, bssid, data[3]);
     if(vap == NULL) {
-        wpa_printf(MSG_WARN, "handler_add_vap cannot add vap!\n");
+        wpa_printf(MSG_WARN, "handler_add_vap cannot add vap!");
         return;
     }
     inet_aton(data[1], &vap->ipv4);
     vap->is_beacon = atoi(data[4]);
-    wpa_printf(MSG_DEBUG, "%s - %s - add vap %s success!\n", 
-                    __TIME__, __func__, data[0]);
+    wpa_printf(MSG_DEBUG, "%s - add vap %s success!", __func__, data[0]);
 
 }
 
@@ -134,15 +134,14 @@ static void controller_remove_vap(struct hostapd_data *hapd, char *data[], int s
     u8 addr[6];
 
     if (hwaddr_aton(data[0], addr) < 0) {
-        wpa_printf(MSG_WARN, "handler_remove_vap convert string to MAC address failed!\n");
+        wpa_printf(MSG_WARN, "%s - convert string %s to MAC address failed.", __func__, data[0]);
         return;
     }
 
     if (wimaster_vap_remove(hapd->own_addr, addr) == 0) {
 
         if (wimaster_remove_stainfo(hapd, addr) == 0)
-            wpa_printf(MSG_DEBUG, "%s - %s - remove (%s) vap and sta_info success!\n", 
-                    __TIME__, __func__, data[0]);
+            wpa_printf(MSG_DEBUG, "%s - remove (%s) vap and sta_info success!", __func__, data[0]);
     }
 }
 
@@ -155,13 +154,13 @@ static void controller_action_csa(struct hostapd_data *hapd,
     int i;
 
     if (hwaddr_aton(data[0], addr) < 0) {
-        wpa_printf(MSG_WARN, " convert string to MAC address failed!\n");
+        wpa_printf(MSG_WARN, "%s - convert string %s to MAC address failed.", __func__, data[0]);
         return;
     }
 
     vap = wimaster_get_vap(addr);
     if (!vap) {
-        wpa_printf(MSG_WARN, "There is no "MACSTR" vap data on wimaster!\n", MAC2STR(addr));
+        wpa_printf(MSG_WARN, "There is no "MACSTR" vap data on wimaster!", MAC2STR(addr));
         return;
     }
 
@@ -169,13 +168,10 @@ static void controller_action_csa(struct hostapd_data *hapd,
     new_channel = (u8)atoi(data[2]);
     cs_count = (u8)atoi(data[3]);
 
-    for (i = 0; i < 10; i++) {
     if (hostapd_send_csa_action_frame(hapd, addr, 
                 vap->bssid, block_tx, new_channel, cs_count) < 0) {
-        wpa_printf(MSG_WARN, "controller_action_csa send csa action frame failed.\n");
+        wpa_printf(MSG_WARN, "Failed to send CSA Action Frame.");
         return;
-    }
-    wpa_printf(MSG_WARN, "controller_action_csa send csa action frame repeat %d.\n", i);
     }
 }
 
@@ -183,29 +179,37 @@ static void controller_switch_channel(struct hostapd_data *hapd,
         char *data[], int size)
 {
     u8 addr[6];
-    u8 block_tx, new_channel, cs_count;
     struct vap_data *vap;
     u8 *beacon_data;
 	struct wpa_driver_ap_params params;
+    struct channel_switch_params cs_params;
 	int beacon_len = 0;
 
     if (hwaddr_aton(data[0], addr) < 0) {
-        wpa_printf(MSG_WARN, " convert string to MAC address failed!\n");
+        wpa_printf(MSG_WARN, "%s - convert string %s to MAC address failed.", __func__, data[0]);
         return;
     }
 
     vap = wimaster_get_vap(addr);
     if (!vap) {
-        wpa_printf(MSG_WARN, "There is no "MACSTR" vap data on wimaster!\n", MAC2STR(addr));
+        wpa_printf(MSG_WARN, "There is no "MACSTR" vap data on wimaster!", MAC2STR(addr));
         return;
     }
 
-    block_tx = (u8)atoi(data[1]);
-    new_channel = (u8)atoi(data[2]);
-    cs_count = (u8)atoi(data[3]);
+    cs_params.cs_mode = (u8)atoi(data[1]);
+    cs_params.channel = (u8)atoi(data[2]);
+    cs_params.cs_count = (u8)atoi(data[3]);
 
-	if (ieee802_11_build_ap_params(hapd, vap->addr, vap->bssid, vap->ssid,
-            vap->ssid_len, 0, 1, new_channel, &params) < 0)
+    struct beacon_settings bs = {
+        .da = vap->addr,
+        .bssid = vap->bssid,
+        .ssid = vap->ssid,
+        .ssid_len = vap->ssid_len,
+        .is_probe = 0,
+        .is_csa = 1,
+        .cs_params = cs_params
+    };
+	if (ieee802_11_build_ap_beacon(hapd, &bs, &params) < 0)
         return;
 	
     beacon_len = params.head_len + params.tail_len;
@@ -227,16 +231,15 @@ static void controller_add_stainfo(struct hostapd_data *hapd,
 {
     u8 addr[6];
     if (hwaddr_aton(data[0], addr) < 0) {
-        wpa_printf(MSG_WARN, "%s: convert string %s to MAC address failed!\n", __func__, data[0]);
+        wpa_printf(MSG_WARN, "%s: convert string %s to MAC address failed!n", __func__, data[0]);
         return;
     }
 
     if (wimaster_add_stainfo(hapd, addr, data[1]) < 0) {
-        wpa_printf(MSG_WARN, "Add sta_info %s failed.\n", data[0]);
+        wpa_printf(MSG_WARN, "Fail to add sta_info %s.", data[0]);
         return;
     }
-    wpa_printf(MSG_DEBUG, "%s - %s - add sta_info %s success!\n", 
-                    __TIME__, __func__, data[0]);
+    wpa_printf(MSG_DEBUG, "Add sta_info %s successfully.", data[0]);
 
 }
 
@@ -251,7 +254,7 @@ static void controller_subscriptions(struct hostapd_data *hapd,
     
     if (size < SUBSCRIPTION_PARAMS_NUM) {
         wpa_printf(MSG_WARN, "The number of subscription parameters %d \
-                is insufficient.\n", size);
+                is insufficient.", size);
         return;
     }
     //WRITE odinagent.subscriptions 1 1 00:00:00:00:00:00 signal 2 -30.0
@@ -282,7 +285,7 @@ static void controller_subscriptions(struct hostapd_data *hapd,
 
 fail:
     os_free(sub);
-    wpa_printf(MSG_WARN, "subscription data format error.\n");
+    wpa_printf(MSG_WARN, "subscription data format error.");
     return;
 }
 
@@ -369,7 +372,7 @@ void controller_readcb(struct bufferevent *bev, struct hostapd_data *hapd)
 
     bufferevent_read(bev,read_buf,sizeof(read_buf));
 
-    wpa_printf(MSG_DEBUG, "%s - controller command: %s\n", __TIME__, read_buf);
+    wpa_printf(MSG_DEBUG, "Received controller command: %s", read_buf);
 
     /**
      * Read and process every row of data.
@@ -388,9 +391,9 @@ void controller_readcb(struct bufferevent *bev, struct hostapd_data *hapd)
 void controller_eventcb(struct bufferevent *bev, short events, void *user_data)
 {
 	if (events & BEV_EVENT_EOF) {
-		wpa_printf(MSG_INFO, "Controller event callback, connection closed.\n");
+		wpa_printf(MSG_INFO, "Controller event callback, connection closed");
 	} else if (events & BEV_EVENT_ERROR) {
-		wpa_printf(MSG_INFO, "Controller event callback, got an error on the connection\n");
+		wpa_printf(MSG_INFO, "Controller event callback, got an error on the connection");
 	}
 	/* None of the other events can happen here, since we haven't enabled
 	 * timeouts */
@@ -408,7 +411,7 @@ void controller_listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
 
 	bev = wimaster_bufferevent_socket_new(fd, BEV_OPT_CLOSE_ON_FREE);
 	if (!bev) {
-		wpa_printf(MSG_ERROR, "Error constructing bufferevent!\n");
+		wpa_printf(MSG_ERROR, "Error constructing bufferevent");
 		return;
 	}
 

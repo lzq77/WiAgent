@@ -44,12 +44,6 @@
  * Supported Rates IEs). */
 #define WLAN_SUPP_RATES_MAX 32
 
-
-
-enum Timeout_next{
-		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,
-		STA_DISASSOC_FROM_CLI
-	} ;
 /* Default value for maximum station inactivity. After AP_MAX_INACTIVITY has
  * passed since last received frame from the station, a nullfunc data frame is
  * sent to the station. If this frame is not acknowledged and no other frames
@@ -91,7 +85,10 @@ struct sta_info {
 
 	u16 auth_alg;
 
-	enum Timeout_next timeout_next;
+	enum {
+		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,
+		STA_DISASSOC_FROM_CLI
+	} timeout_next;
 
 	u16 deauth_reason;
 	u16 disassoc_reason;
@@ -179,11 +176,54 @@ struct sta_info {
 #define AP_MAX_INACTIVITY_AFTER_DEAUTH (1 * 5)
 
 
-//struct hostapd_data;
-/*
-struct sta_info * ap_get_sta(struct hostapd_data *hapd, const u8 *sta);
-void ap_sta_hash_add(struct hostapd_data *hapd, struct sta_info *sta);
-struct sta_info * ap_sta_add(struct hostapd_data *hapd, const u8 *addr);
-*/
-#endif /* STA_INFO_H */
+struct hostapd_data;
 
+int ap_for_each_sta(struct hostapd_data *hapd,
+		    int (*cb)(struct hostapd_data *hapd, struct sta_info *sta,
+			      void *ctx),
+		    void *ctx);
+struct sta_info * ap_get_sta(struct hostapd_data *hapd, const u8 *sta);
+struct sta_info * ap_get_sta_p2p(struct hostapd_data *hapd, const u8 *addr);
+void ap_sta_hash_add(struct hostapd_data *hapd, struct sta_info *sta);
+void ap_free_sta(struct hostapd_data *hapd, struct sta_info *sta);
+void hostapd_free_stas(struct hostapd_data *hapd);
+void ap_handle_timer(void *eloop_ctx, void *timeout_ctx);
+void ap_sta_replenish_timeout(struct hostapd_data *hapd, struct sta_info *sta,
+			      u32 session_timeout);
+void ap_sta_session_timeout(struct hostapd_data *hapd, struct sta_info *sta,
+			    u32 session_timeout);
+void ap_sta_no_session_timeout(struct hostapd_data *hapd,
+			       struct sta_info *sta);
+void ap_sta_session_warning_timeout(struct hostapd_data *hapd,
+				    struct sta_info *sta, int warning_time);
+struct sta_info * ap_sta_add(struct hostapd_data *hapd, const u8 *addr);
+void ap_sta_disassociate(struct hostapd_data *hapd, struct sta_info *sta,
+			 u16 reason);
+void ap_sta_deauthenticate(struct hostapd_data *hapd, struct sta_info *sta,
+			   u16 reason);
+#ifdef CONFIG_WPS
+int ap_sta_wps_cancel(struct hostapd_data *hapd,
+		      struct sta_info *sta, void *ctx);
+#endif /* CONFIG_WPS */
+int ap_sta_bind_vlan(struct hostapd_data *hapd, struct sta_info *sta,
+		     int old_vlanid);
+void ap_sta_start_sa_query(struct hostapd_data *hapd, struct sta_info *sta);
+void ap_sta_stop_sa_query(struct hostapd_data *hapd, struct sta_info *sta);
+int ap_check_sa_query_timeout(struct hostapd_data *hapd, struct sta_info *sta);
+void ap_sta_disconnect(struct hostapd_data *hapd, struct sta_info *sta,
+		       const u8 *addr, u16 reason);
+
+void ap_sta_set_authorized(struct hostapd_data *hapd,
+			   struct sta_info *sta, int authorized);
+
+static inline int ap_sta_is_authorized(struct sta_info *sta)
+{
+	return sta->flags & WLAN_STA_AUTHORIZED;
+}
+
+void ap_sta_deauth_cb(struct hostapd_data *hapd, struct sta_info *sta);
+void ap_sta_disassoc_cb(struct hostapd_data *hapd, struct sta_info *sta);
+
+int ap_sta_flags_txt(u32 flags, char *buf, size_t buflen);
+
+#endif /* STA_INFO_H */

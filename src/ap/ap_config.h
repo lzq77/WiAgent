@@ -14,7 +14,6 @@
 #include "../utils/common_defs.h"
 #include "ieee802_1x_defs.h"
 
-
 #define MAX_STA_COUNT 2007
 #define MAX_VLAN_ID 4094
 #define PMK_LEN 32

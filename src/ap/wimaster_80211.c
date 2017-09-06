@@ -20,7 +20,7 @@
 #include "../agent/push.h"
 #include "wimaster_80211.h"
 
-int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
+static int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
 					const char *ssid,int ssid_len)
 {
     u8 *packet;
@@ -28,16 +28,27 @@ int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
 	struct wpa_driver_ap_params params;
 	int beacon_len = 0;
 
+
     struct vap_data *vap = wimaster_get_vap(da);
     if (vap == NULL) {
         wimaster_probe(da, ssid);
         return -1;
     }
+    
+    
+    struct beacon_settings bs = {
+        .da = vap->addr,
+        .bssid = vap->bssid,
+        .ssid = vap->ssid,
+        .ssid_len = ssid_len,
+        .is_probe = 1,
+        .is_csa = 0
+    };
 
     /**
      * Generating probe response frame.
      */
-	ieee802_11_build_ap_params(hapd,da,bssid,ssid,ssid_len, true, 0, -1, &params);
+	ieee802_11_build_ap_beacon(hapd, &bs, &params);
 	
     beacon_len = params.head_len + params.tail_len;
 	packet = (u8 *)os_zalloc(beacon_len);//为beacon分配内存
@@ -48,7 +59,7 @@ int wimaster_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
 	os_memcpy(packet+params.head_len, params.tail, params.tail_len);//复制beacon的尾部
 
     if (hostapd_drv_send_mlme(hapd, packet, beacon_len, 1) < 0) {
-		wpa_printf(MSG_DEBUG, "handle_beacon: send failed\n");
+		wpa_printf(MSG_DEBUG, "%s: send frame failed.", __func__);
         return -1;
     }
     
@@ -92,7 +103,7 @@ send_auth_reply(struct hostapd_data *hapd,
 	reply->u.auth.status_code = host_to_le16(resp);
 
 	if (hostapd_drv_send_mlme(hapd, (u8 *)reply, rlen, 0) < 0)
-		wpa_printf(MSG_DEBUG, "send_auth_reply: failed!");
+		wpa_printf(MSG_DEBUG, "%s: send frame failed.", __func__);
 
 	os_free(buf);
 }
@@ -118,7 +129,7 @@ static void wimaster_handle_auth(struct hostapd_data *hapd,
 	sta = ap_sta_add(hapd, mgmt->sa);
 	if (!sta) {
 		resp = WLAN_STATUS_AP_UNABLE_TO_HANDLE_NEW_STA;
-		wpa_printf(MSG_INFO, "ap_add_sta failed.\n");
+		wpa_printf(MSG_INFO, "Fail to add "MACSTR" sta_info.", MAC2STR(mgmt->sa));
 		return;
 	}
 
@@ -237,7 +248,7 @@ static void wimaster_handle_assoc(struct hostapd_data *hapd,
 	if (sta == NULL || (sta->flags & WLAN_STA_AUTH) == 0) {
 		//send_deauth(hapd, mgmt->sa,
 		//	    WLAN_REASON_CLASS2_FRAME_FROM_NONAUTH_STA);
-        wpa_printf(MSG_DEBUG, "staion is null or association has not authriened\n");
+        wpa_printf(MSG_DEBUG, "staion is null or association has not authriened.");
 		return;
 	}
 
@@ -252,13 +263,13 @@ static void wimaster_handle_assoc(struct hostapd_data *hapd,
 	 * is used */
 	resp = check_assoc_ies(hapd, sta, pos, left, reassoc);
 	if (resp != WLAN_STATUS_SUCCESS) {
-        wpa_printf(MSG_DEBUG,"resp != WLAN_STATUS_SUCCESS\n");
+        wpa_printf(MSG_DEBUG,"resp != WLAN_STATUS_SUCCESS.");
 		goto fail;
     }
 
 	if (hostapd_get_aid(hapd, sta) < 0) {
 		resp = WLAN_STATUS_AP_UNABLE_TO_HANDLE_NEW_STA;
-        wpa_printf(MSG_DEBUG,"hostapd_get_aid failed\n");
+        wpa_printf(MSG_DEBUG,"hostapd_get_aid failed");
 		goto fail;
 	}
 
@@ -341,14 +352,47 @@ fail:
 	return;
 }
 
+static void wimaster_handle_disassoc(struct hostapd_data *hapd,
+			const struct ieee80211_mgmt *mgmt, const char *ssid)
+{
+    struct vap_data *vap = wimaster_get_vap(mgmt->sa);
+    if (vap == NULL)
+        return;
+    
+    push_disassoc(vap->addr, vap->ssid);
+
+}
+
+static void wimaster_handle_deauth(struct hostapd_data *hapd,
+			const struct ieee80211_mgmt *mgmt)
+{
+    int reason_code;
+    struct vap_data *vap = wimaster_get_vap(mgmt->sa);
+    if (vap == NULL)
+        return;
+
+    reason_code = le_to_host16(mgmt->u.deauth.reason_code);
+    wpa_printf(MSG_DEBUG, "The station "MACSTR" deauthentication, reason_code=%d.", 
+            MAC2STR(mgmt->sa), reason_code);
+ 
+    push_deauth(vap->addr, reason_code);
+}
+
 static int wimaster_handle_beacon(struct hostapd_data *hapd, struct vap_data *vap)
 {
 	u8 *packet;
 	struct wpa_driver_ap_params params;
 	int packet_len = 0;
+    struct beacon_settings bs = {
+        .da = vap->addr,
+        .bssid = vap->bssid,
+        .ssid = vap->ssid,
+        .ssid_len = vap->ssid_len,
+        .is_probe = 0,
+        .is_csa = 0
+    };
 
-	if (ieee802_11_build_ap_params(hapd, vap->addr, vap->bssid, vap->ssid,
-            vap->ssid_len, 0, 0, -1, &params) < 0)
+	if (ieee802_11_build_ap_beacon(hapd, &bs, &params) < 0)
         return -1;
 	
     packet_len = params.head_len + params.tail_len;
@@ -371,14 +415,14 @@ static void vap_send_beacon_cb(struct vap_data *vap, void *ctx)
     if (vap->is_beacon) {
         if (!vap->beacon_data) {
            if (wimaster_handle_beacon(hapd, vap) < 0) {
-                wpa_printf(MSG_DEBUG, "Unable to handle ("MACSTR") beacon, send failed.\n", 
+                wpa_printf(MSG_DEBUG, "Unable to handle ("MACSTR") beacon, send failed.", 
                         MAC2STR(vap->addr));
                 return;
            }
         }
 
         if (hostapd_drv_send_mlme(hapd, vap->beacon_data, vap->beacon_len, 1) < 0) {
-            wpa_printf(MSG_INFO, "handle_beacon: send failed\n");
+            wpa_printf(MSG_DEBUG, "%s: send frame failed.", __func__);
             return;
         }
     }
@@ -393,7 +437,7 @@ void wimaster_send_beacon(evutil_socket_t fd, short what, void *arg)
     return;
 }
 
-static int hostapd_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)
+static int wimaster_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)
 {
     struct ieee80211_mgmt *mgmt;
 	u16 fc, stype;
@@ -408,7 +452,6 @@ static int hostapd_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)
 	fc = le_to_host16(mgmt->frame_control);
 	stype = WLAN_FC_GET_STYPE(fc);
 
-
     push_subscription(mgmt->sa, 1, 1, rx_mgmt->ssi_signal + 100);
 
     switch (stype) {
@@ -420,13 +463,15 @@ static int hostapd_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)
             wimaster_handle_auth(hapd, mgmt, ssid);
             break;
         case WLAN_FC_STYPE_DEAUTH:
+            wimaster_handle_deauth(hapd, mgmt);
             break;
         case WLAN_FC_STYPE_ASSOC_REQ:
-            wimaster_handle_assoc(hapd, mgmt, len, false, mgmt->bssid);
+            wimaster_handle_assoc(hapd, mgmt, len, 0, mgmt->bssid);
             break;
         case WLAN_FC_STYPE_DISASSOC:
             break;
         case WLAN_FC_STYPE_REASSOC_RESP:
+            wimaster_handle_assoc(hapd, mgmt, len, 1, mgmt->bssid);
             break;
         case WLAN_FC_STYPE_ACTION:
             break;
@@ -455,7 +500,7 @@ void hostapd_wpa_event(void *ctx, enum wpa_event_type event,
 	case EVENT_RX_MGMT:
 		if (!data->rx_mgmt.frame)
 			break;
-		if (hostapd_mgmt_rx(hapd, &data->rx_mgmt) > 0)
+		if (wimaster_mgmt_rx(hapd, &data->rx_mgmt) > 0)
 			break;
     }
 }
