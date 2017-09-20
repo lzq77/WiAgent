@@ -26,27 +26,41 @@
 #include "hostapd.h"
 #include "wiagent_80211.h"
 
-static int wiagent_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,
-					const char *ssid,int ssid_len)
+static int wiagent_handle_probe_req(struct hostapd_data *hapd, 
+        const struct ieee80211_mgmt *mgmt, size_t len)
 {
     u8 *packet;
-    struct hostapd_data *hapd = _hapd;
 	struct wpa_driver_ap_params params;
+    struct ieee802_11_elems elems;
+	const u8 *ie;
+	size_t ie_len;
 	int beacon_len = 0;
 
+    ie = mgmt->u.probe_req.variable;
+	if (len < IEEE80211_HDRLEN + sizeof(mgmt->u.probe_req))
+		return;
+	ie_len = len - (IEEE80211_HDRLEN + sizeof(mgmt->u.probe_req));
 
-    struct vap_data *vap = wiagent_get_vap(da);
+    if (ieee802_11_parse_elems(ie, ie_len, &elems, 0) < 0) {
+		wpa_printf(MSG_DEBUG, "Could not parse ProbeReq from " MACSTR,
+			   MAC2STR(mgmt->sa));
+		return;
+	}
+    
+    struct vap_data *vap = wiagent_get_vap(mgmt->sa);
     if (vap == NULL) {
-        wiagent_probe(da, ssid);
+        if ((!elems.ssid || elems.ssid_len == 0))
+            wiagent_probe(mgmt->sa, NULL, 0);
+        else 
+            wiagent_probe(mgmt->sa, elems.ssid, elems.ssid_len);
         return -1;
     }
-    
     
     struct beacon_settings bs = {
         .da = vap->addr,
         .bssid = vap->bssid,
         .ssid = vap->ssid,
-        .ssid_len = ssid_len,
+        .ssid_len = vap->ssid_len,
         .is_probe = 1,
         .is_csa = 0
     };
@@ -115,27 +129,29 @@ send_auth_reply(struct hostapd_data *hapd,
 }
 
 static void wiagent_handle_auth(struct hostapd_data *hapd,
-			const struct ieee80211_mgmt *mgmt, const char *ssid)
+			const struct ieee80211_mgmt *mgmt)
 {
 	u16 auth_alg, auth_transaction, status_code;
 	u16 resp = WLAN_STATUS_SUCCESS;
 	struct sta_info *sta = NULL;
 
     struct vap_data *vap = wiagent_get_vap(mgmt->sa);
-    if (vap == NULL) {
-        wiagent_probe(mgmt->sa, ssid);
+    if (vap == NULL)
+        return; 
+
+    if (os_memcmp(mgmt->bssid, vap->bssid, ETH_ALEN))
         return;
-    }
+
     vap->is_beacon = 1;
 
 	auth_alg = le_to_host16(mgmt->u.auth.auth_alg);
 	auth_transaction = le_to_host16(mgmt->u.auth.auth_transaction);
 	status_code = le_to_host16(mgmt->u.auth.status_code);
 
-	sta = ap_sta_add(hapd, mgmt->sa);
+	sta = ap_sta_add(hapd, vap->addr);
 	if (!sta) {
 		resp = WLAN_STATUS_AP_UNABLE_TO_HANDLE_NEW_STA;
-		wpa_printf(MSG_INFO, "Fail to add "MACSTR" sta_info.", MAC2STR(mgmt->sa));
+		wpa_printf(MSG_INFO, "Fail to add "MACSTR" sta_info.", MAC2STR(vap->addr));
 		return;
 	}
 
@@ -148,7 +164,7 @@ static void wiagent_handle_auth(struct hostapd_data *hapd,
 		break;
 	}
 
-	send_auth_reply(hapd, mgmt->sa, mgmt->bssid, auth_alg,
+	send_auth_reply(hapd, vap->addr, vap->bssid, auth_alg,
 			auth_transaction + 1, resp);
 }
 
@@ -216,8 +232,7 @@ static int send_assoc_resp(struct hostapd_data *hapd, struct sta_info *sta, u16 
 }
 
 static void wiagent_handle_assoc(struct hostapd_data *hapd,
-			 const struct ieee80211_mgmt *mgmt, size_t len,
-			 int reassoc, u8 *vbssid)
+			 const struct ieee80211_mgmt *mgmt, size_t len, int reassoc)
 {
 	u16 capab_info, listen_interval;
 	u16 resp = WLAN_STATUS_SUCCESS;
@@ -344,7 +359,7 @@ static void wiagent_handle_assoc(struct hostapd_data *hapd,
 	 * remove the STA immediately. */
 	sta->timeout_next = STA_NULLFUNC;
 
-	if (send_assoc_resp(hapd, sta, resp, reassoc, vbssid) < 0) {
+	if (send_assoc_resp(hapd, sta, resp, reassoc, vap->bssid) < 0) {
 	   wpa_printf(MSG_DEBUG, "Failed to send assoc resp: %s",
 			   strerror(errno)); 
        return;
@@ -455,7 +470,6 @@ static int wiagent_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)
     struct ieee80211_mgmt *mgmt;
 	u16 fc, stype;
     int len; 
-    char *ssid = "wiagent";
  
     mgmt = (struct ieee80211_mgmt *)rx_mgmt->frame;
     len = rx_mgmt->frame_len;
@@ -469,22 +483,21 @@ static int wiagent_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)
 
     switch (stype) {
         case WLAN_FC_STYPE_PROBE_REQ:
-            wiagent_handle_probe_req(hapd, mgmt->sa, hapd->own_addr,
-                    ssid, strlen(ssid));
+            wiagent_handle_probe_req(hapd, mgmt, len);
             break;
         case WLAN_FC_STYPE_AUTH:
-            wiagent_handle_auth(hapd, mgmt, ssid);
+            wiagent_handle_auth(hapd, mgmt);
             break;
         case WLAN_FC_STYPE_DEAUTH:
             wiagent_handle_deauth(hapd, mgmt);
             break;
         case WLAN_FC_STYPE_ASSOC_REQ:
-            wiagent_handle_assoc(hapd, mgmt, len, 0, mgmt->bssid);
+            wiagent_handle_assoc(hapd, mgmt, len, 0);
             break;
         case WLAN_FC_STYPE_DISASSOC:
             break;
         case WLAN_FC_STYPE_REASSOC_RESP:
-            wiagent_handle_assoc(hapd, mgmt, len, 1, mgmt->bssid);
+            wiagent_handle_assoc(hapd, mgmt, len, 1);
             break;
         case WLAN_FC_STYPE_ACTION:
             break;

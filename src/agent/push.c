@@ -95,14 +95,14 @@ void push_deauth(const u8 *addr, const int reason_code)
     push(str);
 }
 
-void wiagent_probe(const u8 *addr, const char *ssid)
+void wiagent_probe(const u8 *addr, const char *ssid, const size_t ssid_len)
 {
     char str[128];
 
     if (ssid == NULL) 
         sprintf(str, PROBE" "MACSTR, MAC2STR(addr));
     else 
-        sprintf(str, PROBE" "MACSTR" %s", MAC2STR(addr), ssid);
+        sprintf(str, PROBE" "MACSTR" %s", MAC2STR(addr), wpa_ssid_txt(ssid, ssid_len));
     
     push(str);
 }

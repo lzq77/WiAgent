@@ -16,33 +16,6 @@ int hostapd_set_iface(struct hostapd_config *conf,
 		      char *value);
 			  
 			  
-			  
-			  
-static int hex2num(char c)
-{
-	if (c >= '0' && c <= '9')
-		return c - '0';
-	if (c >= 'a' && c <= 'f')
-		return c - 'a' + 10;
-	if (c >= 'A' && c <= 'F')
-		return c - 'A' + 10;
-	return -1;
-}
-
-
-static int hex2byte(const char *hex)
-{
-	int a, b;
-	a = hex2num(*hex++);
-	if (a < 0)
-		return -1;
-	b = hex2num(*hex++);
-	if (b < 0)
-		return -1;
-	return (a << 4) | b;
-}			  
-			  
-			  
 /**
  * hexstr2bin - Convert ASCII hex string into binary data
  * @hex: ASCII hex string (e.g., "01ab")
@@ -95,86 +68,7 @@ static int hwaddr_aton(const char *txt, u8 *addr)
 	return 0;
 
 }
-static size_t printf_decode(u8 *buf, size_t maxlen, const char *str)
-{
-	const char *pos = str;
-	size_t len = 0;
-	int val;
 
-	while (*pos) {
-		if (len + 1 >= maxlen)
-			break;
-		switch (*pos) {
-		case '\\':
-			pos++;
-			switch (*pos) {
-			case '\\':
-				buf[len++] = '\\';
-				pos++;
-				break;
-			case '"':
-				buf[len++] = '"';
-				pos++;
-				break;
-			case 'n':
-				buf[len++] = '\n';
-				pos++;
-				break;
-			case 'r':
-				buf[len++] = '\r';
-				pos++;
-				break;
-			case 't':
-				buf[len++] = '\t';
-				pos++;
-				break;
-			case 'e':
-				buf[len++] = '\e';
-				pos++;
-				break;
-			case 'x':
-				pos++;
-				val = hex2byte(pos);
-				if (val < 0) {
-					val = hex2num(*pos);
-					if (val < 0)
-						break;
-					buf[len++] = val;
-					pos++;
-				} else {
-					buf[len++] = val;
-					pos += 2;
-				}
-				break;
-			case '0':
-			case '1':
-			case '2':
-			case '3':
-			case '4':
-			case '5':
-			case '6':
-			case '7':
-				val = *pos++ - '0';
-				if (*pos >= '0' && *pos <= '7')
-					val = val * 8 + (*pos++ - '0');
-				if (*pos >= '0' && *pos <= '7')
-					val = val * 8 + (*pos++ - '0');
-				buf[len++] = val;
-				break;
-			default:
-				break;
-			}
-			break;
-		default:
-			buf[len++] = *pos++;
-			break;
-		}
-	}
-	if (maxlen > len)
-		buf[len] = '\0';
-
-	return len;
-}
 static char * dup_binstr(const void *src, size_t len)
 {
 	char *res;

@@ -340,6 +340,13 @@ void os_free(void *ptr);
 void * os_realloc_array(void *ptr, size_t nmemb, size_t size);
 
 int os_snprintf(char *str, size_t size, const char *format, ...);
+ 
+int hex2byte(const char *hex);
+int hex2num(char c);
+
+void printf_encode(char *txt, size_t maxlen, const u8 *data, size_t len);
+size_t printf_decode(u8 *buf, size_t maxlen, const char *str);
+const char * wpa_ssid_txt(const u8 *ssid, size_t ssid_len);
 
 
 

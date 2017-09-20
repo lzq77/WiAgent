@@ -10,7 +10,7 @@ ACS_EVENT_COMPLETED	ap/ieee802_1x_defs.h	39;"	d
 ACS_EVENT_FAILED	ap/ieee802_1x_defs.h	40;"	d
 ACS_EVENT_STARTED	ap/ieee802_1x_defs.h	38;"	d
 ADV_PROTO_VENDOR_SPECIFIC	ap/ieee802_1x_defs.h	/^	ADV_PROTO_VENDOR_SPECIFIC = 221$/;"	e	enum:adv_proto_id
-AID_WORDS	ap/hostapd.h	261;"	d
+AID_WORDS	ap/hostapd.h	262;"	d
 ANQP_3GPP_CELLULAR_NETWORK	ap/ieee802_1x_defs.h	/^	ANQP_3GPP_CELLULAR_NETWORK = 264,$/;"	e	enum:anqp_info_id
 ANQP_AP_CIVIC_LOCATION	ap/ieee802_1x_defs.h	/^	ANQP_AP_CIVIC_LOCATION = 266,$/;"	e	enum:anqp_info_id
 ANQP_AP_GEOSPATIAL_LOCATION	ap/ieee802_1x_defs.h	/^	ANQP_AP_GEOSPATIAL_LOCATION = 265,$/;"	e	enum:anqp_info_id
@@ -52,16 +52,16 @@ ASEL_CAP_EXPLICIT_CSI_FEEDBACK_BASED_TX_AS_CAP	ap/ieee802_1x_defs.h	888;"	d
 ASEL_CAP_EXPLICIT_CSI_FEEDBACK_CAP	ap/ieee802_1x_defs.h	890;"	d
 ASEL_CAP_RX_AS_CAP	ap/ieee802_1x_defs.h	892;"	d
 ASEL_CAP_TX_SOUNDING_PPDUS_CAP	ap/ieee802_1x_defs.h	893;"	d
-BEACON_H	ap/beacon.h	2;"	d
-BEACON_HEAD_BUF_SIZE	ap/beacon.c	715;"	d	file:
-BEACON_TAIL_BUF_SIZE	ap/beacon.c	716;"	d	file:
+BEACON_H	ap/beacon.h	11;"	d
+BEACON_HEAD_BUF_SIZE	ap/beacon.c	724;"	d	file:
+BEACON_TAIL_BUF_SIZE	ap/beacon.c	725;"	d	file:
 BIT	utils/common.h	245;"	d
-BLOCKED_CLIENT	drivers/driver.h	/^			BLOCKED_CLIENT$/;"	e	enum:wpa_event_data::connect_failed_reason::__anon5
+BLOCKED_CLIENT	drivers/driver.h	/^			BLOCKED_CLIENT$/;"	e	enum:wpa_event_data::connect_failed_reason::__anon36
 BSS_MEMBERSHIP_SELECTOR_HT_PHY	ap/ieee802_1x_defs.h	928;"	d
 BSS_MEMBERSHIP_SELECTOR_VHT_PHY	ap/ieee802_1x_defs.h	927;"	d
 Boolean	utils/common_defs.h	/^typedef enum { FALSE = 0, TRUE = 1 } Boolean;$/;"	t	typeref:enum:__anon37
-C2S	drivers/driver_nl80211.c	609;"	d	file:
-C2S	drivers/driver_nl80211.c	719;"	d	file:
+C2S	drivers/driver_nl80211.c	621;"	d	file:
+C2S	drivers/driver_nl80211.c	731;"	d	file:
 CC	Makefile	/^CC ?= "gcc"$/;"	m
 CFLAGS	Makefile	/^CFLAGS ?= -MMD -O2 -g$/;"	m
 CHAN_SWITCH_MODE_ALLOW_TX	ap/ieee802_1x_defs.h	1431;"	d
@@ -92,7 +92,7 @@ DFS_EVENT_NOP_FINISHED	ap/ieee802_1x_defs.h	46;"	d
 DFS_EVENT_RADAR_DETECTED	ap/ieee802_1x_defs.h	42;"	d
 DISASSOC	agent/push.c	51;"	d	file:
 DRIVER_H	drivers/driver.h	18;"	d
-DRIVER_NL80211_H	drivers/driver_nl80211.c	2;"	d	file:
+DRIVER_NL80211_H	drivers/driver_nl80211.c	14;"	d	file:
 DVLAN_CLEAN_BR	ap/ap_config.h	30;"	d
 DVLAN_CLEAN_VLAN	ap/ap_config.h	31;"	d
 DVLAN_CLEAN_VLAN_PORT	ap/ap_config.h	32;"	d
@@ -136,10 +136,10 @@ EVENT_FT_RESPONSE	drivers/driver.h	/^	EVENT_FT_RESPONSE,$/;"	e	enum:wpa_event_ty
 EVENT_FT_RRB_RX	drivers/driver.h	/^	EVENT_FT_RRB_RX,$/;"	e	enum:wpa_event_type
 EVENT_IBSS_PEER_LOST	drivers/driver.h	/^	EVENT_IBSS_PEER_LOST,$/;"	e	enum:wpa_event_type
 EVENT_IBSS_RSN_START	drivers/driver.h	/^	EVENT_IBSS_RSN_START,$/;"	e	enum:wpa_event_type
-EVENT_INTERFACE_ADDED	drivers/driver.h	/^			EVENT_INTERFACE_ADDED, EVENT_INTERFACE_REMOVED$/;"	e	enum:wpa_event_data::interface_status::__anon1
+EVENT_INTERFACE_ADDED	drivers/driver.h	/^			EVENT_INTERFACE_ADDED, EVENT_INTERFACE_REMOVED$/;"	e	enum:wpa_event_data::interface_status::__anon32
 EVENT_INTERFACE_DISABLED	drivers/driver.h	/^	EVENT_INTERFACE_DISABLED,$/;"	e	enum:wpa_event_type
 EVENT_INTERFACE_ENABLED	drivers/driver.h	/^	EVENT_INTERFACE_ENABLED,$/;"	e	enum:wpa_event_type
-EVENT_INTERFACE_REMOVED	drivers/driver.h	/^			EVENT_INTERFACE_ADDED, EVENT_INTERFACE_REMOVED$/;"	e	enum:wpa_event_data::interface_status::__anon1
+EVENT_INTERFACE_REMOVED	drivers/driver.h	/^			EVENT_INTERFACE_ADDED, EVENT_INTERFACE_REMOVED$/;"	e	enum:wpa_event_data::interface_status::__anon32
 EVENT_INTERFACE_STATUS	drivers/driver.h	/^	EVENT_INTERFACE_STATUS,$/;"	e	enum:wpa_event_type
 EVENT_INTERFACE_UNAVAILABLE	drivers/driver.h	/^	EVENT_INTERFACE_UNAVAILABLE,$/;"	e	enum:wpa_event_type
 EVENT_MICHAEL_MIC_FAILURE	drivers/driver.h	/^	EVENT_MICHAEL_MIC_FAILURE,$/;"	e	enum:wpa_event_type
@@ -221,7 +221,7 @@ HOSTAPD_CHAN_VHT_50_30	drivers/driver.h	44;"	d
 HOSTAPD_CHAN_VHT_70_10	ap/ieee802_1x_defs.h	69;"	d
 HOSTAPD_CHAN_VHT_70_10	drivers/driver.h	45;"	d
 HOSTAPD_CONFIG_HH	ap/ap_config.h	10;"	d
-HOSTAPD_H	ap/hostapd.h	10;"	d
+HOSTAPD_H	ap/hostapd.h	11;"	d
 HOSTAPD_LEVEL_DEBUG	utils/common.h	/^	HOSTAPD_LEVEL_DEBUG = 1,$/;"	e	enum:hostapd_logger_level
 HOSTAPD_LEVEL_DEBUG_VERBOSE	utils/common.h	/^	HOSTAPD_LEVEL_DEBUG_VERBOSE = 0,$/;"	e	enum:hostapd_logger_level
 HOSTAPD_LEVEL_INFO	utils/common.h	/^	HOSTAPD_LEVEL_INFO = 2,$/;"	e	enum:hostapd_logger_level
@@ -234,7 +234,7 @@ HOSTAPD_MODE_IEEE80211A	utils/common_defs.h	/^	HOSTAPD_MODE_IEEE80211A,$/;"	e	en
 HOSTAPD_MODE_IEEE80211AD	utils/common_defs.h	/^	HOSTAPD_MODE_IEEE80211AD,$/;"	e	enum:hostapd_hw_mode
 HOSTAPD_MODE_IEEE80211B	utils/common_defs.h	/^	HOSTAPD_MODE_IEEE80211B,$/;"	e	enum:hostapd_hw_mode
 HOSTAPD_MODE_IEEE80211G	utils/common_defs.h	/^	HOSTAPD_MODE_IEEE80211G,$/;"	e	enum:hostapd_hw_mode
-HOSTAPD_RATE_BASIC	ap/hostapd.h	23;"	d
+HOSTAPD_RATE_BASIC	ap/hostapd.h	24;"	d
 HS20_ANQP_DOMAIN_ID_PRESENT	ap/ieee802_1x_defs.h	1125;"	d
 HS20_ANQP_OUI_TYPE	ap/ieee802_1x_defs.h	1110;"	d
 HS20_DEAUTH_REASON_CODE_BSS	ap/ieee802_1x_defs.h	1132;"	d
@@ -294,7 +294,7 @@ HT_PROT_20MHZ_PROTECTION	ap/ieee802_1x_defs.h	907;"	d
 HT_PROT_NONMEMBER_PROTECTION	ap/ieee802_1x_defs.h	906;"	d
 HT_PROT_NON_HT_MIXED	ap/ieee802_1x_defs.h	908;"	d
 HT_PROT_NO_PROTECTION	ap/ieee802_1x_defs.h	905;"	d
-HW_FEATURES_H	ap/hw_features.h	2;"	d
+HW_FEATURES_H	ap/hw_features.h	12;"	d
 Hostapd_iface_state	ap/hostapd.h	/^enum Hostapd_iface_state{$/;"	g
 IEEE80211_BSSID_FROMDS	ap/ieee802_1x_defs.h	598;"	d
 IEEE80211_CAP_DMG_AP	drivers/driver.h	185;"	d
@@ -312,10 +312,10 @@ IEEE80211_MODE_AP	drivers/driver.h	174;"	d
 IEEE80211_MODE_IBSS	drivers/driver.h	173;"	d
 IEEE80211_MODE_INFRA	drivers/driver.h	172;"	d
 IEEE80211_SA_FROMDS	ap/ieee802_1x_defs.h	599;"	d
-IEEE80211_TX_QUEUE_DATA0	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA0 = 0, \/* used for EDCA AC_VO data *\/$/;"	e	enum:__anon36	file:
-IEEE80211_TX_QUEUE_DATA1	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA1 = 1, \/* used for EDCA AC_VI data *\/$/;"	e	enum:__anon36	file:
-IEEE80211_TX_QUEUE_DATA2	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA2 = 2, \/* used for EDCA AC_BE data *\/$/;"	e	enum:__anon36	file:
-IEEE80211_TX_QUEUE_DATA3	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA3 = 3 \/* used for EDCA AC_BK data *\/$/;"	e	enum:__anon36	file:
+IEEE80211_TX_QUEUE_DATA0	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA0 = 0, \/* used for EDCA AC_VO data *\/$/;"	e	enum:__anon31	file:
+IEEE80211_TX_QUEUE_DATA1	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA1 = 1, \/* used for EDCA AC_VI data *\/$/;"	e	enum:__anon31	file:
+IEEE80211_TX_QUEUE_DATA2	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA2 = 2, \/* used for EDCA AC_BE data *\/$/;"	e	enum:__anon31	file:
+IEEE80211_TX_QUEUE_DATA3	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA3 = 3 \/* used for EDCA AC_BK data *\/$/;"	e	enum:__anon31	file:
 IEEE802_11_DEFS_H	ap/ieee802_1x_defs.h	16;"	d
 IFNAMSIZ	ap/ap_config.h	20;"	d
 IFNAMSIZ	utils/common.h	240;"	d
@@ -340,7 +340,7 @@ MAC2STR	utils/common.h	229;"	d
 MACSTR	utils/common.h	230;"	d
 MAC_STR_LEN	agent/push.c	45;"	d	file:
 MANDIR	Makefile	/^MANDIR ?= $(PREFIX)\/share\/man$/;"	m
-MAX_CLIENT_REACHED	drivers/driver.h	/^			MAX_CLIENT_REACHED,$/;"	e	enum:wpa_event_data::connect_failed_reason::__anon5
+MAX_CLIENT_REACHED	drivers/driver.h	/^			MAX_CLIENT_REACHED,$/;"	e	enum:wpa_event_data::connect_failed_reason::__anon36
 MAX_NL80211_IFACE_COMB	drivers/nl80211_copy.h	/^	MAX_NL80211_IFACE_COMB = NUM_NL80211_IFACE_COMB - 1$/;"	e	enum:nl80211_if_combination_attrs
 MAX_NL80211_IFACE_LIMIT	drivers/nl80211_copy.h	/^	MAX_NL80211_IFACE_LIMIT = NUM_NL80211_IFACE_LIMIT - 1$/;"	e	enum:nl80211_iface_limit_attrs
 MAX_NL80211_PKTPAT	drivers/nl80211_copy.h	/^	MAX_NL80211_PKTPAT = NUM_NL80211_PKTPAT - 1,$/;"	e	enum:nl80211_packet_pattern_attr
@@ -1222,7 +1222,7 @@ NUM_WPA_CTRL_REQS	utils/common_defs.h	/^	NUM_WPA_CTRL_REQS$/;"	e	enum:wpa_ctrl_r
 OSEN_IE_VENDOR_TYPE	ap/ieee802_1x_defs.h	995;"	d
 OUI_BROADCOM	ap/ieee802_1x_defs.h	1267;"	d
 OUI_MICROSOFT	ap/ieee802_1x_defs.h	986;"	d
-OUI_QCA	drivers/driver_nl80211.c	33;"	d	file:
+OUI_QCA	drivers/driver_nl80211.c	45;"	d	file:
 OUI_QCA	utils/qca-vendor.h	19;"	d
 OUI_WFA	ap/ieee802_1x_defs.h	990;"	d
 OVERLAPPING_BSS_TRANS_DELAY_FACTOR	ap/ieee802_1x_defs.h	826;"	d
@@ -1327,10 +1327,10 @@ PSK_RADIUS_REQUIRED	ap/ap_config.h	/^		PSK_RADIUS_REQUIRED = 2$/;"	e	enum:Wpa_ps
 PUBLISH	agent/push.c	50;"	d	file:
 PUSH_H	agent/push.h	9;"	d
 PUSH_PORT	agent/controller_event.h	15;"	d
-ParseFailed	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	e	enum:__anon6
-ParseOK	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	e	enum:__anon6
-ParseRes	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	t	typeref:enum:__anon6
-ParseUnknown	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	e	enum:__anon6
+ParseFailed	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	e	enum:__anon1
+ParseOK	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	e	enum:__anon1
+ParseRes	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	t	typeref:enum:__anon1
+ParseUnknown	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	e	enum:__anon1
 Preamble	ap/ieee802_1x_defs.h	/^enum Preamble{$/;"	g
 QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY	utils/qca-vendor.h	/^	QCA_NL80211_VENDOR_SUBCMD_AVOID_FREQUENCY = 10,$/;"	e	enum:qca_nl80211_vendor_subcmds
 QCA_NL80211_VENDOR_SUBCMD_DFS_CAPABILITY	utils/qca-vendor.h	/^	QCA_NL80211_VENDOR_SUBCMD_DFS_CAPABILITY =  11,$/;"	e	enum:qca_nl80211_vendor_subcmds
@@ -1379,16 +1379,16 @@ SECURITY_WPA_PSK	ap/ap_config.h	/^	SECURITY_WPA_PSK = 3,$/;"	e	enum:hostap_secur
 SHORT_PREAMBLE	ap/ieee802_1x_defs.h	/^		SHORT_PREAMBLE = 1$/;"	e	enum:Preamble
 STAINFO_HANDLER_H	agent/stainfo_handler.h	9;"	d
 STATION	agent/push.c	49;"	d	file:
-STA_DEAUTH	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon34
-STA_DISASSOC	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon34
-STA_DISASSOC_FROM_CLI	ap/sta_info.h	/^		STA_DISASSOC_FROM_CLI$/;"	e	enum:sta_info::__anon34
-STA_HASH	ap/hostapd.h	253;"	d
+STA_DEAUTH	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon29
+STA_DISASSOC	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon29
+STA_DISASSOC_FROM_CLI	ap/sta_info.h	/^		STA_DISASSOC_FROM_CLI$/;"	e	enum:sta_info::__anon29
+STA_HASH	ap/hostapd.h	254;"	d
 STA_HASH	utils/common.h	239;"	d
-STA_HASH_SIZE	ap/hostapd.h	252;"	d
+STA_HASH_SIZE	ap/hostapd.h	253;"	d
 STA_HASH_SIZE	utils/common.h	238;"	d
 STA_INFO_H	ap/sta_info.h	10;"	d
-STA_NULLFUNC	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon34
-STA_REMOVE	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon34
+STA_NULLFUNC	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon29
+STA_REMOVE	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon29
 STRUCT_PACKED	ap/ieee802_1x_defs.h	/^}  STRUCT_PACKED;$/;"	v	typeref:struct:wmm_ac_parameter
 STRUCT_PACKED	ap/ieee802_1x_defs.h	/^} STRUCT_PACKED;$/;"	v	typeref:struct:ieee80211_2040_bss_coex_ie
 STRUCT_PACKED	ap/ieee802_1x_defs.h	/^} STRUCT_PACKED;$/;"	v	typeref:struct:ieee80211_2040_intol_chan_report
@@ -1406,7 +1406,7 @@ STRUCT_PACKED	ap/ieee802_1x_defs.h	/^} STRUCT_PACKED;$/;"	v	typeref:struct:wnm_s
 STRUCT_PACKED	utils/common.h	251;"	d
 STRUCT_PACKED	utils/common.h	254;"	d
 SUBSCRIPTION_H	agent/subscription.h	10;"	d
-SUBSCRIPTION_PARAMS_NUM	agent/controller_event.c	257;"	d	file:
+SUBSCRIPTION_PARAMS_NUM	agent/controller_event.c	314;"	d	file:
 SURVEY_HAS_CHAN_TIME	drivers/driver.h	3538;"	d
 SURVEY_HAS_CHAN_TIME_BUSY	drivers/driver.h	3539;"	d
 SURVEY_HAS_CHAN_TIME_RX	drivers/driver.h	3540;"	d
@@ -1422,8 +1422,8 @@ TDLS_PEER_VHT	drivers/driver.h	/^	TDLS_PEER_VHT = BIT(1),$/;"	e	enum:tdls_peer_c
 TDLS_PEER_WMM	drivers/driver.h	/^	TDLS_PEER_WMM = BIT(2),$/;"	e	enum:tdls_peer_capability
 TDLS_PROHIBIT	ap/ap_config.h	583;"	d
 TDLS_PROHIBIT_CHAN_SWITCH	ap/ap_config.h	584;"	d
-TDLS_REQUEST_SETUP	drivers/driver.h	/^			TDLS_REQUEST_SETUP,$/;"	e	enum:wpa_event_data::tdls::__anon2
-TDLS_REQUEST_TEARDOWN	drivers/driver.h	/^			TDLS_REQUEST_TEARDOWN$/;"	e	enum:wpa_event_data::tdls::__anon2
+TDLS_REQUEST_SETUP	drivers/driver.h	/^			TDLS_REQUEST_SETUP,$/;"	e	enum:wpa_event_data::tdls::__anon33
+TDLS_REQUEST_TEARDOWN	drivers/driver.h	/^			TDLS_REQUEST_TEARDOWN$/;"	e	enum:wpa_event_data::tdls::__anon33
 TDLS_SETUP	drivers/driver.h	/^	TDLS_SETUP,$/;"	e	enum:tdls_oper
 TDLS_TEARDOWN	drivers/driver.h	/^	TDLS_TEARDOWN,$/;"	e	enum:tdls_oper
 TRUE	utils/common_defs.h	/^typedef enum { FALSE = 0, TRUE = 1 } Boolean;$/;"	e	enum:__anon37
@@ -1509,6 +1509,7 @@ WFD_SUBELEM_EXT_CAPAB	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_EXT_CAPAB = 7,$/;"	e	e
 WFD_SUBELEM_LOCAL_IP_ADDRESS	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_LOCAL_IP_ADDRESS = 8,$/;"	e	enum:wifi_display_subelem
 WFD_SUBELEM_SESSION_INFO	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_SESSION_INFO = 9$/;"	e	enum:wifi_display_subelem
 WFD_SUBELEM_VIDEO_FORMATS	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_VIDEO_FORMATS = 3,$/;"	e	enum:wifi_display_subelem
+WIMASTER_EVENT_H	utils/wimaster_event.h	2;"	d
 WLAN_20_40_BSS_COEX_20MHZ_WIDTH_REQ	ap/ieee802_1x_defs.h	1378;"	d
 WLAN_20_40_BSS_COEX_40MHZ_INTOL	ap/ieee802_1x_defs.h	1377;"	d
 WLAN_20_40_BSS_COEX_INFO_REQ	ap/ieee802_1x_defs.h	1376;"	d
@@ -1837,14 +1838,14 @@ WMM_AC_ACI_SHIFT	ap/ieee802_1x_defs.h	1042;"	d
 WMM_AC_ACM	ap/ieee802_1x_defs.h	1040;"	d
 WMM_AC_AIFNS_SHIFT	ap/ieee802_1x_defs.h	1039;"	d
 WMM_AC_AIFSN_MASK	ap/ieee802_1x_defs.h	1038;"	d
-WMM_AC_BE	ap/ieee802_1x_defs.h	/^	WMM_AC_BE = 0 \/* Best Effort *\/,$/;"	e	enum:__anon33
-WMM_AC_BK	ap/ieee802_1x_defs.h	/^	WMM_AC_BK = 1 \/* Background *\/,$/;"	e	enum:__anon33
+WMM_AC_BE	ap/ieee802_1x_defs.h	/^	WMM_AC_BE = 0 \/* Best Effort *\/,$/;"	e	enum:__anon28
+WMM_AC_BK	ap/ieee802_1x_defs.h	/^	WMM_AC_BK = 1 \/* Background *\/,$/;"	e	enum:__anon28
 WMM_AC_ECWMAX_MASK	ap/ieee802_1x_defs.h	1046;"	d
 WMM_AC_ECWMAX_SHIFT	ap/ieee802_1x_defs.h	1047;"	d
 WMM_AC_ECWMIN_MASK	ap/ieee802_1x_defs.h	1044;"	d
 WMM_AC_ECWMIN_SHIFT	ap/ieee802_1x_defs.h	1045;"	d
-WMM_AC_VI	ap/ieee802_1x_defs.h	/^	WMM_AC_VI = 2 \/* Video *\/,$/;"	e	enum:__anon33
-WMM_AC_VO	ap/ieee802_1x_defs.h	/^	WMM_AC_VO = 3 \/* Voice *\/$/;"	e	enum:__anon33
+WMM_AC_VI	ap/ieee802_1x_defs.h	/^	WMM_AC_VI = 2 \/* Video *\/,$/;"	e	enum:__anon28
+WMM_AC_VO	ap/ieee802_1x_defs.h	/^	WMM_AC_VO = 3 \/* Voice *\/$/;"	e	enum:__anon28
 WMM_ADDTS_STATUS_ADMISSION_ACCEPTED	ap/ieee802_1x_defs.h	1007;"	d
 WMM_ADDTS_STATUS_INVALID_PARAMETERS	ap/ieee802_1x_defs.h	1008;"	d
 WMM_ADDTS_STATUS_REFUSED	ap/ieee802_1x_defs.h	1010;"	d
@@ -1900,12 +1901,12 @@ WNM_NEIGHBOR_RRM_ENABLED_CAPABILITIES	ap/ieee802_1x_defs.h	1363;"	d
 WNM_NEIGHBOR_TSF	ap/ieee802_1x_defs.h	1357;"	d
 WNM_NOTIFICATION_REQ	ap/ieee802_1x_defs.h	/^	WNM_NOTIFICATION_REQ = 26,$/;"	e	enum:wnm_action
 WNM_NOTIFICATION_RESP	ap/ieee802_1x_defs.h	/^	WNM_NOTIFICATION_RESP = 27$/;"	e	enum:wnm_action
-WNM_OPER_SLEEP	drivers/driver.h	/^			WNM_OPER_SLEEP,$/;"	e	enum:wpa_event_data::wnm::__anon3
+WNM_OPER_SLEEP	drivers/driver.h	/^			WNM_OPER_SLEEP,$/;"	e	enum:wpa_event_data::wnm::__anon34
 WNM_QOS_TRAFFIC_CAPAB_UPDATE	ap/ieee802_1x_defs.h	/^	WNM_QOS_TRAFFIC_CAPAB_UPDATE = 20,$/;"	e	enum:wnm_action
-WNM_SLEEP_ENTER	drivers/driver.h	/^			WNM_SLEEP_ENTER,$/;"	e	enum:wpa_event_data::wnm::__anon4
+WNM_SLEEP_ENTER	drivers/driver.h	/^			WNM_SLEEP_ENTER,$/;"	e	enum:wpa_event_data::wnm::__anon35
 WNM_SLEEP_ENTER_CONFIRM	drivers/driver.h	/^	WNM_SLEEP_ENTER_CONFIRM,$/;"	e	enum:wnm_oper
 WNM_SLEEP_ENTER_FAIL	drivers/driver.h	/^	WNM_SLEEP_ENTER_FAIL,$/;"	e	enum:wnm_oper
-WNM_SLEEP_EXIT	drivers/driver.h	/^			WNM_SLEEP_EXIT$/;"	e	enum:wpa_event_data::wnm::__anon4
+WNM_SLEEP_EXIT	drivers/driver.h	/^			WNM_SLEEP_EXIT$/;"	e	enum:wpa_event_data::wnm::__anon35
 WNM_SLEEP_EXIT_CONFIRM	drivers/driver.h	/^	WNM_SLEEP_EXIT_CONFIRM,$/;"	e	enum:wnm_oper
 WNM_SLEEP_EXIT_FAIL	drivers/driver.h	/^	WNM_SLEEP_EXIT_FAIL,$/;"	e	enum:wnm_oper
 WNM_SLEEP_MODE_ENTER	ap/ieee802_1x_defs.h	1404;"	d
@@ -1934,7 +1935,7 @@ WNM_TIMING_MEASUREMENT_REQ	ap/ieee802_1x_defs.h	/^	WNM_TIMING_MEASUREMENT_REQ = 
 WNM_TIM_BROADCAST_REQ	ap/ieee802_1x_defs.h	/^	WNM_TIM_BROADCAST_REQ = 18,$/;"	e	enum:wnm_action
 WNM_TIM_BROADCAST_RESP	ap/ieee802_1x_defs.h	/^	WNM_TIM_BROADCAST_RESP = 19,$/;"	e	enum:wnm_action
 WORDS_BIGENDIAN	utils/common.h	219;"	d
-WPABUF_H	ap/wpabuf.h	2;"	d
+WPABUF_H	ap/wpabuf.h	10;"	d
 WPAS_MAX_SCAN_SSIDS	drivers/driver.h	270;"	d
 WPA_4WAY_HANDSHAKE	utils/common_defs.h	/^	WPA_4WAY_HANDSHAKE,$/;"	e	enum:wpa_states
 WPA_ALG_BIP_CMAC_256	utils/common_defs.h	/^	WPA_ALG_BIP_CMAC_256$/;"	e	enum:wpa_alg
@@ -2153,7 +2154,7 @@ WPS_MODE_OPEN	drivers/driver.h	/^	WPS_MODE_OPEN \/* WPS provisioning with AP tha
 WPS_MODE_PRIVACY	drivers/driver.h	/^	WPS_MODE_PRIVACY \/* WPS provisioning with AP that is using protection$/;"	e	enum:wps_mode
 WPS_RF_24GHZ	ap/ieee802_1x_defs.h	116;"	d
 WPS_RF_50GHZ	ap/ieee802_1x_defs.h	117;"	d
-WRITE_ARGS_MAX	agent/controller_event.c	311;"	d	file:
+WRITE_ARGS_MAX	agent/controller_event.c	368;"	d	file:
 Wpa_psk_radius	ap/ap_config.h	/^enum Wpa_psk_radius{$/;"	g
 __BIG_ENDIAN	utils/common.h	184;"	d
 __BIG_ENDIAN	utils/common.h	28;"	d
@@ -2260,20 +2261,20 @@ acl_policy	drivers/driver.h	/^	u8 acl_policy;$/;"	m	struct:hostapd_acl_params
 acl_queries	ap/hostapd.h	/^	struct hostapd_acl_query_data *acl_queries;$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::hostapd_acl_query_data
 acs_num_completed_scans	ap/hostapd.h	/^	unsigned int acs_num_completed_scans;$/;"	m	struct:hostapd_iface
 acs_num_scans	ap/ap_config.h	/^	unsigned int acs_num_scans;$/;"	m	struct:hostapd_config
-action	ap/ieee802_1x_defs.h	/^					u8 action; \/* *\/$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon24
-action	ap/ieee802_1x_defs.h	/^					u8 action; \/* 6 *\/$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon31
-action	ap/ieee802_1x_defs.h	/^					u8 action; \/* 7 *\/$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon29
-action	ap/ieee802_1x_defs.h	/^					u8 action; \/* 8 *\/$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon30
-action	ap/ieee802_1x_defs.h	/^					u8 action; \/* 9 *\/$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon28
-action	ap/ieee802_1x_defs.h	/^					u8 action;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon21
-action	ap/ieee802_1x_defs.h	/^					u8 action;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon22
-action	ap/ieee802_1x_defs.h	/^					u8 action;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon23
-action	ap/ieee802_1x_defs.h	/^					u8 action;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon25
-action	ap/ieee802_1x_defs.h	/^					u8 action;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon26
-action	ap/ieee802_1x_defs.h	/^					u8 action;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon27
-action	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED action;$/;"	m	union:ieee80211_mgmt::__anon7	typeref:struct:ieee80211_mgmt::__anon7::__anon17
-action_code	ap/ieee802_1x_defs.h	/^					u8 action_code;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon19
-action_code	ap/ieee802_1x_defs.h	/^					u8 action_code;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon20
+action	ap/ieee802_1x_defs.h	/^					u8 action; \/* *\/$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon19
+action	ap/ieee802_1x_defs.h	/^					u8 action; \/* 6 *\/$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon26
+action	ap/ieee802_1x_defs.h	/^					u8 action; \/* 7 *\/$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon24
+action	ap/ieee802_1x_defs.h	/^					u8 action; \/* 8 *\/$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon25
+action	ap/ieee802_1x_defs.h	/^					u8 action; \/* 9 *\/$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon23
+action	ap/ieee802_1x_defs.h	/^					u8 action;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon16
+action	ap/ieee802_1x_defs.h	/^					u8 action;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon17
+action	ap/ieee802_1x_defs.h	/^					u8 action;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon18
+action	ap/ieee802_1x_defs.h	/^					u8 action;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon20
+action	ap/ieee802_1x_defs.h	/^					u8 action;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon21
+action	ap/ieee802_1x_defs.h	/^					u8 action;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon22
+action	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED action;$/;"	m	union:ieee80211_mgmt::__anon2	typeref:struct:ieee80211_mgmt::__anon2::__anon12
+action_code	ap/ieee802_1x_defs.h	/^					u8 action_code;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon14
+action_code	ap/ieee802_1x_defs.h	/^					u8 action_code;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon15
 action_type	ap/ieee802_1x_defs.h	/^	u8 action_type; \/* WNM_SLEEP_ENTER\/WNM_SLEEP_MODE_EXIT *\/$/;"	m	struct:wnm_sleep_element
 add_pmkid	drivers/driver.h	/^	int (*add_pmkid)(void *priv, const u8 *bssid, const u8 *pmkid);$/;"	m	struct:wpa_driver_ops
 add_r0kh	ap/config_file.c	/^static int add_r0kh(struct hostapd_bss_config *bss, char *value)$/;"	f	file:
@@ -2309,7 +2310,7 @@ admission_control_mandatory	ap/ieee802_1x_defs.h	/^	int admission_control_mandat
 adv_proto_id	ap/ieee802_1x_defs.h	/^enum adv_proto_id {$/;"	g
 af	ap/ap_config.h	/^	int af; \/* AF_INET \/ AF_INET6 *\/$/;"	m	struct:hostapd_ip_addr
 age	drivers/driver.h	/^	unsigned int age;$/;"	m	struct:wpa_scan_res
-aid	ap/ieee802_1x_defs.h	/^			le16 aid;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon11
+aid	ap/ieee802_1x_defs.h	/^			le16 aid;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon6
 aid	ap/sta_info.h	/^	u16 aid; \/* STA's unique AID (1 .. 2007) or 0 if not yet assigned *\/$/;"	m	struct:sta_info
 aid	drivers/driver.h	/^	u16 aid;$/;"	m	struct:hostapd_sta_add_params
 aifs	ap/ap_config.h	/^	int aifs;$/;"	m	struct:hostapd_tx_queue_params
@@ -2349,8 +2350,8 @@ assoc_info	drivers/driver.h	/^	struct assoc_info {$/;"	s	union:wpa_event_data
 assoc_info	drivers/driver.h	/^	} assoc_info;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::assoc_info
 assoc_reject	drivers/driver.h	/^	struct assoc_reject {$/;"	s	union:wpa_event_data
 assoc_reject	drivers/driver.h	/^	} assoc_reject;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::assoc_reject
-assoc_req	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED assoc_req;$/;"	m	union:ieee80211_mgmt::__anon7	typeref:struct:ieee80211_mgmt::__anon7::__anon10
-assoc_resp	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED assoc_resp, reassoc_resp;$/;"	m	union:ieee80211_mgmt::__anon7	typeref:struct:ieee80211_mgmt::__anon7::__anon11
+assoc_req	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED assoc_req;$/;"	m	union:ieee80211_mgmt::__anon2	typeref:struct:ieee80211_mgmt::__anon2::__anon5
+assoc_resp	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED assoc_resp, reassoc_resp;$/;"	m	union:ieee80211_mgmt::__anon2	typeref:struct:ieee80211_mgmt::__anon2::__anon6
 assoc_sa_query_max_timeout	ap/ap_config.h	/^	unsigned int assoc_sa_query_max_timeout;$/;"	m	struct:hostapd_bss_config
 assoc_sa_query_retry_timeout	ap/ap_config.h	/^	int assoc_sa_query_retry_timeout;$/;"	m	struct:hostapd_bss_config
 associate	drivers/driver.h	/^	int (*associate)(void *priv,$/;"	m	struct:wpa_driver_ops
@@ -2358,10 +2359,10 @@ associated	drivers/driver_nl80211.c	/^	int associated;$/;"	m	struct:wpa_driver_n
 assocresp_ies	drivers/driver.h	/^	const struct wpabuf *assocresp_ies;$/;"	m	struct:wpa_driver_ap_params	typeref:struct:wpa_driver_ap_params::wpabuf
 assocresp_ies	drivers/driver.h	/^	u8 *assocresp_ies;$/;"	m	struct:beacon_data
 assocresp_ies_len	drivers/driver.h	/^	size_t assocresp_ies_len;$/;"	m	struct:beacon_data
-auth	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED auth;$/;"	m	union:ieee80211_mgmt::__anon7	typeref:struct:ieee80211_mgmt::__anon7::__anon8
+auth	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED auth;$/;"	m	union:ieee80211_mgmt::__anon2	typeref:struct:ieee80211_mgmt::__anon2::__anon3
 auth	drivers/driver.h	/^	unsigned int auth;$/;"	m	struct:wpa_driver_capa
 auth	drivers/driver.h	/^	} auth;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::auth_info
-auth_alg	ap/ieee802_1x_defs.h	/^			le16 auth_alg;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon8
+auth_alg	ap/ieee802_1x_defs.h	/^			le16 auth_alg;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon3
 auth_alg	ap/sta_info.h	/^	u16 auth_alg;$/;"	m	struct:sta_info
 auth_alg	drivers/driver.h	/^	int auth_alg;$/;"	m	struct:wpa_driver_associate_params
 auth_alg	drivers/driver.h	/^	int auth_alg;$/;"	m	struct:wpa_driver_auth_params
@@ -2381,7 +2382,7 @@ auth_server	ap/ap_config.h	/^	struct hostapd_radius_server *auth_server;$/;"	m	s
 auth_servers	ap/ap_config.h	/^	struct hostapd_radius_server *auth_servers;$/;"	m	struct:hostapd_radius_servers	typeref:struct:hostapd_radius_servers::hostapd_radius_server
 auth_ssid	drivers/driver_nl80211.c	/^	u8 auth_ssid[32];$/;"	m	struct:wpa_driver_nl80211_data	file:
 auth_ssid_len	drivers/driver_nl80211.c	/^	size_t auth_ssid_len;$/;"	m	struct:wpa_driver_nl80211_data	file:
-auth_transaction	ap/ieee802_1x_defs.h	/^			le16 auth_transaction;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon8
+auth_transaction	ap/ieee802_1x_defs.h	/^			le16 auth_transaction;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon3
 auth_transaction	drivers/driver.h	/^		u16 auth_transaction;$/;"	m	struct:wpa_event_data::auth_info
 auth_type	drivers/driver.h	/^		u16 auth_type;$/;"	m	struct:wpa_event_data::auth_info
 auth_wep_key	drivers/driver_nl80211.c	/^	u8 auth_wep_key[4][16];$/;"	m	struct:wpa_driver_nl80211_data	file:
@@ -2394,6 +2395,7 @@ bandwidth	drivers/driver.h	/^	int bandwidth;$/;"	m	struct:hostapd_freq_params
 bandwidth	drivers/driver_nl80211.c	/^	int bandwidth;$/;"	m	struct:i802_bss	file:
 banned	ap/hostapd.h	/^	struct avl_tree banned;$/;"	m	struct:hostapd_ubus_bss	typeref:struct:hostapd_ubus_bss::avl_tree
 base	utils/wiagent_event.c	/^static struct event_base *base = NULL;$/;"	v	typeref:struct:event_base	file:
+base	utils/wimaster_event.c	/^static struct event_base *base = NULL;$/;"	v	typeref:struct:event_base	file:
 basic_mcs_set	ap/ieee802_1x_defs.h	/^	u8 basic_mcs_set[16];$/;"	m	struct:ieee80211_ht_operation
 basic_rates	ap/ap_config.h	/^	int *basic_rates;$/;"	m	struct:hostapd_config
 basic_rates	ap/hostapd.h	/^	int *basic_rates;$/;"	m	struct:hostapd_iface
@@ -2409,7 +2411,7 @@ be_to_host32	utils/common.h	199;"	d
 be_to_host32	utils/common.h	212;"	d
 be_to_host64	utils/common.h	203;"	d
 be_to_host64	utils/common.h	216;"	d
-beacon	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED beacon;$/;"	m	union:ieee80211_mgmt::__anon7	typeref:struct:ieee80211_mgmt::__anon7::__anon14
+beacon	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED beacon;$/;"	m	union:ieee80211_mgmt::__anon2	typeref:struct:ieee80211_mgmt::__anon2::__anon9
 beacon_after	drivers/driver.h	/^	struct beacon_data beacon_after;$/;"	m	struct:csa_settings	typeref:struct:csa_settings::beacon_data
 beacon_csa	drivers/driver.h	/^	struct beacon_data beacon_csa;$/;"	m	struct:csa_settings	typeref:struct:csa_settings::beacon_data
 beacon_data	agent/vap.h	/^    u8 *beacon_data;$/;"	m	struct:vap_data
@@ -2421,8 +2423,8 @@ beacon_ies	drivers/driver.h	/^	u8 *beacon_ies;$/;"	m	struct:beacon_data
 beacon_ies_len	drivers/driver.h	/^		size_t beacon_ies_len;$/;"	m	struct:wpa_event_data::assoc_info
 beacon_ies_len	drivers/driver.h	/^	size_t beacon_ies_len;$/;"	m	struct:beacon_data
 beacon_int	ap/ap_config.h	/^	u16 beacon_int;$/;"	m	struct:hostapd_config
-beacon_int	ap/ieee802_1x_defs.h	/^			le16 beacon_int;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon14
-beacon_int	ap/ieee802_1x_defs.h	/^			le16 beacon_int;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon16
+beacon_int	ap/ieee802_1x_defs.h	/^			le16 beacon_int;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon11
+beacon_int	ap/ieee802_1x_defs.h	/^			le16 beacon_int;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon9
 beacon_int	drivers/driver.h	/^	int beacon_int;$/;"	m	struct:wpa_driver_ap_params
 beacon_int	drivers/driver.h	/^	int beacon_int;$/;"	m	struct:wpa_driver_associate_params
 beacon_int	drivers/driver.h	/^	u16 beacon_int;$/;"	m	struct:wpa_scan_res
@@ -2446,10 +2448,10 @@ bss	ap/hostapd.h	/^	struct hostapd_data **bss;\/\/hostapd_data ï¿½ï¿½ï¿½ï¿½ï¿½ï¿
 bss_load_test	ap/ap_config.h	/^	u8 bss_load_test[5];$/;"	m	struct:hostapd_bss_config
 bss_load_test_set	ap/ap_config.h	/^	u8 bss_load_test_set;$/;"	m	struct:hostapd_bss_config
 bss_max_idle_period	ap/ieee802_1x_defs.h	/^	const u8 *bss_max_idle_period;$/;"	m	struct:ieee802_11_elems
-bss_termination_delay	ap/ieee802_1x_defs.h	/^					u8 bss_termination_delay;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon30
-bss_tm_query	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED bss_tm_query;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon31
-bss_tm_req	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED bss_tm_req;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon29
-bss_tm_resp	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED bss_tm_resp;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon30
+bss_termination_delay	ap/ieee802_1x_defs.h	/^					u8 bss_termination_delay;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon25
+bss_tm_query	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED bss_tm_query;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon26
+bss_tm_req	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED bss_tm_req;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon24
+bss_tm_resp	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED bss_tm_resp;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon25
 bss_trans_mgmt_status_code	ap/ieee802_1x_defs.h	/^enum bss_trans_mgmt_status_code {$/;"	g
 bss_transition	ap/ap_config.h	/^	int bss_transition;$/;"	m	struct:hostapd_bss_config
 bssid	agent/vap.h	/^    u8 bssid[ETH_ALEN];$/;"	m	struct:vap_data
@@ -2487,15 +2489,15 @@ ca_cert	ap/ap_config.h	/^	char *ca_cert;$/;"	m	struct:hostapd_bss_config
 cac_started	ap/hostapd.h	/^	unsigned int cac_started:1;$/;"	m	struct:hostapd_iface
 cancel_remain_on_channel	drivers/driver.h	/^	int (*cancel_remain_on_channel)(void *priv);$/;"	m	struct:wpa_driver_ops
 capa	drivers/driver_nl80211.c	/^	struct wpa_driver_capa capa;$/;"	m	struct:wpa_driver_nl80211_data	typeref:struct:wpa_driver_nl80211_data::wpa_driver_capa	file:
-capab_info	ap/ieee802_1x_defs.h	/^			le16 capab_info;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon10
-capab_info	ap/ieee802_1x_defs.h	/^			le16 capab_info;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon11
-capab_info	ap/ieee802_1x_defs.h	/^			le16 capab_info;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon12
-capab_info	ap/ieee802_1x_defs.h	/^			le16 capab_info;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon14
-capab_info	ap/ieee802_1x_defs.h	/^			le16 capab_info;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon16
+capab_info	ap/ieee802_1x_defs.h	/^			le16 capab_info;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon11
+capab_info	ap/ieee802_1x_defs.h	/^			le16 capab_info;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon5
+capab_info	ap/ieee802_1x_defs.h	/^			le16 capab_info;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon6
+capab_info	ap/ieee802_1x_defs.h	/^			le16 capab_info;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon7
+capab_info	ap/ieee802_1x_defs.h	/^			le16 capab_info;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon9
 capability	ap/sta_info.h	/^	u16 capability;$/;"	m	struct:sta_info
 capability	drivers/driver.h	/^	u16 capability;$/;"	m	struct:hostapd_sta_add_params
 caps	drivers/driver.h	/^	u16 caps;$/;"	m	struct:wpa_scan_res
-category	ap/ieee802_1x_defs.h	/^			u8 category;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17
+category	ap/ieee802_1x_defs.h	/^			u8 category;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12
 center_freq1	drivers/driver.h	/^	int center_freq1, center_freq2;$/;"	m	struct:hostapd_freq_params
 center_freq2	drivers/driver.h	/^	int center_freq1, center_freq2;$/;"	m	struct:hostapd_freq_params
 center_frq1	drivers/driver.h	/^	int center_frq1;$/;"	m	struct:wpa_signal_info
@@ -2513,7 +2515,7 @@ challenge	ap/sta_info.h	/^	u8 *challenge; \/* IEEE 802.11 Shared Key Authenticat
 challenge_len	ap/ieee802_1x_defs.h	/^	u8 challenge_len;$/;"	m	struct:ieee802_11_elems
 chan	drivers/driver.h	/^	short chan;$/;"	m	struct:hostapd_channel_data
 chan_offset	drivers/driver.h	/^		int chan_offset;$/;"	m	struct:wpa_event_data::dfs_event
-chan_switch	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED chan_switch;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon20
+chan_switch	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED chan_switch;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon15
 chan_width	drivers/driver.h	/^		enum chan_width chan_width;$/;"	m	struct:wpa_event_data::dfs_event	typeref:enum:wpa_event_data::dfs_event::chan_width
 chan_width	drivers/driver.h	/^enum chan_width {$/;"	g
 chanlist	ap/ap_config.h	/^	int *chanlist;$/;"	m	struct:hostapd_config
@@ -2535,13 +2537,14 @@ chanwidth	drivers/driver.h	/^	enum chan_width chanwidth;$/;"	m	struct:wpa_signal
 check_assoc_ies	ap/hostapd.c	/^u16 check_assoc_ies(struct hostapd_data *hapd, struct sta_info *sta,$/;"	f
 check_crl	ap/ap_config.h	/^	int check_crl;$/;"	m	struct:hostapd_bss_config
 check_event_base	utils/wiagent_event.c	/^static inline void check_event_base(void)$/;"	f	file:
+check_event_base	utils/wimaster_event.c	/^static inline void check_event_base(void)$/;"	f	file:
 clean	ap/ap_config.h	/^	int clean;$/;"	m	struct:hostapd_vlan
 client_addr	ap/ap_config.h	/^	struct hostapd_ip_addr client_addr;$/;"	m	struct:hostapd_radius_servers	typeref:struct:hostapd_radius_servers::hostapd_ip_addr
 client_poll	drivers/driver.h	/^	struct client_poll {$/;"	s	union:wpa_event_data
 client_poll	drivers/driver.h	/^	} client_poll;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::client_poll
 close	utils/common.h	85;"	d
 close	utils/common.h	86;"	d
-code	drivers/driver.h	/^		} code;$/;"	m	struct:wpa_event_data::connect_failed_reason	typeref:enum:wpa_event_data::connect_failed_reason::__anon5
+code	drivers/driver.h	/^		} code;$/;"	m	struct:wpa_event_data::connect_failed_reason	typeref:enum:wpa_event_data::connect_failed_reason::__anon36
 coex_param	ap/ieee802_1x_defs.h	/^	u8 coex_param;$/;"	m	struct:ieee80211_2040_bss_coex_ie
 commit	drivers/driver.h	/^	int (*commit)(void *priv);$/;"	m	struct:wpa_driver_ops
 conf	ap/hostapd.h	/^	struct hostapd_bss_config *conf;$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::hostapd_bss_config
@@ -2562,6 +2565,7 @@ controller_listener_cb	agent/controller_event.c	/^void controller_listener_cb(st
 controller_readcb	agent/controller_event.c	/^void controller_readcb(struct bufferevent *bev, struct hostapd_data *hapd)$/;"	f
 controller_readcb_line	agent/controller_event.c	/^void controller_readcb_line(struct bufferevent *bev, struct hostapd_data *hapd, $/;"	f
 controller_remove_vap	agent/controller_event.c	/^static void controller_remove_vap(struct hostapd_data *hapd, char *data[], int size)$/;"	f	file:
+controller_send_probe_response	agent/controller_event.c	/^static void controller_send_probe_response(struct hostapd_data *hapd,$/;"	f	file:
 controller_subscriptions	agent/controller_event.c	/^static void controller_subscriptions(struct hostapd_data *hapd, $/;"	f	file:
 controller_switch_channel	agent/controller_event.c	/^static void controller_switch_channel(struct hostapd_data *hapd,$/;"	f	file:
 cookie_handler	drivers/driver_nl80211.c	/^static int cookie_handler(struct nl_msg *msg, void *arg)$/;"	f	file:
@@ -2598,7 +2602,7 @@ ctrl_sock	ap/hostapd.h	/^	int ctrl_sock;$/;"	m	struct:hostapd_data
 cts_protect	drivers/driver.h	/^	int cts_protect;$/;"	m	struct:wpa_driver_ap_params
 ctx	drivers/driver_nl80211.c	/^	void *ctx;$/;"	m	struct:i802_bss	file:
 ctx	drivers/driver_nl80211.c	/^	void *ctx;$/;"	m	struct:wpa_driver_nl80211_data	file:
-current_ap	ap/ieee802_1x_defs.h	/^			u8 current_ap[6];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon12
+current_ap	ap/ieee802_1x_defs.h	/^			u8 current_ap[6];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon7
 current_mode	ap/hostapd.h	/^	struct hostapd_hw_modes *current_mode;$/;"	m	struct:hostapd_iface	typeref:struct:hostapd_iface::hostapd_hw_modes
 current_noise	drivers/driver.h	/^	int current_noise;$/;"	m	struct:wpa_signal_info
 current_rates	ap/hostapd.h	/^	struct hostapd_rate_data *current_rates;$/;"	m	struct:hostapd_iface	typeref:struct:hostapd_iface::hostapd_rate_data
@@ -2625,7 +2629,7 @@ data_len	drivers/driver.h	/^		size_t data_len;$/;"	m	struct:wpa_event_data::ft_r
 data_len	drivers/driver.h	/^		size_t data_len;$/;"	m	struct:wpa_event_data::tx_status
 data_tx_status	drivers/driver_nl80211.c	/^	unsigned int data_tx_status:1;$/;"	m	struct:wpa_driver_nl80211_data	file:
 datarate	drivers/driver.h	/^		u32 datarate;$/;"	m	struct:wpa_event_data::rx_mgmt
-deauth	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED deauth;$/;"	m	union:ieee80211_mgmt::__anon7	typeref:struct:ieee80211_mgmt::__anon7::__anon9
+deauth	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED deauth;$/;"	m	union:ieee80211_mgmt::__anon2	typeref:struct:ieee80211_mgmt::__anon2::__anon4
 deauth_info	drivers/driver.h	/^	struct deauth_info {$/;"	s	union:wpa_event_data
 deauth_info	drivers/driver.h	/^	} deauth_info;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::deauth_info
 deauth_reason	ap/sta_info.h	/^	u16 deauth_reason;$/;"	m	struct:sta_info
@@ -2655,12 +2659,12 @@ dfs_info	ap/hw_features.c	/^char * dfs_info(struct hostapd_channel_data *chan)$/
 dfs_info_handler	drivers/driver_nl80211.c	/^static int dfs_info_handler(struct nl_msg *msg, void *arg)$/;"	f	file:
 dfs_vendor_cmd_avail	drivers/driver_nl80211.c	/^	unsigned int dfs_vendor_cmd_avail:1;$/;"	m	struct:wpa_driver_nl80211_data	file:
 dh_file	ap/ap_config.h	/^	char *dh_file;$/;"	m	struct:hostapd_bss_config
-dialog_token	ap/ieee802_1x_defs.h	/^					u8 dialog_token;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon19
-dialog_token	ap/ieee802_1x_defs.h	/^					u8 dialog_token;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon29
-dialog_token	ap/ieee802_1x_defs.h	/^					u8 dialog_token;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon30
-dialog_token	ap/ieee802_1x_defs.h	/^					u8 dialog_token;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon31
-dialogtoken	ap/ieee802_1x_defs.h	/^					u8 dialogtoken;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon25
-dialogtoken	ap/ieee802_1x_defs.h	/^					u8 dialogtoken;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon26
+dialog_token	ap/ieee802_1x_defs.h	/^					u8 dialog_token;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon14
+dialog_token	ap/ieee802_1x_defs.h	/^					u8 dialog_token;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon24
+dialog_token	ap/ieee802_1x_defs.h	/^					u8 dialog_token;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon25
+dialog_token	ap/ieee802_1x_defs.h	/^					u8 dialog_token;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon26
+dialogtoken	ap/ieee802_1x_defs.h	/^					u8 dialogtoken;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon20
+dialogtoken	ap/ieee802_1x_defs.h	/^					u8 dialogtoken;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon21
 disable_11ac	ap/ap_config.h	/^	int disable_11ac;$/;"	m	struct:hostapd_bss_config
 disable_11n	ap/ap_config.h	/^	int disable_11n;$/;"	m	struct:hostapd_bss_config
 disable_dgaf	ap/ap_config.h	/^	int disable_dgaf;$/;"	m	struct:hostapd_bss_config
@@ -2671,12 +2675,12 @@ disable_receive_sa	drivers/driver.h	/^	int (*disable_receive_sa)(void *priv, u32
 disable_transmit_sa	drivers/driver.h	/^	int (*disable_transmit_sa)(void *priv, u32 channel, u8 an);$/;"	m	struct:wpa_driver_ops
 disable_vht	drivers/driver.h	/^	int disable_vht;$/;"	m	struct:wpa_driver_associate_params
 disabled_11b_rates	drivers/driver_nl80211.c	/^	unsigned int disabled_11b_rates:1;$/;"	m	struct:wpa_driver_nl80211_data	file:
-disassoc	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED disassoc;$/;"	m	union:ieee80211_mgmt::__anon7	typeref:struct:ieee80211_mgmt::__anon7::__anon13
+disassoc	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED disassoc;$/;"	m	union:ieee80211_mgmt::__anon2	typeref:struct:ieee80211_mgmt::__anon2::__anon8
 disassoc_info	drivers/driver.h	/^	struct disassoc_info {$/;"	s	union:wpa_event_data
 disassoc_info	drivers/driver.h	/^	} disassoc_info;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::disassoc_info
 disassoc_low_ack	ap/ap_config.h	/^	int disassoc_low_ack;$/;"	m	struct:hostapd_bss_config
 disassoc_reason	ap/sta_info.h	/^	u16 disassoc_reason;$/;"	m	struct:sta_info
-disassoc_timer	ap/ieee802_1x_defs.h	/^					le16 disassoc_timer;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon29
+disassoc_timer	ap/ieee802_1x_defs.h	/^					le16 disassoc_timer;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon24
 disconnect	drivers/driver.h	/^	u8 disconnect;$/;"	m	struct:wowlan_triggers
 dl_list	utils/list.h	/^struct dl_list {$/;"	s
 dl_list_add	utils/list.h	/^static inline void dl_list_add(struct dl_list *list, struct dl_list *item)$/;"	f
@@ -2753,7 +2757,7 @@ ecw2cw	ap/config_file.c	225;"	d	file:
 ecw2cw	ap/config_file.c	248;"	d	file:
 eid	ap/ieee802_1x_defs.h	/^	u8 eid;     \/* WLAN_EID_WNMSLEEP *\/$/;"	m	struct:wnm_sleep_element
 eid	ap/ieee802_1x_defs.h	/^	u8 eid; \/* 221 = 0xdd *\/$/;"	m	struct:wmm_tspec_element
-element_id	ap/ieee802_1x_defs.h	/^					u8 element_id;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon20
+element_id	ap/ieee802_1x_defs.h	/^					u8 element_id;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon15
 element_id	ap/ieee802_1x_defs.h	/^	u8 element_id;$/;"	m	struct:ieee80211_2040_bss_coex_ie
 element_id	ap/ieee802_1x_defs.h	/^	u8 element_id;$/;"	m	struct:ieee80211_2040_intol_chan_report
 enable_controlled_port	drivers/driver.h	/^	int (*enable_controlled_port)(void *priv, Boolean enabled);$/;"	m	struct:wpa_driver_ops
@@ -2848,8 +2852,8 @@ friendly_name	ap/ap_config.h	/^		struct hostapd_lang_string *friendly_name;$/;"	
 friendly_name	ap/ap_config.h	/^	char *friendly_name;$/;"	m	struct:hostapd_bss_config
 friendly_name_count	ap/ap_config.h	/^		unsigned int friendly_name_count;$/;"	m	struct:hostapd_bss_config::hs20_osu_provider
 ft_action	drivers/driver.h	/^		int ft_action;$/;"	m	struct:wpa_event_data::ft_ies
-ft_action_req	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED ft_action_req;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon21
-ft_action_resp	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED ft_action_resp;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon22
+ft_action_req	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED ft_action_req;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon16
+ft_action_resp	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED ft_action_resp;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon17
 ft_ies	drivers/driver.h	/^	const u8 *ft_ies;$/;"	m	struct:wpa_driver_associate_params
 ft_ies	drivers/driver.h	/^	struct ft_ies {$/;"	s	union:wpa_event_data
 ft_ies	drivers/driver.h	/^	} ft_ies;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::ft_ies
@@ -3157,7 +3161,7 @@ ies	drivers/driver.h	/^		const u8 *ies;$/;"	m	struct:wpa_event_data::auth_info
 ies	drivers/driver.h	/^		const u8 *ies;$/;"	m	struct:wpa_event_data::ft_ies
 ies_len	drivers/driver.h	/^		size_t ies_len;$/;"	m	struct:wpa_event_data::auth_info
 ies_len	drivers/driver.h	/^		size_t ies_len;$/;"	m	struct:wpa_event_data::ft_ies
-ievent	drivers/driver.h	/^		} ievent;$/;"	m	struct:wpa_event_data::interface_status	typeref:enum:wpa_event_data::interface_status::__anon1
+ievent	drivers/driver.h	/^		} ievent;$/;"	m	struct:wpa_event_data::interface_status	typeref:enum:wpa_event_data::interface_status::__anon32
 if_add	drivers/driver.h	/^	int (*if_add)(void *priv, enum wpa_driver_if_type type,$/;"	m	struct:wpa_driver_ops
 if_add_ifindex	drivers/driver_nl80211.c	/^	int if_add_ifindex;$/;"	m	struct:nl80211_global	file:
 if_add_wdevid	drivers/driver_nl80211.c	/^	u64 if_add_wdevid;$/;"	m	struct:nl80211_global	file:
@@ -3231,7 +3235,7 @@ key	ap/ap_config.h	/^	u8 *key[NUM_WEP_KEYS];$/;"	m	struct:hostapd_wep_keys
 key_mgmt	drivers/driver.h	/^	unsigned int key_mgmt;$/;"	m	struct:wpa_driver_capa
 key_mgmt_suite	drivers/driver.h	/^	unsigned int key_mgmt_suite;$/;"	m	struct:wpa_driver_associate_params
 key_mgmt_suites	drivers/driver.h	/^	unsigned int key_mgmt_suites;$/;"	m	struct:wpa_driver_ap_params
-keydata_len	ap/ieee802_1x_defs.h	/^					le16 keydata_len;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon26
+keydata_len	ap/ieee802_1x_defs.h	/^					le16 keydata_len;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon21
 keys_set	ap/ap_config.h	/^	int keys_set;$/;"	m	struct:hostapd_wep_keys
 l2	ap/hostapd.h	/^	struct l2_packet_data *l2;$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::l2_packet_data
 language	ap/ap_config.h	/^		char language[3];$/;"	m	struct:hostapd_bss_config::hs20_icon
@@ -3261,7 +3265,7 @@ len	ap/ieee802_1x_defs.h	/^	u8 len;$/;"	m	struct:wnm_sleep_element
 len	drivers/driver.h	/^		size_t len;$/;"	m	struct:wpa_event_data::mlme_rx
 len	drivers/nl80211_copy.h	/^	__u32 offset, len;$/;"	m	struct:nl80211_wowlan_tcp_data_token
 len	drivers/nl80211_copy.h	/^	__u32 start, offset, len;$/;"	m	struct:nl80211_wowlan_tcp_data_seq
-length	ap/ieee802_1x_defs.h	/^					u8 length;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon20
+length	ap/ieee802_1x_defs.h	/^					u8 length;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon15
 length	ap/ieee802_1x_defs.h	/^	u8 length; \/* 6 + 55 = 61 *\/$/;"	m	struct:wmm_tspec_element
 length	ap/ieee802_1x_defs.h	/^	u8 length;$/;"	m	struct:ieee80211_2040_bss_coex_ie
 length	ap/ieee802_1x_defs.h	/^	u8 length;$/;"	m	struct:ieee80211_2040_intol_chan_report
@@ -3272,8 +3276,8 @@ list	drivers/driver_nl80211.c	/^	struct dl_list list;$/;"	m	struct:wpa_driver_nl
 list_head	agent/subscription.c	/^static struct subscription *list_head = NULL;$/;"	v	typeref:struct:subscription	file:
 list_subscription	agent/subscription.c	/^static void list_subscription(void)$/;"	f	file:
 list_tail	agent/subscription.c	/^static struct subscription *list_tail = NULL;$/;"	v	typeref:struct:subscription	file:
-listen_interval	ap/ieee802_1x_defs.h	/^			le16 listen_interval;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon10
-listen_interval	ap/ieee802_1x_defs.h	/^			le16 listen_interval;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon12
+listen_interval	ap/ieee802_1x_defs.h	/^			le16 listen_interval;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon5
+listen_interval	ap/ieee802_1x_defs.h	/^			le16 listen_interval;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon7
 listen_interval	ap/sta_info.h	/^	u16 listen_interval; \/* or beacon_int for APs *\/$/;"	m	struct:sta_info
 listen_interval	drivers/driver.h	/^	u16 listen_interval;$/;"	m	struct:hostapd_sta_add_params
 local_pwr_constraint	ap/ap_config.h	/^	int local_pwr_constraint;$/;"	m	struct:hostapd_config
@@ -3303,7 +3307,7 @@ manufacturer_url	ap/ap_config.h	/^	char *manufacturer_url;$/;"	m	struct:hostapd_
 mask	drivers/nl80211_copy.h	/^	__u32 mask;$/;"	m	struct:nl80211_sta_flag_update
 max_acl_mac_addrs	drivers/driver.h	/^	unsigned int max_acl_mac_addrs;$/;"	m	struct:wpa_driver_capa
 max_delay	drivers/nl80211_copy.h	/^	__u32 max_delay;$/;"	m	struct:nl80211_coalesce_rule_support
-max_len	ap/ap_config.h	/^		u8 max_len[16];$/;"	m	union:hostapd_ip_addr::__anon35
+max_len	ap/ap_config.h	/^		u8 max_len[16];$/;"	m	union:hostapd_ip_addr::__anon30
 max_len	drivers/nl80211_copy.h	/^	__u32 min_len, max_len, bufsize;$/;"	m	struct:nl80211_wowlan_tcp_data_token_feature
 max_listen_interval	ap/ap_config.h	/^	u16 max_listen_interval;$/;"	m	struct:hostapd_bss_config
 max_match_sets	drivers/driver.h	/^	int max_match_sets;$/;"	m	struct:wpa_driver_capa
@@ -3372,7 +3376,7 @@ nas_identifier	ap/ap_config.h	/^	char *nas_identifier;$/;"	m	struct:hostapd_bss_
 network_auth_type	ap/ap_config.h	/^	u8 *network_auth_type;$/;"	m	struct:hostapd_bss_config
 network_auth_type_len	ap/ap_config.h	/^	size_t network_auth_type_len;$/;"	m	struct:hostapd_bss_config
 new_assoc_sta_cb	ap/hostapd.h	/^	void (*new_assoc_sta_cb)(struct hostapd_data *hapd,$/;"	m	struct:hostapd_data
-new_chan	ap/ieee802_1x_defs.h	/^					u8 new_chan;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon20
+new_chan	ap/ieee802_1x_defs.h	/^					u8 new_chan;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon15
 new_psk_cb	ap/hostapd.h	/^	void (*new_psk_cb)(void *ctx, const u8 *mac_addr,$/;"	m	struct:hostapd_data
 new_psk_cb_ctx	ap/hostapd.h	/^	void *new_psk_cb_ctx;$/;"	m	struct:hostapd_data
 new_sta	drivers/driver.h	/^	struct new_sta {$/;"	s	union:wpa_event_data
@@ -3502,7 +3506,7 @@ nl_create_handle	drivers/driver_nl80211.c	/^static struct nl_handle * nl_create_
 nl_destroy_handles	drivers/driver_nl80211.c	/^static void nl_destroy_handles(struct nl_handle **handle)$/;"	f	file:
 nl_event	drivers/driver_nl80211.c	/^	struct nl_handle *nl_event;$/;"	m	struct:nl80211_global	typeref:struct:nl80211_global::nl_handle	file:
 nl_get_multicast_id	drivers/driver_nl80211.c	/^static int nl_get_multicast_id(struct nl80211_global *global,$/;"	f	file:
-nl_handle	drivers/driver_nl80211.c	29;"	d	file:
+nl_handle	drivers/driver_nl80211.c	41;"	d	file:
 nl_mgmt	drivers/driver_nl80211.c	/^	struct nl_handle *nl_preq, *nl_mgmt;$/;"	m	struct:i802_bss	typeref:struct:i802_bss::	file:
 nl_preq	drivers/driver_nl80211.c	/^	struct nl_handle *nl_preq, *nl_mgmt;$/;"	m	struct:i802_bss	typeref:struct:i802_bss::nl_handle	file:
 nlmode	drivers/driver_nl80211.c	/^	enum nl80211_iftype nlmode;$/;"	m	struct:wpa_driver_nl80211_data	typeref:enum:wpa_driver_nl80211_data::nl80211_iftype	file:
@@ -3565,8 +3569,8 @@ olbc	ap/hostapd.h	/^	int olbc; \/* Overlapping Legacy BSS Condition *\/$/;"	m	st
 olbc_ht	ap/hostapd.h	/^	int olbc_ht;$/;"	m	struct:hostapd_iface
 only_new_results	drivers/driver.h	/^	int only_new_results;$/;"	m	struct:wpa_driver_scan_params
 op_class	ap/ieee802_1x_defs.h	/^	u8 op_class;$/;"	m	struct:ieee80211_2040_intol_chan_report
-oper	drivers/driver.h	/^		} oper;$/;"	m	struct:wpa_event_data::tdls	typeref:enum:wpa_event_data::tdls::__anon2
-oper	drivers/driver.h	/^		} oper;$/;"	m	struct:wpa_event_data::wnm	typeref:enum:wpa_event_data::wnm::__anon3
+oper	drivers/driver.h	/^		} oper;$/;"	m	struct:wpa_event_data::tdls	typeref:enum:wpa_event_data::tdls::__anon33
+oper	drivers/driver.h	/^		} oper;$/;"	m	struct:wpa_event_data::wnm	typeref:enum:wpa_event_data::wnm::__anon34
 operation_mode	ap/ieee802_1x_defs.h	/^	le16 operation_mode; \/* B8..B23 *\/$/;"	m	struct:ieee80211_ht_operation
 operstate	drivers/driver_nl80211.c	/^	int operstate;$/;"	m	struct:wpa_driver_nl80211_data	file:
 os_calloc	utils/common.c	/^inline void * os_calloc(size_t nmemb, size_t size)$/;"	f
@@ -3601,7 +3605,7 @@ osen_len	ap/ieee802_1x_defs.h	/^	u8 osen_len;$/;"	m	struct:ieee802_11_elems
 osu_nai	ap/ap_config.h	/^		char *osu_nai;$/;"	m	struct:hostapd_bss_config::hs20_osu_provider
 osu_ssid	ap/ap_config.h	/^	u8 osu_ssid[HOSTAPD_MAX_SSID_LEN];$/;"	m	struct:hostapd_bss_config
 osu_ssid_len	ap/ap_config.h	/^	size_t osu_ssid_len;$/;"	m	struct:hostapd_bss_config
-oui	ap/ieee802_1x_defs.h	/^					u8 oui[3];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon28
+oui	ap/ieee802_1x_defs.h	/^					u8 oui[3];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon23
 oui	ap/ieee802_1x_defs.h	/^	u8 oui[3]; \/* 00:50:f2 *\/$/;"	m	struct:wmm_information_element
 oui	ap/ieee802_1x_defs.h	/^	u8 oui[3]; \/* 00:50:f2 *\/$/;"	m	struct:wmm_parameter_element
 oui	ap/ieee802_1x_defs.h	/^	u8 oui[3]; \/* 00:50:f2 *\/$/;"	m	struct:wmm_tspec_element
@@ -3692,9 +3696,9 @@ printf_decode	ap/config_file.h	/^static size_t printf_decode(u8 *buf, size_t max
 privacy	drivers/driver.h	/^	int privacy;$/;"	m	struct:wpa_driver_ap_params
 private_key	ap/ap_config.h	/^	char *private_key;$/;"	m	struct:hostapd_bss_config
 private_key_passwd	ap/ap_config.h	/^	char *private_key_passwd;$/;"	m	struct:hostapd_bss_config
-probe_req	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED probe_req;$/;"	m	union:ieee80211_mgmt::__anon7	typeref:struct:ieee80211_mgmt::__anon7::__anon15
+probe_req	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED probe_req;$/;"	m	union:ieee80211_mgmt::__anon2	typeref:struct:ieee80211_mgmt::__anon2::__anon10
 probe_req_report	drivers/driver.h	/^	int (*probe_req_report)(void *priv, int report);$/;"	m	struct:wpa_driver_ops
-probe_resp	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED probe_resp;$/;"	m	union:ieee80211_mgmt::__anon7	typeref:struct:ieee80211_mgmt::__anon7::__anon16
+probe_resp	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED probe_resp;$/;"	m	union:ieee80211_mgmt::__anon2	typeref:struct:ieee80211_mgmt::__anon2::__anon11
 probe_resp	drivers/driver.h	/^	u8 *probe_resp;$/;"	m	struct:beacon_data
 probe_resp_len	drivers/driver.h	/^	size_t probe_resp_len;$/;"	m	struct:beacon_data
 probe_resp_offloads	ap/hostapd.h	/^	unsigned int probe_resp_offloads;$/;"	m	struct:hostapd_iface
@@ -3712,7 +3716,7 @@ protocol_feature_handler	drivers/driver_nl80211.c	/^static int protocol_feature_
 psk	ap/ap_config.h	/^	u8 psk[PMK_LEN];$/;"	m	struct:hostapd_wpa_psk
 psk	ap/sta_info.h	/^	struct hostapd_sta_wpa_psk_short *psk;$/;"	m	struct:sta_info	typeref:struct:sta_info::hostapd_sta_wpa_psk_short
 psk	drivers/driver.h	/^	const u8 *psk;$/;"	m	struct:wpa_driver_associate_params
-public_action	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED public_action;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon27
+public_action	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED public_action;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon22
 public_action_cb	ap/hostapd.h	/^	void (*public_action_cb)(void *ctx, const u8 *buf, size_t len,$/;"	m	struct:hostapd_data
 public_action_cb2	ap/hostapd.h	/^	void (*public_action_cb2)(void *ctx, const u8 *buf, size_t len,$/;"	m	struct:hostapd_data
 public_action_cb2_ctx	ap/hostapd.h	/^	void *public_action_cb2_ctx;$/;"	m	struct:hostapd_data
@@ -3738,7 +3742,7 @@ qos_map_set_len	ap/ieee802_1x_defs.h	/^	u8 qos_map_set_len;$/;"	m	struct:ieee802
 qosinfo	ap/sta_info.h	/^	u8 qosinfo; \/* Valid when WLAN_STA_WMM is set *\/$/;"	m	struct:sta_info
 qosinfo	drivers/driver.h	/^	u8 qosinfo;$/;"	m	struct:hostapd_sta_add_params
 qual	drivers/driver.h	/^	int qual;$/;"	m	struct:wpa_scan_res
-query_reason	ap/ieee802_1x_defs.h	/^					u8 query_reason;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon31
+query_reason	ap/ieee802_1x_defs.h	/^					u8 query_reason;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon26
 r0_key_lifetime	ap/ap_config.h	/^	u32 r0_key_lifetime;$/;"	m	struct:hostapd_bss_config
 r0kh_list	ap/ap_config.h	/^	struct ft_remote_r0kh *r0kh_list;$/;"	m	struct:hostapd_bss_config	typeref:struct:hostapd_bss_config::ft_remote_r0kh
 r1_key_holder	ap/ap_config.h	/^	u8 r1_key_holder[FT_R1KH_ID_LEN];$/;"	m	struct:hostapd_bss_config
@@ -3767,8 +3771,8 @@ rates	drivers/driver.h	/^	int *rates;$/;"	m	struct:hostapd_hw_modes
 rates	drivers/driver.h	/^	unsigned char rates[NL80211_MAX_SUPP_RATES];$/;"	m	struct:wpa_driver_associate_params
 read_all_sta_data	drivers/driver.h	/^    int (*read_all_sta_data)(void *priv, struct hostap_sta_list *sta_list);$/;"	m	struct:wpa_driver_ops
 read_sta_data	drivers/driver.h	/^	int (*read_sta_data)(void *priv, struct hostap_sta_driver_data *data,$/;"	m	struct:wpa_driver_ops
-reason_code	ap/ieee802_1x_defs.h	/^			le16 reason_code;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon13
-reason_code	ap/ieee802_1x_defs.h	/^			le16 reason_code;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon9
+reason_code	ap/ieee802_1x_defs.h	/^			le16 reason_code;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon4
+reason_code	ap/ieee802_1x_defs.h	/^			le16 reason_code;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon8
 reason_code	drivers/driver.h	/^		u16 reason_code; \/* for teardown *\/$/;"	m	struct:wpa_event_data::tdls
 reason_code	drivers/driver.h	/^		u16 reason_code;$/;"	m	struct:wpa_event_data::deauth_info
 reason_code	drivers/driver.h	/^		u16 reason_code;$/;"	m	struct:wpa_event_data::disassoc_info
@@ -3776,8 +3780,8 @@ reason_code	drivers/driver.h	/^		u16 reason_code;$/;"	m	struct:wpa_event_data::u
 reason_code	drivers/driver.h	/^		u16 reason_code;$/;"	m	struct:wpa_event_data::unprot_disassoc
 reason_code	drivers/driver.h	/^		u16 reason_code;$/;"	m	struct:wpa_event_data::wnm
 reassoc	drivers/driver.h	/^		int reassoc;$/;"	m	struct:wpa_event_data::assoc_info
-reassoc_req	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED reassoc_req;$/;"	m	union:ieee80211_mgmt::__anon7	typeref:struct:ieee80211_mgmt::__anon7::__anon12
-reassoc_resp	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED assoc_resp, reassoc_resp;$/;"	m	union:ieee80211_mgmt::__anon7	typeref:struct:ieee80211_mgmt::__anon7::__anon11
+reassoc_req	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED reassoc_req;$/;"	m	union:ieee80211_mgmt::__anon2	typeref:struct:ieee80211_mgmt::__anon2::__anon7
+reassoc_resp	ap/ieee802_1x_defs.h	/^		} STRUCT_PACKED assoc_resp, reassoc_resp;$/;"	m	union:ieee80211_mgmt::__anon2	typeref:struct:ieee80211_mgmt::__anon2::__anon6
 reassociation_deadline	ap/ap_config.h	/^	u32 reassociation_deadline;$/;"	m	struct:hostapd_bss_config
 recv_mgmt_frame	drivers/driver.h	/^    int (*recv_mgmt_frame)(void *priv);$/;"	m	struct:wpa_driver_ops
 reg_change_initiator	drivers/driver.h	/^enum reg_change_initiator {$/;"	g
@@ -3796,7 +3800,7 @@ remove_pmkid	drivers/driver.h	/^	int (*remove_pmkid)(void *priv, const u8 *bssid
 replay_ctr	drivers/driver.h	/^		const u8 *replay_ctr;$/;"	m	struct:wpa_event_data::driver_gtk_rekey
 req_ies	drivers/driver.h	/^		const u8 *req_ies;$/;"	m	struct:wpa_event_data::assoc_info
 req_ies_len	drivers/driver.h	/^		size_t req_ies_len;$/;"	m	struct:wpa_event_data::assoc_info
-req_mode	ap/ieee802_1x_defs.h	/^					u8 req_mode;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon29
+req_mode	ap/ieee802_1x_defs.h	/^					u8 req_mode;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon24
 requests	ap/ap_config.h	/^	u32 requests;$/;"	m	struct:hostapd_radius_server
 require_ht	ap/ap_config.h	/^	int require_ht;$/;"	m	struct:hostapd_config
 require_vht	ap/ap_config.h	/^	int require_vht;$/;"	m	struct:hostapd_config
@@ -3829,8 +3833,8 @@ rts_threshold	ap/ap_config.h	/^	int rts_threshold;$/;"	m	struct:hostapd_config
 rx_bytes	drivers/driver.h	/^	unsigned long rx_packets, tx_packets, rx_bytes, tx_bytes;$/;"	m	struct:hostap_sta_driver_data
 rx_from_unknown	drivers/driver.h	/^	struct rx_from_unknown {$/;"	s	union:wpa_event_data
 rx_from_unknown	drivers/driver.h	/^	} rx_from_unknown;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::rx_from_unknown
-rx_highest	ap/ieee802_1x_defs.h	/^		le16 rx_highest;$/;"	m	struct:ieee80211_vht_capabilities::__anon32
-rx_map	ap/ieee802_1x_defs.h	/^		le16 rx_map;$/;"	m	struct:ieee80211_vht_capabilities::__anon32
+rx_highest	ap/ieee802_1x_defs.h	/^		le16 rx_highest;$/;"	m	struct:ieee80211_vht_capabilities::__anon27
+rx_map	ap/ieee802_1x_defs.h	/^		le16 rx_map;$/;"	m	struct:ieee80211_vht_capabilities::__anon27
 rx_mgmt	drivers/driver.h	/^	struct rx_mgmt {$/;"	s	union:wpa_event_data
 rx_mgmt	drivers/driver.h	/^	} rx_mgmt;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::rx_mgmt
 rx_packets	drivers/driver.h	/^	unsigned long rx_packets, tx_packets, rx_bytes, tx_bytes;$/;"	m	struct:hostap_sta_driver_data
@@ -3850,8 +3854,8 @@ sa	drivers/driver.h	/^		const u8 *sa;$/;"	m	struct:wpa_event_data::rx_probe_req
 sa	drivers/driver.h	/^		const u8 *sa;$/;"	m	struct:wpa_event_data::unprot_deauth
 sa	drivers/driver.h	/^		const u8 *sa;$/;"	m	struct:wpa_event_data::unprot_disassoc
 sa_query_count	ap/sta_info.h	/^	int sa_query_count; \/* number of pending SA Query requests;$/;"	m	struct:sta_info
-sa_query_req	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED sa_query_req;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon23
-sa_query_resp	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED sa_query_resp;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon24
+sa_query_req	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED sa_query_req;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon18
+sa_query_resp	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED sa_query_resp;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon19
 sa_query_start	ap/sta_info.h	/^	struct os_reltime sa_query_start;$/;"	m	struct:sta_info	typeref:struct:sta_info::os_reltime
 sa_query_timed_out	ap/sta_info.h	/^	int sa_query_timed_out;$/;"	m	struct:sta_info
 sa_query_trans_id	ap/sta_info.h	/^	u8 *sa_query_trans_id; \/* buffer of WLAN_SA_QUERY_TR_ID_LEN *$/;"	m	struct:sta_info
@@ -3951,7 +3955,7 @@ signal_poll	drivers/driver.h	/^	int (*signal_poll)(void *priv, struct wpa_signal
 size	ap/wpabuf.h	/^	size_t size; \/* total size of the allocated buffer *\/$/;"	m	struct:wpabuf
 skip_cred_build	ap/ap_config.h	/^	int skip_cred_build;$/;"	m	struct:hostapd_bss_config
 skip_inactivity_poll	ap/ap_config.h	/^	int skip_inactivity_poll;$/;"	m	struct:hostapd_bss_config
-sleep_action	drivers/driver.h	/^		} sleep_action;$/;"	m	struct:wpa_event_data::wnm	typeref:enum:wpa_event_data::wnm::__anon4
+sleep_action	drivers/driver.h	/^		} sleep_action;$/;"	m	struct:wpa_event_data::wnm	typeref:enum:wpa_event_data::wnm::__anon35
 sleep_intval	drivers/driver.h	/^		int sleep_intval;$/;"	m	struct:wpa_event_data::wnm
 socklen_t	utils/common.h	/^typedef int socklen_t;$/;"	t
 spectrum_mgmt_required	ap/ap_config.h	/^	int spectrum_mgmt_required;$/;"	m	struct:hostapd_config
@@ -3995,8 +3999,8 @@ ssl_ctx	ap/hostapd.h	/^	void *ssl_ctx;$/;"	m	struct:hostapd_data
 sta	agent/vap.h	/^    struct sta_info *sta;    $/;"	m	struct:vap_data	typeref:struct:vap_data::sta_info
 sta_add	drivers/driver.h	/^	int (*sta_add)(void *priv, struct hostapd_sta_add_params *params);$/;"	m	struct:wpa_driver_ops
 sta_addr	agent/subscription.h	/^    u8 sta_addr[6];$/;"	m	struct:subscription
-sta_addr	ap/ieee802_1x_defs.h	/^					u8 sta_addr[ETH_ALEN];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon21
-sta_addr	ap/ieee802_1x_defs.h	/^					u8 sta_addr[ETH_ALEN];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon22
+sta_addr	ap/ieee802_1x_defs.h	/^					u8 sta_addr[ETH_ALEN];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon16
+sta_addr	ap/ieee802_1x_defs.h	/^					u8 sta_addr[ETH_ALEN];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon17
 sta_addr	drivers/driver.h	/^    u8 sta_addr[ETH_ALEN];$/;"	m	struct:hostap_sta_list
 sta_aid	ap/hostapd.h	/^	u32 sta_aid[AID_WORDS];$/;"	m	struct:hostapd_data
 sta_assoc	drivers/driver.h	/^	 int (*sta_assoc)(void *priv, const u8 *own_addr, const u8 *addr,$/;"	m	struct:wpa_driver_ops
@@ -4024,11 +4028,11 @@ state	ap/hostapd.h	/^	enum Hostapd_iface_state state;$/;"	m	struct:hostapd_iface
 statistic	agent/subscription.h	/^    char statistic[32];$/;"	m	struct:subscription
 status	ap/ieee802_1x_defs.h	/^	u8 status;$/;"	m	struct:wnm_sleep_element
 status	drivers/driver.h	/^	int (*status)(void *priv, char *buf, size_t buflen);$/;"	m	struct:wpa_driver_ops
-status_code	ap/ieee802_1x_defs.h	/^					le16 status_code;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon22
-status_code	ap/ieee802_1x_defs.h	/^					u8 status_code;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon19
-status_code	ap/ieee802_1x_defs.h	/^					u8 status_code;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon30
-status_code	ap/ieee802_1x_defs.h	/^			le16 status_code;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon11
-status_code	ap/ieee802_1x_defs.h	/^			le16 status_code;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon8
+status_code	ap/ieee802_1x_defs.h	/^					le16 status_code;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon17
+status_code	ap/ieee802_1x_defs.h	/^					u8 status_code;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon14
+status_code	ap/ieee802_1x_defs.h	/^					u8 status_code;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon25
+status_code	ap/ieee802_1x_defs.h	/^			le16 status_code;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon3
+status_code	ap/ieee802_1x_defs.h	/^			le16 status_code;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon6
 status_code	drivers/driver.h	/^		u16 status_code;$/;"	m	struct:wpa_event_data::assoc_reject
 status_code	drivers/driver.h	/^		u16 status_code;$/;"	m	struct:wpa_event_data::auth_info
 stkstart	drivers/driver.h	/^	struct stkstart {$/;"	s	union:wpa_event_data
@@ -4062,15 +4066,15 @@ survey_results	drivers/driver.h	/^	} survey_results;$/;"	m	union:wpa_event_data	
 suspend	drivers/driver.h	/^	void (*suspend)(void *priv);$/;"	m	struct:wpa_driver_ops
 suspension_interval	ap/ieee802_1x_defs.h	/^	le32 suspension_interval;$/;"	m	struct:wmm_tspec_element
 switch_channel	drivers/driver.h	/^	int (*switch_channel)(void *priv, struct csa_settings *settings);$/;"	m	struct:wpa_driver_ops
-switch_count	ap/ieee802_1x_defs.h	/^					u8 switch_count;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon20
-switch_mode	ap/ieee802_1x_defs.h	/^					u8 switch_mode;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon20
+switch_count	ap/ieee802_1x_defs.h	/^					u8 switch_count;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon15
+switch_mode	ap/ieee802_1x_defs.h	/^					u8 switch_mode;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon15
 tail	drivers/driver.h	/^	u8 *head, *tail;$/;"	m	struct:beacon_data
 tail	drivers/driver.h	/^	u8 *tail;$/;"	m	struct:wpa_driver_ap_params
 tail_len	drivers/driver.h	/^	size_t head_len, tail_len;$/;"	m	struct:beacon_data
 tail_len	drivers/driver.h	/^	size_t tail_len;$/;"	m	struct:wpa_driver_ap_params
 target_ap	drivers/driver.h	/^		u8 target_ap[ETH_ALEN];$/;"	m	struct:wpa_event_data::ft_ies
-target_ap_addr	ap/ieee802_1x_defs.h	/^					u8 target_ap_addr[ETH_ALEN];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon21
-target_ap_addr	ap/ieee802_1x_defs.h	/^					u8 target_ap_addr[ETH_ALEN];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon22
+target_ap_addr	ap/ieee802_1x_defs.h	/^					u8 target_ap_addr[ETH_ALEN];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon16
+target_ap_addr	ap/ieee802_1x_defs.h	/^					u8 target_ap_addr[ETH_ALEN];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon17
 tdls	ap/ap_config.h	/^	int tdls;$/;"	m	struct:hostapd_bss_config
 tdls	drivers/driver.h	/^	struct tdls {$/;"	s	union:wpa_event_data
 tdls	drivers/driver.h	/^	} tdls;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::tdls
@@ -4089,22 +4093,22 @@ timeout_event	drivers/driver.h	/^	struct timeout_event {$/;"	s	union:wpa_event_d
 timeout_event	drivers/driver.h	/^	} timeout_event;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::timeout_event
 timeout_int	ap/ieee802_1x_defs.h	/^	const u8 *timeout_int;$/;"	m	struct:ieee802_11_elems
 timeout_int_len	ap/ieee802_1x_defs.h	/^	u8 timeout_int_len;$/;"	m	struct:ieee802_11_elems
-timeout_next	ap/sta_info.h	/^	} timeout_next;$/;"	m	struct:sta_info	typeref:enum:sta_info::__anon34
+timeout_next	ap/sta_info.h	/^	} timeout_next;$/;"	m	struct:sta_info	typeref:enum:sta_info::__anon29
 timeouts	ap/ap_config.h	/^	u32 timeouts;$/;"	m	struct:hostapd_radius_server
-timestamp	ap/ieee802_1x_defs.h	/^			u8 timestamp[8];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon14
-timestamp	ap/ieee802_1x_defs.h	/^			u8 timestamp[8];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon16
+timestamp	ap/ieee802_1x_defs.h	/^			u8 timestamp[8];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon11
+timestamp	ap/ieee802_1x_defs.h	/^			u8 timestamp[8];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon9
 tkip_countermeasures	ap/hostapd.h	/^	int tkip_countermeasures;$/;"	m	struct:hostapd_data
 tmp_eap_user	ap/hostapd.h	/^	struct hostapd_eap_user tmp_eap_user;$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::hostapd_eap_user
 tnc	ap/ap_config.h	/^	int tnc;$/;"	m	struct:hostapd_bss_config
 token_stream	drivers/nl80211_copy.h	/^	__u8 token_stream[];$/;"	m	struct:nl80211_wowlan_tcp_data_token
-trans_id	ap/ieee802_1x_defs.h	/^					u8 trans_id[WLAN_SA_QUERY_TR_ID_LEN];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon23
-trans_id	ap/ieee802_1x_defs.h	/^					u8 trans_id[WLAN_SA_QUERY_TR_ID_LEN];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon24
+trans_id	ap/ieee802_1x_defs.h	/^					u8 trans_id[WLAN_SA_QUERY_TR_ID_LEN];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon18
+trans_id	ap/ieee802_1x_defs.h	/^					u8 trans_id[WLAN_SA_QUERY_TR_ID_LEN];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon19
 ts_info	ap/ieee802_1x_defs.h	/^	u8 ts_info[3];$/;"	m	struct:wmm_tspec_element
 tsf	drivers/driver.h	/^	u64 tsf;$/;"	m	struct:wpa_scan_res
 tx_bf_capability_info	ap/ieee802_1x_defs.h	/^	le32 tx_bf_capability_info;$/;"	m	struct:ieee80211_ht_capabilities
 tx_bytes	drivers/driver.h	/^	unsigned long rx_packets, tx_packets, rx_bytes, tx_bytes;$/;"	m	struct:hostap_sta_driver_data
-tx_highest	ap/ieee802_1x_defs.h	/^		le16 tx_highest;$/;"	m	struct:ieee80211_vht_capabilities::__anon32
-tx_map	ap/ieee802_1x_defs.h	/^		le16 tx_map;$/;"	m	struct:ieee80211_vht_capabilities::__anon32
+tx_highest	ap/ieee802_1x_defs.h	/^		le16 tx_highest;$/;"	m	struct:ieee80211_vht_capabilities::__anon27
+tx_map	ap/ieee802_1x_defs.h	/^		le16 tx_map;$/;"	m	struct:ieee80211_vht_capabilities::__anon27
 tx_packets	drivers/driver.h	/^	unsigned long rx_packets, tx_packets, rx_bytes, tx_bytes;$/;"	m	struct:hostap_sta_driver_data
 tx_queue	ap/ap_config.h	/^	struct hostapd_tx_queue_params tx_queue[NUM_TX_QUEUES];$/;"	m	struct:hostapd_config	typeref:struct:hostapd_config::hostapd_tx_queue_params
 tx_retry_count	drivers/driver.h	/^	unsigned long tx_retry_count;$/;"	m	struct:hostap_sta_driver_data
@@ -4117,9 +4121,9 @@ type	ap/ap_config.h	/^		char type[256];$/;"	m	struct:hostapd_bss_config::hs20_ic
 type	ap/ap_config.h	/^	u8 type;$/;"	m	struct:hostapd_radius_attr
 type	drivers/driver.h	/^		enum reg_type type;$/;"	m	struct:wpa_event_data::channel_list_changed	typeref:enum:wpa_event_data::channel_list_changed::reg_type
 type	drivers/driver.h	/^		u16 type;$/;"	m	struct:wpa_event_data::tx_status
-u	ap/ap_config.h	/^	} u;$/;"	m	struct:hostapd_ip_addr	typeref:union:hostapd_ip_addr::__anon35
-u	ap/ieee802_1x_defs.h	/^			} u;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17	typeref:union:ieee80211_mgmt::__anon7::__anon17::__anon18
-u	ap/ieee802_1x_defs.h	/^	} u;$/;"	m	struct:ieee80211_mgmt	typeref:union:ieee80211_mgmt::__anon7
+u	ap/ap_config.h	/^	} u;$/;"	m	struct:hostapd_ip_addr	typeref:union:hostapd_ip_addr::__anon30
+u	ap/ieee802_1x_defs.h	/^			} u;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12	typeref:union:ieee80211_mgmt::__anon2::__anon12::__anon13
+u	ap/ieee802_1x_defs.h	/^	} u;$/;"	m	struct:ieee80211_mgmt	typeref:union:ieee80211_mgmt::__anon2
 u16	utils/common.h	/^typedef UINT16 u16;$/;"	t
 u16	utils/common.h	/^typedef uint16_t u16;$/;"	t
 u16	utils/common.h	/^typedef unsigned short u16;$/;"	t
@@ -4157,35 +4161,35 @@ usec	utils/common.h	/^	os_time_t usec;$/;"	m	struct:os_time
 used	ap/wpabuf.h	/^	size_t used; \/* length of data in the buffer *\/$/;"	m	struct:wpabuf
 utf8_ssid	ap/ap_config.h	/^	unsigned int utf8_ssid:1;$/;"	m	struct:hostapd_ssid
 uuid	ap/ap_config.h	/^	u8 uuid[16];$/;"	m	struct:hostapd_bss_config
-v4	ap/ap_config.h	/^		struct in_addr v4;$/;"	m	union:hostapd_ip_addr::__anon35	typeref:struct:hostapd_ip_addr::__anon35::in_addr
-v6	ap/ap_config.h	/^		struct in6_addr v6;$/;"	m	union:hostapd_ip_addr::__anon35	typeref:struct:hostapd_ip_addr::__anon35::in6_addr
+v4	ap/ap_config.h	/^		struct in_addr v4;$/;"	m	union:hostapd_ip_addr::__anon30	typeref:struct:hostapd_ip_addr::__anon30::in_addr
+v6	ap/ap_config.h	/^		struct in6_addr v6;$/;"	m	union:hostapd_ip_addr::__anon30	typeref:struct:hostapd_ip_addr::__anon30::in6_addr
 val	agent/subscription.h	/^    double val;$/;"	m	struct:subscription
 val	ap/ap_config.h	/^	struct wpabuf *val;$/;"	m	struct:hostapd_radius_attr	typeref:struct:hostapd_radius_attr::wpabuf
 valid_cw	ap/config_file.c	/^static int valid_cw(int cw)$/;"	f	file:
-validity_interval	ap/ieee802_1x_defs.h	/^					u8 validity_interval;$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon29
+validity_interval	ap/ieee802_1x_defs.h	/^					u8 validity_interval;$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon24
 vap_data	agent/vap.h	/^struct vap_data {$/;"	s
 vap_first	agent/vap.c	/^static struct vap_data *vap_first = NULL;$/;"	v	typeref:struct:vap_data	file:
 vap_last	agent/vap.c	/^static struct vap_data *vap_last = NULL;$/;"	v	typeref:struct:vap_data	file:
 vap_send_beacon_cb	ap/wiagent_80211.c	/^static void vap_send_beacon_cb(struct vap_data *vap, void *ctx)$/;"	f	file:
-variable	ap/ieee802_1x_defs.h	/^					u8 variable[0]; \/* FT Request *\/$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon21
-variable	ap/ieee802_1x_defs.h	/^					u8 variable[0]; \/* FT Request *\/$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon22
-variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon19
-variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon25
-variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon26
-variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon27
-variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon28
-variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon29
-variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon30
-variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon31
-variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon10
-variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon11
-variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon12
-variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon13
-variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon14
-variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon15
-variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon16
-variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon8
-variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon7::__anon9
+variable	ap/ieee802_1x_defs.h	/^					u8 variable[0]; \/* FT Request *\/$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon16
+variable	ap/ieee802_1x_defs.h	/^					u8 variable[0]; \/* FT Request *\/$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon17
+variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon14
+variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon20
+variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon21
+variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon22
+variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon23
+variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon24
+variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon25
+variable	ap/ieee802_1x_defs.h	/^					u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon26
+variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon10
+variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon11
+variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon3
+variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon4
+variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon5
+variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon6
+variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon7
+variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon8
+variable	ap/ieee802_1x_defs.h	/^			u8 variable[0];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon9
 variable	ap/ieee802_1x_defs.h	/^	u8 variable[0];	\/* Channel List *\/$/;"	m	struct:ieee80211_2040_intol_chan_report
 vendor_action_cb	ap/hostapd.h	/^	int (*vendor_action_cb)(void *ctx, const u8 *buf, size_t len,$/;"	m	struct:hostapd_data
 vendor_action_cb_ctx	ap/hostapd.h	/^	void *vendor_action_cb_ctx;$/;"	m	struct:hostapd_data
@@ -4224,7 +4228,7 @@ vht_opmode	ap/sta_info.h	/^	u8 vht_opmode;$/;"	m	struct:sta_info
 vht_opmode	drivers/driver.h	/^	u8 vht_opmode;$/;"	m	struct:hostapd_sta_add_params
 vht_opmode_enabled	drivers/driver.h	/^	int vht_opmode_enabled;$/;"	m	struct:hostapd_sta_add_params
 vht_opmode_notif	ap/ieee802_1x_defs.h	/^	const u8 *vht_opmode_notif;$/;"	m	struct:ieee802_11_elems
-vht_supported_mcs_set	ap/ieee802_1x_defs.h	/^	} vht_supported_mcs_set;$/;"	m	struct:ieee80211_vht_capabilities	typeref:struct:ieee80211_vht_capabilities::__anon32
+vht_supported_mcs_set	ap/ieee802_1x_defs.h	/^	} vht_supported_mcs_set;$/;"	m	struct:ieee80211_vht_capabilities	typeref:struct:ieee80211_vht_capabilities::__anon27
 vhtcaps	drivers/driver.h	/^	const struct ieee80211_vht_capabilities *vhtcaps;$/;"	m	struct:wpa_driver_associate_params	typeref:struct:wpa_driver_associate_params::ieee80211_vht_capabilities
 vhtcaps_mask	drivers/driver.h	/^	const struct ieee80211_vht_capabilities *vhtcaps_mask;$/;"	m	struct:wpa_driver_associate_params	typeref:struct:wpa_driver_associate_params::ieee80211_vht_capabilities
 vlan	ap/ap_config.h	/^	char vlan[IFNAMSIZ + 1];$/;"	m	struct:hostapd_ssid
@@ -4235,7 +4239,7 @@ vlan_id	ap/ap_config.h	/^	int vlan_id;$/;"	m	struct:mac_acl_entry
 vlan_id	ap/sta_info.h	/^	int vlan_id;$/;"	m	struct:sta_info
 vlan_naming	ap/ap_config.h	/^	int vlan_naming;$/;"	m	struct:hostapd_ssid
 vlan_tagged_interface	ap/ap_config.h	/^	char *vlan_tagged_interface;$/;"	m	struct:hostapd_ssid
-vs_public_action	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED vs_public_action;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon28
+vs_public_action	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED vs_public_action;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon23
 vsnprintf	utils/common.h	83;"	d
 vsnprintf	utils/common.h	84;"	d
 wait_channel_update	ap/hostapd.h	/^	unsigned int wait_channel_update:1;$/;"	m	struct:hostapd_iface
@@ -4271,7 +4275,7 @@ wiagent_handle_auth	ap/wiagent_80211.c	/^static void wiagent_handle_auth(struct 
 wiagent_handle_beacon	ap/wiagent_80211.c	/^static int wiagent_handle_beacon(struct hostapd_data *hapd, struct vap_data *vap)$/;"	f	file:
 wiagent_handle_deauth	ap/wiagent_80211.c	/^static void wiagent_handle_deauth(struct hostapd_data *hapd,$/;"	f	file:
 wiagent_handle_disassoc	ap/wiagent_80211.c	/^static void wiagent_handle_disassoc(struct hostapd_data *hapd,$/;"	f	file:
-wiagent_handle_probe_req	ap/wiagent_80211.c	/^static int wiagent_handle_probe_req(struct hostapd_data *_hapd,u8 *da,u8 *bssid,$/;"	f	file:
+wiagent_handle_probe_req	ap/wiagent_80211.c	/^static int wiagent_handle_probe_req(struct hostapd_data *hapd, $/;"	f	file:
 wiagent_mgmt_frame_cb	main.c	/^wiagent_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)$/;"	f	file:
 wiagent_mgmt_rx	ap/wiagent_80211.c	/^static int wiagent_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)$/;"	f	file:
 wiagent_probe	agent/push.c	/^void wiagent_probe(const u8 *addr, const char *ssid)$/;"	f
@@ -4286,13 +4290,18 @@ wiagent_wpa_event	ap/wiagent_80211.c	/^void wiagent_wpa_event(void *ctx, enum wp
 width	ap/ap_config.h	/^		u16 width;$/;"	m	struct:hostapd_bss_config::hs20_icon
 width_trigger_scan_interval	ap/ieee802_1x_defs.h	/^	le16 width_trigger_scan_interval;$/;"	m	struct:ieee80211_obss_scan_parameters
 wifi_display_subelem	ap/ieee802_1x_defs.h	/^enum wifi_display_subelem {$/;"	g
+wimaster_bufferevent_socket_new	utils/wimaster_event.c	/^struct bufferevent *wimaster_bufferevent_socket_new(evutil_socket_t fd, int options)$/;"	f
 wimaster_eid_channel_switch	ap/beacon.c	/^static u8 * wimaster_eid_channel_switch(struct hostapd_data *hapd, u8 *eid, $/;"	f	file:
+wimaster_evconnlistener_new_bind	utils/wimaster_event.c	/^struct evconnlistener *wimaster_evconnlistener_new_bind(evconnlistener_cb cb, $/;"	f
+wimaster_event_add	utils/wimaster_event.c	/^int wimaster_event_add(struct event *ev, const struct timeval *timeout)$/;"	f
+wimaster_event_dispatch	utils/wimaster_event.c	/^int wimaster_event_dispatch(void)$/;"	f
+wimaster_event_new	utils/wimaster_event.c	/^struct event *wimaster_event_new(evutil_socket_t fd, short events, $/;"	f
 wiphy_data	drivers/driver_nl80211.c	/^	struct nl80211_wiphy_data *wiphy_data;$/;"	m	struct:i802_bss	typeref:struct:i802_bss::nl80211_wiphy_data	file:
 wmm	ap/ieee802_1x_defs.h	/^	const u8 *wmm; \/* WMM Information or Parameter Element *\/$/;"	m	struct:ieee802_11_elems
 wmm_ac_parameter	ap/ieee802_1x_defs.h	/^struct wmm_ac_parameter {$/;"	s
 wmm_ac_params	ap/ap_config.h	/^	struct hostapd_wmm_ac_params wmm_ac_params[4];$/;"	m	struct:hostapd_config	typeref:struct:hostapd_config::hostapd_wmm_ac_params
 wmm_aci_aifsn	ap/beacon.c	/^static u8 wmm_aci_aifsn(int aifsn, int acm, int aci)$/;"	f	file:
-wmm_action	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED wmm_action;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon19
+wmm_action	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED wmm_action;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon14
 wmm_ecw	ap/beacon.c	/^static u8 wmm_ecw(int ecwmin, int ecwmax)$/;"	f	file:
 wmm_enabled	ap/ap_config.h	/^	int wmm_enabled;$/;"	m	struct:hostapd_bss_config
 wmm_information_element	ap/ieee802_1x_defs.h	/^struct wmm_information_element {$/;"	s
@@ -4311,8 +4320,8 @@ wnm_sleep_element	ap/ieee802_1x_defs.h	/^struct wnm_sleep_element {$/;"	s
 wnm_sleep_mode	ap/ap_config.h	/^	int wnm_sleep_mode;$/;"	m	struct:hostapd_bss_config
 wnm_sleep_mode_response_status	ap/ieee802_1x_defs.h	/^enum wnm_sleep_mode_response_status {$/;"	g
 wnm_sleep_mode_subelement_id	ap/ieee802_1x_defs.h	/^enum wnm_sleep_mode_subelement_id {$/;"	g
-wnm_sleep_req	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED wnm_sleep_req;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon25
-wnm_sleep_resp	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED wnm_sleep_resp;$/;"	m	union:ieee80211_mgmt::__anon7::__anon17::__anon18	typeref:struct:ieee80211_mgmt::__anon7::__anon17::__anon18::__anon26
+wnm_sleep_req	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED wnm_sleep_req;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon20
+wnm_sleep_resp	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED wnm_sleep_resp;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon21
 wowlan_triggers	drivers/driver.h	/^	struct wowlan_triggers wowlan_triggers;$/;"	m	struct:wpa_driver_capa	typeref:struct:wpa_driver_capa::wowlan_triggers
 wowlan_triggers	drivers/driver.h	/^struct wowlan_triggers {$/;"	s
 wpa	ap/ap_config.h	/^	int wpa; \/* bitfield of WPA_PROTO_WPA, WPA_PROTO_RSN *\/$/;"	m	struct:hostapd_bss_config

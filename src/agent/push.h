@@ -22,7 +22,7 @@ void push_disassoc(const u8 *addr, const char *ssid);
 
 void push_deauth(const u8 *addr, const int reason_code);
 
-void wiagent_probe(const u8 *addr, const char *ssid);
+void wiagent_probe(const u8 *addr, const char *ssid, const size_t ssid_len);
 
 void push_stainfo(const u8 *addr, const char *stainfo);
 

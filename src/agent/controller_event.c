@@ -232,6 +232,66 @@ static void controller_switch_channel(struct hostapd_data *hapd,
     vap->beacon_len = beacon_len;
 }
 
+static void controller_send_probe_response(struct hostapd_data *hapd,
+        char *args[], int args_num)
+{
+    u8 addr[6];
+    u8 bssid[6];
+    u8 *beacon_data;
+    int beacon_len;
+	struct wpa_driver_ap_params params;
+    struct beacon_settings bs;
+    int i;
+
+    if (args_num < 3) {
+        wpa_printf(MSG_WARN, "%s: the number of %d arguments is insufficient.", 
+                __func__, args_num);
+        return;
+    }
+
+    if (hwaddr_aton(args[0], addr) < 0 || hwaddr_aton(args[1], bssid) < 0) {
+        wpa_printf(MSG_WARN, "%s: convert mac string to MAC address failed.", 
+                __func__);
+        return;
+    }
+
+    bs.is_probe = 1;
+    bs.is_csa = 0;
+    bs.da = addr;
+    bs.bssid = bssid;
+    bs.ssid = args[2];
+    bs.ssid_len = strlen(args[2]);
+
+    if (ieee802_11_build_ap_beacon(hapd, &bs, &params) < 0)
+        return;
+    beacon_len = params.head_len + params.tail_len;
+    beacon_data = (u8 *)os_zalloc(beacon_len);
+    os_memcpy(beacon_data, params.head, params.head_len);
+    os_memcpy(beacon_data + params.head_len, params.tail, params.tail_len);
+    os_free(params.head);
+    os_free(params.tail);
+
+    if (hostapd_drv_send_mlme(hapd, (u8 *)beacon_data, beacon_len, 1) < 0)
+		wpa_printf(MSG_DEBUG, "%s: send frame failed.", __func__);
+
+
+    for (i = 3; i < args_num; i++) {
+        bs.ssid = args[i];
+        bs.ssid_len = strlen(args[i]);
+        
+        if (ieee802_11_build_ap_beacon(hapd, &bs, &params) < 0)
+            return;
+        os_memcpy(beacon_data, params.head, params.head_len);
+        os_memcpy(beacon_data + params.head_len, params.tail, params.tail_len);
+        os_free(params.head);
+        os_free(params.tail);
+
+        if (hostapd_drv_send_mlme(hapd, (u8 *)beacon_data, beacon_len, 1) < 0)
+            wpa_printf(MSG_DEBUG, "%s: send frame failed.", __func__);
+
+    }
+    os_free(beacon_data);
+}
 
 
 static void controller_add_stainfo(struct hostapd_data *hapd,
@@ -305,7 +365,7 @@ static void handle_read(struct bufferevent *bev,
 }
 
 
-#define WRITE_ARGS_MAX 12
+#define WRITE_ARGS_MAX 16
 
 /**
  * Parsing write_handler string, 
@@ -336,21 +396,24 @@ void handle_write(struct hostapd_data *hapd, char* data)
         if (size == 1 && strcmp(array[0], "add_station") == 0) {
             array[++size] = (char *)os_zalloc(strlen(data) + 1);
             strcpy(array[size], data);
+            size++;
             break;
         }
         size++;
     }
 
     if (strcmp(array[0], "add_vap") == 0)
-        controller_add_vap(hapd, &array[1], size);
+        controller_add_vap(hapd, &array[1], size - 1);
     else if (strcmp(array[0], "remove_vap") == 0)
-        controller_remove_vap(hapd, &array[1], size);
+        controller_remove_vap(hapd, &array[1], size - 1);
     else if (strcmp(array[0], "subscriptions") == 0)
-        controller_subscriptions(hapd, &array[1], size);
+        controller_subscriptions(hapd, &array[1], size - 1);
     else if (strcmp(array[0], "add_station") == 0)
-        controller_add_stainfo(hapd, &array[1], size);
+        controller_add_stainfo(hapd, &array[1], size - 1);
     else if (strcmp(array[0], "switch_channel") == 0)
-        controller_switch_channel(hapd, &array[1], size);
+        controller_switch_channel(hapd, &array[1], size - 1);
+    else if (strcmp(array[0], "send_probe_response") == 0)
+        controller_send_probe_response(hapd, &array[1], size - 1);
 
     for(;size > 0; size--) {
         os_free(array[size - 1]);
