@@ -304,6 +304,13 @@ IEEE80211_CAP_DMG_PBSS	drivers/driver.h	184;"	d
 IEEE80211_CAP_ESS	drivers/driver.h	176;"	d
 IEEE80211_CAP_IBSS	drivers/driver.h	177;"	d
 IEEE80211_CAP_PRIVACY	drivers/driver.h	178;"	d
+IEEE80211_CHAN_2GHZ	sniffer/radiotap.h	/^	IEEE80211_CHAN_2GHZ = 0x0080,$/;"	e	enum:ieee80211_radiotap_channel_flags
+IEEE80211_CHAN_5GHZ	sniffer/radiotap.h	/^	IEEE80211_CHAN_5GHZ = 0x0100,$/;"	e	enum:ieee80211_radiotap_channel_flags
+IEEE80211_CHAN_CCK	sniffer/radiotap.h	/^	IEEE80211_CHAN_CCK = 0x0020,$/;"	e	enum:ieee80211_radiotap_channel_flags
+IEEE80211_CHAN_DYN	sniffer/radiotap.h	/^	IEEE80211_CHAN_DYN = 0x0400,$/;"	e	enum:ieee80211_radiotap_channel_flags
+IEEE80211_CHAN_HALF	sniffer/radiotap.h	/^	IEEE80211_CHAN_HALF = 0x4000,$/;"	e	enum:ieee80211_radiotap_channel_flags
+IEEE80211_CHAN_OFDM	sniffer/radiotap.h	/^	IEEE80211_CHAN_OFDM = 0x0040,$/;"	e	enum:ieee80211_radiotap_channel_flags
+IEEE80211_CHAN_QUARTER	sniffer/radiotap.h	/^	IEEE80211_CHAN_QUARTER = 0x8000,$/;"	e	enum:ieee80211_radiotap_channel_flags
 IEEE80211_DA_FROMDS	ap/ieee802_1x_defs.h	597;"	d
 IEEE80211_FC	ap/ieee802_1x_defs.h	603;"	d
 IEEE80211_HDRLEN	ap/ieee802_1x_defs.h	601;"	d
@@ -311,6 +318,100 @@ IEEE80211_HT_MCS_MASK_LEN	ap/ieee802_1x_defs.h	764;"	d
 IEEE80211_MODE_AP	drivers/driver.h	174;"	d
 IEEE80211_MODE_IBSS	drivers/driver.h	173;"	d
 IEEE80211_MODE_INFRA	drivers/driver.h	172;"	d
+IEEE80211_RADIOTAP_AMPDU_DELIM_CRC_ERR	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_AMPDU_DELIM_CRC_ERR = 0x0010,$/;"	e	enum:ieee80211_radiotap_ampdu_flags
+IEEE80211_RADIOTAP_AMPDU_DELIM_CRC_KNOWN	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_AMPDU_DELIM_CRC_KNOWN = 0x0020,$/;"	e	enum:ieee80211_radiotap_ampdu_flags
+IEEE80211_RADIOTAP_AMPDU_IS_LAST	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_AMPDU_IS_LAST = 0x0008,$/;"	e	enum:ieee80211_radiotap_ampdu_flags
+IEEE80211_RADIOTAP_AMPDU_IS_ZEROLEN	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_AMPDU_IS_ZEROLEN = 0x0002,$/;"	e	enum:ieee80211_radiotap_ampdu_flags
+IEEE80211_RADIOTAP_AMPDU_LAST_KNOWN	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_AMPDU_LAST_KNOWN = 0x0004,$/;"	e	enum:ieee80211_radiotap_ampdu_flags
+IEEE80211_RADIOTAP_AMPDU_REPORT_ZEROLEN	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_AMPDU_REPORT_ZEROLEN = 0x0001,$/;"	e	enum:ieee80211_radiotap_ampdu_flags
+IEEE80211_RADIOTAP_AMPDU_STATUS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_AMPDU_STATUS = 20,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_ANTENNA	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_ANTENNA = 11,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_CHANNEL	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_CHANNEL = 3,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_CODING_LDPC_USER0	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_CODING_LDPC_USER0 = 0x01,$/;"	e	enum:ieee80211_radiotap_vht_coding
+IEEE80211_RADIOTAP_CODING_LDPC_USER1	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_CODING_LDPC_USER1 = 0x02,$/;"	e	enum:ieee80211_radiotap_vht_coding
+IEEE80211_RADIOTAP_CODING_LDPC_USER2	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_CODING_LDPC_USER2 = 0x04,$/;"	e	enum:ieee80211_radiotap_vht_coding
+IEEE80211_RADIOTAP_CODING_LDPC_USER3	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_CODING_LDPC_USER3 = 0x08,$/;"	e	enum:ieee80211_radiotap_vht_coding
+IEEE80211_RADIOTAP_DATA_RETRIES	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_DATA_RETRIES = 17,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_DBM_ANTNOISE	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_DBM_ANTNOISE = 6,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_DBM_ANTSIGNAL	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_DBM_ANTSIGNAL = 5,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_DBM_TX_POWER	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_DBM_TX_POWER = 10,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_DB_ANTNOISE	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_DB_ANTNOISE = 13,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_DB_ANTSIGNAL	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_DB_ANTSIGNAL = 12,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_DB_TX_ATTENUATION	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_DB_TX_ATTENUATION = 9,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_EXT	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_EXT = 31$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_FHSS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_FHSS = 4,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_FLAGS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_FLAGS = 1,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_F_BADFCS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_F_BADFCS = 0x40,$/;"	e	enum:ieee80211_radiotap_flags
+IEEE80211_RADIOTAP_F_CFP	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_F_CFP = 0x01,$/;"	e	enum:ieee80211_radiotap_flags
+IEEE80211_RADIOTAP_F_DATAPAD	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_F_DATAPAD = 0x20,$/;"	e	enum:ieee80211_radiotap_flags
+IEEE80211_RADIOTAP_F_FCS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_F_FCS = 0x10,$/;"	e	enum:ieee80211_radiotap_flags
+IEEE80211_RADIOTAP_F_FRAG	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_F_FRAG = 0x08,$/;"	e	enum:ieee80211_radiotap_flags
+IEEE80211_RADIOTAP_F_RX_BADPLCP	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_F_RX_BADPLCP = 0x0002,$/;"	e	enum:ieee80211_radiotap_rx_flags
+IEEE80211_RADIOTAP_F_SHORTPRE	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_F_SHORTPRE = 0x02,$/;"	e	enum:ieee80211_radiotap_flags
+IEEE80211_RADIOTAP_F_TX_CTS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_F_TX_CTS = 0x0002,$/;"	e	enum:ieee80211_radiotap_tx_flags
+IEEE80211_RADIOTAP_F_TX_FAIL	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_F_TX_FAIL = 0x0001,$/;"	e	enum:ieee80211_radiotap_tx_flags
+IEEE80211_RADIOTAP_F_TX_NOACK	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_F_TX_NOACK = 0x0008,$/;"	e	enum:ieee80211_radiotap_tx_flags
+IEEE80211_RADIOTAP_F_TX_RTS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_F_TX_RTS = 0x0004,$/;"	e	enum:ieee80211_radiotap_tx_flags
+IEEE80211_RADIOTAP_F_WEP	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_F_WEP = 0x04,$/;"	e	enum:ieee80211_radiotap_flags
+IEEE80211_RADIOTAP_LOCK_QUALITY	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_LOCK_QUALITY = 7,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_MCS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS = 19,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_MCS_BW_20	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_BW_20 = 0,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_MCS_BW_20L	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_BW_20L = 2,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_MCS_BW_20U	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_BW_20U = 3,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_MCS_BW_40	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_BW_40 = 1,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_MCS_BW_MASK	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_BW_MASK = 0x03,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_MCS_FEC_LDPC	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_FEC_LDPC = 0x10,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_MCS_FMT_GF	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_FMT_GF = 0x08,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_MCS_HAVE_BW	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_HAVE_BW = 0x01,$/;"	e	enum:ieee80211_radiotap_mcs_have
+IEEE80211_RADIOTAP_MCS_HAVE_FEC	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_HAVE_FEC = 0x10,$/;"	e	enum:ieee80211_radiotap_mcs_have
+IEEE80211_RADIOTAP_MCS_HAVE_FMT	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_HAVE_FMT = 0x08,$/;"	e	enum:ieee80211_radiotap_mcs_have
+IEEE80211_RADIOTAP_MCS_HAVE_GI	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_HAVE_GI = 0x04,$/;"	e	enum:ieee80211_radiotap_mcs_have
+IEEE80211_RADIOTAP_MCS_HAVE_MCS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_HAVE_MCS = 0x02,$/;"	e	enum:ieee80211_radiotap_mcs_have
+IEEE80211_RADIOTAP_MCS_HAVE_STBC	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_HAVE_STBC = 0x20,$/;"	e	enum:ieee80211_radiotap_mcs_have
+IEEE80211_RADIOTAP_MCS_SGI	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_SGI = 0x04,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_MCS_STBC_1	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_STBC_1 = 1,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_MCS_STBC_2	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_STBC_2 = 2,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_MCS_STBC_3	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_STBC_3 = 3,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_MCS_STBC_MASK	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_STBC_MASK = 0x60,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_MCS_STBC_SHIFT	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_MCS_STBC_SHIFT = 5,$/;"	e	enum:ieee80211_radiotap_mcs_flags
+IEEE80211_RADIOTAP_RADIOTAP_NAMESPACE	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_RADIOTAP_NAMESPACE = 29,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_RATE	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_RATE = 2,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_RTS_RETRIES	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_RTS_RETRIES = 16,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_RX_FLAGS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_RX_FLAGS = 14,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_TIMESTAMP	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP = 22,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_TIMESTAMP_FLAG_32BIT	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_FLAG_32BIT = 0x01,$/;"	e	enum:ieee80211_radiotap_timestamp_flags
+IEEE80211_RADIOTAP_TIMESTAMP_FLAG_64BIT	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_FLAG_64BIT = 0x00,$/;"	e	enum:ieee80211_radiotap_timestamp_flags
+IEEE80211_RADIOTAP_TIMESTAMP_FLAG_ACCURACY	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_FLAG_ACCURACY = 0x02,$/;"	e	enum:ieee80211_radiotap_timestamp_flags
+IEEE80211_RADIOTAP_TIMESTAMP_SPOS_BEGIN_MDPU	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_SPOS_BEGIN_MDPU = 0x0000,$/;"	e	enum:ieee80211_radiotap_timestamp_unit_spos
+IEEE80211_RADIOTAP_TIMESTAMP_SPOS_EO_MPDU	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_SPOS_EO_MPDU = 0x0030,$/;"	e	enum:ieee80211_radiotap_timestamp_unit_spos
+IEEE80211_RADIOTAP_TIMESTAMP_SPOS_EO_PPDU	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_SPOS_EO_PPDU = 0x0020,$/;"	e	enum:ieee80211_radiotap_timestamp_unit_spos
+IEEE80211_RADIOTAP_TIMESTAMP_SPOS_MASK	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_SPOS_MASK = 0x00F0,$/;"	e	enum:ieee80211_radiotap_timestamp_unit_spos
+IEEE80211_RADIOTAP_TIMESTAMP_SPOS_PLCP_SIG_ACQ	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_SPOS_PLCP_SIG_ACQ = 0x0010,$/;"	e	enum:ieee80211_radiotap_timestamp_unit_spos
+IEEE80211_RADIOTAP_TIMESTAMP_SPOS_UNKNOWN	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_SPOS_UNKNOWN = 0x00F0,$/;"	e	enum:ieee80211_radiotap_timestamp_unit_spos
+IEEE80211_RADIOTAP_TIMESTAMP_UNIT_MASK	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_UNIT_MASK = 0x000F,$/;"	e	enum:ieee80211_radiotap_timestamp_unit_spos
+IEEE80211_RADIOTAP_TIMESTAMP_UNIT_MS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_UNIT_MS = 0x0000,$/;"	e	enum:ieee80211_radiotap_timestamp_unit_spos
+IEEE80211_RADIOTAP_TIMESTAMP_UNIT_NS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_UNIT_NS = 0x0003,$/;"	e	enum:ieee80211_radiotap_timestamp_unit_spos
+IEEE80211_RADIOTAP_TIMESTAMP_UNIT_US	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TIMESTAMP_UNIT_US = 0x0001,$/;"	e	enum:ieee80211_radiotap_timestamp_unit_spos
+IEEE80211_RADIOTAP_TSFT	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TSFT = 0,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_TX_ATTENUATION	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TX_ATTENUATION = 8,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_TX_FLAGS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_TX_FLAGS = 15,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_VENDOR_NAMESPACE	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VENDOR_NAMESPACE = 30,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_VHT	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT = 21,$/;"	e	enum:ieee80211_radiotap_presence
+IEEE80211_RADIOTAP_VHT_FLAG_BEAMFORMED	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_FLAG_BEAMFORMED = 0x20,$/;"	e	enum:ieee80211_radiotap_vht_flags
+IEEE80211_RADIOTAP_VHT_FLAG_LDPC_EXTRA_OFDM_SYM	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_FLAG_LDPC_EXTRA_OFDM_SYM = 0x10,$/;"	e	enum:ieee80211_radiotap_vht_flags
+IEEE80211_RADIOTAP_VHT_FLAG_SGI	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_FLAG_SGI = 0x04,$/;"	e	enum:ieee80211_radiotap_vht_flags
+IEEE80211_RADIOTAP_VHT_FLAG_SGI_NSYM_M10_9	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_FLAG_SGI_NSYM_M10_9 = 0x08,$/;"	e	enum:ieee80211_radiotap_vht_flags
+IEEE80211_RADIOTAP_VHT_FLAG_STBC	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_FLAG_STBC = 0x01,$/;"	e	enum:ieee80211_radiotap_vht_flags
+IEEE80211_RADIOTAP_VHT_FLAG_TXOP_PS_NA	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_FLAG_TXOP_PS_NA = 0x02,$/;"	e	enum:ieee80211_radiotap_vht_flags
+IEEE80211_RADIOTAP_VHT_KNOWN_BANDWIDTH	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_KNOWN_BANDWIDTH = 0x0040,$/;"	e	enum:ieee80211_radiotap_vht_known
+IEEE80211_RADIOTAP_VHT_KNOWN_BEAMFORMED	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_KNOWN_BEAMFORMED = 0x0020,$/;"	e	enum:ieee80211_radiotap_vht_known
+IEEE80211_RADIOTAP_VHT_KNOWN_GI	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_KNOWN_GI = 0x0004,$/;"	e	enum:ieee80211_radiotap_vht_known
+IEEE80211_RADIOTAP_VHT_KNOWN_GROUP_ID	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_KNOWN_GROUP_ID = 0x0080,$/;"	e	enum:ieee80211_radiotap_vht_known
+IEEE80211_RADIOTAP_VHT_KNOWN_LDPC_EXTRA_OFDM_SYM	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_KNOWN_LDPC_EXTRA_OFDM_SYM = 0x0010,$/;"	e	enum:ieee80211_radiotap_vht_known
+IEEE80211_RADIOTAP_VHT_KNOWN_PARTIAL_AID	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_KNOWN_PARTIAL_AID = 0x0100,$/;"	e	enum:ieee80211_radiotap_vht_known
+IEEE80211_RADIOTAP_VHT_KNOWN_SGI_NSYM_DIS	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_KNOWN_SGI_NSYM_DIS = 0x0008,$/;"	e	enum:ieee80211_radiotap_vht_known
+IEEE80211_RADIOTAP_VHT_KNOWN_STBC	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_KNOWN_STBC = 0x0001,$/;"	e	enum:ieee80211_radiotap_vht_known
+IEEE80211_RADIOTAP_VHT_KNOWN_TXOP_PS_NA	sniffer/radiotap.h	/^	IEEE80211_RADIOTAP_VHT_KNOWN_TXOP_PS_NA = 0x0002,$/;"	e	enum:ieee80211_radiotap_vht_known
 IEEE80211_SA_FROMDS	ap/ieee802_1x_defs.h	599;"	d
 IEEE80211_TX_QUEUE_DATA0	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA0 = 0, \/* used for EDCA AC_VO data *\/$/;"	e	enum:__anon31	file:
 IEEE80211_TX_QUEUE_DATA1	ap/config_file.c	/^	IEEE80211_TX_QUEUE_DATA1 = 1, \/* used for EDCA AC_VI data *\/$/;"	e	enum:__anon31	file:
@@ -1316,6 +1417,7 @@ P2P_WILDCARD_SSID_LEN	ap/ieee802_1x_defs.h	1213;"	d
 PARSE_TEST_PROBABILITY	ap/config_file.c	3410;"	d	file:
 PING	agent/push.c	47;"	d	file:
 PKG_CONFIG	Makefile	/^PKG_CONFIG ?= pkg-config$/;"	m
+PKTHDR_RADIOTAP_VERSION	sniffer/radiotap.h	45;"	d
 PMK_LEN	ap/ap_config.h	19;"	d
 PREFIX	Makefile	/^PREFIX ?= \/usr$/;"	m
 PRINTF_FORMAT	utils/common.h	250;"	d
@@ -1509,6 +1611,7 @@ WFD_SUBELEM_EXT_CAPAB	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_EXT_CAPAB = 7,$/;"	e	e
 WFD_SUBELEM_LOCAL_IP_ADDRESS	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_LOCAL_IP_ADDRESS = 8,$/;"	e	enum:wifi_display_subelem
 WFD_SUBELEM_SESSION_INFO	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_SESSION_INFO = 9$/;"	e	enum:wifi_display_subelem
 WFD_SUBELEM_VIDEO_FORMATS	ap/ieee802_1x_defs.h	/^	WFD_SUBELEM_VIDEO_FORMATS = 3,$/;"	e	enum:wifi_display_subelem
+WICAP_H	sniffer/wicap.h	2;"	d
 WIMASTER_EVENT_H	utils/wimaster_event.h	2;"	d
 WLAN_20_40_BSS_COEX_20MHZ_WIDTH_REQ	ap/ieee802_1x_defs.h	1378;"	d
 WLAN_20_40_BSS_COEX_40MHZ_INTOL	ap/ieee802_1x_defs.h	1377;"	d
@@ -2224,10 +2327,21 @@ __NL80211_TXRATE_INVALID	drivers/nl80211_copy.h	/^	__NL80211_TXRATE_INVALID,$/;"
 __NL80211_WOWLAN_PKTPAT_INVALID	drivers/nl80211_copy.h	3396;"	d
 __NL80211_WOWLAN_TCP_INVALID	drivers/nl80211_copy.h	/^	__NL80211_WOWLAN_TCP_INVALID,$/;"	e	enum:nl80211_wowlan_tcp_attrs
 __NL80211_WOWLAN_TRIG_INVALID	drivers/nl80211_copy.h	/^	__NL80211_WOWLAN_TRIG_INVALID,$/;"	e	enum:nl80211_wowlan_triggers
+__RADIOTAP_H	sniffer/radiotap.h	17;"	d
+__RADIOTAP_ITER_H	sniffer/radiotap_iter.h	2;"	d
 __bitwise	utils/common.h	259;"	d
 __bitwise	utils/common.h	262;"	d
 __force	utils/common.h	258;"	d
 __force	utils/common.h	261;"	d
+_arg	sniffer/radiotap_iter.h	/^	unsigned char *_arg, *_next_ns_data;$/;"	m	struct:ieee80211_radiotap_iterator
+_arg_index	sniffer/radiotap_iter.h	/^	int _arg_index;$/;"	m	struct:ieee80211_radiotap_iterator
+_bitmap_shifter	sniffer/radiotap_iter.h	/^	uint32_t _bitmap_shifter;$/;"	m	struct:ieee80211_radiotap_iterator
+_max_length	sniffer/radiotap_iter.h	/^	int _max_length;$/;"	m	struct:ieee80211_radiotap_iterator
+_next_bitmap	sniffer/radiotap_iter.h	/^	uint32_t *_next_bitmap;$/;"	m	struct:ieee80211_radiotap_iterator
+_next_ns_data	sniffer/radiotap_iter.h	/^	unsigned char *_arg, *_next_ns_data;$/;"	m	struct:ieee80211_radiotap_iterator
+_reset_on_ext	sniffer/radiotap_iter.h	/^	int _reset_on_ext;$/;"	m	struct:ieee80211_radiotap_iterator
+_rtheader	sniffer/radiotap_iter.h	/^	struct ieee80211_radiotap_header *_rtheader;$/;"	m	struct:ieee80211_radiotap_iterator	typeref:struct:ieee80211_radiotap_iterator::ieee80211_radiotap_header
+_vns	sniffer/radiotap_iter.h	/^	const struct ieee80211_radiotap_vendor_namespaces *_vns;$/;"	m	struct:ieee80211_radiotap_iterator	typeref:struct:ieee80211_radiotap_iterator::ieee80211_radiotap_vendor_namespaces
 _wpa_printf	utils/wpa_debug.c	/^void _wpa_printf(int level, const char *fmt, ...)$/;"	f
 a_mpdu_params	ap/ieee802_1x_defs.h	/^	u8 a_mpdu_params; \/* Maximum A-MPDU Length Exponent B0..B1$/;"	m	struct:ieee80211_ht_capabilities
 a_mpdu_params	drivers/driver.h	/^	u8 a_mpdu_params;$/;"	m	struct:hostapd_hw_modes
@@ -2315,6 +2429,10 @@ aid	ap/sta_info.h	/^	u16 aid; \/* STA's unique AID (1 .. 2007) or 0 if not yet a
 aid	drivers/driver.h	/^	u16 aid;$/;"	m	struct:hostapd_sta_add_params
 aifs	ap/ap_config.h	/^	int aifs;$/;"	m	struct:hostapd_tx_queue_params
 aifs	ap/ieee802_1x_defs.h	/^	int aifs;$/;"	m	struct:hostapd_wmm_ac_params
+align	sniffer/radiotap_iter.h	/^	uint8_t align:4, size:4;$/;"	m	struct:radiotap_align_size
+align	sniffer/radiotap_iter.h	/^	uint8_t align:4, size:4;$/;"	m	struct:radiotap_override
+align_size	sniffer/radiotap_iter.h	/^	const struct radiotap_align_size *align_size;$/;"	m	struct:ieee80211_radiotap_namespace	typeref:struct:ieee80211_radiotap_namespace::radiotap_align_size
+align_size_000000_00	sniffer/wicap.c	/^static const struct radiotap_align_size align_size_000000_00[] = {$/;"	v	typeref:struct:radiotap_align_size	file:
 allow_p2p_device	drivers/driver_nl80211.c	/^	unsigned int allow_p2p_device:1;$/;"	m	struct:wpa_driver_nl80211_data	file:
 alpha2	drivers/driver.h	/^		char alpha2[3];$/;"	m	struct:wpa_event_data::channel_list_changed
 always_include_sci	drivers/driver.h	/^	Boolean always_include_sci;$/;"	m	struct:macsec_init_params
@@ -2604,6 +2722,7 @@ ctx	drivers/driver_nl80211.c	/^	void *ctx;$/;"	m	struct:i802_bss	file:
 ctx	drivers/driver_nl80211.c	/^	void *ctx;$/;"	m	struct:wpa_driver_nl80211_data	file:
 current_ap	ap/ieee802_1x_defs.h	/^			u8 current_ap[6];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon7
 current_mode	ap/hostapd.h	/^	struct hostapd_hw_modes *current_mode;$/;"	m	struct:hostapd_iface	typeref:struct:hostapd_iface::hostapd_hw_modes
+current_namespace	sniffer/radiotap_iter.h	/^	const struct ieee80211_radiotap_namespace *current_namespace;$/;"	m	struct:ieee80211_radiotap_iterator	typeref:struct:ieee80211_radiotap_iterator::ieee80211_radiotap_namespace
 current_noise	drivers/driver.h	/^	int current_noise;$/;"	m	struct:wpa_signal_info
 current_rates	ap/hostapd.h	/^	struct hostapd_rate_data *current_rates;$/;"	m	struct:hostapd_iface	typeref:struct:hostapd_iface::hostapd_rate_data
 current_signal	drivers/driver.h	/^	int current_signal;$/;"	m	struct:wpa_signal_info
@@ -2792,12 +2911,16 @@ extra_ies	drivers/driver.h	/^	const u8 *extra_ies;$/;"	m	struct:wpa_driver_scan_
 extra_ies_len	drivers/driver.h	/^	size_t extra_ies_len;$/;"	m	struct:wpa_driver_scan_params
 family_data	drivers/driver_nl80211.c	/^struct family_data {$/;"	s	file:
 family_handler	drivers/driver_nl80211.c	/^static int family_handler(struct nl_msg *msg, void *arg)$/;"	f	file:
+fcshdr	sniffer/wicap.c	/^static int fcshdr = 0;$/;"	v	file:
 fetch_time	drivers/driver.h	/^	struct os_reltime fetch_time;$/;"	m	struct:wpa_scan_results	typeref:struct:wpa_scan_results::os_reltime
+field	sniffer/radiotap_iter.h	/^	uint8_t field;$/;"	m	struct:radiotap_override
 file	ap/ap_config.h	/^		char file[256];$/;"	m	struct:hostapd_bss_config::hs20_icon
 filled	drivers/driver.h	/^	unsigned int filled;$/;"	m	struct:freq_survey
 filter_rssi	drivers/driver.h	/^	s32 filter_rssi;$/;"	m	struct:wpa_driver_scan_params
 filter_ssids	drivers/driver.h	/^	} *filter_ssids;$/;"	m	struct:wpa_driver_scan_params	typeref:struct:wpa_driver_scan_params::wpa_driver_scan_filter
 filter_ssids	drivers/driver_nl80211.c	/^	struct wpa_driver_scan_filter *filter_ssids;$/;"	m	struct:wpa_driver_nl80211_data	typeref:struct:wpa_driver_nl80211_data::wpa_driver_scan_filter	file:
+find_ns	sniffer/radiotap.c	/^static void find_ns(struct ieee80211_radiotap_iterator *iterator,$/;"	f	file:
+find_override	sniffer/radiotap.c	/^static int find_override(struct ieee80211_radiotap_iterator *iterator,$/;"	f	file:
 finish_handler	drivers/driver_nl80211.c	/^static int finish_handler(struct nl_msg *msg, void *arg)$/;"	f	file:
 first_bss	drivers/driver_nl80211.c	/^	struct i802_bss *first_bss;$/;"	m	struct:wpa_driver_nl80211_data	typeref:struct:wpa_driver_nl80211_data::i802_bss	file:
 fixed_bssid	drivers/driver.h	/^	int fixed_bssid;$/;"	m	struct:wpa_driver_associate_params
@@ -2894,6 +3017,9 @@ get_sta_handler	drivers/driver_nl80211.c	/^static int get_sta_handler(struct nl_
 get_sta_list_handler	drivers/driver_nl80211.c	/^static int get_sta_list_handler(struct nl_msg *msg, void *arg)$/;"	f	file:
 get_survey	drivers/driver.h	/^	int (*get_survey)(void *priv, unsigned int freq);$/;"	m	struct:wpa_driver_ops
 get_transmit_next_pn	drivers/driver.h	/^	int (*get_transmit_next_pn)(void *priv, u32 channel, u8 an,$/;"	m	struct:wpa_driver_ops
+get_unaligned	sniffer/platform.h	7;"	d
+get_unaligned_le16	sniffer/platform.h	15;"	d
+get_unaligned_le32	sniffer/platform.h	16;"	d
 global	drivers/driver_nl80211.c	/^	struct nl80211_global *global;$/;"	m	struct:wpa_driver_nl80211_data	typeref:struct:wpa_driver_nl80211_data::nl80211_global	file:
 global_ctrl_sock	ap/hostapd.h	/^	int global_ctrl_sock;$/;"	m	struct:hapd_interfaces
 global_deinit	drivers/driver.h	/^	void (*global_deinit)(void *priv);$/;"	m	struct:wpa_driver_ops
@@ -2901,6 +3027,7 @@ global_iface_name	ap/hostapd.h	/^	char *global_iface_name;$/;"	m	struct:hapd_int
 global_iface_path	ap/hostapd.h	/^	char *global_iface_path;$/;"	m	struct:hapd_interfaces
 global_init	drivers/driver.h	/^	void * (*global_init)(void);$/;"	m	struct:wpa_driver_ops
 global_priv	drivers/driver.h	/^	void *global_priv;$/;"	m	struct:wpa_init_params
+got_packet	sniffer/wicap.c	/^void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)$/;"	f
 group	ap/ap_config.h	/^	int group;$/;"	m	struct:hostapd_wpa_psk
 group	drivers/driver_nl80211.c	/^	const char *group;$/;"	m	struct:family_data	file:
 group_cipher	drivers/driver.h	/^	unsigned int group_cipher;$/;"	m	struct:wpa_driver_ap_params
@@ -2927,8 +3054,8 @@ head_len	drivers/driver.h	/^	size_t head_len;$/;"	m	struct:wpa_driver_ap_params
 height	ap/ap_config.h	/^		u16 height;$/;"	m	struct:hostapd_bss_config::hs20_icon
 hessid	ap/ap_config.h	/^	u8 hessid[ETH_ALEN];$/;"	m	struct:hostapd_bss_config
 hessid	drivers/driver.h	/^	const u8 *hessid;$/;"	m	struct:wpa_driver_ap_params
-hex2byte	ap/config_file.h	/^static int hex2byte(const char *hex)$/;"	f
-hex2num	ap/config_file.h	/^static int hex2num(char c)$/;"	f
+hex2byte	utils/common.c	/^int hex2byte(const char *hex)$/;"	f
+hex2num	utils/common.c	/^int hex2num(char c)$/;"	f
 hexstr2bin	ap/config_file.h	/^static int hexstr2bin(const char *hex, u8 *buf, size_t len)$/;"	f
 hide_ssid	drivers/driver.h	/^	enum hide_ssid hide_ssid;$/;"	m	struct:wpa_driver_ap_params	typeref:enum:wpa_driver_ap_params::hide_ssid
 hide_ssid	drivers/driver.h	/^enum hide_ssid {$/;"	g
@@ -3141,6 +3268,25 @@ ieee80211_ht_capabilities	ap/ieee802_1x_defs.h	/^struct ieee80211_ht_capabilitie
 ieee80211_ht_operation	ap/ieee802_1x_defs.h	/^struct ieee80211_ht_operation {$/;"	s
 ieee80211_mgmt	ap/ieee802_1x_defs.h	/^struct ieee80211_mgmt {$/;"	s
 ieee80211_obss_scan_parameters	ap/ieee802_1x_defs.h	/^struct ieee80211_obss_scan_parameters {$/;"	s
+ieee80211_radiotap_ampdu_flags	sniffer/radiotap.h	/^enum ieee80211_radiotap_ampdu_flags {$/;"	g
+ieee80211_radiotap_channel_flags	sniffer/radiotap.h	/^enum ieee80211_radiotap_channel_flags {$/;"	g
+ieee80211_radiotap_flags	sniffer/radiotap.h	/^enum ieee80211_radiotap_flags {$/;"	g
+ieee80211_radiotap_header	sniffer/radiotap.h	/^struct ieee80211_radiotap_header {$/;"	s
+ieee80211_radiotap_iterator	sniffer/radiotap_iter.h	/^struct ieee80211_radiotap_iterator {$/;"	s
+ieee80211_radiotap_iterator_init	sniffer/radiotap.c	/^int ieee80211_radiotap_iterator_init($/;"	f
+ieee80211_radiotap_iterator_next	sniffer/radiotap.c	/^int ieee80211_radiotap_iterator_next($/;"	f
+ieee80211_radiotap_mcs_flags	sniffer/radiotap.h	/^enum ieee80211_radiotap_mcs_flags {$/;"	g
+ieee80211_radiotap_mcs_have	sniffer/radiotap.h	/^enum ieee80211_radiotap_mcs_have {$/;"	g
+ieee80211_radiotap_namespace	sniffer/radiotap_iter.h	/^struct ieee80211_radiotap_namespace {$/;"	s
+ieee80211_radiotap_presence	sniffer/radiotap.h	/^enum ieee80211_radiotap_presence {$/;"	g
+ieee80211_radiotap_rx_flags	sniffer/radiotap.h	/^enum ieee80211_radiotap_rx_flags {$/;"	g
+ieee80211_radiotap_timestamp_flags	sniffer/radiotap.h	/^enum ieee80211_radiotap_timestamp_flags {$/;"	g
+ieee80211_radiotap_timestamp_unit_spos	sniffer/radiotap.h	/^enum ieee80211_radiotap_timestamp_unit_spos {$/;"	g
+ieee80211_radiotap_tx_flags	sniffer/radiotap.h	/^enum ieee80211_radiotap_tx_flags {$/;"	g
+ieee80211_radiotap_vendor_namespaces	sniffer/radiotap_iter.h	/^struct ieee80211_radiotap_vendor_namespaces {$/;"	s
+ieee80211_radiotap_vht_coding	sniffer/radiotap.h	/^enum ieee80211_radiotap_vht_coding {$/;"	g
+ieee80211_radiotap_vht_flags	sniffer/radiotap.h	/^enum ieee80211_radiotap_vht_flags {$/;"	g
+ieee80211_radiotap_vht_known	sniffer/radiotap.h	/^enum ieee80211_radiotap_vht_known {$/;"	g
 ieee80211_vht_capabilities	ap/ieee802_1x_defs.h	/^struct ieee80211_vht_capabilities {$/;"	s
 ieee80211_vht_operation	ap/ieee802_1x_defs.h	/^struct ieee80211_vht_operation {$/;"	s
 ieee80211ac	ap/ap_config.h	/^	int ieee80211ac;$/;"	m	struct:hostapd_config
@@ -3227,9 +3373,14 @@ is_ap_interface	drivers/driver_nl80211.c	/^static int is_ap_interface(enum nl802
 is_beacon	agent/vap.h	/^    int is_beacon;$/;"	m	struct:vap_data
 is_csa	ap/beacon.h	/^    int is_csa;$/;"	m	struct:beacon_settings
 is_probe	ap/beacon.h	/^    int is_probe;$/;"	m	struct:beacon_settings
+is_radiotap_ns	sniffer/radiotap_iter.h	/^	int is_radiotap_ns;$/;"	m	struct:ieee80211_radiotap_iterator
 is_sta_interface	drivers/driver_nl80211.c	/^static int is_sta_interface(enum nl80211_iftype nlmode)$/;"	f	file:
 isolate	ap/ap_config.h	/^	int isolate;$/;"	m	struct:hostapd_bss_config
 isolate	drivers/driver.h	/^	int isolate;$/;"	m	struct:wpa_driver_ap_params
+it_len	sniffer/radiotap.h	/^	uint16_t it_len;$/;"	m	struct:ieee80211_radiotap_header
+it_pad	sniffer/radiotap.h	/^	uint8_t it_pad;$/;"	m	struct:ieee80211_radiotap_header
+it_present	sniffer/radiotap.h	/^	uint32_t it_present;$/;"	m	struct:ieee80211_radiotap_header
+it_version	sniffer/radiotap.h	/^	uint8_t it_version;$/;"	m	struct:ieee80211_radiotap_header
 json_to_stainfo	agent/stainfo_handler.c	/^static int json_to_stainfo(const char *json, struct sta_info *sta)$/;"	f	file:
 key	ap/ap_config.h	/^	u8 *key[NUM_WEP_KEYS];$/;"	m	struct:hostapd_wep_keys
 key_mgmt	drivers/driver.h	/^	unsigned int key_mgmt;$/;"	m	struct:wpa_driver_capa
@@ -3250,7 +3401,9 @@ last_rx_bytes	ap/sta_info.h	/^	unsigned long last_rx_bytes;$/;"	m	struct:sta_inf
 last_sae_token_key_update	ap/hostapd.h	/^	struct os_reltime last_sae_token_key_update;$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::os_reltime
 last_tx_bytes	ap/sta_info.h	/^	unsigned long last_tx_bytes;$/;"	m	struct:sta_info
 le16	utils/common.h	/^typedef u16 __bitwise le16;$/;"	t
+le16_to_cpu	sniffer/platform.h	5;"	d
 le32	utils/common.h	/^typedef u32 __bitwise le32;$/;"	t
+le32_to_cpu	sniffer/platform.h	6;"	d
 le64	utils/common.h	/^typedef u64 __bitwise le64;$/;"	t
 le_to_host16	utils/common.h	165;"	d
 le_to_host16	utils/common.h	193;"	d
@@ -3365,6 +3518,9 @@ monitor_sock	drivers/driver_nl80211.c	/^	int monitor_sock;$/;"	m	struct:wpa_driv
 msg_ctx	ap/hostapd.h	/^	void *msg_ctx; \/* ctx for wpa_msg() calls *\/$/;"	m	struct:hostapd_data
 msg_ctx_parent	ap/hostapd.h	/^	void *msg_ctx_parent; \/* parent interface ctx for wpa_msg() calls *\/$/;"	m	struct:hostapd_data
 msg_dumps	ap/ap_config.h	/^	int msg_dumps;$/;"	m	struct:hostapd_radius_servers
+n_bits	sniffer/radiotap_iter.h	/^	int n_bits;$/;"	m	struct:ieee80211_radiotap_namespace
+n_ns	sniffer/radiotap_iter.h	/^	int n_ns;$/;"	m	struct:ieee80211_radiotap_vendor_namespaces
+n_overrides	sniffer/radiotap_iter.h	/^	int n_overrides;				\/* Only for RADIOTAP_SUPPORT_OVERRIDES *\/$/;"	m	struct:ieee80211_radiotap_iterator
 nai_realm_count	ap/ap_config.h	/^	unsigned int nai_realm_count;$/;"	m	struct:hostapd_bss_config
 nai_realm_data	ap/ap_config.h	/^	struct hostapd_nai_realm_data *nai_realm_data;$/;"	m	struct:hostapd_bss_config	typeref:struct:hostapd_bss_config::hostapd_nai_realm_data
 nai_realm_eap_auth_inner_non_eap	ap/ieee802_1x_defs.h	/^enum nai_realm_eap_auth_inner_non_eap {$/;"	g
@@ -3523,6 +3679,7 @@ noise	drivers/driver.h	/^	int noise;$/;"	m	struct:wpa_scan_res
 nominal_msdu_size	ap/ieee802_1x_defs.h	/^	le16 nominal_msdu_size;$/;"	m	struct:wmm_tspec_element
 nonerp_set	ap/sta_info.h	/^	unsigned int nonerp_set:1;$/;"	m	struct:sta_info
 noscan	ap/ap_config.h	/^	int noscan;$/;"	m	struct:hostapd_config
+ns	sniffer/radiotap_iter.h	/^	const struct ieee80211_radiotap_namespace *ns;$/;"	m	struct:ieee80211_radiotap_vendor_namespaces	typeref:struct:ieee80211_radiotap_vendor_namespaces::ieee80211_radiotap_namespace
 num	drivers/driver.h	/^	size_t num;$/;"	m	struct:wpa_scan_results
 num_accept_mac	ap/ap_config.h	/^	int num_accept_mac;$/;"	m	struct:hostapd_bss_config
 num_acct_servers	ap/ap_config.h	/^	int num_acct_servers;$/;"	m	struct:hostapd_radius_servers
@@ -3609,12 +3766,15 @@ oui	ap/ieee802_1x_defs.h	/^					u8 oui[3];$/;"	m	struct:ieee80211_mgmt::__anon2:
 oui	ap/ieee802_1x_defs.h	/^	u8 oui[3]; \/* 00:50:f2 *\/$/;"	m	struct:wmm_information_element
 oui	ap/ieee802_1x_defs.h	/^	u8 oui[3]; \/* 00:50:f2 *\/$/;"	m	struct:wmm_parameter_element
 oui	ap/ieee802_1x_defs.h	/^	u8 oui[3]; \/* 00:50:f2 *\/$/;"	m	struct:wmm_tspec_element
+oui	sniffer/radiotap_iter.h	/^	uint32_t oui;$/;"	m	struct:ieee80211_radiotap_namespace
 oui_subtype	ap/ieee802_1x_defs.h	/^	u8 oui_subtype; \/* 0 *\/$/;"	m	struct:wmm_information_element
 oui_subtype	ap/ieee802_1x_defs.h	/^	u8 oui_subtype; \/* 1 *\/$/;"	m	struct:wmm_parameter_element
 oui_subtype	ap/ieee802_1x_defs.h	/^	u8 oui_subtype; \/* 2 *\/$/;"	m	struct:wmm_tspec_element
 oui_type	ap/ieee802_1x_defs.h	/^	u8 oui_type; \/* 2 *\/$/;"	m	struct:wmm_information_element
 oui_type	ap/ieee802_1x_defs.h	/^	u8 oui_type; \/* 2 *\/$/;"	m	struct:wmm_parameter_element
 oui_type	ap/ieee802_1x_defs.h	/^	u8 oui_type; \/* 2 *\/$/;"	m	struct:wmm_tspec_element
+overrides	sniffer/radiotap_iter.h	/^	const struct radiotap_override *overrides;	\/* Only for RADIOTAP_SUPPORT_OVERRIDES *\/$/;"	m	struct:ieee80211_radiotap_iterator	typeref:struct:ieee80211_radiotap_iterator::radiotap_override
+overrides	sniffer/wicap.c	/^static const struct radiotap_override overrides[] = {$/;"	v	typeref:struct:radiotap_override	file:
 own_addr	ap/hostapd.h	/^	u8 own_addr[ETH_ALEN];$/;"	m	struct:hostapd_data
 own_addr	drivers/driver.h	/^	u8 *own_addr; \/* buffer for writing own MAC address *\/$/;"	m	struct:wpa_init_params
 own_ip_addr	ap/ap_config.h	/^	struct hostapd_ip_addr own_ip_addr;$/;"	m	struct:hostapd_bss_config	typeref:struct:hostapd_bss_config::hostapd_ip_addr
@@ -3692,7 +3852,10 @@ prev	utils/list.h	/^	struct dl_list *prev;$/;"	m	struct:dl_list	typeref:struct:d
 prev_bssid	drivers/driver.h	/^	const u8 *prev_bssid;$/;"	m	struct:wpa_driver_associate_params
 prev_bssid	drivers/driver_nl80211.c	/^	u8 prev_bssid[ETH_ALEN];$/;"	m	struct:wpa_driver_nl80211_data	file:
 primary_chan	ap/ieee802_1x_defs.h	/^	u8 primary_chan;$/;"	m	struct:ieee80211_ht_operation
-printf_decode	ap/config_file.h	/^static size_t printf_decode(u8 *buf, size_t maxlen, const char *str)$/;"	f
+print_radiotap_namespace	sniffer/wicap.c	/^static void print_radiotap_namespace(struct ieee80211_radiotap_iterator *iter)$/;"	f	file:
+print_test_namespace	sniffer/wicap.c	/^static void print_test_namespace(struct ieee80211_radiotap_iterator *iter)$/;"	f	file:
+printf_decode	utils/common.c	/^size_t printf_decode(u8 *buf, size_t maxlen, const char *str)$/;"	f
+printf_encode	utils/common.c	/^void printf_encode(char *txt, size_t maxlen, const u8 *data, size_t len)$/;"	f
 privacy	drivers/driver.h	/^	int privacy;$/;"	m	struct:wpa_driver_ap_params
 private_key	ap/ap_config.h	/^	char *private_key;$/;"	m	struct:hostapd_bss_config
 private_key_passwd	ap/ap_config.h	/^	char *private_key_passwd;$/;"	m	struct:hostapd_bss_config
@@ -3748,6 +3911,9 @@ r0kh_list	ap/ap_config.h	/^	struct ft_remote_r0kh *r0kh_list;$/;"	m	struct:hosta
 r1_key_holder	ap/ap_config.h	/^	u8 r1_key_holder[FT_R1KH_ID_LEN];$/;"	m	struct:hostapd_bss_config
 r1kh_list	ap/ap_config.h	/^	struct ft_remote_r1kh *r1kh_list;$/;"	m	struct:hostapd_bss_config	typeref:struct:hostapd_bss_config::ft_remote_r1kh
 radio_disable	drivers/driver.h	/^	int (*radio_disable)(void *priv, int disabled);$/;"	m	struct:wpa_driver_ops
+radiotap_align_size	sniffer/radiotap_iter.h	/^struct radiotap_align_size {$/;"	s
+radiotap_ns	sniffer/radiotap.c	/^static const struct ieee80211_radiotap_namespace radiotap_ns = {$/;"	v	typeref:struct:ieee80211_radiotap_namespace	file:
+radiotap_override	sniffer/radiotap_iter.h	/^struct radiotap_override {$/;"	s
 radius	ap/ap_config.h	/^	struct hostapd_radius_servers *radius;$/;"	m	struct:hostapd_bss_config	typeref:struct:hostapd_bss_config::hostapd_radius_servers
 radius	ap/hostapd.h	/^	struct radius_client_data *radius;$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::radius_client_data
 radius_acct_req_attr	ap/ap_config.h	/^	struct hostapd_radius_attr *radius_acct_req_attr;$/;"	m	struct:hostapd_bss_config	typeref:struct:hostapd_bss_config::hostapd_radius_attr
@@ -3829,6 +3995,7 @@ rsn_preauth	ap/ap_config.h	/^	int rsn_preauth;$/;"	m	struct:hostapd_bss_config
 rsn_preauth	drivers/driver.h	/^	int rsn_preauth;$/;"	m	struct:wpa_bss_params
 rsn_preauth_interfaces	ap/ap_config.h	/^	char *rsn_preauth_interfaces;$/;"	m	struct:hostapd_bss_config
 rssi_avg	drivers/driver.h	/^    int rssi_avg;$/;"	m	struct:hostap_sta_driver_data
+rtap_namespace_sizes	sniffer/radiotap.c	/^static const struct radiotap_align_size rtap_namespace_sizes[] = {$/;"	v	typeref:struct:radiotap_align_size	file:
 rts_threshold	ap/ap_config.h	/^	int rts_threshold;$/;"	m	struct:hostapd_config
 rx_bytes	drivers/driver.h	/^	unsigned long rx_packets, tx_packets, rx_bytes, tx_bytes;$/;"	m	struct:hostap_sta_driver_data
 rx_from_unknown	drivers/driver.h	/^	struct rx_from_unknown {$/;"	s	union:wpa_event_data
@@ -3865,6 +4032,7 @@ sae_data	drivers/driver.h	/^	const u8 *sae_data;$/;"	m	struct:wpa_driver_auth_pa
 sae_data_len	drivers/driver.h	/^	size_t sae_data_len;$/;"	m	struct:wpa_driver_auth_params
 sae_groups	ap/ap_config.h	/^	int *sae_groups;$/;"	m	struct:hostapd_bss_config
 sae_token_key	ap/hostapd.h	/^	u8 sae_token_key[8];$/;"	m	struct:hostapd_data
+save_packet	sniffer/wicap.c	/^int save_packet(const pcap_t *pcap_handle, const struct pcap_pkthdr *header, $/;"	f
 scan2	drivers/driver.h	/^	int (*scan2)(void *priv, struct wpa_driver_scan_params *params);$/;"	m	struct:wpa_driver_ops
 scan_active_dwell	ap/ieee802_1x_defs.h	/^	le16 scan_active_dwell;$/;"	m	struct:ieee80211_obss_scan_parameters
 scan_active_total_per_channel	ap/ieee802_1x_defs.h	/^	le16 scan_active_total_per_channel;$/;"	m	struct:ieee80211_obss_scan_parameters
@@ -3953,6 +4121,8 @@ signal_change	drivers/driver.h	/^	struct wpa_signal_info signal_change;$/;"	m	un
 signal_monitor	drivers/driver.h	/^	int (*signal_monitor)(void *priv, int threshold, int hysteresis);$/;"	m	struct:wpa_driver_ops
 signal_poll	drivers/driver.h	/^	int (*signal_poll)(void *priv, struct wpa_signal_info *signal_info);$/;"	m	struct:wpa_driver_ops
 size	ap/wpabuf.h	/^	size_t size; \/* total size of the allocated buffer *\/$/;"	m	struct:wpabuf
+size	sniffer/radiotap_iter.h	/^	uint8_t align:4, size:4;$/;"	m	struct:radiotap_align_size
+size	sniffer/radiotap_iter.h	/^	uint8_t align:4, size:4;$/;"	m	struct:radiotap_override
 skip_cred_build	ap/ap_config.h	/^	int skip_cred_build;$/;"	m	struct:hostapd_bss_config
 skip_inactivity_poll	ap/ap_config.h	/^	int skip_inactivity_poll;$/;"	m	struct:hostapd_bss_config
 sleep_action	drivers/driver.h	/^		} sleep_action;$/;"	m	struct:wpa_event_data::wnm	typeref:enum:wpa_event_data::wnm::__anon35
@@ -4041,6 +4211,7 @@ stop_ap	drivers/driver.h	/^	int (*stop_ap)(void *priv);$/;"	m	struct:wpa_driver_
 stop_sched_scan	drivers/driver.h	/^	int (*stop_sched_scan)(void *priv);$/;"	m	struct:wpa_driver_ops
 stype	drivers/driver.h	/^		u16 stype;$/;"	m	struct:wpa_event_data::tx_status
 subcmd	drivers/nl80211_copy.h	/^	__u32 subcmd;$/;"	m	struct:nl80211_vendor_cmd_info
+subns	sniffer/radiotap_iter.h	/^	uint8_t subns;$/;"	m	struct:ieee80211_radiotap_namespace
 subscr_remediation_method	ap/ap_config.h	/^	u8 subscr_remediation_method;$/;"	m	struct:hostapd_bss_config
 subscr_remediation_url	ap/ap_config.h	/^	char *subscr_remediation_url;$/;"	m	struct:hostapd_bss_config
 subscription	agent/subscription.h	/^struct subscription {$/;"	s
@@ -4085,6 +4256,9 @@ terminate_on_error	ap/hostapd.h	/^	size_t terminate_on_error;$/;"	m	struct:hapd_
 test_socket	ap/ap_config.h	/^	char *test_socket; \/* UNIX domain socket path for driver_test *\/$/;"	m	struct:hostapd_bss_config
 test_socket	drivers/driver.h	/^	const char *test_socket;$/;"	m	struct:wpa_init_params
 test_use_roc_tx	drivers/driver_nl80211.c	/^	unsigned int test_use_roc_tx:1;$/;"	m	struct:wpa_driver_nl80211_data	file:
+this_arg	sniffer/radiotap_iter.h	/^	unsigned char *this_arg;$/;"	m	struct:ieee80211_radiotap_iterator
+this_arg_index	sniffer/radiotap_iter.h	/^	int this_arg_index;$/;"	m	struct:ieee80211_radiotap_iterator
+this_arg_size	sniffer/radiotap_iter.h	/^	int this_arg_size;$/;"	m	struct:ieee80211_radiotap_iterator
 time_adv	ap/hostapd.h	/^	struct wpabuf *time_adv;$/;"	m	struct:hostapd_data	typeref:struct:hostapd_data::wpabuf
 time_advertisement	ap/ap_config.h	/^	int time_advertisement;$/;"	m	struct:hostapd_bss_config
 time_update_counter	ap/hostapd.h	/^	u8 time_update_counter;$/;"	m	struct:hostapd_data
@@ -4239,6 +4413,8 @@ vlan_id	ap/ap_config.h	/^	int vlan_id;$/;"	m	struct:mac_acl_entry
 vlan_id	ap/sta_info.h	/^	int vlan_id;$/;"	m	struct:sta_info
 vlan_naming	ap/ap_config.h	/^	int vlan_naming;$/;"	m	struct:hostapd_ssid
 vlan_tagged_interface	ap/ap_config.h	/^	char *vlan_tagged_interface;$/;"	m	struct:hostapd_ssid
+vns	sniffer/wicap.c	/^static const struct ieee80211_radiotap_vendor_namespaces vns = {$/;"	v	typeref:struct:ieee80211_radiotap_vendor_namespaces	file:
+vns_array	sniffer/wicap.c	/^static const struct ieee80211_radiotap_namespace vns_array[] = {$/;"	v	typeref:struct:ieee80211_radiotap_namespace	file:
 vs_public_action	ap/ieee802_1x_defs.h	/^				} STRUCT_PACKED vs_public_action;$/;"	m	union:ieee80211_mgmt::__anon2::__anon12::__anon13	typeref:struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon23
 vsnprintf	utils/common.h	83;"	d
 vsnprintf	utils/common.h	84;"	d
@@ -4278,7 +4454,7 @@ wiagent_handle_disassoc	ap/wiagent_80211.c	/^static void wiagent_handle_disassoc
 wiagent_handle_probe_req	ap/wiagent_80211.c	/^static int wiagent_handle_probe_req(struct hostapd_data *hapd, $/;"	f	file:
 wiagent_mgmt_frame_cb	main.c	/^wiagent_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)$/;"	f	file:
 wiagent_mgmt_rx	ap/wiagent_80211.c	/^static int wiagent_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)$/;"	f	file:
-wiagent_probe	agent/push.c	/^void wiagent_probe(const u8 *addr, const char *ssid)$/;"	f
+wiagent_probe	agent/push.c	/^void wiagent_probe(const u8 *addr, const char *ssid, const size_t ssid_len)$/;"	f
 wiagent_push_stainfo	agent/stainfo_handler.c	/^int wiagent_push_stainfo(struct hostapd_data *hapd, const u8 *addr)$/;"	f
 wiagent_remove_stainfo	agent/stainfo_handler.c	/^int wiagent_remove_stainfo(struct hostapd_data *hapd, const u8 *addr) $/;"	f
 wiagent_send_beacon	ap/wiagent_80211.c	/^void wiagent_send_beacon(evutil_socket_t fd, short what, void *arg)$/;"	f
@@ -4287,6 +4463,7 @@ wiagent_vap_cleaner	agent/vap.c	/^void wiagent_vap_cleaner(int fd, short what, v
 wiagent_vap_list	agent/vap.c	/^static void wiagent_vap_list(void)$/;"	f	file:
 wiagent_vap_remove	agent/vap.c	/^int wiagent_vap_remove(const u8 *bss_addr, const u8 *addr)$/;"	f
 wiagent_wpa_event	ap/wiagent_80211.c	/^void wiagent_wpa_event(void *ctx, enum wpa_event_type event,$/;"	f
+wicap	sniffer/wicap.c	/^int wicap(char *dev)$/;"	f
 width	ap/ap_config.h	/^		u16 width;$/;"	m	struct:hostapd_bss_config::hs20_icon
 width_trigger_scan_interval	ap/ieee802_1x_defs.h	/^	le16 width_trigger_scan_interval;$/;"	m	struct:ieee80211_obss_scan_parameters
 wifi_display_subelem	ap/ieee802_1x_defs.h	/^enum wifi_display_subelem {$/;"	g
@@ -4398,6 +4575,7 @@ wpa_scan_results	drivers/driver.h	/^struct wpa_scan_results {$/;"	s
 wpa_select_ap_group_cipher	ap/config_file.c	/^int wpa_select_ap_group_cipher(int wpa, int wpa_pairwise, int rsn_pairwise)$/;"	f
 wpa_signal_info	drivers/driver.h	/^struct wpa_signal_info {$/;"	s
 wpa_sm	ap/sta_info.h	/^	struct wpa_state_machine *wpa_sm;$/;"	m	struct:sta_info	typeref:struct:sta_info::wpa_state_machine
+wpa_ssid_txt	utils/common.c	/^const char * wpa_ssid_txt(const u8 *ssid, size_t ssid_len)$/;"	f
 wpa_states	utils/common_defs.h	/^enum wpa_states {$/;"	g
 wpa_strict_rekey	ap/ap_config.h	/^	int wpa_strict_rekey;$/;"	m	struct:hostapd_bss_config
 wpa_supplicant_event	drivers/drivers.c	/^void (*wpa_supplicant_event)(void *ctx, enum wpa_event_type event,$/;"	v

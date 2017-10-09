@@ -24,6 +24,7 @@
 #include <netlink/genl/ctrl.h>
 #include <netlink/msg.h>
 #include <netlink/attr.h>
+#include <pthread.h>
 
 #include "ap/hostapd.h"
 #include "ap/beacon.h"
@@ -34,6 +35,7 @@
 #include "drivers/nl80211_copy.h"
 #include "utils/common.h"
 #include "utils/wiagent_event.h"
+#include "sniffer/wicap.h"
 
 static void
 wiagent_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)
@@ -135,6 +137,8 @@ int main(int argc, char **argv)
     struct hapd_interfaces interfaces;
     struct hostapd_data *hapd;
     char *controller_ip;
+    pthread_t tid1;
+	int rc1=0;
     
     if ((controller_ip = *(++argv)) == NULL) {
         wpa_printf(MSG_ERROR, "Need controller's ip address.");
@@ -157,6 +161,11 @@ int main(int argc, char **argv)
             wiagent_80211_event_init(hapd) < 0) {
         wpa_printf(MSG_ERROR, "Failed to initialize wiagent.");
         return 1;
+    }
+    
+	rc1 = pthread_create(&tid1, NULL, wicap, "mon0");
+	if(rc1 != 0) {
+		printf("%s: %d\n",__func__, strerror(rc1));
     }
 
     wiagent_event_dispatch();

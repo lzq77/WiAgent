@@ -13,7 +13,7 @@ CFLAGS ?= -MMD -O2 -g
 CFLAGS += -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common \
 		  -DCONFIG_DRIVER_NL80211 -DLIBEVENT2_MGMT_FRAME 
 
-LIBS += -levent -lnl-tiny -ljson-c
+LIBS += -levent -lnl-tiny -ljson-c -lpcap -lpthread
 
 OBJS += ./main.o
 OBJS += ./utils/common.o
@@ -32,6 +32,8 @@ OBJS += ./ap/beacon.o
 OBJS += ./ap/hw_features.o
 OBJS += ./ap/wiagent_80211.o
 OBJS += ./ap/sta_info.o
+OBJS += ./sniffer/radiotap.o
+OBJS += ./sniffer/wicap.o
 
 -include $(OBJS:%.o=%.d)
 

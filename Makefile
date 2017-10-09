@@ -16,7 +16,7 @@ define Package/wiagent
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=wiagent
-	DEPENDS:= +libevent2 +libnl-tiny +libjson-c
+	DEPENDS:= +libevent2 +libnl-tiny +libjson-c +libpcap +libpthread
 endef
 
 TARGET_CPPFLAGS:= \
