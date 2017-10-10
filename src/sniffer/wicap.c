@@ -8,9 +8,13 @@
 #include <errno.h>
 #include <string.h>
 #include <pcap/pcap.h>
+#include <pthread.h>
 #include "../ap/ieee802_1x_defs.h"
 #include "../utils/common.h"
 #include "radiotap_iter.h"
+#include "wicap.h"
+
+pthread_mutex_t rssi_file_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static int fcshdr = 0;
 
@@ -129,11 +133,12 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
     int err;
     int i;
 	struct ieee80211_radiotap_iterator iter;
-    char *rssi_file_name = "wiagent_sniffer_rssi.txt";
+    char *rssi_file_name = "/tmp/wiagent_rssi.hex";
     FILE *rssi_file_fd;
     int rssi;
     int count;
     struct ieee80211_hdr *hdr;
+    struct rssi_info rinfo;
 
     err = ieee80211_radiotap_iterator_init(&iter, packet, 2014, &vns);
 	if (err) {
@@ -155,13 +160,22 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 		return;
 	}
 
-    rssi_file_fd = fopen(rssi_file_name, "a+");
-
+    /**
+     * Saving values to file, 
+     * Using a mutex to keep files synchronized.
+     */
     hdr =(struct ieee80211_hdr *)(packet + iter._max_length);
+    os_memcpy(rinfo.da, hdr->addr1, 6);
+    os_memcpy(rinfo.src, hdr->addr2, 6);
+    os_memcpy(rinfo.bssid, hdr->addr3, 6);
+    rinfo.rssi = rssi;
 
-    fprintf(rssi_file_fd, MACSTR" "MACSTR" "MACSTR" %d\n", 
-            MAC2STR(hdr->addr2), MAC2STR(hdr->addr1), MAC2STR(hdr->addr3), rssi);
+    pthread_mutex_lock(&rssi_file_mutex);
+    rssi_file_fd = fopen(rssi_file_name, "ab+");
+    fwrite(&rinfo, sizeof(struct rssi_info), 1, rssi_file_fd);
+    fflush(rssi_file_fd);
     fclose(rssi_file_fd);
+    pthread_mutex_unlock(&rssi_file_mutex);
 
 	return;
 

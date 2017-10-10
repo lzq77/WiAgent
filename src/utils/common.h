@@ -348,6 +348,4 @@ void printf_encode(char *txt, size_t maxlen, const u8 *data, size_t len);
 size_t printf_decode(u8 *buf, size_t maxlen, const char *str);
 const char * wpa_ssid_txt(const u8 *ssid, size_t ssid_len);
 
-
-
 #endif

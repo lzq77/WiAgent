@@ -26,6 +26,7 @@ OBJS += ./agent/push.o
 OBJS += ./agent/subscription.o
 OBJS += ./agent/vap.o
 OBJS += ./agent/stainfo_handler.o
+OBJS += ./agent/rssi_handler.o
 OBJS += ./ap/config_file.o
 OBJS += ./ap/hostapd.o
 OBJS += ./ap/beacon.o

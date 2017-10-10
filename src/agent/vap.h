@@ -32,7 +32,7 @@ struct vap_data {
     struct vap_data *next;
 };
 
-void wiagent_vap_cleaner(int fd, short what, void *arg);
+void wiagent_vap_clean(int fd, short what, void *arg);
 
 struct vap_data * wiagent_vap_add(const u8 *bss_addr, 
         const u8 *addr, const u8 *bssid, const char *ssid);

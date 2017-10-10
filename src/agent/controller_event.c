@@ -29,6 +29,7 @@
 #include "vap.h"
 #include "push.h"
 #include "stainfo_handler.h"
+#include "rssi_handler.h"
 #include "subscription.h"
 #include "controller_event.h"
 
@@ -46,6 +47,8 @@ int controller_event_init(struct hostapd_data *hapd, char *controller_ip)
 	struct timeval tv_ping;
     struct event *ev_vap_cleaner;
     struct timeval tv_vap_cleaner;
+    struct event *ev_rssi;
+    struct timeval tv_rssi;
     struct evconnlistener *controller_listener;
 	struct sockaddr_in sin;
     struct sockaddr_in push_addr;
@@ -99,10 +102,17 @@ int controller_event_init(struct hostapd_data *hapd, char *controller_ip)
 	wiagent_event_add(ev_ping, &tv_ping);
 
     ev_vap_cleaner = wiagent_event_new(push_sock, EV_TIMEOUT | EV_PERSIST, 
-            wiagent_vap_cleaner, hapd->own_addr);
+            wiagent_vap_clean, hapd->own_addr);
 	tv_vap_cleaner.tv_sec = CLEANER_SECONDS;
     tv_vap_cleaner.tv_usec = 0;
 	wiagent_event_add(ev_vap_cleaner, &tv_vap_cleaner);
+
+    //rssi event
+    ev_rssi = wiagent_event_new(-1, EV_TIMEOUT | EV_PERSIST, 
+            wiagent_rssi_handle, "/tmp/wiagent_rssi.hex");
+	tv_rssi.tv_sec = 1;
+    tv_rssi.tv_usec = 0;
+	wiagent_event_add(ev_rssi, &tv_rssi);
 
     return 0;
 }

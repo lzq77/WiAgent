@@ -162,7 +162,11 @@ int main(int argc, char **argv)
         wpa_printf(MSG_ERROR, "Failed to initialize wiagent.");
         return 1;
     }
-    
+   
+    /**
+     * New a thread that using libpcap to capture packets
+     * and extract rssi value.
+     */
 	rc1 = pthread_create(&tid1, NULL, wicap, "mon0");
 	if(rc1 != 0) {
 		printf("%s: %d\n",__func__, strerror(rc1));

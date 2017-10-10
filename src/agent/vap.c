@@ -55,7 +55,7 @@ static void reset_bssid_mask(const u8 *hw_addr)
     }
 }
 
-void wiagent_vap_cleaner(int fd, short what, void *arg)
+void wiagent_vap_clean(int fd, short what, void *arg)
 {
     u8 *bss_addr = arg;
     struct vap_data *vap = vap_first;
