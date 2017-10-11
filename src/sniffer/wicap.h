@@ -10,7 +10,7 @@ struct rssi_info {
     int rssi;
 };
 
-void wicap(void *dev);
+void* wicap(void *filt);
 
 #endif /*WICAP_H*/
 

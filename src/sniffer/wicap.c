@@ -15,6 +15,8 @@
 #include "wicap.h"
 
 pthread_mutex_t rssi_file_mutex = PTHREAD_MUTEX_INITIALIZER;
+int is_filter_update = 0;
+char filter_exp[1024];
 
 static int fcshdr = 0;
 
@@ -131,14 +133,15 @@ int save_packet(const pcap_t *pcap_handle, const struct pcap_pkthdr *header,
 void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
 {
     int err;
-    int i;
 	struct ieee80211_radiotap_iterator iter;
     char *rssi_file_name = "/tmp/wiagent_rssi.hex";
     FILE *rssi_file_fd;
     int rssi;
-    int count;
     struct ieee80211_hdr *hdr;
     struct rssi_info rinfo;
+    struct bpf_program fp;
+    bpf_u_int32 netp;
+    pcap_t *handle = (pcap_t *)args;
 
     err = ieee80211_radiotap_iterator_init(&iter, packet, 2014, &vns);
 	if (err) {
@@ -177,26 +180,43 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
     fclose(rssi_file_fd);
     pthread_mutex_unlock(&rssi_file_mutex);
 
+    if(is_filter_update) {
+        fprintf(stderr, "<-- rssi debug --> Updates libpcap filter expression, and compiles and applys again\n");
+        /**
+         * Updates libpcap filter expression, and compiles and applys again.
+         */
+        if (pcap_compile(handle, &fp, filter_exp, 0, netp) == -1) {
+            fprintf(stderr, "Couldn't parse filter %s: %s\n", filter_exp, pcap_geterr(handle));
+            return;
+        }
+        if (pcap_setfilter(handle, &fp) == -1) {
+            fprintf(stderr, "Couldn't install filter %s: %s\n", filter_exp, pcap_geterr(handle));
+            return;
+        }
+        is_filter_update = 0;
+    }
+
 	return;
 
 }
 
-void wicap(void *dev)
+void* wicap(void *filt)
 {
     pcap_t *handle;			/* Session handle */
     bpf_u_int32 netp;
     char errbuf[PCAP_ERRBUF_SIZE];	/* Error string */
     struct bpf_program fp;		/* The compiled filter */
-    char filter_exp[] = "ether src dc:f0:90:99:d3:d6";	/* The filter expression */
+    char *dev = "mon0";
     
     /* Open the session in promiscuous mode */
-    handle = pcap_open_live((char *)dev, BUFSIZ, 1, 100, errbuf);
+    handle = pcap_open_live(dev, BUFSIZ, 1, 100, errbuf);
     if (handle == NULL) {
-        fprintf(stderr, "Couldn't open device %s: %s\n", (char *)dev, errbuf);
+        fprintf(stderr, "Couldn't open device %s: %s\n", dev, errbuf);
         return;
     }
+
     /* Compile and apply the filter */
-    if (pcap_compile(handle, &fp, filter_exp, 0, netp) == -1) {
+    if (pcap_compile(handle, &fp, filt, 0, netp) == -1) {
         fprintf(stderr, "Couldn't parse filter %s: %s\n", filter_exp, pcap_geterr(handle));
         return;
     }
@@ -204,11 +224,8 @@ void wicap(void *dev)
         fprintf(stderr, "Couldn't install filter %s: %s\n", filter_exp, pcap_geterr(handle));
         return;
     }
-
-    /* now we can set our callback function */
-	pcap_loop(handle, -1, got_packet, handle);
-
-	/* cleanup */
+	
+    pcap_loop(handle, -1, got_packet, handle);
 	pcap_freecode(&fp);
 	pcap_close(handle);
     
