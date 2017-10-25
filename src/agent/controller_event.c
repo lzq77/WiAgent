@@ -38,7 +38,8 @@
 
 static struct bufferevent *bev;
 
-int controller_event_init(struct hostapd_data *hapd, char *controller_ip)
+int controller_event_init(struct hostapd_data *hapd, const char *controller_ip,
+        const char *rssi_filter)
 {
     /**
      * libevent event.
@@ -109,7 +110,7 @@ int controller_event_init(struct hostapd_data *hapd, char *controller_ip)
 
     //rssi event
     ev_rssi = wiagent_event_new(-1, EV_TIMEOUT | EV_PERSIST, 
-            wiagent_rssi_handle, "/tmp/wiagent_rssi.hex");
+            wiagent_rssi_handle, rssi_filter);
 	tv_rssi.tv_sec = 1;
     tv_rssi.tv_usec = 0;
 	wiagent_event_add(ev_rssi, &tv_rssi);

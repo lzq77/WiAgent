@@ -19,108 +19,231 @@
 #include <unistd.h>
 #include "../sniffer/wicap.h"
 #include "../utils/common.h"
+#include "push.h"
 #include "vap.h"
 #include "rssi_handler.h"
 
 //declared at ../sniffer/wicap.c
 extern pthread_mutex_t rssi_file_mutex; 
-extern int is_filter_update;
+extern bool is_filter_update;
 extern char filter_exp[1024];
 
-struct filter_address {
-    u8 addr[6];
-    struct filter_address *next;
+struct rssi_entry {
+   u8 addr[ETH_ALEN];
+   int rssi_sum;
+   int rssi_num;
+   struct rssi_entry *next;
 };
 
-void update_filter_vap(struct vap_data *vap, void *ctx)
+#define RSSI_HASH_SIZE 256
+#define RSSI_HASH(addr) (addr[5])
+
+static struct rssi_entry *buckets[RSSI_HASH_SIZE] = { NULL };
+
+static struct rssi_entry * add_rssi_entry(const u8 *addr)
 {
-    struct filter_address *fa = (struct filter_address *)ctx;
-    if (vap->is_beacon) {
-        while (fa->next)
-            fa = fa->next;
-        fa->next = os_malloc(sizeof(struct filter_address));
-        fa = fa->next;
-        os_memcpy(fa->addr, vap->addr, 6);
-        fa->next = NULL;
+    struct rssi_entry *temp;
+    struct rssi_entry *entry = 
+        (struct rssi_entry *)malloc(sizeof(struct rssi_entry));
+    memcpy(entry->addr, addr, ETH_ALEN);
+    entry->next = NULL;
+
+    if (buckets[RSSI_HASH(addr)] == NULL) {
+        buckets[RSSI_HASH(addr)] = entry;
+    }
+    else {
+        for (temp = buckets[RSSI_HASH(addr)]; 
+                temp->next != NULL; temp = temp->next);
+        temp->next = entry;
+    }
+    return entry;
+}
+
+static void remove_rssi_entry(const u8 *addr)
+{
+    struct rssi_entry *entry;
+    struct rssi_entry *prev;
+    
+    entry = buckets[RSSI_HASH(addr)];
+    prev = entry;
+    while (entry != NULL) {
+        if (memcmp(entry->addr, addr, 6) == 0)
+            break;
+        prev = entry;
+        entry = entry->next;
+    }
+    if (entry == NULL)
+        return;
+    if (entry == prev) {
+        buckets[RSSI_HASH(addr)] = entry->next;
+        free(entry);
+    }
+    else {
+        prev->next = entry->next;
+        free(entry);
     }
 }
 
-void parse_sta_rssi(char *file_name)
+static void tranverse_rssi_entry_buckets()
 {
-    char *rssi_file_name = "/tmp/wiagent_rssi.hex";
+    struct rssi_entry *entry;
+    int i;
+    
+    for (i = 0; i < RSSI_HASH_SIZE; i++ ) {
+        entry = buckets[i];
+        if (entry != NULL)
+            fprintf(stdout, "----- bucktes %d -----\n", i);
+        for (; entry != NULL; entry = entry->next) {
+            fprintf(stdout, "  "MACSTR"  \n", MAC2STR(entry->addr));
+        }
+    }
+}
+
+static struct rssi_entry * get_rssi_entry(const u8 *addr)
+{
+    struct rssi_entry *entry;
+
+    entry = buckets[RSSI_HASH(addr)];
+    while (entry != NULL && memcmp(entry->addr, addr, 6) != 0)
+		entry = entry->next;
+    
+    return entry;
+}
+
+static void construct_rssi_filter_express(char *express)
+{
+    struct rssi_entry *entry;
+    int i;
+    int entry_num;
+    char mac[18];
+    char str[1024];
+
+    strcpy(str, "ether src ");
+    
+    for (i = 0; i < RSSI_HASH_SIZE; i++) {
+        entry = buckets[i];
+        for (; entry != NULL; entry = entry->next) {
+            sprintf(mac, MACSTR, MAC2STR(entry->addr));
+            if (entry_num != 0) {
+                strcat(str, " or ");
+            }
+            strcat(str, mac);
+            entry_num++;
+        }
+    }
+    strcpy(express, str);
+}
+
+void update_rssi_filter(enum rssi_filter_oper oper, const u8 *sta)
+{
+    struct rssi_entry entry;
+
+    if (oper == FILTER_ADD_STA) {
+       if (get_rssi_entry(sta) != NULL)
+           return;
+       add_rssi_entry(sta);
+    }
+    else if (oper == FILTER_SUB_STA) {
+       remove_rssi_entry(sta);
+    }
+    construct_rssi_filter_express(filter_exp);
+    is_filter_update = true;
+}
+
+static void push_rssi_value()
+{
+    struct rssi_entry *entry;
+    int i = 0;
+    int rssi_value = 0;
+    
+    for (; i < RSSI_HASH_SIZE; i++ ) {
+        entry = buckets[i];
+        for (; entry != NULL; entry = entry->next) {
+            if (entry->rssi_num != 0 && entry->rssi_sum !=0) {
+                rssi_value = entry->rssi_sum / entry->rssi_num;
+                push_subscription(entry->addr, 1, 1, rssi_value + 100);
+                entry->rssi_num = 0;
+                entry->rssi_sum = 0;
+            }
+        }
+    }
+}
+
+static void parse_sta_rssi(char *file_name)
+{
     FILE *rssi_file_fd;
     struct rssi_info rinfo;
-    int rsum = 0, rnum = 0, ravg = 0;
+    struct rssi_entry *entry;
 
-    rssi_file_fd = fopen(rssi_file_name, "rb");
+    rssi_file_fd = fopen(file_name, "rb");
     if (rssi_file_fd != NULL) {
         while (!feof(rssi_file_fd)) {
             fread(&rinfo, sizeof(struct rssi_info), 1, rssi_file_fd);
-            if (rinfo.rssi > 0 || rinfo.rssi < -100)
-                continue;
-            rsum += rinfo.rssi;
-            rnum++;
-        }
-        if (rnum) {
-            ravg = rsum / rnum;
-            fprintf(stderr, "Average rssi value (%d), total number (%d)",
-                    ravg, rnum);
+            entry = get_rssi_entry(rinfo.src);
+            if (entry == NULL) continue;
+            entry->rssi_sum += rinfo.rssi;
+            entry->rssi_num++;
         }
         fclose(rssi_file_fd);
 
         //Emptys file content.
-        rssi_file_fd = fopen(rssi_file_name, "w");
+        rssi_file_fd = fopen(file_name, "w");
         fclose(rssi_file_fd);
-    } 
+
+        push_rssi_value();
+    }
+}
+
+void parse_sta_address(const char *express)
+{
+    u8 addr[6];
+    char *token;
+    char *running;
+    char *delim = " ";
+    char str[1024];
+    
+    strcpy(str, express);
+    running = str;
+    for (token = strsep(&running, delim); token != NULL;
+            token = strsep(&running, delim)) {
+        if (strlen(token) == 17) {
+            if (hwaddr_aton(token, addr) == 0) {
+                add_rssi_entry(addr);
+            }
+        }
+    }
 }
 
 void wiagent_rssi_handle(int fd, short what, void *arg)
 {
-    char *rssi_file_name = (char *)arg;
+    char *filter_exp = (char *)arg;
     int res;
     pthread_t t_id;
-    struct filter_address fa_head;
-    struct filter_address *fa_temp;
-    char filter_temp[64];
     static bool rssi_thread_running = false;
-    fa_head.next = NULL;
-
-    wiagent_for_each_vap(update_filter_vap, &fa_head);
-    if (fa_head.next) {
-        sprintf(filter_exp, "ether src "MACSTR, MAC2STR(fa_head.next->addr));
-        if (!rssi_thread_running) {
-            /**
-             * New a thread that using libpcap to capture packets
-             * and extract rssi value.
-             */
-            fprintf(stderr, "<-- rssi debug --> Create a thread -- wicap rssi\n");
-            res = pthread_create(&t_id, NULL, wicap, filter_exp);
-            if(res != 0) {
-                wpa_printf(MSG_ERROR, "%s: %s\n",__func__, strerror(res));
-                return;
-            }
-            rssi_thread_running = true;
-        }
-        else {
-            /**
-             * Constructs 802.11 frame filter exprition.
-             */
-            fa_temp = fa_head.next->next;
-            while (fa_temp) {
-                sprintf(filter_temp, " or "MACSTR, MAC2STR(fa_temp->addr));
-                strcat(filter_exp, filter_temp);
-                fa_temp = fa_temp->next;
-            }
-            is_filter_update = 1;
-            fprintf(stderr, "<-- rssi debug --> Update rssi filter expression\n");
-            fprintf(stderr, "<-- rssi debug --> %s\n", filter_exp);
-        }
-    }
+    char *rssi_file_name = "/tmp/wiagent_rssi.hex";
 
     if (rssi_thread_running) {
+        /**
+         * Uses mutex to keep the sync with sniffer thread 
+         * on rssi file operations.
+         */
         pthread_mutex_lock(&rssi_file_mutex);
-        fprintf(stderr, "<-- rssi debug --> parse_sta_rssi\n");
         parse_sta_rssi(rssi_file_name);
         pthread_mutex_unlock(&rssi_file_mutex);
+    }
+    else {
+        /**
+         * New a thread that using libpcap to capture packets
+         * and extract rssi value.
+         */
+        res = pthread_create(&t_id, NULL, wicap, filter_exp);
+        if(res != 0) {
+            wpa_printf(MSG_ERROR, "%s: %s\n",__func__, strerror(res));
+            return;
+        }
+        rssi_thread_running = true;
+
+        parse_sta_address(filter_exp);
+
     }
 }

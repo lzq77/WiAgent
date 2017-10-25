@@ -479,8 +479,6 @@ static int wiagent_mgmt_rx(struct hostapd_data *hapd, struct rx_mgmt *rx_mgmt)
 	fc = le_to_host16(mgmt->frame_control);
 	stype = WLAN_FC_GET_STYPE(fc);
 
-    push_subscription(mgmt->sa, 1, 1, rx_mgmt->ssi_signal + 100);
-
     switch (stype) {
         case WLAN_FC_STYPE_PROBE_REQ:
             wiagent_handle_probe_req(hapd, mgmt, len);

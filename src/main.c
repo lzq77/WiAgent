@@ -135,9 +135,9 @@ int main(int argc, char **argv)
     struct hapd_interfaces interfaces;
     struct hostapd_data *hapd;
     char *controller_ip;
-    
-    if ((controller_ip = *(++argv)) == NULL) {
-        wpa_printf(MSG_ERROR, "Need controller's ip address.");
+
+    if (argc < 3) {
+        wpa_printf(MSG_ERROR, "Usage: wiagent controller_ip filter_expression.");
         return 1;
     }
     
@@ -151,9 +151,8 @@ int main(int argc, char **argv)
         return 1;
     }
     hapd = interfaces.iface[0]->bss[0];
-
     
-    if (controller_event_init(hapd, controller_ip) < 0 ||
+    if (controller_event_init(hapd, argv[1], argv[2]) < 0 ||
             wiagent_80211_event_init(hapd) < 0) {
         wpa_printf(MSG_ERROR, "Failed to initialize wiagent.");
         return 1;

@@ -7,6 +7,7 @@
 #include <endian.h>
 #include <errno.h>
 #include <string.h>
+#include <stdbool.h>
 #include <pcap/pcap.h>
 #include <pthread.h>
 #include "../ap/ieee802_1x_defs.h"
@@ -15,7 +16,7 @@
 #include "wicap.h"
 
 pthread_mutex_t rssi_file_mutex = PTHREAD_MUTEX_INITIALIZER;
-int is_filter_update = 0;
+bool is_filter_update = false;
 char filter_exp[1024];
 
 static int fcshdr = 0;
@@ -176,12 +177,10 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
     pthread_mutex_lock(&rssi_file_mutex);
     rssi_file_fd = fopen(rssi_file_name, "ab+");
     fwrite(&rinfo, sizeof(struct rssi_info), 1, rssi_file_fd);
-    fflush(rssi_file_fd);
     fclose(rssi_file_fd);
     pthread_mutex_unlock(&rssi_file_mutex);
 
     if(is_filter_update) {
-        fprintf(stderr, "<-- rssi debug --> Updates libpcap filter expression, and compiles and applys again\n");
         /**
          * Updates libpcap filter expression, and compiles and applys again.
          */
@@ -193,11 +192,11 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
             fprintf(stderr, "Couldn't install filter %s: %s\n", filter_exp, pcap_geterr(handle));
             return;
         }
-        is_filter_update = 0;
+        is_filter_update = false;
     }
 
-	return;
 
+	return;
 }
 
 void* wicap(void *filt)
@@ -212,22 +211,22 @@ void* wicap(void *filt)
     handle = pcap_open_live(dev, BUFSIZ, 1, 100, errbuf);
     if (handle == NULL) {
         fprintf(stderr, "Couldn't open device %s: %s\n", dev, errbuf);
-        return;
+        return NULL;
     }
 
     /* Compile and apply the filter */
     if (pcap_compile(handle, &fp, filt, 0, netp) == -1) {
-        fprintf(stderr, "Couldn't parse filter %s: %s\n", filter_exp, pcap_geterr(handle));
-        return;
+        fprintf(stderr, "Couldn't parse filter %s: %s\n", (char *)filt, pcap_geterr(handle));
+        return NULL;
     }
     if (pcap_setfilter(handle, &fp) == -1) {
-        fprintf(stderr, "Couldn't install filter %s: %s\n", filter_exp, pcap_geterr(handle));
-        return;
+        fprintf(stderr, "Couldn't install filter %s: %s\n", (char *)filt, pcap_geterr(handle));
+        return NULL;
     }
 	
     pcap_loop(handle, -1, got_packet, handle);
 	pcap_freecode(&fp);
 	pcap_close(handle);
     
-    return;
+    return ;
 }
