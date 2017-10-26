@@ -1736,7 +1736,6 @@ static  ParseRes ieee802_11_parse_elems(const u8 *start, size_t len,
 		left -= elen;
 		pos += elen;
 	}
-	fprintf(stderr,"left=%d,unkonw=%d\n",left,unknown);
 	if (left)
 		return ParseFailed;	
 	return unknown ? ParseUnknown : ParseOK;

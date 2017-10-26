@@ -39,7 +39,7 @@
 static struct bufferevent *bev;
 
 int controller_event_init(struct hostapd_data *hapd, const char *controller_ip,
-        const char *rssi_filter)
+        const char *rssi_file)
 {
     /**
      * libevent event.
@@ -110,7 +110,7 @@ int controller_event_init(struct hostapd_data *hapd, const char *controller_ip,
 
     //rssi event
     ev_rssi = wiagent_event_new(-1, EV_TIMEOUT | EV_PERSIST, 
-            wiagent_rssi_handle, rssi_filter);
+            wiagent_rssi_handle, rssi_file);
 	tv_rssi.tv_sec = 1;
     tv_rssi.tv_usec = 0;
 	wiagent_event_add(ev_rssi, &tv_rssi);
@@ -159,6 +159,13 @@ static void controller_remove_vap(struct hostapd_data *hapd, char *data[], int s
             wpa_printf(MSG_DEBUG, "%s - remove (%s) vap and sta_info success!", __func__, data[0]);
     }
 }
+
+static void controller_update_rssi_filter_express(struct hostapd_data *hapd, 
+        char *data[], int size) 
+{
+    update_rssi_filter_express(data[0]); 
+}
+
 
 static void controller_action_csa(struct hostapd_data *hapd,
         char *data[], int size)
@@ -404,6 +411,13 @@ void handle_write(struct hostapd_data *hapd, char* data)
 
         array[size] = (char *)os_zalloc(strlen(command) + 1);
         strcpy(array[size], command);
+        
+        if (size == 0 && strcmp(array[0], "rssi_filter_express") == 0) {
+            array[++size] = (char *)os_zalloc(strlen(data) + 1);
+            strcpy(array[size], data);
+            size++;
+            break;
+        }
         if (size == 1 && strcmp(array[0], "add_station") == 0) {
             array[++size] = (char *)os_zalloc(strlen(data) + 1);
             strcpy(array[size], data);
@@ -425,6 +439,9 @@ void handle_write(struct hostapd_data *hapd, char* data)
         controller_switch_channel(hapd, &array[1], size - 1);
     else if (strcmp(array[0], "send_probe_response") == 0)
         controller_send_probe_response(hapd, &array[1], size - 1);
+    else if (strcmp(array[0], "rssi_filter_express") == 0)
+        controller_update_rssi_filter_express(hapd, &array[1], size - 1);
+
 
     for(;size > 0; size--) {
         os_free(array[size - 1]);
@@ -457,8 +474,6 @@ void controller_readcb(struct bufferevent *bev, struct hostapd_data *hapd)
     char read_buf[2048]={0};
 
     bufferevent_read(bev,read_buf,sizeof(read_buf));
-
-    wpa_printf(MSG_DEBUG, "Received controller command: %s", read_buf);
 
     /**
      * Read and process every row of data.

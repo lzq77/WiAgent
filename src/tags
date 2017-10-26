@@ -82,7 +82,7 @@ CONTROLLER_EVENT_H	agent/controller_event.h	10;"	d
 CONTROLLER_READ	agent/controller_event.c	36;"	d	file:
 CONTROLLER_WRITE	agent/controller_event.c	37;"	d	file:
 CONTROL_PORT	agent/controller_event.h	16;"	d
-DEAUTH	agent/push.c	52;"	d	file:
+DEAUTH	agent/push.c	51;"	d	file:
 DEFINE_DL_LIST	utils/list.h	94;"	d
 DENY_UNLESS_ACCEPTED	ap/ap_config.h	/^		DENY_UNLESS_ACCEPTED = 1,$/;"	e	enum:Macaddr_acl
 DFS_EVENT_CAC_COMPLETED	ap/ieee802_1x_defs.h	45;"	d
@@ -90,7 +90,7 @@ DFS_EVENT_CAC_START	ap/ieee802_1x_defs.h	44;"	d
 DFS_EVENT_NEW_CHANNEL	ap/ieee802_1x_defs.h	43;"	d
 DFS_EVENT_NOP_FINISHED	ap/ieee802_1x_defs.h	46;"	d
 DFS_EVENT_RADAR_DETECTED	ap/ieee802_1x_defs.h	42;"	d
-DISASSOC	agent/push.c	51;"	d	file:
+DISASSOC	agent/push.c	50;"	d	file:
 DRIVER_H	drivers/driver.h	18;"	d
 DRIVER_NL80211_H	drivers/driver_nl80211.c	14;"	d	file:
 DVLAN_CLEAN_BR	ap/ap_config.h	30;"	d
@@ -172,6 +172,8 @@ EXT_HT_CAP_INFO_RD_RESPONDER	ap/ieee802_1x_defs.h	858;"	d
 EXT_HT_CAP_INFO_TRANS_TIME_OFFSET	ap/ieee802_1x_defs.h	853;"	d
 FALSE	utils/common_defs.h	/^typedef enum { FALSE = 0, TRUE = 1 } Boolean;$/;"	e	enum:__anon37
 FALSE	utils/common_defs.h	13;"	d
+FILTER_ADD_STA	agent/rssi_handler.h	/^    FILTER_ADD_STA,$/;"	e	enum:rssi_filter_oper
+FILTER_SUB_STA	agent/rssi_handler.h	/^    FILTER_SUB_STA$/;"	e	enum:rssi_filter_oper
 GAS_DIALOG_MAX	ap/sta_info.h	141;"	d
 GREATER_THAN	agent/subscription.h	/^    EQUALS, GREATER_THAN, LESSER_THAN$/;"	e	enum:relation_t
 HAPD_IFACE_ACS	ap/hostapd.h	/^		HAPD_IFACE_ACS,$/;"	e	enum:Hostapd_iface_state
@@ -439,7 +441,8 @@ LIST_H	utils/list.h	10;"	d
 LONG_PREAMBLE	ap/ieee802_1x_defs.h	/^		LONG_PREAMBLE = 0,$/;"	e	enum:Preamble
 MAC2STR	utils/common.h	229;"	d
 MACSTR	utils/common.h	230;"	d
-MAC_STR_LEN	agent/push.c	45;"	d	file:
+MAC_STA_LENGTH	agent/rssi_handler.c	122;"	d	file:
+MAC_STR_LEN	agent/push.c	44;"	d	file:
 MANDIR	Makefile	/^MANDIR ?= $(PREFIX)\/share\/man$/;"	m
 MAX_CLIENT_REACHED	drivers/driver.h	/^			MAX_CLIENT_REACHED,$/;"	e	enum:wpa_event_data::connect_failed_reason::__anon36
 MAX_NL80211_IFACE_COMB	drivers/nl80211_copy.h	/^	MAX_NL80211_IFACE_COMB = NUM_NL80211_IFACE_COMB - 1$/;"	e	enum:nl80211_if_combination_attrs
@@ -1415,18 +1418,18 @@ P2P_SERV_WS_DISCOVERY	ap/ieee802_1x_defs.h	/^	P2P_SERV_WS_DISCOVERY = 3,$/;"	e	e
 P2P_WILDCARD_SSID	ap/ieee802_1x_defs.h	1212;"	d
 P2P_WILDCARD_SSID_LEN	ap/ieee802_1x_defs.h	1213;"	d
 PARSE_TEST_PROBABILITY	ap/config_file.c	3410;"	d	file:
-PING	agent/push.c	47;"	d	file:
+PING	agent/push.c	46;"	d	file:
 PKG_CONFIG	Makefile	/^PKG_CONFIG ?= pkg-config$/;"	m
 PKTHDR_RADIOTAP_VERSION	sniffer/radiotap.h	45;"	d
 PMK_LEN	ap/ap_config.h	19;"	d
 PREFIX	Makefile	/^PREFIX ?= \/usr$/;"	m
 PRINTF_FORMAT	utils/common.h	250;"	d
 PRINTF_FORMAT	utils/common.h	253;"	d
-PROBE	agent/push.c	48;"	d	file:
+PROBE	agent/push.c	47;"	d	file:
 PSK_RADIUS_ACCEPTED	ap/ap_config.h	/^		PSK_RADIUS_ACCEPTED = 1,$/;"	e	enum:Wpa_psk_radius
 PSK_RADIUS_IGNORED	ap/ap_config.h	/^		PSK_RADIUS_IGNORED = 0,$/;"	e	enum:Wpa_psk_radius
 PSK_RADIUS_REQUIRED	ap/ap_config.h	/^		PSK_RADIUS_REQUIRED = 2$/;"	e	enum:Wpa_psk_radius
-PUBLISH	agent/push.c	50;"	d	file:
+PUBLISH	agent/push.c	49;"	d	file:
 PUSH_H	agent/push.h	9;"	d
 PUSH_PORT	agent/controller_event.h	15;"	d
 ParseFailed	ap/ieee802_1x_defs.h	/^typedef enum { ParseOK = 0, ParseUnknown = 1, ParseFailed = -1 } ParseRes;$/;"	e	enum:__anon1
@@ -1465,6 +1468,8 @@ REGDOM_TYPE_INTERSECTION	drivers/driver.h	/^	REGDOM_TYPE_INTERSECTION,$/;"	e	enu
 REGDOM_TYPE_UNKNOWN	drivers/driver.h	/^	REGDOM_TYPE_UNKNOWN,$/;"	e	enum:reg_type
 REGDOM_TYPE_WORLD	drivers/driver.h	/^	REGDOM_TYPE_WORLD,$/;"	e	enum:reg_type
 RSSI_HANDLER_H	agent/rssi_handler.h	2;"	d
+RSSI_HASH	agent/rssi_handler.c	41;"	d	file:
+RSSI_HASH_SIZE	agent/rssi_handler.c	40;"	d	file:
 SBINDIR	Makefile	/^SBINDIR ?= $(PREFIX)\/sbin$/;"	m
 SCAN_ABORTED	drivers/driver_nl80211.c	/^		SCAN_ABORTED, SCHED_SCAN_STARTED, SCHED_SCAN_STOPPED,$/;"	e	enum:wpa_driver_nl80211_data::scan_states	file:
 SCAN_COMPLETED	drivers/driver_nl80211.c	/^		NO_SCAN, SCAN_REQUESTED, SCAN_STARTED, SCAN_COMPLETED,$/;"	e	enum:wpa_driver_nl80211_data::scan_states	file:
@@ -1481,7 +1486,7 @@ SECURITY_WPA	ap/ap_config.h	/^	SECURITY_WPA = 4,$/;"	e	enum:hostap_security_poli
 SECURITY_WPA_PSK	ap/ap_config.h	/^	SECURITY_WPA_PSK = 3,$/;"	e	enum:hostap_security_policy
 SHORT_PREAMBLE	ap/ieee802_1x_defs.h	/^		SHORT_PREAMBLE = 1$/;"	e	enum:Preamble
 STAINFO_HANDLER_H	agent/stainfo_handler.h	9;"	d
-STATION	agent/push.c	49;"	d	file:
+STATION	agent/push.c	48;"	d	file:
 STA_DEAUTH	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon29
 STA_DISASSOC	ap/sta_info.h	/^		STA_NULLFUNC = 0, STA_DISASSOC, STA_DEAUTH, STA_REMOVE,$/;"	e	enum:sta_info::__anon29
 STA_DISASSOC_FROM_CLI	ap/sta_info.h	/^		STA_DISASSOC_FROM_CLI$/;"	e	enum:sta_info::__anon29
@@ -1509,7 +1514,7 @@ STRUCT_PACKED	ap/ieee802_1x_defs.h	/^} STRUCT_PACKED;$/;"	v	typeref:struct:wnm_s
 STRUCT_PACKED	utils/common.h	251;"	d
 STRUCT_PACKED	utils/common.h	254;"	d
 SUBSCRIPTION_H	agent/subscription.h	10;"	d
-SUBSCRIPTION_PARAMS_NUM	agent/controller_event.c	324;"	d	file:
+SUBSCRIPTION_PARAMS_NUM	agent/controller_event.c	332;"	d	file:
 SURVEY_HAS_CHAN_TIME	drivers/driver.h	3538;"	d
 SURVEY_HAS_CHAN_TIME_BUSY	drivers/driver.h	3539;"	d
 SURVEY_HAS_CHAN_TIME_RX	drivers/driver.h	3540;"	d
@@ -2258,7 +2263,7 @@ WPS_MODE_OPEN	drivers/driver.h	/^	WPS_MODE_OPEN \/* WPS provisioning with AP tha
 WPS_MODE_PRIVACY	drivers/driver.h	/^	WPS_MODE_PRIVACY \/* WPS provisioning with AP that is using protection$/;"	e	enum:wps_mode
 WPS_RF_24GHZ	ap/ieee802_1x_defs.h	116;"	d
 WPS_RF_50GHZ	ap/ieee802_1x_defs.h	117;"	d
-WRITE_ARGS_MAX	agent/controller_event.c	378;"	d	file:
+WRITE_ARGS_MAX	agent/controller_event.c	386;"	d	file:
 Wpa_psk_radius	ap/ap_config.h	/^enum Wpa_psk_radius{$/;"	g
 __BIG_ENDIAN	utils/common.h	184;"	d
 __BIG_ENDIAN	utils/common.h	28;"	d
@@ -2394,13 +2399,14 @@ action_type	ap/ieee802_1x_defs.h	/^	u8 action_type; \/* WNM_SLEEP_ENTER\/WNM_SLE
 add_pmkid	drivers/driver.h	/^	int (*add_pmkid)(void *priv, const u8 *bssid, const u8 *pmkid);$/;"	m	struct:wpa_driver_ops
 add_r0kh	ap/config_file.c	/^static int add_r0kh(struct hostapd_bss_config *bss, char *value)$/;"	f	file:
 add_r1kh	ap/config_file.c	/^static int add_r1kh(struct hostapd_bss_config *bss, char *value)$/;"	f	file:
+add_rssi_entry	agent/rssi_handler.c	/^static struct rssi_entry * add_rssi_entry(const u8 *addr)$/;"	f	file:
 add_sta_node	drivers/driver.h	/^	int (*add_sta_node)(void *priv, const u8 *addr, u16 auth_alg);$/;"	m	struct:wpa_driver_ops
 add_subscription	agent/subscription.c	/^void add_subscription(struct hostapd_data *hapd, struct subscription *sub)$/;"	f
 add_tspec	drivers/driver.h	/^	 int (*add_tspec)(void *priv, const u8 *addr, u8 *tspec_ie,$/;"	m	struct:wpa_driver_ops
 added_bridge	drivers/driver_nl80211.c	/^	unsigned int added_bridge:1;$/;"	m	struct:i802_bss	file:
 added_if	drivers/driver_nl80211.c	/^	unsigned int added_if:1;$/;"	m	struct:i802_bss	file:
 added_if_into_bridge	drivers/driver_nl80211.c	/^	unsigned int added_if_into_bridge:1;$/;"	m	struct:i802_bss	file:
-addr	agent/rssi_handler.c	/^    u8 addr[6];$/;"	m	struct:filter_address	file:
+addr	agent/rssi_handler.c	/^   u8 addr[ETH_ALEN];$/;"	m	struct:rssi_entry	file:
 addr	agent/vap.h	/^    u8 addr[ETH_ALEN];$/;"	m	struct:vap_data
 addr	ap/ap_config.h	/^	macaddr addr;$/;"	m	struct:mac_acl_entry
 addr	ap/ap_config.h	/^	struct hostapd_ip_addr addr;$/;"	m	struct:hostapd_radius_server	typeref:struct:hostapd_radius_server::hostapd_ip_addr
@@ -2600,6 +2606,7 @@ bswap_32	utils/common.h	31;"	d
 bswap_32	utils/common.h	35;"	d
 bswap_64	utils/common.h	32;"	d
 bswap_64	utils/common.h	36;"	d
+buckets	agent/rssi_handler.c	/^static struct rssi_entry *buckets[RSSI_HASH_SIZE] = { NULL };$/;"	v	typeref:struct:rssi_entry	file:
 buf	ap/wpabuf.h	/^	u8 *buf; \/* pointer to the head of the buffer *\/$/;"	m	struct:wpabuf
 buf	drivers/driver.h	/^		const u8 *buf;$/;"	m	struct:wpa_event_data::mlme_rx
 buf	drivers/driver.h	/^		u8 *buf;$/;"	m	struct:wpa_event_data::wnm
@@ -2677,10 +2684,11 @@ connect_failed_reason	drivers/driver.h	/^	struct connect_failed_reason {$/;"	s	u
 connect_failed_reason	drivers/driver.h	/^	} connect_failed_reason;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::connect_failed_reason
 connected_msec	drivers/driver.h	/^    unsigned long connected_msec;$/;"	m	struct:hostap_sta_driver_data
 connected_time	agent/vap.h	/^    time_t connected_time;$/;"	m	struct:vap_data
+construct_rssi_filter_express	agent/rssi_handler.c	/^static void construct_rssi_filter_express(const char *express)$/;"	f	file:
 controller_action_csa	agent/controller_event.c	/^static void controller_action_csa(struct hostapd_data *hapd,$/;"	f	file:
 controller_add_stainfo	agent/controller_event.c	/^static void controller_add_stainfo(struct hostapd_data *hapd,$/;"	f	file:
 controller_add_vap	agent/controller_event.c	/^static void controller_add_vap(struct hostapd_data *hapd, char *data[], int size)$/;"	f	file:
-controller_event_init	agent/controller_event.c	/^int controller_event_init(struct hostapd_data *hapd, char *controller_ip)$/;"	f
+controller_event_init	agent/controller_event.c	/^int controller_event_init(struct hostapd_data *hapd, const char *controller_ip,$/;"	f
 controller_eventcb	agent/controller_event.c	/^static void controller_eventcb(struct bufferevent *bev, short events, void *user_data)$/;"	f	file:
 controller_listener_cb	agent/controller_event.c	/^void controller_listener_cb(struct evconnlistener *listener, evutil_socket_t fd,$/;"	f
 controller_readcb	agent/controller_event.c	/^void controller_readcb(struct bufferevent *bev, struct hostapd_data *hapd)$/;"	f
@@ -2689,6 +2697,7 @@ controller_remove_vap	agent/controller_event.c	/^static void controller_remove_v
 controller_send_probe_response	agent/controller_event.c	/^static void controller_send_probe_response(struct hostapd_data *hapd,$/;"	f	file:
 controller_subscriptions	agent/controller_event.c	/^static void controller_subscriptions(struct hostapd_data *hapd, $/;"	f	file:
 controller_switch_channel	agent/controller_event.c	/^static void controller_switch_channel(struct hostapd_data *hapd,$/;"	f	file:
+controller_update_rssi_filter_express	agent/controller_event.c	/^static void controller_update_rssi_filter_express(struct hostapd_data *hapd, $/;"	f	file:
 cookie_handler	drivers/driver_nl80211.c	/^static int cookie_handler(struct nl_msg *msg, void *arg)$/;"	f	file:
 copy_sta_ht_capab	ap/hostapd.c	/^u16 copy_sta_ht_capab(struct hostapd_data *hapd, struct sta_info *sta,$/;"	f
 copy_supp_rates	ap/hostapd.c	/^u16 copy_supp_rates(struct hostapd_data *hapd, struct sta_info *sta,$/;"	f
@@ -2920,7 +2929,6 @@ fetch_time	drivers/driver.h	/^	struct os_reltime fetch_time;$/;"	m	struct:wpa_sc
 field	sniffer/radiotap_iter.h	/^	uint8_t field;$/;"	m	struct:radiotap_override
 file	ap/ap_config.h	/^		char file[256];$/;"	m	struct:hostapd_bss_config::hs20_icon
 filled	drivers/driver.h	/^	unsigned int filled;$/;"	m	struct:freq_survey
-filter_address	agent/rssi_handler.c	/^struct filter_address {$/;"	s	file:
 filter_exp	sniffer/wicap.c	/^char filter_exp[1024];$/;"	v
 filter_rssi	drivers/driver.h	/^	s32 filter_rssi;$/;"	m	struct:wpa_driver_scan_params
 filter_ssids	drivers/driver.h	/^	} *filter_ssids;$/;"	m	struct:wpa_driver_scan_params	typeref:struct:wpa_driver_scan_params::wpa_driver_scan_filter
@@ -3015,6 +3023,7 @@ get_nl80211_protocol_features	drivers/driver_nl80211.c	/^static u32 get_nl80211_
 get_noa	drivers/driver.h	/^	int (*get_noa)(void *priv, u8 *buf, size_t buf_len);$/;"	m	struct:wpa_driver_ops
 get_radio_name	drivers/driver.h	/^	const char * (*get_radio_name)(void *priv);$/;"	m	struct:wpa_driver_ops
 get_receive_lowest_pn	drivers/driver.h	/^	int (*get_receive_lowest_pn)(void *priv, u32 channel, u8 an,$/;"	m	struct:wpa_driver_ops
+get_rssi_entry	agent/rssi_handler.c	/^static struct rssi_entry * get_rssi_entry(const u8 *addr)$/;"	f	file:
 get_scan_results2	drivers/driver.h	/^	 struct wpa_scan_results * (*get_scan_results2)(void *priv);$/;"	m	struct:wpa_driver_ops	typeref:struct:wpa_driver_ops::get_scan_results2
 get_seqnum	drivers/driver.h	/^	int (*get_seqnum)(const char *ifname, void *priv, const u8 *addr,$/;"	m	struct:wpa_driver_ops
 get_signal_strength	agent/subscription.c	/^static void get_signal_strength(evutil_socket_t fd, short what, void *arg)$/;"	f	file:
@@ -3378,7 +3387,7 @@ ipv4	agent/vap.h	/^    struct in_addr ipv4;$/;"	m	struct:vap_data	typeref:struct
 is_ap_interface	drivers/driver_nl80211.c	/^static int is_ap_interface(enum nl80211_iftype nlmode)$/;"	f	file:
 is_beacon	agent/vap.h	/^    int is_beacon;$/;"	m	struct:vap_data
 is_csa	ap/beacon.h	/^    int is_csa;$/;"	m	struct:beacon_settings
-is_filter_update	sniffer/wicap.c	/^int is_filter_update = 0;$/;"	v
+is_filter_update	sniffer/wicap.c	/^bool is_filter_update = false;$/;"	v
 is_probe	ap/beacon.h	/^    int is_probe;$/;"	m	struct:beacon_settings
 is_radiotap_ns	sniffer/radiotap_iter.h	/^	int is_radiotap_ns;$/;"	m	struct:ieee80211_radiotap_iterator
 is_sta_interface	drivers/driver_nl80211.c	/^static int is_sta_interface(enum nl80211_iftype nlmode)$/;"	f	file:
@@ -3544,7 +3553,7 @@ new_psk_cb	ap/hostapd.h	/^	void (*new_psk_cb)(void *ctx, const u8 *mac_addr,$/;"
 new_psk_cb_ctx	ap/hostapd.h	/^	void *new_psk_cb_ctx;$/;"	m	struct:hostapd_data
 new_sta	drivers/driver.h	/^	struct new_sta {$/;"	s	union:wpa_event_data
 new_sta	drivers/driver.h	/^	} new_sta;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::new_sta
-next	agent/rssi_handler.c	/^    struct filter_address *next;$/;"	m	struct:filter_address	typeref:struct:filter_address::filter_address	file:
+next	agent/rssi_handler.c	/^   struct rssi_entry *next;$/;"	m	struct:rssi_entry	typeref:struct:rssi_entry::rssi_entry	file:
 next	agent/subscription.h	/^    struct subscription *next;$/;"	m	struct:subscription	typeref:struct:subscription::subscription
 next	agent/vap.h	/^    struct vap_data *next;$/;"	m	struct:vap_data	typeref:struct:vap_data::vap_data
 next	ap/ap_config.h	/^	struct hostapd_radius_attr *next;$/;"	m	struct:hostapd_radius_attr	typeref:struct:hostapd_radius_attr::hostapd_radius_attr
@@ -3819,7 +3828,7 @@ parse_lang_string	ap/config_file.c	/^static int parse_lang_string(struct hostapd
 parse_nai_realm	ap/config_file.c	/^static int parse_nai_realm(struct hostapd_bss_config *bss, char *buf, int line)$/;"	f	file:
 parse_qos_map_set	ap/config_file.c	/^static int parse_qos_map_set(struct hostapd_bss_config *bss,$/;"	f	file:
 parse_roaming_consortium	ap/config_file.c	/^static int parse_roaming_consortium(struct hostapd_bss_config *bss, char *pos,$/;"	f	file:
-parse_sta_rssi	agent/rssi_handler.c	/^void parse_sta_rssi(char *file_name)$/;"	f
+parse_sta_rssi	agent/rssi_handler.c	/^static void parse_sta_rssi(char *file_name)$/;"	f	file:
 parse_venue_name	ap/config_file.c	/^static int parse_venue_name(struct hostapd_bss_config *bss, char *pos,$/;"	f	file:
 passphrase	drivers/driver.h	/^	const char *passphrase;$/;"	m	struct:wpa_driver_associate_params
 pat	drivers/nl80211_copy.h	/^	struct nl80211_pattern_support pat;$/;"	m	struct:nl80211_coalesce_rule_support	typeref:struct:nl80211_coalesce_rule_support::nl80211_pattern_support
@@ -3897,6 +3906,7 @@ push	agent/push.c	/^static int push(const char *data)$/;"	f	file:
 push_deauth	agent/push.c	/^void push_deauth(const u8 *addr, const int reason_code)$/;"	f
 push_disassoc	agent/push.c	/^void push_disassoc(const u8 *addr, const char *ssid)$/;"	f
 push_ping	agent/push.c	/^static void push_ping(void) $/;"	f	file:
+push_rssi_value	agent/rssi_handler.c	/^static void push_rssi_value()$/;"	f	file:
 push_stainfo	agent/push.c	/^void push_stainfo(const u8 *addr, const char *stainfo)$/;"	f
 push_subscription	agent/push.c	/^void push_subscription(const u8 *addr, $/;"	f
 pwd_group	ap/ap_config.h	/^	u16 pwd_group;$/;"	m	struct:hostapd_bss_config
@@ -3972,6 +3982,7 @@ remediation	ap/sta_info.h	/^	unsigned int remediation:1;$/;"	m	struct:sta_info
 remediation_method	ap/sta_info.h	/^	u8 remediation_method;$/;"	m	struct:sta_info
 remediation_url	ap/sta_info.h	/^	char *remediation_url; \/* HS 2.0 Subscription Remediation Server URL *\/$/;"	m	struct:sta_info
 remove_pmkid	drivers/driver.h	/^	int (*remove_pmkid)(void *priv, const u8 *bssid, const u8 *pmkid);$/;"	m	struct:wpa_driver_ops
+remove_rssi_entry	agent/rssi_handler.c	/^static void remove_rssi_entry(const u8 *addr)$/;"	f	file:
 replay_ctr	drivers/driver.h	/^		const u8 *replay_ctr;$/;"	m	struct:wpa_event_data::driver_gtk_rekey
 req_ies	drivers/driver.h	/^		const u8 *req_ies;$/;"	m	struct:wpa_event_data::assoc_info
 req_ies_len	drivers/driver.h	/^		size_t req_ies_len;$/;"	m	struct:wpa_event_data::assoc_info
@@ -4005,8 +4016,13 @@ rsn_preauth	drivers/driver.h	/^	int rsn_preauth;$/;"	m	struct:wpa_bss_params
 rsn_preauth_interfaces	ap/ap_config.h	/^	char *rsn_preauth_interfaces;$/;"	m	struct:hostapd_bss_config
 rssi	sniffer/wicap.h	/^    int rssi;$/;"	m	struct:rssi_info
 rssi_avg	drivers/driver.h	/^    int rssi_avg;$/;"	m	struct:hostap_sta_driver_data
+rssi_entry	agent/rssi_handler.c	/^struct rssi_entry {$/;"	s	file:
 rssi_file_mutex	sniffer/wicap.c	/^pthread_mutex_t rssi_file_mutex = PTHREAD_MUTEX_INITIALIZER;$/;"	v
+rssi_filter_oper	agent/rssi_handler.h	/^enum rssi_filter_oper {$/;"	g
 rssi_info	sniffer/wicap.h	/^struct rssi_info {$/;"	s
+rssi_num	agent/rssi_handler.c	/^   int rssi_num;$/;"	m	struct:rssi_entry	file:
+rssi_sum	agent/rssi_handler.c	/^   int rssi_sum;$/;"	m	struct:rssi_entry	file:
+rssi_thread_running	agent/rssi_handler.c	/^static bool rssi_thread_running = false;$/;"	v	file:
 rtap_namespace_sizes	sniffer/radiotap.c	/^static const struct radiotap_align_size rtap_namespace_sizes[] = {$/;"	v	typeref:struct:radiotap_align_size	file:
 rts_threshold	ap/ap_config.h	/^	int rts_threshold;$/;"	m	struct:hostapd_config
 rx_bytes	drivers/driver.h	/^	unsigned long rx_packets, tx_packets, rx_bytes, tx_bytes;$/;"	m	struct:hostap_sta_driver_data
@@ -4100,6 +4116,7 @@ set_authmode	drivers/driver.h	/^	int (*set_authmode)(void *priv, int authmode);$
 set_countermeasures	drivers/driver.h	/^	int (*set_countermeasures)(void *priv, int enabled);$/;"	m	struct:wpa_driver_ops
 set_country	drivers/driver.h	/^	int (*set_country)(void *priv, const char *alpha2);$/;"	m	struct:wpa_driver_ops
 set_current_cipher_suite	drivers/driver.h	/^	int (*set_current_cipher_suite)(void *priv, const u8 *cs,$/;"	m	struct:wpa_driver_ops
+set_entry_by_express	agent/rssi_handler.c	/^static void set_entry_by_express(const char *express)$/;"	f	file:
 set_frag	drivers/driver.h	/^	int (*set_frag)(void *priv, int frag);$/;"	m	struct:wpa_driver_ops
 set_freq	drivers/driver.h	/^	int (*set_freq)(void *priv, struct hostapd_freq_params *freq);$/;"	m	struct:wpa_driver_ops
 set_generic_elem	drivers/driver.h	/^	int (*set_generic_elem)(void *priv, const u8 *elem, size_t elem_len);$/;"	m	struct:wpa_driver_ops
@@ -4290,6 +4307,7 @@ tnc	ap/ap_config.h	/^	int tnc;$/;"	m	struct:hostapd_bss_config
 token_stream	drivers/nl80211_copy.h	/^	__u8 token_stream[];$/;"	m	struct:nl80211_wowlan_tcp_data_token
 trans_id	ap/ieee802_1x_defs.h	/^					u8 trans_id[WLAN_SA_QUERY_TR_ID_LEN];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon18
 trans_id	ap/ieee802_1x_defs.h	/^					u8 trans_id[WLAN_SA_QUERY_TR_ID_LEN];$/;"	m	struct:ieee80211_mgmt::__anon2::__anon12::__anon13::__anon19
+tranverse_rssi_entry_buckets	agent/rssi_handler.c	/^static void tranverse_rssi_entry_buckets()$/;"	f	file:
 ts_info	ap/ieee802_1x_defs.h	/^	u8 ts_info[3];$/;"	m	struct:wmm_tspec_element
 tsf	drivers/driver.h	/^	u64 tsf;$/;"	m	struct:wpa_scan_res
 tx_bf_capability_info	ap/ieee802_1x_defs.h	/^	le32 tx_bf_capability_info;$/;"	m	struct:ieee80211_ht_capabilities
@@ -4336,8 +4354,9 @@ unprot_deauth	drivers/driver.h	/^	} unprot_deauth;$/;"	m	union:wpa_event_data	ty
 unprot_disassoc	drivers/driver.h	/^	struct unprot_disassoc {$/;"	s	union:wpa_event_data
 unprot_disassoc	drivers/driver.h	/^	} unprot_disassoc;$/;"	m	union:wpa_event_data	typeref:struct:wpa_event_data::unprot_disassoc
 upc	ap/ap_config.h	/^	char *upc;$/;"	m	struct:hostapd_bss_config
-update_filter_vap	agent/rssi_handler.c	/^void update_filter_vap(struct vap_data *vap, void *ctx)$/;"	f
 update_ft_ies	drivers/driver.h	/^	int (*update_ft_ies)(void *priv, const u8 *md, const u8 *ies,$/;"	m	struct:wpa_driver_ops
+update_rssi_filter	agent/rssi_handler.c	/^void update_rssi_filter(enum rssi_filter_oper oper, const u8 *sta)$/;"	f
+update_rssi_filter_express	agent/rssi_handler.c	/^void update_rssi_filter_express(const char *express)$/;"	f
 upnp_iface	ap/ap_config.h	/^	char *upnp_iface;$/;"	m	struct:hostapd_bss_config
 use_es	drivers/driver.h	/^	Boolean use_es;$/;"	m	struct:macsec_init_params
 use_monitor	drivers/driver_nl80211.c	/^	unsigned int use_monitor:1;$/;"	m	struct:wpa_driver_nl80211_data	file:

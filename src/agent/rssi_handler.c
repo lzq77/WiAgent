@@ -28,6 +28,8 @@ extern pthread_mutex_t rssi_file_mutex;
 extern bool is_filter_update;
 extern char filter_exp[1024];
 
+static bool rssi_thread_running = false;
+
 struct rssi_entry {
    u8 addr[ETH_ALEN];
    int rssi_sum;
@@ -40,11 +42,29 @@ struct rssi_entry {
 
 static struct rssi_entry *buckets[RSSI_HASH_SIZE] = { NULL };
 
+static struct rssi_entry * get_rssi_entry(const u8 *addr)
+{
+    struct rssi_entry *entry;
+
+    entry = buckets[RSSI_HASH(addr)];
+    while (entry != NULL && memcmp(entry->addr, addr, 6) != 0)
+		entry = entry->next;
+    
+    return entry;
+}
+
 static struct rssi_entry * add_rssi_entry(const u8 *addr)
 {
     struct rssi_entry *temp;
-    struct rssi_entry *entry = 
-        (struct rssi_entry *)malloc(sizeof(struct rssi_entry));
+    struct rssi_entry *entry;
+    
+    if (get_rssi_entry(addr) != NULL) {
+        wpa_printf(MSG_DEBUG, "Rssi entry "MACSTR" is already existed on hashtable.",
+                MAC2STR(addr));
+        return;
+    }
+    
+    entry = (struct rssi_entry *)malloc(sizeof(struct rssi_entry));
     memcpy(entry->addr, addr, ETH_ALEN);
     entry->next = NULL;
 
@@ -99,16 +119,60 @@ static void tranverse_rssi_entry_buckets()
     }
 }
 
-static struct rssi_entry * get_rssi_entry(const u8 *addr)
-{
-    struct rssi_entry *entry;
+#define MAC_STR_LENGTH 17
 
-    entry = buckets[RSSI_HASH(addr)];
-    while (entry != NULL && memcmp(entry->addr, addr, 6) != 0)
-		entry = entry->next;
-    
-    return entry;
+static void set_entry_by_express(const char *express)
+{
+    u8 addr[6];
+    char *token;
+    char *running;
+    char *delim = " ";
+    char str[1024];
+
+    strcpy(str, express);
+    running = str;
+    for (token = strsep(&running, delim); token != NULL;
+            token = strsep(&running, delim)) {
+        if (strlen(token) == MAC_STR_LENGTH) {
+            if (hwaddr_aton(token, addr) == 0) {
+                add_rssi_entry(addr);
+            }
+        }
+    }
 }
+
+void update_rssi_filter_express(const char *express)
+{
+    int res;
+    pthread_t t_id;
+
+    if (express == NULL || strcmp(express, "") == 0) {
+        wpa_printf(MSG_DEBUG, "The rssi filter express is null or empty");
+        return;
+    }
+    set_entry_by_express(express);
+    strcpy(filter_exp, express);
+
+    if (!rssi_thread_running) {
+        /**
+         * New a thread that using libpcap to capture packets
+         * and extract rssi value.
+         */
+        res = pthread_create(&t_id, NULL, wicap, filter_exp);
+        if(res != 0) {
+            wpa_printf(MSG_ERROR, "%s: %s\n",__func__, strerror(res));
+            return;
+        }
+        rssi_thread_running = true;
+    }
+    else {
+        is_filter_update = true;
+        wpa_printf(MSG_DEBUG, "Update rssi filter express : \n  %s\n", express);
+    }
+
+        
+}
+
 
 static void construct_rssi_filter_express(char *express)
 {
@@ -136,8 +200,6 @@ static void construct_rssi_filter_express(char *express)
 
 void update_rssi_filter(enum rssi_filter_oper oper, const u8 *sta)
 {
-    struct rssi_entry entry;
-
     if (oper == FILTER_ADD_STA) {
        if (get_rssi_entry(sta) != NULL)
            return;
@@ -189,38 +251,12 @@ static void parse_sta_rssi(char *file_name)
         //Emptys file content.
         rssi_file_fd = fopen(file_name, "w");
         fclose(rssi_file_fd);
-
-        push_rssi_value();
-    }
-}
-
-void parse_sta_address(const char *express)
-{
-    u8 addr[6];
-    char *token;
-    char *running;
-    char *delim = " ";
-    char str[1024];
-    
-    strcpy(str, express);
-    running = str;
-    for (token = strsep(&running, delim); token != NULL;
-            token = strsep(&running, delim)) {
-        if (strlen(token) == 17) {
-            if (hwaddr_aton(token, addr) == 0) {
-                add_rssi_entry(addr);
-            }
-        }
     }
 }
 
 void wiagent_rssi_handle(int fd, short what, void *arg)
 {
-    char *filter_exp = (char *)arg;
-    int res;
-    pthread_t t_id;
-    static bool rssi_thread_running = false;
-    char *rssi_file_name = "/tmp/wiagent_rssi.hex";
+    char *rssi_file_name = (char *)arg;
 
     if (rssi_thread_running) {
         /**
@@ -230,20 +266,6 @@ void wiagent_rssi_handle(int fd, short what, void *arg)
         pthread_mutex_lock(&rssi_file_mutex);
         parse_sta_rssi(rssi_file_name);
         pthread_mutex_unlock(&rssi_file_mutex);
-    }
-    else {
-        /**
-         * New a thread that using libpcap to capture packets
-         * and extract rssi value.
-         */
-        res = pthread_create(&t_id, NULL, wicap, filter_exp);
-        if(res != 0) {
-            wpa_printf(MSG_ERROR, "%s: %s\n",__func__, strerror(res));
-            return;
-        }
-        rssi_thread_running = true;
-
-        parse_sta_address(filter_exp);
-
+        push_rssi_value();
     }
 }
