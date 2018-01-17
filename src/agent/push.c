@@ -36,6 +36,7 @@ static int push(const char *data)
        if (write(udp_fd, data, strlen(data)) < 0) {
             return -1;
        }
+       wpa_printf(MSG_MSGDUMP, "Push to controller : %s.", data);
        return 0;
     }
     return -1;

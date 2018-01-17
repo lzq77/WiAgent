@@ -29,6 +29,7 @@ extern bool is_filter_update;
 extern char filter_exp[1024];
 
 static bool rssi_thread_running = false;
+static char *sniffer_interface;
 
 struct rssi_entry {
    u8 addr[ETH_ALEN];
@@ -158,7 +159,12 @@ void update_rssi_filter_express(const char *express)
          * New a thread that using libpcap to capture packets
          * and extract rssi value.
          */
-        res = pthread_create(&t_id, NULL, wicap, filter_exp);
+        if (sniffer_interface == NULL) {
+            wpa_printf(MSG_ERROR, "%s - sniffer interface is null",
+                    __func__);
+            return;
+        } 
+        res = pthread_create(&t_id, NULL, wicap, sniffer_interface);
         if(res != 0) {
             wpa_printf(MSG_ERROR, "%s: %s\n",__func__, strerror(res));
             return;
@@ -169,10 +175,12 @@ void update_rssi_filter_express(const char *express)
         is_filter_update = true;
         wpa_printf(MSG_DEBUG, "Update rssi filter express : \n  %s\n", express);
     }
-
-        
 }
 
+void set_sniffer_interface(const char *interface)
+{
+    sniffer_interface = interface;
+}
 
 static void construct_rssi_filter_express(char *express)
 {
@@ -231,13 +239,13 @@ static void push_rssi_value()
     }
 }
 
-static void parse_sta_rssi(char *file_name)
+static void parse_sta_rssi()
 {
     FILE *rssi_file_fd;
     struct rssi_info rinfo;
     struct rssi_entry *entry;
 
-    rssi_file_fd = fopen(file_name, "rb");
+    rssi_file_fd = fopen(RSSI_FILE, "rb");
     if (rssi_file_fd != NULL) {
         while (!feof(rssi_file_fd)) {
             fread(&rinfo, sizeof(struct rssi_info), 1, rssi_file_fd);
@@ -249,22 +257,20 @@ static void parse_sta_rssi(char *file_name)
         fclose(rssi_file_fd);
 
         //Emptys file content.
-        rssi_file_fd = fopen(file_name, "w");
+        rssi_file_fd = fopen(RSSI_FILE, "w");
         fclose(rssi_file_fd);
     }
 }
 
 void wiagent_rssi_handle(int fd, short what, void *arg)
 {
-    char *rssi_file_name = (char *)arg;
-
     if (rssi_thread_running) {
         /**
          * Uses mutex to keep the sync with sniffer thread 
          * on rssi file operations.
          */
         pthread_mutex_lock(&rssi_file_mutex);
-        parse_sta_rssi(rssi_file_name);
+        parse_sta_rssi();
         pthread_mutex_unlock(&rssi_file_mutex);
         push_rssi_value();
     }

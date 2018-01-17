@@ -8,17 +8,9 @@
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include <net/if.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <stdbool.h>
-#include <sys/time.h>
-#include <signal.h>
 #include <netlink/genl/genl.h>
 #include <netlink/genl/family.h>
 #include <netlink/genl/ctrl.h>
@@ -34,6 +26,28 @@
 #include "drivers/nl80211_copy.h"
 #include "utils/common.h"
 #include "utils/wiagent_event.h"
+
+static void show_version(void)
+{
+	fprintf(stderr,
+		"wiagent v1.0\n"
+		"Copyright (c) 2018, liyaming <liyaming1994@gmail.com> "
+		"and contributors\n");
+}
+
+static void usage(void)
+{
+	show_version();
+	fprintf(stderr,
+		"\n"
+		"usage: wiagent [-dhs] -c <controller ip> "
+		"\n"
+		"options:\n"
+		"   -h   show this usage\n"
+		"   -d   show more debug messages (-dd for even more)\n"
+		"   -s   open sniffer module to capture station's rrsi value\n");
+	exit(1);
+}
 
 static void
 wiagent_mgmt_frame_cb(evutil_socket_t fd, short what, void *arg)
@@ -135,28 +149,55 @@ int main(int argc, char **argv)
     struct hapd_interfaces interfaces;
     struct hostapd_data *hapd;
     char *controller_ip;
+    int is_sniffer = 0;
+    char *sniffer_interface;
+    int opt;
 
     if (argc < 3) {
-        wpa_printf(MSG_ERROR, "Usage: wiagent controller_ip filter_expression.");
+        usage();
+        return -1;
+    }
+
+    while ((opt = getopt(argc, argv, "c:dhs:")) != -1) {
+        switch(opt) {
+            case 'c':
+                controller_ip = optarg;
+                break;
+            case 'd':
+                wpa_debug_level--;
+                break;
+            case 's':
+                is_sniffer = 1;
+                sniffer_interface = optarg;
+                break;
+            default:
+                usage();
+                break;
+        }
+    }
+
+    if (controller_ip == NULL) {
+        wpa_printf(MSG_ERROR, "Have to specify the ip address of the controller");
         return 1;
     }
-    
     /**
      * Initialize the wireless interfaces (wlan0), 
      * the code is transplanted from hostapd.
      */
     os_memset(&interfaces, 0, sizeof(struct hapd_interfaces));
     if (init_hostapd_interface(&interfaces) < 0) { 
-        wpa_printf(MSG_ERROR, "Initialize the wireless interfaces failed.");
+        wpa_printf(MSG_ERROR, "Fail to initialize the wireless interfaces");
         return 1;
     }
     hapd = interfaces.iface[0]->bss[0];
     
-    if (controller_event_init(hapd, argv[1], argv[2]) < 0 ||
+    if (controller_event_init(hapd, controller_ip) < 0 ||
             wiagent_80211_event_init(hapd) < 0) {
-        wpa_printf(MSG_ERROR, "Failed to initialize wiagent.");
+        wpa_printf(MSG_ERROR, "Failed to initialize wiagent");
         return 1;
     }
+    if (is_sniffer)
+        run_sniffer(hapd, sniffer_interface);
    
     wiagent_event_dispatch();
 

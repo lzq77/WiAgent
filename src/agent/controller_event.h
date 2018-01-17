@@ -16,8 +16,9 @@
 #define CONTROL_PORT 6777
 
 
-int controller_event_init(struct hostapd_data *hapd, const char *controller_ip,
-        const char *rssi_filter);
+int controller_event_init(struct hostapd_data *hapd, const char *controller_ip);
+
+void run_sniffer(struct hostapd_data *hapd, const char *interface);
 
 /**
  * The function is called when listening a connection request 
